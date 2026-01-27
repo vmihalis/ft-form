@@ -114,6 +114,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FOUND-03 | Phase 1 | Pending |
 | FOUND-04 | Phase 1 | Pending |
 | FOUND-05 | Phase 1 | Pending |
+| UX-01 | Phase 2 | Pending |
+| UX-02 | Phase 2 | Pending |
+| UX-04 | Phase 2 | Pending |
+| UX-05 | Phase 2 | Pending |
+| UX-06 | Phase 2 | Pending |
 | FORM-01 | Phase 3 | Pending |
 | FORM-02 | Phase 3 | Pending |
 | FORM-03 | Phase 3 | Pending |
@@ -122,16 +127,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FORM-06 | Phase 3 | Pending |
 | FORM-07 | Phase 3 | Pending |
 | FORM-08 | Phase 3 | Pending |
-| UX-01 | Phase 2 | Pending |
-| UX-02 | Phase 2 | Pending |
-| UX-03 | Phase 4 | Pending |
-| UX-04 | Phase 2 | Pending |
-| UX-05 | Phase 2 | Pending |
-| UX-06 | Phase 2 | Pending |
 | UX-07 | Phase 3 | Pending |
 | UX-08 | Phase 3 | Pending |
 | UX-09 | Phase 3 | Pending |
 | UX-10 | Phase 3 | Pending |
+| BRAND-02 | Phase 3 | Pending |
+| UX-03 | Phase 4 | Pending |
+| BRAND-01 | Phase 4 | Pending |
+| BRAND-03 | Phase 4 | Pending |
+| BRAND-05 | Phase 4 | Pending |
 | AUTH-01 | Phase 5 | Pending |
 | AUTH-02 | Phase 5 | Pending |
 | AUTH-03 | Phase 5 | Pending |
@@ -143,20 +147,27 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ADMIN-04 | Phase 6 | Pending |
 | ADMIN-05 | Phase 6 | Pending |
 | ADMIN-06 | Phase 6 | Pending |
-| BRAND-01 | Phase 4 | Pending |
-| BRAND-02 | Phase 3 | Pending |
-| BRAND-03 | Phase 4 | Pending |
 | BRAND-04 | Phase 7 | Pending |
-| BRAND-05 | Phase 4 | Pending |
 | DEPLOY-01 | Phase 7 | Pending |
 | DEPLOY-02 | Phase 7 | Pending |
 | DEPLOY-03 | Phase 7 | Pending |
 
 **Coverage:**
-- v1 requirements: 38 total
-- Mapped to phases: 38
-- Unmapped: 0 ✓
+- v1 requirements: 42 total
+- Mapped to phases: 42
+- Unmapped: 0
+
+**Requirements per Phase:**
+| Phase | Count | Requirements |
+|-------|-------|--------------|
+| Phase 1 | 5 | FOUND-01 to FOUND-05 |
+| Phase 2 | 5 | UX-01, UX-02, UX-04, UX-05, UX-06 |
+| Phase 3 | 13 | FORM-01 to FORM-08, UX-07 to UX-10, BRAND-02 |
+| Phase 4 | 4 | UX-03, BRAND-01, BRAND-03, BRAND-05 |
+| Phase 5 | 5 | AUTH-01 to AUTH-05 |
+| Phase 6 | 6 | ADMIN-01 to ADMIN-06 |
+| Phase 7 | 4 | BRAND-04, DEPLOY-01 to DEPLOY-03 |
 
 ---
 *Requirements defined: 2026-01-27*
-*Last updated: 2026-01-27 after initial definition*
+*Last updated: 2026-01-27 after roadmap creation*
