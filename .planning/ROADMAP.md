@@ -61,10 +61,14 @@ Plans:
   3. Review step displays all entered data accurately before submission
   4. Submitting form creates a new record visible in Convex dashboard
   5. Confirmation screen appears with thank you message after successful submission
-**Plans**: TBD
+**Plans**: 5 plans
 
 Plans:
-- [ ] 03-01: TBD
+- [ ] 03-01-PLAN.md - Install shadcn/ui form components and create floors constant
+- [ ] 03-02-PLAN.md - Create Welcome, ApplicantInfo, and Proposal step components
+- [ ] 03-03-PLAN.md - Create Roadmap, Impact, and Logistics step components
+- [ ] 03-04-PLAN.md - Create Review, Confirmation steps and Convex submit mutation
+- [ ] 03-05-PLAN.md - Update StepContent router and verify complete form flow
 
 ### Phase 4: Form Polish & Animations
 **Goal**: Add Typeform-style animations and visual polish that elevate perceived quality
@@ -136,7 +140,7 @@ Note: Phase 5-6 (Admin) can execute in parallel with Phase 3-4 (Form) after Phas
 |-------|----------------|--------|-----------|
 | 1. Foundation & Data Layer | 2/2 | Complete | 2026-01-27 |
 | 2. Form Infrastructure | 2/2 | Complete | 2026-01-27 |
-| 3. Form UI (Static) | 0/TBD | Not started | - |
+| 3. Form UI (Static) | 0/5 | Ready | - |
 | 4. Form Polish & Animations | 0/TBD | Not started | - |
 | 5. Admin Authentication | 0/TBD | Not started | - |
 | 6. Admin Dashboard | 0/TBD | Not started | - |
@@ -144,4 +148,4 @@ Note: Phase 5-6 (Admin) can execute in parallel with Phase 3-4 (Form) after Phas
 
 ---
 *Roadmap created: 2026-01-27*
-*Last updated: 2026-01-27 (Phase 2 complete)*
+*Last updated: 2026-01-27 (Phase 3 planned)*
