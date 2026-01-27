@@ -50,7 +50,7 @@ function ReviewItem({ label, value }: ReviewItemProps) {
   return (
     <div className="py-2">
       <dt className="text-sm font-medium text-muted-foreground">{label}</dt>
-      <dd className="mt-1 text-sm whitespace-pre-wrap">
+      <dd className="mt-1 text-sm whitespace-pre-wrap break-words">
         {value || <span className="italic text-muted-foreground">Not provided</span>}
       </dd>
     </div>
