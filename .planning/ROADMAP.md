@@ -45,10 +45,11 @@ Plans:
   3. Refreshing the browser restores form progress from localStorage
   4. Progress indicator shows correct step number out of total steps
   5. Back navigation works without triggering validation
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: TBD
+- [ ] 02-01-PLAN.md - Install packages, create Zod schemas and Zustand store
+- [ ] 02-02-PLAN.md - Create MultiStepForm container with navigation and progress indicator
 
 ### Phase 3: Form UI (Static)
 **Goal**: Complete all form step components with functional data collection and submission
@@ -134,7 +135,7 @@ Note: Phase 5-6 (Admin) can execute in parallel with Phase 3-4 (Form) after Phas
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Data Layer | 2/2 | Complete | 2026-01-27 |
-| 2. Form Infrastructure | 0/TBD | Not started | - |
+| 2. Form Infrastructure | 0/2 | Planned | - |
 | 3. Form UI (Static) | 0/TBD | Not started | - |
 | 4. Form Polish & Animations | 0/TBD | Not started | - |
 | 5. Admin Authentication | 0/TBD | Not started | - |
@@ -143,4 +144,4 @@ Note: Phase 5-6 (Admin) can execute in parallel with Phase 3-4 (Form) after Phas
 
 ---
 *Roadmap created: 2026-01-27*
-*Last updated: 2026-01-27 (Phase 1 complete)*
+*Last updated: 2026-01-27 (Phase 2 planned)*
