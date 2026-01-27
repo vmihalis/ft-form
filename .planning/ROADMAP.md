@@ -79,10 +79,12 @@ Plans:
   2. Form uses brand colors (#7b42e7 purple and white) throughout
   3. Users with prefers-reduced-motion see instant transitions instead of animations
   4. Visual design feels minimal, modern, and premium
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 04-01: TBD
+- [ ] 04-01-PLAN.md - Install motion package and apply brand colors to CSS
+- [ ] 04-02-PLAN.md - Add MotionConfig provider and direction-aware step transitions
+- [ ] 04-03-PLAN.md - Human verification of animations and visual polish
 
 ### Phase 5: Admin Authentication
 **Goal**: Protect admin routes with password authentication and session management
@@ -141,11 +143,11 @@ Note: Phase 5-6 (Admin) can execute in parallel with Phase 3-4 (Form) after Phas
 | 1. Foundation & Data Layer | 2/2 | Complete | 2026-01-27 |
 | 2. Form Infrastructure | 2/2 | Complete | 2026-01-27 |
 | 3. Form UI (Static) | 5/5 | Complete | 2026-01-28 |
-| 4. Form Polish & Animations | 0/TBD | Ready | - |
+| 4. Form Polish & Animations | 0/3 | Ready | - |
 | 5. Admin Authentication | 0/TBD | Not started | - |
 | 6. Admin Dashboard | 0/TBD | Not started | - |
 | 7. Mobile Optimization & Deployment | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-27*
-*Last updated: 2026-01-28 (Phase 3 complete)*
+*Last updated: 2026-01-28 (Phase 4 planned)*
