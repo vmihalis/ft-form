@@ -5,32 +5,33 @@
 See: .planning/PROJECT.md (updated 2026-01-27)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** Phase 1 Complete - Ready for Phase 2
+**Current focus:** Phase 2 - Form Infrastructure
 
 ## Current Position
 
-Phase: 1 of 7 (Foundation & Data Layer) - COMPLETE
-Plan: 2 of 2 in current phase
-Status: Phase complete
-Last activity: 2026-01-27 - Completed 01-02-PLAN.md
+Phase: 2 of 7 (Form Infrastructure)
+Plan: 1 of ? in current phase
+Status: In progress
+Last activity: 2026-01-27 - Completed 02-01-PLAN.md
 
-Progress: [##........] 20%
+Progress: [###.......] 30%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 4min 44s
-- Total execution time: 9min 27s
+- Total plans completed: 3
+- Average duration: 4min 15s
+- Total execution time: 12min 27s
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation-data-layer | 2 | 9min 27s | 4min 44s |
+| 02-form-infrastructure | 1 | 3min | 3min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (4m15s), 01-02 (5m12s)
+- Last 5 plans: 01-01 (4m15s), 01-02 (5m12s), 02-01 (3m)
 - Trend: Good velocity
 
 *Updated after each plan completion*
@@ -48,6 +49,9 @@ Recent decisions affecting current work:
 | Module-scope Convex client | Prevents WebSocket reconnection on re-renders | 01-01 |
 | shadcn/ui New York style | Professional appearance for application form | 01-02 |
 | CSS variables enabled | Allows easy theme customization later | 01-02 |
+| Zod 4 schema syntax | Latest version with improved API | 02-01 |
+| skipHydration: true | Prevents SSR hydration mismatches in Zustand | 02-01 |
+| localStorage key: ft-form-draft | Consistent naming for form draft persistence | 02-01 |
 
 ### Pending Todos
 
@@ -55,27 +59,29 @@ None yet.
 
 ### Blockers/Concerns
 
-None - Phase 1 foundation complete and verified.
+None - Form infrastructure foundation complete.
 
-## Phase 1 Foundation Summary
+## Phase 2 Form Infrastructure Summary
 
 **What's ready:**
-- Next.js 16 with TypeScript, Tailwind CSS 4, App Router
-- Convex backend with applications schema (20 fields, 4 indexes)
-- shadcn/ui with Button component
-- Three placeholder routes: /apply, /admin, /admin/login
-- Root redirect to /apply
+- Zod schemas for all 5 form steps
+- Combined schema for full form validation
+- stepSchemas and stepFields arrays for per-step validation
+- Zustand store with localStorage persistence
+- ApplicationFormData TypeScript type
+- FORM_STEPS navigation metadata
 
 **Patterns established:**
-- ConvexClientProvider wraps app in layout.tsx
-- UI components in src/components/ui/
-- cn() utility for className merging
+- Per-step Zod schemas merged into combined schema
+- stepSchemas[N] returns schema for step N or null
+- stepFields[N] returns field names for trigger() validation
+- Zustand store rehydrates on client with isHydrated flag
 
 ## Session Continuity
 
-Last session: 2026-01-27T21:50:33Z
-Stopped at: Completed 01-02-PLAN.md (Phase 1 complete)
+Last session: 2026-01-27T21:58:00Z
+Stopped at: Completed 02-01-PLAN.md
 Resume file: None
 
 ---
-*Next step: /gsd:plan-phase 2 to begin Multi-Step Form UI phase*
+*Next step: Continue with 02-02-PLAN.md for FormShell component*
