@@ -17,14 +17,14 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Form Sections
 
-- [ ] **FORM-01**: Welcome/hero step with FT logo, headline, CTA to begin
-- [ ] **FORM-02**: Applicant info step (name, email, LinkedIn, role, bio)
-- [ ] **FORM-03**: Proposal step (floor dropdown, initiative name, tagline, values, target community, estimated size)
-- [ ] **FORM-04**: Roadmap step (Phase 1 MVP, Phase 2 expansion, Phase 3 long-term)
-- [ ] **FORM-05**: Impact step (benefit to FT members)
-- [ ] **FORM-06**: Logistics step (existing community, space needs, start date, additional notes)
-- [ ] **FORM-07**: Review step showing all collected data before submission
-- [ ] **FORM-08**: Confirmation step with thank you message and next steps
+- [x] **FORM-01**: Welcome/hero step with FT logo, headline, CTA to begin
+- [x] **FORM-02**: Applicant info step (name, email, LinkedIn, role, bio)
+- [x] **FORM-03**: Proposal step (floor dropdown, initiative name, tagline, values, target community, estimated size)
+- [x] **FORM-04**: Roadmap step (Phase 1 MVP, Phase 2 expansion, Phase 3 long-term)
+- [x] **FORM-05**: Impact step (benefit to FT members)
+- [x] **FORM-06**: Logistics step (existing community, space needs, start date, additional notes)
+- [x] **FORM-07**: Review step showing all collected data before submission
+- [x] **FORM-08**: Confirmation step with thank you message and next steps
 
 ### Form UX
 
@@ -34,10 +34,10 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **UX-04**: Per-step validation before allowing progression
 - [x] **UX-05**: Back navigation preserving entered data
 - [x] **UX-06**: Auto-save drafts to localStorage for resume capability
-- [ ] **UX-07**: Floor dropdown with all Frontier Tower floors + "Other" option
-- [ ] **UX-08**: "Other" floor shows text field for custom floor proposal
-- [ ] **UX-09**: Inline validation with clear error messages
-- [ ] **UX-10**: Form submission to Convex database
+- [x] **UX-07**: Floor dropdown with all Frontier Tower floors + "Other" option
+- [x] **UX-08**: "Other" floor shows text field for custom floor proposal
+- [x] **UX-09**: Inline validation with clear error messages
+- [x] **UX-10**: Form submission to Convex database
 
 ### Admin Authentication
 
@@ -59,7 +59,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Design & Branding
 
 - [ ] **BRAND-01**: Brand colors (#7b42e7 purple, white)
-- [ ] **BRAND-02**: FT logo in hero and admin header
+- [x] **BRAND-02**: FT logo in hero and admin header
 - [ ] **BRAND-03**: Minimal, modern, premium aesthetic
 - [ ] **BRAND-04**: Mobile responsive design (44x44px touch targets)
 - [ ] **BRAND-05**: Consistent design language across form and admin
@@ -119,19 +119,19 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UX-04 | Phase 2 | Complete |
 | UX-05 | Phase 2 | Complete |
 | UX-06 | Phase 2 | Complete |
-| FORM-01 | Phase 3 | Pending |
-| FORM-02 | Phase 3 | Pending |
-| FORM-03 | Phase 3 | Pending |
-| FORM-04 | Phase 3 | Pending |
-| FORM-05 | Phase 3 | Pending |
-| FORM-06 | Phase 3 | Pending |
-| FORM-07 | Phase 3 | Pending |
-| FORM-08 | Phase 3 | Pending |
-| UX-07 | Phase 3 | Pending |
-| UX-08 | Phase 3 | Pending |
-| UX-09 | Phase 3 | Pending |
-| UX-10 | Phase 3 | Pending |
-| BRAND-02 | Phase 3 | Pending |
+| FORM-01 | Phase 3 | Complete |
+| FORM-02 | Phase 3 | Complete |
+| FORM-03 | Phase 3 | Complete |
+| FORM-04 | Phase 3 | Complete |
+| FORM-05 | Phase 3 | Complete |
+| FORM-06 | Phase 3 | Complete |
+| FORM-07 | Phase 3 | Complete |
+| FORM-08 | Phase 3 | Complete |
+| UX-07 | Phase 3 | Complete |
+| UX-08 | Phase 3 | Complete |
+| UX-09 | Phase 3 | Complete |
+| UX-10 | Phase 3 | Complete |
+| BRAND-02 | Phase 3 | Complete |
 | UX-03 | Phase 4 | Pending |
 | BRAND-01 | Phase 4 | Pending |
 | BRAND-03 | Phase 4 | Pending |
@@ -170,4 +170,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-27*
-*Last updated: 2026-01-27 (Phase 2 complete)*
+*Last updated: 2026-01-28 (Phase 3 complete)*

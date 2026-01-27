@@ -12,7 +12,7 @@ This roadmap delivers a Typeform-style floor lead application system for Frontie
 
 - [x] **Phase 1: Foundation & Data Layer** - Project setup with Next.js, Convex, and database schema
 - [x] **Phase 2: Form Infrastructure** - Multi-step form state management and validation framework
-- [ ] **Phase 3: Form UI (Static)** - All form step components with functional navigation
+- [x] **Phase 3: Form UI (Static)** - All form step components with functional navigation
 - [ ] **Phase 4: Form Polish & Animations** - Framer Motion transitions and UX refinements
 - [ ] **Phase 5: Admin Authentication** - Password-protected login with session management
 - [ ] **Phase 6: Admin Dashboard** - Submission management interface with filtering and search
@@ -64,11 +64,11 @@ Plans:
 **Plans**: 5 plans
 
 Plans:
-- [ ] 03-01-PLAN.md - Install shadcn/ui form components and create floors constant
-- [ ] 03-02-PLAN.md - Create Welcome, ApplicantInfo, and Proposal step components
-- [ ] 03-03-PLAN.md - Create Roadmap, Impact, and Logistics step components
-- [ ] 03-04-PLAN.md - Create Review, Confirmation steps and Convex submit mutation
-- [ ] 03-05-PLAN.md - Update StepContent router and verify complete form flow
+- [x] 03-01-PLAN.md - Install shadcn/ui form components and create floors constant
+- [x] 03-02-PLAN.md - Create Welcome, ApplicantInfo, and Proposal step components
+- [x] 03-03-PLAN.md - Create Roadmap, Impact, and Logistics step components
+- [x] 03-04-PLAN.md - Create Review, Confirmation steps and Convex submit mutation
+- [x] 03-05-PLAN.md - Update StepContent router and verify complete form flow
 
 ### Phase 4: Form Polish & Animations
 **Goal**: Add Typeform-style animations and visual polish that elevate perceived quality
@@ -140,12 +140,12 @@ Note: Phase 5-6 (Admin) can execute in parallel with Phase 3-4 (Form) after Phas
 |-------|----------------|--------|-----------|
 | 1. Foundation & Data Layer | 2/2 | Complete | 2026-01-27 |
 | 2. Form Infrastructure | 2/2 | Complete | 2026-01-27 |
-| 3. Form UI (Static) | 0/5 | Ready | - |
-| 4. Form Polish & Animations | 0/TBD | Not started | - |
+| 3. Form UI (Static) | 5/5 | Complete | 2026-01-28 |
+| 4. Form Polish & Animations | 0/TBD | Ready | - |
 | 5. Admin Authentication | 0/TBD | Not started | - |
 | 6. Admin Dashboard | 0/TBD | Not started | - |
 | 7. Mobile Optimization & Deployment | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-27*
-*Last updated: 2026-01-27 (Phase 3 planned)*
+*Last updated: 2026-01-28 (Phase 3 complete)*
