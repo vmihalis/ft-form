@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 ## Current Position
 
 Phase: 3 of 7 (Form UI Components)
-Plan: 1 of 5 complete
+Plan: 2 of 5 complete
 Status: In progress
-Last activity: 2026-01-27 - Completed 03-01-PLAN.md
+Last activity: 2026-01-27 - Completed 03-02-PLAN.md
 
-Progress: [#####.....] 50%
+Progress: [######....] 60%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: 3min 16s
-- Total execution time: 16min 21s
+- Total plans completed: 6
+- Average duration: 3min 5s
+- Total execution time: 18min 25s
 
 **By Phase:**
 
@@ -29,11 +29,11 @@ Progress: [#####.....] 50%
 |-------|-------|-------|----------|
 | 01-foundation-data-layer | 2 | 9min 27s | 4min 44s |
 | 02-form-infrastructure | 2 | 5min 25s | 2min 43s |
-| 03-form-ui-static | 1 | 1min 29s | 1min 29s |
+| 03-form-ui-static | 2 | 3min 33s | 1min 47s |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (5m12s), 02-01 (3m), 02-02 (2m25s), 03-01 (1m29s)
-- Trend: Good velocity, fastest plan yet
+- Last 5 plans: 02-01 (3m), 02-02 (2m25s), 03-01 (1m29s), 03-02 (2m4s)
+- Trend: Good velocity, consistently under 3 minutes
 
 *Updated after each plan completion*
 
@@ -58,6 +58,9 @@ Recent decisions affecting current work:
 | Back saves values without validation | Better UX, users can go back freely | 02-02 |
 | kebab-case floor values | Cleaner database storage while labels show human-readable format | 03-01 |
 | 11 floor options including "other" | Covers existing floors and allows custom proposals | 03-01 |
+| h1 only on WelcomeStep | Proper document outline, other steps use h2 | 03-02 |
+| Controller for Select | Required for Radix Select with react-hook-form | 03-02 |
+| useWatch with defaultValue | Prevents undefined flash on conditional fields | 03-02 |
 
 ### Pending Todos
 
@@ -65,7 +68,7 @@ None.
 
 ### Blockers/Concerns
 
-None - Phase 3 Plan 01 complete, ready for step components.
+None - Phase 3 Plan 02 complete, ready for remaining steps.
 
 ## Phase 3 Progress
 
@@ -75,17 +78,27 @@ None - Phase 3 Plan 01 complete, ready for step components.
 - FloorValue type and getFloorLabel helper
 - FT logo placeholder at public/ft-logo.svg
 
+**Plan 02 Complete - Welcome, Applicant Info, Proposal Steps:**
+- WelcomeStep: FT logo, headline, intro with time estimate
+- ApplicantInfoStep: fullName, email, linkedIn, role, bio fields
+- ProposalStep: floor dropdown with conditional floorOther, plus initiativeName, tagline, values, targetCommunity, estimatedSize
+
+**Patterns Established:**
+- Step header: h2 + description in centered div
+- Field pattern: Field wrapper + data-invalid + FieldLabel + Input + FieldDescription + FieldError
+- Conditional field: useWatch + boolean flag + conditional render
+- Controller pattern for Select dropdowns
+
 **Ready for remaining plans:**
-- 03-02: WelcomeStep (uses FT logo)
-- 03-03: ProfileStep (uses Input, Textarea, Field)
-- 03-04: ProposalStep (uses Select, FRONTIER_TOWER_FLOORS)
-- 03-05: ReviewStep (uses Card, Separator)
+- 03-03: RoadmapStep (3 phase text areas)
+- 03-04: ImpactStep (1 text area)
+- 03-05: LogisticsStep + ReviewStep + ConfirmationStep
 
 ## Session Continuity
 
-Last session: 2026-01-27T22:51:28Z
-Stopped at: Completed 03-01-PLAN.md
+Last session: 2026-01-27T22:57:42Z
+Stopped at: Completed 03-02-PLAN.md
 Resume file: None
 
 ---
-*Next step: 03-02-PLAN.md - WelcomeStep hero section*
+*Next step: 03-03-PLAN.md - Roadmap, Impact, Logistics steps*
