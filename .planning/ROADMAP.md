@@ -29,10 +29,11 @@ This roadmap delivers a Typeform-style floor lead application system for Frontie
   2. Navigating to /apply, /admin, and /admin/login shows placeholder pages
   3. Convex dashboard shows the applications table with defined schema
   4. shadcn/ui Button component renders correctly on a test page
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: TBD
+- [ ] 01-01-PLAN.md - Scaffold Next.js 16 project with Convex backend and applications schema
+- [ ] 01-02-PLAN.md - Initialize shadcn/ui and create placeholder routes
 
 ### Phase 2: Form Infrastructure
 **Goal**: Build the invisible layer that makes multi-step form navigation and validation work
@@ -132,7 +133,7 @@ Note: Phase 5-6 (Admin) can execute in parallel with Phase 3-4 (Form) after Phas
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Data Layer | 0/TBD | Not started | - |
+| 1. Foundation & Data Layer | 0/2 | Planned | - |
 | 2. Form Infrastructure | 0/TBD | Not started | - |
 | 3. Form UI (Static) | 0/TBD | Not started | - |
 | 4. Form Polish & Animations | 0/TBD | Not started | - |
