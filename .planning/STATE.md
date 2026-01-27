@@ -5,34 +5,34 @@
 See: .planning/PROJECT.md (updated 2026-01-27)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** Phase 2 - Form Infrastructure
+**Current focus:** Phase 2 - Form Infrastructure COMPLETE
 
 ## Current Position
 
-Phase: 2 of 7 (Form Infrastructure)
-Plan: 1 of ? in current phase
-Status: In progress
-Last activity: 2026-01-27 - Completed 02-01-PLAN.md
+Phase: 2 of 7 (Form Infrastructure) - COMPLETE
+Plan: 2 of 2 complete
+Status: Phase complete
+Last activity: 2026-01-27 - Completed 02-02-PLAN.md
 
-Progress: [###.......] 30%
+Progress: [####......] 40%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 4min 15s
-- Total execution time: 12min 27s
+- Total plans completed: 4
+- Average duration: 3min 43s
+- Total execution time: 14min 52s
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation-data-layer | 2 | 9min 27s | 4min 44s |
-| 02-form-infrastructure | 1 | 3min | 3min |
+| 02-form-infrastructure | 2 | 5min 25s | 2min 43s |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (4m15s), 01-02 (5m12s), 02-01 (3m)
-- Trend: Good velocity
+- Last 5 plans: 01-01 (4m15s), 01-02 (5m12s), 02-01 (3m), 02-02 (2m25s)
+- Trend: Good velocity, improving
 
 *Updated after each plan completion*
 
@@ -52,14 +52,17 @@ Recent decisions affecting current work:
 | Zod 4 schema syntax | Latest version with improved API | 02-01 |
 | skipHydration: true | Prevents SSR hydration mismatches in Zustand | 02-01 |
 | localStorage key: ft-form-draft | Consistent naming for form draft persistence | 02-01 |
+| Loading spinner during hydration | Prevents flash of default state | 02-02 |
+| ProgressIndicator hidden on Welcome/Confirmation | Cleaner flow for non-form steps | 02-02 |
+| Back saves values without validation | Better UX, users can go back freely | 02-02 |
 
 ### Pending Todos
 
-None yet.
+None.
 
 ### Blockers/Concerns
 
-None - Form infrastructure foundation complete.
+None - Phase 2 complete, ready for Phase 3.
 
 ## Phase 2 Form Infrastructure Summary
 
@@ -70,18 +73,26 @@ None - Form infrastructure foundation complete.
 - Zustand store with localStorage persistence
 - ApplicationFormData TypeScript type
 - FORM_STEPS navigation metadata
+- MultiStepForm container with FormProvider
+- ProgressIndicator with accessibility
+- NavigationButtons with validation logic
+- StoreHydration for SSR-safe rehydration
+- StepContent placeholder for step rendering
 
 **Patterns established:**
 - Per-step Zod schemas merged into combined schema
 - stepSchemas[N] returns schema for step N or null
 - stepFields[N] returns field names for trigger() validation
 - Zustand store rehydrates on client with isHydrated flag
+- FormProvider wraps all form components for context access
+- Navigation validates on Next but not on Back
+- StoreHydration component for SSR-safe rehydration side effect
 
 ## Session Continuity
 
-Last session: 2026-01-27T21:58:00Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-01-27T22:25:14Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None
 
 ---
-*Next step: Continue with 02-02-PLAN.md for FormShell component*
+*Next step: Phase 3 - Step Components (build actual form UI for each step)*
