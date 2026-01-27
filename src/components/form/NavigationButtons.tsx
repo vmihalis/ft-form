@@ -7,6 +7,10 @@ import { stepFields } from "@/lib/schemas/application";
 import { FORM_STEPS } from "@/types/form";
 import type { ApplicationFormData } from "@/types/form";
 
+interface NavigationButtonsProps {
+  isSubmitting?: boolean;
+}
+
 /**
  * NavigationButtons component
  *
@@ -19,7 +23,7 @@ import type { ApplicationFormData } from "@/types/form";
  * Next validates current step before advancing.
  * Back saves current values without validation.
  */
-export function NavigationButtons() {
+export function NavigationButtons({ isSubmitting = false }: NavigationButtonsProps) {
   const currentStep = useFormStore((state) => state.currentStep);
   const setCurrentStep = useFormStore((state) => state.setCurrentStep);
   const markStepCompleted = useFormStore((state) => state.markStepCompleted);
@@ -88,7 +92,9 @@ export function NavigationButtons() {
 
       {/* Next/Begin/Submit button */}
       {isReview ? (
-        <Button type="submit">Submit Application</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit Application"}
+        </Button>
       ) : (
         <Button type="button" onClick={handleNext}>
           {isWelcome ? "Begin" : currentStep < totalSteps - 1 ? "Next" : "Review"}

@@ -1,6 +1,14 @@
 "use client";
 
 import { FORM_STEPS } from "@/types/form";
+import { WelcomeStep } from "./steps/WelcomeStep";
+import { ApplicantInfoStep } from "./steps/ApplicantInfoStep";
+import { ProposalStep } from "./steps/ProposalStep";
+import { RoadmapStep } from "./steps/RoadmapStep";
+import { ImpactStep } from "./steps/ImpactStep";
+import { LogisticsStep } from "./steps/LogisticsStep";
+import { ReviewStep } from "./steps/ReviewStep";
+import { ConfirmationStep } from "./steps/ConfirmationStep";
 
 interface StepContentProps {
   step: number;
@@ -9,8 +17,8 @@ interface StepContentProps {
 /**
  * StepContent component
  *
- * Renders placeholder content for each form step.
- * Phase 3 will replace this with actual step-specific form components.
+ * Routes to the appropriate step component based on current step.
+ * All step components use FormProvider context from parent.
  */
 export function StepContent({ step }: StepContentProps) {
   const stepInfo = FORM_STEPS[step];
@@ -23,17 +31,28 @@ export function StepContent({ step }: StepContentProps) {
     );
   }
 
-  return (
-    <div className="py-12 text-center">
-      <h2 className="text-2xl font-semibold">{stepInfo.label}</h2>
-      <p className="mt-4 text-muted-foreground">
-        Step {step} of {FORM_STEPS.length - 1}
-      </p>
-      <p className="mt-2 text-sm text-muted-foreground">
-        {stepInfo.hasValidation
-          ? "This step requires form input (coming in Phase 3)"
-          : "This step does not require validation"}
-      </p>
-    </div>
-  );
+  switch (step) {
+    case 0:
+      return <WelcomeStep />;
+    case 1:
+      return <ApplicantInfoStep />;
+    case 2:
+      return <ProposalStep />;
+    case 3:
+      return <RoadmapStep />;
+    case 4:
+      return <ImpactStep />;
+    case 5:
+      return <LogisticsStep />;
+    case 6:
+      return <ReviewStep />;
+    case 7:
+      return <ConfirmationStep />;
+    default:
+      return (
+        <div className="py-12 text-center">
+          <p className="text-muted-foreground">Unknown step</p>
+        </div>
+      );
+  }
 }

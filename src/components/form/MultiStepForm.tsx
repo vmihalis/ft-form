@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 import { combinedApplicationSchema } from "@/lib/schemas/application";
 import { useFormStore } from "@/lib/stores/form-store";
 import { ProgressIndicator } from "./ProgressIndicator";
@@ -17,6 +19,7 @@ import type { ApplicationFormData } from "@/types/form";
  * - Wraps children in FormProvider for react-hook-form context
  * - Manages form state with zodResolver for validation
  * - Syncs with Zustand store for persistence
+ * - Submits to Convex on completion
  * - Shows loading state during hydration
  */
 export function MultiStepForm() {
@@ -25,6 +28,12 @@ export function MultiStepForm() {
   const isHydrated = useFormStore((state) => state.isHydrated);
   const setCurrentStep = useFormStore((state) => state.setCurrentStep);
   const resetForm = useFormStore((state) => state.resetForm);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  // Convex mutation
+  const submitApplication = useMutation(api.applications.submit);
 
   // Initialize react-hook-form with Zod validation
   const methods = useForm<ApplicationFormData>({
@@ -44,15 +53,35 @@ export function MultiStepForm() {
    * Handle form submission
    * Called when user clicks Submit on Review step
    */
-  const onSubmit = (data: ApplicationFormData) => {
-    // Phase 3 will wire this to Convex mutation
-    console.log("Form submitted:", data);
+  const onSubmit = async (data: ApplicationFormData) => {
+    setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Move to confirmation step
-    setCurrentStep(7);
+    try {
+      // Transform empty strings to undefined for optional fields
+      // Convex v.optional() expects undefined, not empty string
+      await submitApplication({
+        ...data,
+        linkedIn: data.linkedIn || undefined,
+        floorOther: data.floorOther || undefined,
+        additionalNotes: data.additionalNotes || undefined,
+      });
 
-    // Clear localStorage (form is submitted)
-    resetForm();
+      // Move to confirmation step
+      setCurrentStep(7);
+
+      // Clear localStorage (form is submitted)
+      resetForm();
+    } catch (error) {
+      console.error("Submission failed:", error);
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Failed to submit application. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Show loading state during SSR/hydration
@@ -83,8 +112,15 @@ export function MultiStepForm() {
         {/* Step content */}
         <StepContent step={currentStep} />
 
+        {/* Submission error display */}
+        {submitError && (
+          <div className="rounded-lg bg-destructive/10 border border-destructive/20 p-4 text-sm text-destructive">
+            {submitError}
+          </div>
+        )}
+
         {/* Navigation buttons */}
-        <NavigationButtons />
+        <NavigationButtons isSubmitting={isSubmitting} />
       </form>
     </FormProvider>
   );
