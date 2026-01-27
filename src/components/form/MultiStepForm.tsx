@@ -53,6 +53,12 @@ export function MultiStepForm() {
    * Called when user clicks Submit on Review step
    */
   const onSubmit = async (data: ApplicationFormData) => {
+    // Guard: Only allow submission from Review step (step 6)
+    // This prevents accidental submissions from other steps
+    if (currentStep !== 6) {
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitError(null);
 

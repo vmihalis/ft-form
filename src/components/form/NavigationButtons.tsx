@@ -40,7 +40,11 @@ export function NavigationButtons({ isSubmitting = false }: NavigationButtonsPro
    * Handle Next/Begin button click
    * Validates current step before advancing
    */
-  const handleNext = async () => {
+  const handleNext = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    // Prevent any form submission or event bubbling
+    e.preventDefault();
+    e.stopPropagation();
+
     const fieldsToValidate = stepFields[currentStep];
 
     // Only validate if this step has fields to validate
