@@ -30,7 +30,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **UX-01**: One-section-at-a-time Typeform-style flow
 - [x] **UX-02**: Progress indicator showing current step and total steps
-- [ ] **UX-03**: Smooth Framer Motion transitions between steps (fade/slide)
+- [x] **UX-03**: Smooth Framer Motion transitions between steps (fade/slide)
 - [x] **UX-04**: Per-step validation before allowing progression
 - [x] **UX-05**: Back navigation preserving entered data
 - [x] **UX-06**: Auto-save drafts to localStorage for resume capability
@@ -58,11 +58,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Design & Branding
 
-- [ ] **BRAND-01**: Brand colors (#7b42e7 purple, white)
+- [x] **BRAND-01**: Brand colors (#7b42e7 purple, white)
 - [x] **BRAND-02**: FT logo in hero and admin header
-- [ ] **BRAND-03**: Minimal, modern, premium aesthetic
+- [x] **BRAND-03**: Minimal, modern, premium aesthetic
 - [ ] **BRAND-04**: Mobile responsive design (44x44px touch targets)
-- [ ] **BRAND-05**: Consistent design language across form and admin
+- [x] **BRAND-05**: Consistent design language across form and admin
 
 ### Deployment
 
@@ -132,10 +132,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UX-09 | Phase 3 | Complete |
 | UX-10 | Phase 3 | Complete |
 | BRAND-02 | Phase 3 | Complete |
-| UX-03 | Phase 4 | Pending |
-| BRAND-01 | Phase 4 | Pending |
-| BRAND-03 | Phase 4 | Pending |
-| BRAND-05 | Phase 4 | Pending |
+| UX-03 | Phase 4 | Complete |
+| BRAND-01 | Phase 4 | Complete |
+| BRAND-03 | Phase 4 | Complete |
+| BRAND-05 | Phase 4 | Complete |
 | AUTH-01 | Phase 5 | Pending |
 | AUTH-02 | Phase 5 | Pending |
 | AUTH-03 | Phase 5 | Pending |
@@ -170,4 +170,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-27*
-*Last updated: 2026-01-28 (Phase 3 complete)*
+*Last updated: 2026-01-28 (Phase 4 complete)*
