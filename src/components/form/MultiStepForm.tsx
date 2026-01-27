@@ -27,7 +27,6 @@ export function MultiStepForm() {
   const formData = useFormStore((state) => state.formData);
   const isHydrated = useFormStore((state) => state.isHydrated);
   const setCurrentStep = useFormStore((state) => state.setCurrentStep);
-  const resetForm = useFormStore((state) => state.resetForm);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -70,8 +69,8 @@ export function MultiStepForm() {
       // Move to confirmation step
       setCurrentStep(7);
 
-      // Clear localStorage (form is submitted)
-      resetForm();
+      // Clear localStorage so refreshing starts fresh (but keep in-memory state at step 7)
+      localStorage.removeItem("ft-form-draft");
     } catch (error) {
       console.error("Submission failed:", error);
       setSubmitError(
