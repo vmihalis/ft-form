@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-27)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** Phase 3 - Form UI Components (Static) COMPLETE
+**Current focus:** Phase 4 - Form Polish & Animations
 
 ## Current Position
 
-Phase: 3 of 7 (Form UI Components) - COMPLETE
-Plan: 5 of 5 complete
-Status: Phase complete
-Last activity: 2026-01-27 - Completed 03-05-PLAN.md
+Phase: 4 of 7 (Form Polish & Animations)
+Plan: 1 of 3 complete
+Status: In progress
+Last activity: 2026-01-27 - Completed 04-01-PLAN.md
 
-Progress: [######....] 60%
+Progress: [######....] 67%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
-- Average duration: 3min 1s
-- Total execution time: 28min 0s
+- Total plans completed: 10
+- Average duration: 2min 50s
+- Total execution time: 28min 52s
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: [######....] 60%
 | 01-foundation-data-layer | 2 | 9min 27s | 4min 44s |
 | 02-form-infrastructure | 2 | 5min 25s | 2min 43s |
 | 03-form-ui-static | 5 | 13min 8s | 2min 38s |
+| 04-form-polish-and-animations | 1 | 52s | 52s |
 
 **Recent Trend:**
-- Last 5 plans: 03-02 (2m4s), 03-03 (2m13s), 03-04 (3m22s), 03-05 (4m)
-- Trend: Good velocity, consistently under 5 minutes
+- Last 5 plans: 03-03 (2m13s), 03-04 (3m22s), 03-05 (4m), 04-01 (52s)
+- Trend: Excellent velocity, dependency-only plan completed quickly
 
 *Updated after each plan completion*
 
@@ -69,6 +70,8 @@ Recent decisions affecting current work:
 | Prevent reset on confirmation | resetForm() should not run when user views confirmation | 03-05 |
 | Explicit button type="button" | Prevents accidental form submission on step transitions | 03-05 |
 | break-words for Review cards | Long text wraps properly in card boundaries | 03-05 |
+| oklch color space for brand purple | Better perceptual uniformity than hex | 04-01 |
+| Same purple for light/dark modes | Consistent brand identity across themes | 04-01 |
 
 ### Pending Todos
 
@@ -76,39 +79,24 @@ None.
 
 ### Blockers/Concerns
 
-None - Phase 3 complete, all form UI components working.
+None - foundation setup complete, ready for animation implementation.
 
-## Phase 3 Complete Summary
+## Phase 4 Progress
 
-**All 5 plans completed:**
-- 03-01: Form Components Setup (shadcn/ui, floor constants, FT logo)
-- 03-02: Welcome, Applicant Info, Proposal Steps
-- 03-03: Roadmap, Impact, Logistics Steps
-- 03-04: Review, Confirmation Steps, Convex Submission
-- 03-05: StepContent Integration, Human Verification
+**Plan 04-01 complete:**
+- motion@12.29.2 installed (import via "motion/react")
+- Brand purple oklch(0.53 0.24 291) applied to --primary
+- Theme colors consistent in light and dark modes
 
-**What's working:**
-- Complete 8-step form flow: Welcome -> Applicant Info -> Proposal -> Roadmap -> Impact -> Logistics -> Review -> Confirmation
-- Per-step validation with inline error messages
-- Floor dropdown with conditional "Other" field
-- Review step with Edit buttons for each section
-- Convex submission creating records with status="new"
-- localStorage cleared after successful submission
-- All bug fixes applied for reset, submission, and text overflow
-
-**Patterns established:**
-- Step header: h2 + description in centered div
-- Field pattern: Field wrapper + data-invalid + FieldLabel + Input + FieldDescription + FieldError
-- Conditional field: useWatch + boolean flag + conditional render
-- Controller pattern for Select dropdowns
-- ReviewSection pattern: Card with title and Edit button
-- useMutation pattern: isSubmitting + submitError states
+**Remaining plans:**
+- 04-02: Step transition animations
+- 04-03: Micro-interactions and polish
 
 ## Session Continuity
 
-Last session: 2026-01-27T23:12:00Z
-Stopped at: Completed 03-05-PLAN.md
+Last session: 2026-01-27T23:39:16Z
+Stopped at: Completed 04-01-PLAN.md
 Resume file: None
 
 ---
-*Next step: Phase 4 - Form Polish & Animations (Framer Motion transitions, brand colors)*
+*Next step: 04-02-PLAN.md - Step transition animations*
