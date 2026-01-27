@@ -10,7 +10,7 @@ This roadmap delivers a Typeform-style floor lead application system for Frontie
 - Integer phases (1, 2, 3): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
-- [ ] **Phase 1: Foundation & Data Layer** - Project setup with Next.js, Convex, and database schema
+- [x] **Phase 1: Foundation & Data Layer** - Project setup with Next.js, Convex, and database schema
 - [ ] **Phase 2: Form Infrastructure** - Multi-step form state management and validation framework
 - [ ] **Phase 3: Form UI (Static)** - All form step components with functional navigation
 - [ ] **Phase 4: Form Polish & Animations** - Framer Motion transitions and UX refinements
@@ -32,8 +32,8 @@ This roadmap delivers a Typeform-style floor lead application system for Frontie
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md - Scaffold Next.js 16 project with Convex backend and applications schema
-- [ ] 01-02-PLAN.md - Initialize shadcn/ui and create placeholder routes
+- [x] 01-01-PLAN.md - Scaffold Next.js 16 project with Convex backend and applications schema
+- [x] 01-02-PLAN.md - Initialize shadcn/ui and create placeholder routes
 
 ### Phase 2: Form Infrastructure
 **Goal**: Build the invisible layer that makes multi-step form navigation and validation work
@@ -133,7 +133,7 @@ Note: Phase 5-6 (Admin) can execute in parallel with Phase 3-4 (Form) after Phas
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Data Layer | 0/2 | Planned | - |
+| 1. Foundation & Data Layer | 2/2 | Complete | 2026-01-27 |
 | 2. Form Infrastructure | 0/TBD | Not started | - |
 | 3. Form UI (Static) | 0/TBD | Not started | - |
 | 4. Form Polish & Animations | 0/TBD | Not started | - |
@@ -143,4 +143,4 @@ Note: Phase 5-6 (Admin) can execute in parallel with Phase 3-4 (Form) after Phas
 
 ---
 *Roadmap created: 2026-01-27*
-*Last updated: 2026-01-27*
+*Last updated: 2026-01-27 (Phase 1 complete)*

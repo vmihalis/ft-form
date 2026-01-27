@@ -9,11 +9,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Foundation
 
-- [ ] **FOUND-01**: Next.js 16 project with App Router and Tailwind CSS
-- [ ] **FOUND-02**: Convex backend integration with schema
-- [ ] **FOUND-03**: shadcn/ui component library setup
-- [ ] **FOUND-04**: Route structure (/apply, /admin, /admin/login)
-- [ ] **FOUND-05**: Database schema for applications with indexes
+- [x] **FOUND-01**: Next.js 16 project with App Router and Tailwind CSS
+- [x] **FOUND-02**: Convex backend integration with schema
+- [x] **FOUND-03**: shadcn/ui component library setup
+- [x] **FOUND-04**: Route structure (/apply, /admin, /admin/login)
+- [x] **FOUND-05**: Database schema for applications with indexes
 
 ### Form Sections
 
@@ -109,11 +109,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 | Pending |
-| FOUND-02 | Phase 1 | Pending |
-| FOUND-03 | Phase 1 | Pending |
-| FOUND-04 | Phase 1 | Pending |
-| FOUND-05 | Phase 1 | Pending |
+| FOUND-01 | Phase 1 | Complete |
+| FOUND-02 | Phase 1 | Complete |
+| FOUND-03 | Phase 1 | Complete |
+| FOUND-04 | Phase 1 | Complete |
+| FOUND-05 | Phase 1 | Complete |
 | UX-01 | Phase 2 | Pending |
 | UX-02 | Phase 2 | Pending |
 | UX-04 | Phase 2 | Pending |
@@ -170,4 +170,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-27*
-*Last updated: 2026-01-27 after roadmap creation*
+*Last updated: 2026-01-27 (Phase 1 complete)*
