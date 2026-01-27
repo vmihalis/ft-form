@@ -28,12 +28,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Form UX
 
-- [ ] **UX-01**: One-section-at-a-time Typeform-style flow
-- [ ] **UX-02**: Progress indicator showing current step and total steps
+- [x] **UX-01**: One-section-at-a-time Typeform-style flow
+- [x] **UX-02**: Progress indicator showing current step and total steps
 - [ ] **UX-03**: Smooth Framer Motion transitions between steps (fade/slide)
-- [ ] **UX-04**: Per-step validation before allowing progression
-- [ ] **UX-05**: Back navigation preserving entered data
-- [ ] **UX-06**: Auto-save drafts to localStorage for resume capability
+- [x] **UX-04**: Per-step validation before allowing progression
+- [x] **UX-05**: Back navigation preserving entered data
+- [x] **UX-06**: Auto-save drafts to localStorage for resume capability
 - [ ] **UX-07**: Floor dropdown with all Frontier Tower floors + "Other" option
 - [ ] **UX-08**: "Other" floor shows text field for custom floor proposal
 - [ ] **UX-09**: Inline validation with clear error messages
@@ -114,11 +114,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FOUND-03 | Phase 1 | Complete |
 | FOUND-04 | Phase 1 | Complete |
 | FOUND-05 | Phase 1 | Complete |
-| UX-01 | Phase 2 | Pending |
-| UX-02 | Phase 2 | Pending |
-| UX-04 | Phase 2 | Pending |
-| UX-05 | Phase 2 | Pending |
-| UX-06 | Phase 2 | Pending |
+| UX-01 | Phase 2 | Complete |
+| UX-02 | Phase 2 | Complete |
+| UX-04 | Phase 2 | Complete |
+| UX-05 | Phase 2 | Complete |
+| UX-06 | Phase 2 | Complete |
 | FORM-01 | Phase 3 | Pending |
 | FORM-02 | Phase 3 | Pending |
 | FORM-03 | Phase 3 | Pending |
@@ -170,4 +170,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-27*
-*Last updated: 2026-01-27 (Phase 1 complete)*
+*Last updated: 2026-01-27 (Phase 2 complete)*
