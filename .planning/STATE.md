@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-27)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** Phase 2 - Form Infrastructure COMPLETE
+**Current focus:** Phase 3 - Form UI Components (Static)
 
 ## Current Position
 
-Phase: 2 of 7 (Form Infrastructure) - COMPLETE
-Plan: 2 of 2 complete
-Status: Phase complete
-Last activity: 2026-01-27 - Completed 02-02-PLAN.md
+Phase: 3 of 7 (Form UI Components)
+Plan: 1 of 5 complete
+Status: In progress
+Last activity: 2026-01-27 - Completed 03-01-PLAN.md
 
-Progress: [####......] 40%
+Progress: [#####.....] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 3min 43s
-- Total execution time: 14min 52s
+- Total plans completed: 5
+- Average duration: 3min 16s
+- Total execution time: 16min 21s
 
 **By Phase:**
 
@@ -29,10 +29,11 @@ Progress: [####......] 40%
 |-------|-------|-------|----------|
 | 01-foundation-data-layer | 2 | 9min 27s | 4min 44s |
 | 02-form-infrastructure | 2 | 5min 25s | 2min 43s |
+| 03-form-ui-static | 1 | 1min 29s | 1min 29s |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (4m15s), 01-02 (5m12s), 02-01 (3m), 02-02 (2m25s)
-- Trend: Good velocity, improving
+- Last 5 plans: 01-02 (5m12s), 02-01 (3m), 02-02 (2m25s), 03-01 (1m29s)
+- Trend: Good velocity, fastest plan yet
 
 *Updated after each plan completion*
 
@@ -55,6 +56,8 @@ Recent decisions affecting current work:
 | Loading spinner during hydration | Prevents flash of default state | 02-02 |
 | ProgressIndicator hidden on Welcome/Confirmation | Cleaner flow for non-form steps | 02-02 |
 | Back saves values without validation | Better UX, users can go back freely | 02-02 |
+| kebab-case floor values | Cleaner database storage while labels show human-readable format | 03-01 |
+| 11 floor options including "other" | Covers existing floors and allows custom proposals | 03-01 |
 
 ### Pending Todos
 
@@ -62,37 +65,27 @@ None.
 
 ### Blockers/Concerns
 
-None - Phase 2 complete, ready for Phase 3.
+None - Phase 3 Plan 01 complete, ready for step components.
 
-## Phase 2 Form Infrastructure Summary
+## Phase 3 Progress
 
-**What's ready:**
-- Zod schemas for all 5 form steps
-- Combined schema for full form validation
-- stepSchemas and stepFields arrays for per-step validation
-- Zustand store with localStorage persistence
-- ApplicationFormData TypeScript type
-- FORM_STEPS navigation metadata
-- MultiStepForm container with FormProvider
-- ProgressIndicator with accessibility
-- NavigationButtons with validation logic
-- StoreHydration for SSR-safe rehydration
-- StepContent placeholder for step rendering
+**Plan 01 Complete - Form Components Setup:**
+- shadcn/ui components: Input, Textarea, Select, Label, Card, Separator, Field family
+- FRONTIER_TOWER_FLOORS constant with 11 options
+- FloorValue type and getFloorLabel helper
+- FT logo placeholder at public/ft-logo.svg
 
-**Patterns established:**
-- Per-step Zod schemas merged into combined schema
-- stepSchemas[N] returns schema for step N or null
-- stepFields[N] returns field names for trigger() validation
-- Zustand store rehydrates on client with isHydrated flag
-- FormProvider wraps all form components for context access
-- Navigation validates on Next but not on Back
-- StoreHydration component for SSR-safe rehydration side effect
+**Ready for remaining plans:**
+- 03-02: WelcomeStep (uses FT logo)
+- 03-03: ProfileStep (uses Input, Textarea, Field)
+- 03-04: ProposalStep (uses Select, FRONTIER_TOWER_FLOORS)
+- 03-05: ReviewStep (uses Card, Separator)
 
 ## Session Continuity
 
-Last session: 2026-01-27T22:25:14Z
-Stopped at: Completed 02-02-PLAN.md
+Last session: 2026-01-27T22:51:28Z
+Stopped at: Completed 03-01-PLAN.md
 Resume file: None
 
 ---
-*Next step: Phase 3 - Step Components (build actual form UI for each step)*
+*Next step: 03-02-PLAN.md - WelcomeStep hero section*
