@@ -84,14 +84,13 @@ export function StepContent({ step }: StepContentProps) {
   };
 
   return (
-    <AnimatePresence mode="wait" custom={direction} initial={false}>
+    <AnimatePresence mode="wait" custom={direction}>
       <motion.div
         key={step}
         custom={direction}
-        variants={stepVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
+        initial={{ x: direction === "forward" ? 50 : -50, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: direction === "forward" ? -50 : 50, opacity: 0 }}
         transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
       >
         {getStepComponent()}
