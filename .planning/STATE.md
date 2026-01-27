@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-27)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** Phase 3 - Form UI Components (Static)
+**Current focus:** Phase 3 - Form UI Components (Static) COMPLETE
 
 ## Current Position
 
-Phase: 3 of 7 (Form UI Components)
-Plan: 4 of 5 complete
-Status: In progress
-Last activity: 2026-01-27 - Completed 03-04-PLAN.md
+Phase: 3 of 7 (Form UI Components) - COMPLETE
+Plan: 5 of 5 complete
+Status: Phase complete
+Last activity: 2026-01-27 - Completed 03-05-PLAN.md
 
-Progress: [########..] 80%
+Progress: [#########.] 90%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 2min 59s
-- Total execution time: 24min 0s
+- Total plans completed: 9
+- Average duration: 3min 1s
+- Total execution time: 28min 0s
 
 **By Phase:**
 
@@ -29,11 +29,11 @@ Progress: [########..] 80%
 |-------|-------|-------|----------|
 | 01-foundation-data-layer | 2 | 9min 27s | 4min 44s |
 | 02-form-infrastructure | 2 | 5min 25s | 2min 43s |
-| 03-form-ui-static | 4 | 9min 8s | 2min 17s |
+| 03-form-ui-static | 5 | 13min 8s | 2min 38s |
 
 **Recent Trend:**
-- Last 5 plans: 03-01 (1m29s), 03-02 (2m4s), 03-03 (2m13s), 03-04 (3m22s)
-- Trend: Good velocity, consistently under 4 minutes
+- Last 5 plans: 03-02 (2m4s), 03-03 (2m13s), 03-04 (3m22s), 03-05 (4m)
+- Trend: Good velocity, consistently under 5 minutes
 
 *Updated after each plan completion*
 
@@ -66,6 +66,9 @@ Recent decisions affecting current work:
 | Native date input for startDate | Uses browser date picker for better UX | 03-03 |
 | getValues() for live data in ReviewStep | Shows current form state, not stale snapshot | 03-04 |
 | Optional fields to undefined | Convex v.optional() expects undefined, not empty string | 03-04 |
+| Prevent reset on confirmation | resetForm() should not run when user views confirmation | 03-05 |
+| Explicit button type="button" | Prevents accidental form submission on step transitions | 03-05 |
+| break-words for Review cards | Long text wraps properly in card boundaries | 03-05 |
 
 ### Pending Todos
 
@@ -73,50 +76,39 @@ None.
 
 ### Blockers/Concerns
 
-None - Phase 3 Plan 04 complete, complete submission flow working.
+None - Phase 3 complete, all form UI components working.
 
-## Phase 3 Progress
+## Phase 3 Complete Summary
 
-**Plan 01 Complete - Form Components Setup:**
-- shadcn/ui components: Input, Textarea, Select, Label, Card, Separator, Field family
-- FRONTIER_TOWER_FLOORS constant with 11 options
-- FloorValue type and getFloorLabel helper
-- FT logo placeholder at public/ft-logo.svg
+**All 5 plans completed:**
+- 03-01: Form Components Setup (shadcn/ui, floor constants, FT logo)
+- 03-02: Welcome, Applicant Info, Proposal Steps
+- 03-03: Roadmap, Impact, Logistics Steps
+- 03-04: Review, Confirmation Steps, Convex Submission
+- 03-05: StepContent Integration, Human Verification
 
-**Plan 02 Complete - Welcome, Applicant Info, Proposal Steps:**
-- WelcomeStep: FT logo, headline, intro with time estimate
-- ApplicantInfoStep: fullName, email, linkedIn, role, bio fields
-- ProposalStep: floor dropdown with conditional floorOther, plus initiativeName, tagline, values, targetCommunity, estimatedSize
+**What's working:**
+- Complete 8-step form flow: Welcome -> Applicant Info -> Proposal -> Roadmap -> Impact -> Logistics -> Review -> Confirmation
+- Per-step validation with inline error messages
+- Floor dropdown with conditional "Other" field
+- Review step with Edit buttons for each section
+- Convex submission creating records with status="new"
+- localStorage cleared after successful submission
+- All bug fixes applied for reset, submission, and text overflow
 
-**Plan 03 Complete - Roadmap, Impact, Logistics Steps:**
-- RoadmapStep: phase1Mvp, phase2Expansion, phase3LongTerm textareas (50 char min)
-- ImpactStep: benefitToFT textarea with tips section
-- LogisticsStep: existingCommunity, spaceNeeds, startDate (date picker), additionalNotes (optional)
-
-**Plan 04 Complete - Review, Confirmation, Submission:**
-- ReviewStep: All form data in 5 sections with Edit buttons
-- ConfirmationStep: CheckCircle2 icon, thank you message, numbered next steps
-- Convex submit mutation: Persists all fields with status="new"
-- StepContent: Updated to render actual step components
-- Full submission flow: Review -> Submit -> Confirmation with localStorage cleared
-
-**Patterns Established:**
+**Patterns established:**
 - Step header: h2 + description in centered div
 - Field pattern: Field wrapper + data-invalid + FieldLabel + Input + FieldDescription + FieldError
 - Conditional field: useWatch + boolean flag + conditional render
 - Controller pattern for Select dropdowns
-- Tips/guidance section pattern for complex questions
 - ReviewSection pattern: Card with title and Edit button
 - useMutation pattern: isSubmitting + submitError states
 
-**Ready for remaining plans:**
-- 03-05: StepContent integration (DONE in 03-04 as deviation)
-
 ## Session Continuity
 
-Last session: 2026-01-27T23:04:49Z
-Stopped at: Completed 03-04-PLAN.md
+Last session: 2026-01-27T23:12:00Z
+Stopped at: Completed 03-05-PLAN.md
 Resume file: None
 
 ---
-*Next step: Check if 03-05 is still needed or Phase 3 complete*
+*Next step: Phase 4 - Admin Dashboard (review and manage applications)*
