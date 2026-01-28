@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-27)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** Phase 6 - Admin Dashboard
+**Current focus:** Phase 6 - Admin Dashboard (COMPLETE)
 
 ## Current Position
 
 Phase: 6 of 7 (Admin Dashboard)
-Plan: 2 of 3 complete
-Status: In progress
-Last activity: 2026-01-28 - Completed 06-02-PLAN.md
+Plan: 3 of 3 complete
+Status: Phase complete
+Last activity: 2026-01-28 - Completed 06-03-PLAN.md
 
-Progress: [#########.] 94%
+Progress: [##########] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
-- Average duration: 2min 18s
-- Total execution time: ~39min
+- Total plans completed: 17
+- Average duration: 2min 16s
+- Total execution time: ~41min
 
 **By Phase:**
 
@@ -32,10 +32,10 @@ Progress: [#########.] 94%
 | 03-form-ui-static | 5 | 13min 8s | 2min 38s |
 | 04-form-polish-and-animations | 3 | ~4min | ~1min 20s |
 | 05-admin-authentication | 2 | 3min 21s | 1min 41s |
-| 06-admin-dashboard | 2 | 2min 58s | 1min 29s |
+| 06-admin-dashboard | 3 | 5min 0s | 1min 40s |
 
 **Recent Trend:**
-- Last 5 plans: 05-01 (1m 33s), 05-02 (1m 48s), 06-01 (1m 7s), 06-02 (1m 51s)
+- Last 5 plans: 05-02 (1m 48s), 06-01 (1m 7s), 06-02 (1m 51s), 06-03 (2m 2s)
 - Trend: Fast execution continues
 
 *Updated after each plan completion*
@@ -87,6 +87,8 @@ Recent decisions affecting current work:
 | Convex query with index ordering | by_submitted index with desc order for newest first | 06-01 |
 | Relative imports for Convex types | @/* maps to ./src/*, convex is at project root | 06-02 |
 | globalFilterFn targets name/initiative only | Custom filter searches fullName and initiativeName columns | 06-02 |
+| StatusDropdown stopPropagation | Prevents row click when interacting with status dropdown | 06-03 |
+| AdminDashboard as client component | Allows server page to verify session while client handles state | 06-03 |
 
 ### Pending Todos
 
@@ -94,36 +96,27 @@ None.
 
 ### Blockers/Concerns
 
-None - Phase 6 in progress.
+None - Phase 6 complete.
 
-## Phase 6 Progress
+## Phase 6 Complete
 
-**Plan 2 of 3 complete:**
+**All 3 plans complete:**
 - 06-01: Foundation Dependencies (TanStack Table, shadcn components, Convex functions)
 - 06-02: ApplicationsTable Component (table with real-time data, filters, skeleton)
+- 06-03: Detail Sheet & Status Actions (ApplicationSheet, StatusDropdown, AdminDashboard)
 
 **What's ready:**
-- `@tanstack/react-table` - Headless table state management
-- `src/components/ui/table.tsx` - Table UI primitives
-- `src/components/ui/sheet.tsx` - Detail panel component
-- `src/components/ui/badge.tsx` - Status indicators
-- `src/components/ui/dropdown-menu.tsx` - Row action menus
-- `src/components/ui/skeleton.tsx` - Loading states
-- `convex/applications.ts` - list query and updateStatus mutation
-- `src/components/admin/ApplicationsTable.tsx` - Main table with real-time subscription
-- `src/components/admin/columns.tsx` - TanStack Table column definitions
-- `src/components/admin/StatusBadge.tsx` - Color-coded status badge
-- `src/components/admin/FloorFilter.tsx` - Floor dropdown filter
-- `src/components/admin/SearchInput.tsx` - Name/initiative search
-
-**Remaining plans:**
-- 06-03: Detail Sheet & Status Actions
+- Complete admin dashboard at /admin
+- Applications table with floor filter and name/initiative search
+- Detail sheet showing all application fields organized by section
+- Status management via dropdown with real-time Convex updates
+- Session-protected with middleware and page-level verification
 
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: Completed 06-02-PLAN.md
+Stopped at: Completed 06-03-PLAN.md (Phase 6 complete)
 Resume file: None
 
 ---
-*Next step: 06-03-PLAN.md - Detail Sheet & Status Actions*
+*Next step: Phase 7 - Review & Polish*
