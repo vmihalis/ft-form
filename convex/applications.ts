@@ -85,3 +85,69 @@ export const updateStatus = mutation({
     await ctx.db.patch(args.id, { status: args.status });
   },
 });
+
+/**
+ * Update a single field on an application and record edit history
+ *
+ * Atomically:
+ * 1. Gets current value
+ * 2. Patches the application
+ * 3. Inserts history record
+ *
+ * Returns { changed: false } if value unchanged (no history created)
+ */
+export const updateField = mutation({
+  args: {
+    id: v.id("applications"),
+    field: v.string(),
+    newValue: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const application = await ctx.db.get(args.id);
+    if (!application) {
+      throw new Error("Application not found");
+    }
+
+    // Get old value, handling undefined for optional fields
+    const oldValue = String(
+      (application as Record<string, unknown>)[args.field] ?? ""
+    );
+
+    // Skip if no actual change
+    if (oldValue === args.newValue) {
+      return { changed: false };
+    }
+
+    // Atomic: update field and insert history
+    await ctx.db.patch(args.id, { [args.field]: args.newValue });
+    await ctx.db.insert("editHistory", {
+      applicationId: args.id,
+      field: args.field,
+      oldValue,
+      newValue: args.newValue,
+      editedAt: Date.now(),
+    });
+
+    return { changed: true };
+  },
+});
+
+/**
+ * Get edit history for an application
+ *
+ * Returns all edit records ordered by most recent first
+ */
+export const getEditHistory = query({
+  args: {
+    applicationId: v.id("applications"),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("editHistory")
+      .withIndex("by_application", (q) =>
+        q.eq("applicationId", args.applicationId)
+      )
+      .order("desc")
+      .collect();
+  },
+});
