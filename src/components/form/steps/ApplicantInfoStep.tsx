@@ -30,7 +30,7 @@ export function ApplicantInfoStep() {
       <div className="text-center mb-8">
         <h2 className="text-xl sm:text-2xl font-semibold">Tell us about yourself</h2>
         <p className="text-muted-foreground mt-2">
-          We want to know who&apos;s leading this initiative
+          We want to know who&apos;s behind this proposal
         </p>
       </div>
 
@@ -104,7 +104,7 @@ export function ApplicantInfoStep() {
           className="resize-none"
           onFocus={onFocus}
         />
-        <FieldDescription>Minimum 50 characters - tell us what makes you uniquely qualified</FieldDescription>
+        <FieldDescription>Tell us what makes you uniquely qualified</FieldDescription>
         <FieldError>{errors.bio?.message}</FieldError>
       </Field>
     </div>

@@ -67,7 +67,6 @@ export function MultiStepForm() {
       await submitApplication({
         ...data,
         linkedIn: data.linkedIn || undefined,
-        floorOther: data.floorOther || undefined,
         additionalNotes: data.additionalNotes || undefined,
       });
 

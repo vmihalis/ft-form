@@ -56,10 +56,7 @@ export function ApplicationSheet({
     );
   }
 
-  const floorDisplay =
-    application.floor === "other" && application.floorOther
-      ? `Other: ${application.floorOther}`
-      : getFloorLabel(application.floor);
+  const floorDisplay = getFloorLabel(application.floor);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormContext, useWatch, Controller } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 import { Field, FieldLabel, FieldDescription, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -19,8 +19,7 @@ import type { ApplicationFormData } from "@/types/form";
  * ProposalStep - FORM-03
  *
  * Collects proposal information:
- * - floor (required, dropdown with "Other" option) - UX-07
- * - floorOther (conditional, shown when floor="other") - UX-08
+ * - floor (required, dropdown)
  * - initiativeName (required)
  * - tagline (required, max 100 chars)
  * - values (required, min 20 chars)
@@ -35,14 +34,6 @@ export function ProposalStep() {
   } = useFormContext<ApplicationFormData>();
   const { onFocus } = useMobileKeyboard();
 
-  // useWatch isolates re-renders to this component only
-  const selectedFloor = useWatch({
-    control,
-    name: "floor",
-    defaultValue: "",
-  });
-
-  const showOtherFloorInput = selectedFloor === "other";
 
   return (
     <div className="space-y-6">
@@ -50,7 +41,7 @@ export function ProposalStep() {
       <div className="text-center mb-8">
         <h2 className="text-xl sm:text-2xl font-semibold">Your Proposal</h2>
         <p className="text-muted-foreground mt-2">
-          Tell us about your vision for leading a floor
+          Tell us about your initiative
         </p>
       </div>
 
@@ -75,25 +66,9 @@ export function ProposalStep() {
             </Select>
           )}
         />
-        <FieldDescription>Choose an existing floor or propose a new one</FieldDescription>
+        <FieldDescription>Select the floor for your initiative</FieldDescription>
         <FieldError>{errors.floor?.message}</FieldError>
       </Field>
-
-      {/* Conditional "Other" floor input - UX-08 */}
-      {showOtherFloorInput && (
-        <Field data-invalid={!!errors.floorOther}>
-          <FieldLabel htmlFor="floorOther">Describe your proposed floor</FieldLabel>
-          <Input
-            id="floorOther"
-            {...register("floorOther")}
-            aria-invalid={!!errors.floorOther}
-            placeholder="e.g., Quantum Computing Lab, Climate Tech Hub"
-            onFocus={onFocus}
-          />
-          <FieldDescription>What theme or focus would your floor have?</FieldDescription>
-          <FieldError>{errors.floorOther?.message}</FieldError>
-        </Field>
-      )}
 
       {/* Initiative Name */}
       <Field data-invalid={!!errors.initiativeName}>
@@ -136,7 +111,7 @@ export function ProposalStep() {
           className="resize-none"
           onFocus={onFocus}
         />
-        <FieldDescription>Minimum 20 characters</FieldDescription>
+        <FieldDescription>What principles will guide your community?</FieldDescription>
         <FieldError>{errors.values?.message}</FieldError>
       </Field>
 
@@ -152,7 +127,7 @@ export function ProposalStep() {
           className="resize-none"
           onFocus={onFocus}
         />
-        <FieldDescription>Minimum 20 characters - describe your ideal community members</FieldDescription>
+        <FieldDescription>Describe your ideal community members</FieldDescription>
         <FieldError>{errors.targetCommunity?.message}</FieldError>
       </Field>
 

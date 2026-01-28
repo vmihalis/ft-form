@@ -24,11 +24,11 @@ export function WelcomeStep() {
       </div>
 
       <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight font-display">
-        Become a Floor Lead
+        Submit Your Floor Proposal
       </h1>
 
       <p className="mt-8 text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
-        Shape the future of Frontier Tower by leading a themed floor.
+        Shape the future of Frontier Tower by proposing a themed floor initiative.
         Tell us about your vision for building community at the intersection
         of frontier technology and human flourishing.
       </p>

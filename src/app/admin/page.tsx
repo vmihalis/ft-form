@@ -11,7 +11,7 @@ import { AdminDashboard } from "@/components/admin/AdminDashboard";
  */
 export const metadata: Metadata = {
   title: "Admin Dashboard | Frontier Tower",
-  description: "Manage floor lead applications for Frontier Tower",
+  description: "Manage floor proposals for Frontier Tower",
 };
 
 /**

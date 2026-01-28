@@ -32,8 +32,8 @@ export function ConfirmationStep() {
       <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display">Application Submitted!</h2>
 
       <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-lg mx-auto leading-relaxed">
-        Thank you for your interest in leading a floor at Frontier Tower.
-        We&apos;ve received your application and will review it carefully.
+        Thank you for submitting your proposal to Frontier Tower.
+        We&apos;ve received it and will review it carefully.
       </p>
 
       {/* Next steps */}

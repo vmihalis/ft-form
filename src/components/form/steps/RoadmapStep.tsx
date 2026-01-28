@@ -44,7 +44,7 @@ export function RoadmapStep() {
           onFocus={onFocus}
         />
         <FieldDescription>
-          Minimum 50 characters - describe your initial launch plan
+          Describe your initial launch plan
         </FieldDescription>
         <FieldError>{errors.phase1Mvp?.message}</FieldError>
       </Field>
@@ -62,7 +62,7 @@ export function RoadmapStep() {
           onFocus={onFocus}
         />
         <FieldDescription>
-          Minimum 50 characters - describe your growth strategy
+          Describe your growth strategy
         </FieldDescription>
         <FieldError>{errors.phase2Expansion?.message}</FieldError>
       </Field>
@@ -80,7 +80,7 @@ export function RoadmapStep() {
           onFocus={onFocus}
         />
         <FieldDescription>
-          Minimum 50 characters - describe your long-term vision
+          Describe your long-term vision
         </FieldDescription>
         <FieldError>{errors.phase3LongTerm?.message}</FieldError>
       </Field>

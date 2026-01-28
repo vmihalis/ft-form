@@ -47,7 +47,7 @@ export function ImpactStep() {
           onFocus={onFocus}
         />
         <FieldDescription>
-          Minimum 50 characters - be specific about the value you&apos;ll create
+          Be specific about the value you&apos;ll create
         </FieldDescription>
         <FieldError>{errors.benefitToFT?.message}</FieldError>
       </Field>

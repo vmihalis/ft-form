@@ -68,10 +68,8 @@ export function ReviewStep() {
   const { getValues } = useFormContext<ApplicationFormData>();
   const data = getValues();
 
-  // Format floor display - use label for known floors, or custom description for "other"
-  const floorDisplay = data.floor === "other"
-    ? `Other: ${data.floorOther || "(no description)"}`
-    : getFloorLabel(data.floor);
+  // Format floor display
+  const floorDisplay = getFloorLabel(data.floor);
 
   return (
     <div className="space-y-6">

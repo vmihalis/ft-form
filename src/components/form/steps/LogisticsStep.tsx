@@ -40,7 +40,7 @@ export function LogisticsStep() {
           id="existingCommunity"
           {...register("existingCommunity")}
           aria-invalid={!!errors.existingCommunity}
-          placeholder="Do you have an existing community? Describe your current network, any groups you lead, or communities you're part of."
+          placeholder="Do you have an existing community? Describe your current network or communities you're part of."
           rows={4}
           className="resize-none"
           onFocus={onFocus}
@@ -81,7 +81,7 @@ export function LogisticsStep() {
           onFocus={onFocus}
         />
         <FieldDescription>
-          When would you like to launch your floor? (approximate is fine)
+          When would you like to launch your initiative? (approximate is fine)
         </FieldDescription>
         <FieldError>{errors.startDate?.message}</FieldError>
       </Field>

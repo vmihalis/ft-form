@@ -12,7 +12,6 @@ export default defineSchema({
 
     // Proposal
     floor: v.string(),
-    floorOther: v.optional(v.string()),
     initiativeName: v.string(),
     tagline: v.string(),
     values: v.string(),

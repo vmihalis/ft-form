@@ -20,8 +20,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Floor Lead Application | Frontier Tower",
-  description: "Apply to lead a themed floor at Frontier Tower",
+  title: "Floor Proposal | Frontier Tower",
+  description: "Submit a proposal for a themed floor at Frontier Tower",
 };
 
 export const viewport: Viewport = {
