@@ -1,5 +1,32 @@
 # Project Milestones: Frontier Tower Floor Lead Application System
 
+## v1.1 Admin Inline Editing (Shipped: 2026-01-29)
+
+**Delivered:** Inline editing for all 19 application fields with full edit history tracking in the admin detail panel.
+
+**Phases completed:** 8-10 (4 plans total)
+
+**Key accomplishments:**
+
+- Inline editing for all 19 application fields (click-to-edit in detail panel)
+- Edit history tracking with atomic field updates and history records
+- Collapsible edit history timeline with human-readable field labels
+- Field-specific validation (email format, required fields)
+- Visual editing UX (pencil icon on hover, edit state indicators)
+
+**Stats:**
+
+- 25 files modified
+- 4,818 lines of TypeScript (total codebase)
+- 3 phases, 4 plans, ~8 tasks
+- 1 day from v1.0 to v1.1
+
+**Git range:** `feat(08-01)` → `feat(10-01)`
+
+**What's next:** v1.2+ enhancements (keyboard navigation, CSV export, admin notes, email notifications)
+
+---
+
 ## v1.0 MVP (Shipped: 2026-01-28)
 
 **Delivered:** Complete floor lead application system with Typeform-style public form and admin dashboard for Frontier Tower.
