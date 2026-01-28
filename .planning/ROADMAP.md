@@ -113,10 +113,12 @@ Plans:
   4. Filter dropdown limits table to selected floor
   5. Search box filters by applicant name or initiative name
   6. New submissions appear in real-time without page refresh
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 06-01: TBD
+- [ ] 06-01-PLAN.md - Install TanStack Table and shadcn components, add Convex list/updateStatus
+- [ ] 06-02-PLAN.md - Create ApplicationsTable with real-time data, filters, and search
+- [ ] 06-03-PLAN.md - Create ApplicationSheet, StatusDropdown, and integrate into admin page
 
 ### Phase 7: Mobile Optimization & Deployment
 **Goal**: Ensure mobile experience matches desktop quality and deploy to production
@@ -146,9 +148,9 @@ Note: Phase 5-6 (Admin) can execute in parallel with Phase 3-4 (Form) after Phas
 | 3. Form UI (Static) | 5/5 | Complete | 2026-01-28 |
 | 4. Form Polish & Animations | 3/3 | Complete | 2026-01-28 |
 | 5. Admin Authentication | 2/2 | Complete | 2026-01-28 |
-| 6. Admin Dashboard | 0/TBD | Not started | - |
+| 6. Admin Dashboard | 0/3 | Not started | - |
 | 7. Mobile Optimization & Deployment | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-27*
-*Last updated: 2026-01-28 (Phase 5 complete)*
+*Last updated: 2026-01-28 (Phase 6 planned)*
