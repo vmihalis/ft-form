@@ -74,7 +74,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EDIT-04 | Phase 9 | Pending |
 | EDIT-05 | Phase 9 | Pending |
 | EDIT-06 | Phase 9 | Pending |
-| HIST-01 | Phase 8 | Pending |
+| HIST-01 | Phase 8 | Complete |
 | HIST-02 | Phase 10 | Pending |
 | HIST-03 | Phase 10 | Pending |
 | HIST-04 | Phase 10 | Pending |
