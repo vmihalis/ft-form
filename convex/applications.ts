@@ -1,4 +1,4 @@
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 /**
@@ -47,5 +47,42 @@ export const submit = mutation({
     });
 
     return applicationId;
+  },
+});
+
+/**
+ * List all applications for admin dashboard
+ *
+ * Returns all applications ordered by submission date (newest first)
+ * Uses the by_submitted index for efficient ordering
+ */
+export const list = query({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.db
+      .query("applications")
+      .withIndex("by_submitted")
+      .order("desc")
+      .collect();
+  },
+});
+
+/**
+ * Update application status
+ *
+ * Used by admin dashboard to change application status
+ */
+export const updateStatus = mutation({
+  args: {
+    id: v.id("applications"),
+    status: v.union(
+      v.literal("new"),
+      v.literal("under_review"),
+      v.literal("accepted"),
+      v.literal("rejected")
+    ),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.id, { status: args.status });
   },
 });
