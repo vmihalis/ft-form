@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-27)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** Phase 4 - Form Polish & Animations COMPLETE
+**Current focus:** Phase 5 - Admin Authentication IN PROGRESS
 
 ## Current Position
 
-Phase: 4 of 7 (Form Polish & Animations) - COMPLETE
-Plan: 3 of 3 complete
-Status: Phase complete
-Last activity: 2026-01-28 - Completed 04-03-PLAN.md
+Phase: 5 of 7 (Admin Authentication)
+Plan: 1 of 3 complete
+Status: In progress
+Last activity: 2026-01-28 - Completed 05-01-PLAN.md
 
-Progress: [########..] 80%
+Progress: [########..] 81%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
-- Average duration: 2min 40s
-- Total execution time: ~32min
+- Total plans completed: 13
+- Average duration: 2min 30s
+- Total execution time: ~34min
 
 **By Phase:**
 
@@ -31,10 +31,11 @@ Progress: [########..] 80%
 | 02-form-infrastructure | 2 | 5min 25s | 2min 43s |
 | 03-form-ui-static | 5 | 13min 8s | 2min 38s |
 | 04-form-polish-and-animations | 3 | ~4min | ~1min 20s |
+| 05-admin-authentication | 1 | 1min 33s | 1min 33s |
 
 **Recent Trend:**
-- Last 5 plans: 03-05 (4m), 04-01 (52s), 04-02 (2m), 04-03 (5m incl verification)
-- Trend: Excellent velocity, animation plans completed quickly
+- Last 5 plans: 04-01 (52s), 04-02 (2m), 04-03 (5m), 05-01 (1m 33s)
+- Trend: Fast execution continues
 
 *Updated after each plan completion*
 
@@ -75,6 +76,9 @@ Recent decisions affecting current work:
 | 50px slide distance | Subtle movement for premium Typeform-style feel | 04-02 |
 | 300ms animation duration | Matches Typeform-style smooth timing | 04-02 |
 | Inline animation values over variants | More reliable with AnimatePresence mode="wait" | 04-03 |
+| jose for JWT sessions | Official Next.js docs recommend, Edge-compatible, zero deps | 05-01 |
+| server-only import guard | Prevents SESSION_SECRET exposure to client bundle | 05-01 |
+| 7-day session expiration | Balance security with admin convenience | 05-01 |
 
 ### Pending Todos
 
@@ -82,31 +86,31 @@ None.
 
 ### Blockers/Concerns
 
-None - Phase 4 complete, form polish and animations working.
+None - Plan 05-01 complete, session utilities ready.
 
-## Phase 4 Complete Summary
+## Phase 5 Progress
 
-**All 3 plans completed:**
-- 04-01: Foundation Setup (motion package, brand purple CSS)
-- 04-02: Step Transitions (AnimatePresence, direction-aware animations)
-- 04-03: Human Verification (confirmed premium feel, fixed animation bug)
+**Plan 1 of 3 completed:**
+- 05-01: Session Utilities (jose JWT, HttpOnly cookies, encrypt/decrypt)
 
-**What's working:**
-- Brand purple (#7b42e7) on all primary UI elements
-- Smooth slide + fade transitions between all 8 form steps
-- Direction-aware animations (forward slides left, back slides right)
-- Automatic reduced motion support via MotionConfig
-- Typeform-style minimal, modern, premium aesthetic
+**What's ready:**
+- `src/lib/auth/session.ts` with encrypt, decrypt, createSession, deleteSession
+- jose library installed for Edge-compatible JWT handling
+- server-only import protection
 
-**Bug fixed during verification:**
-- Initial variants-based animation caused content to disappear
-- Fixed by switching to inline animation values
+**Next plans:**
+- 05-02: Middleware route protection
+- 05-03: Login page and actions
+
+**User setup required:**
+- ADMIN_PASSWORD env var (any password string)
+- SESSION_SECRET env var (generate with: `openssl rand -base64 32`)
 
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: Completed Phase 4
+Stopped at: Completed 05-01-PLAN.md
 Resume file: None
 
 ---
-*Next step: Phase 5 - Admin Authentication (password-protected login)*
+*Next step: 05-02-PLAN.md - Middleware route protection*
