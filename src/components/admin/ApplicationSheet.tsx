@@ -11,6 +11,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { StatusDropdown } from "./StatusDropdown";
 import { EditableField } from "./EditableField";
+import { EditHistory } from "./EditHistory";
 import { getFloorLabel, FRONTIER_TOWER_FLOORS } from "@/lib/constants/floors";
 import { getEstimatedSizeLabel, ESTIMATED_SIZES } from "@/lib/constants/estimatedSizes";
 
@@ -245,6 +246,9 @@ export function ApplicationSheet({
               />
             </div>
           </Section>
+
+          {/* Edit History */}
+          <EditHistory applicationId={application._id} />
 
           <Separator />
 
