@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-27)
 ## Current Position
 
 Phase: 6 of 7 (Admin Dashboard)
-Plan: 1 of 3 complete
+Plan: 2 of 3 complete
 Status: In progress
-Last activity: 2026-01-28 - Completed 06-01-PLAN.md
+Last activity: 2026-01-28 - Completed 06-02-PLAN.md
 
 Progress: [#########.] 94%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 15
-- Average duration: 2min 21s
-- Total execution time: ~37min
+- Total plans completed: 16
+- Average duration: 2min 18s
+- Total execution time: ~39min
 
 **By Phase:**
 
@@ -32,10 +32,10 @@ Progress: [#########.] 94%
 | 03-form-ui-static | 5 | 13min 8s | 2min 38s |
 | 04-form-polish-and-animations | 3 | ~4min | ~1min 20s |
 | 05-admin-authentication | 2 | 3min 21s | 1min 41s |
-| 06-admin-dashboard | 1 | 1min 7s | 1min 7s |
+| 06-admin-dashboard | 2 | 2min 58s | 1min 29s |
 
 **Recent Trend:**
-- Last 5 plans: 04-03 (5m), 05-01 (1m 33s), 05-02 (1m 48s), 06-01 (1m 7s)
+- Last 5 plans: 05-01 (1m 33s), 05-02 (1m 48s), 06-01 (1m 7s), 06-02 (1m 51s)
 - Trend: Fast execution continues
 
 *Updated after each plan completion*
@@ -85,6 +85,8 @@ Recent decisions affecting current work:
 | useActionState for login form | Modern React pattern with pending state | 05-02 |
 | TanStack Table 8.x for admin table | Headless state management, pairs with shadcn | 06-01 |
 | Convex query with index ordering | by_submitted index with desc order for newest first | 06-01 |
+| Relative imports for Convex types | @/* maps to ./src/*, convex is at project root | 06-02 |
+| globalFilterFn targets name/initiative only | Custom filter searches fullName and initiativeName columns | 06-02 |
 
 ### Pending Todos
 
@@ -96,8 +98,9 @@ None - Phase 6 in progress.
 
 ## Phase 6 Progress
 
-**Plan 1 of 3 complete:**
+**Plan 2 of 3 complete:**
 - 06-01: Foundation Dependencies (TanStack Table, shadcn components, Convex functions)
+- 06-02: ApplicationsTable Component (table with real-time data, filters, skeleton)
 
 **What's ready:**
 - `@tanstack/react-table` - Headless table state management
@@ -107,16 +110,20 @@ None - Phase 6 in progress.
 - `src/components/ui/dropdown-menu.tsx` - Row action menus
 - `src/components/ui/skeleton.tsx` - Loading states
 - `convex/applications.ts` - list query and updateStatus mutation
+- `src/components/admin/ApplicationsTable.tsx` - Main table with real-time subscription
+- `src/components/admin/columns.tsx` - TanStack Table column definitions
+- `src/components/admin/StatusBadge.tsx` - Color-coded status badge
+- `src/components/admin/FloorFilter.tsx` - Floor dropdown filter
+- `src/components/admin/SearchInput.tsx` - Name/initiative search
 
 **Remaining plans:**
-- 06-02: ApplicationsTable Component
 - 06-03: Detail Sheet & Status Actions
 
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: Completed 06-01-PLAN.md
+Stopped at: Completed 06-02-PLAN.md
 Resume file: None
 
 ---
-*Next step: 06-02-PLAN.md - ApplicationsTable Component*
+*Next step: 06-03-PLAN.md - Detail Sheet & Status Actions*
