@@ -94,7 +94,7 @@ Plans:
 **Requirements**: EDIT-01, EDIT-02, EDIT-03, EDIT-04, EDIT-05, EDIT-06
 **Success Criteria** (what must be TRUE):
   1. Admin can click any field in detail panel to enter edit mode
-  2. All 18 form fields (name, email, phone, floor, proposal, roadmap, impact, logistics, etc.) are editable inline
+  2. All 19 form fields (name, email, floor, proposal, roadmap, impact, logistics, etc.) are editable inline
   3. Pressing Enter or clicking outside saves the change; pressing Escape cancels
   4. Field shows visual edit state (border/background change) when being edited
   5. Pencil icon appears on field hover to indicate editability
@@ -102,8 +102,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 09-01-PLAN.md — Create EditableField component with all field type variants
-- [ ] 09-02-PLAN.md — Integrate EditableField into ApplicationSheet for all 18 fields
+- [x] 09-01-PLAN.md — Create EditableField component with all field type variants
+- [x] 09-02-PLAN.md — Integrate EditableField into ApplicationSheet for all 19 fields
 
 #### Phase 10: Edit History Display
 **Goal**: Collapsible timeline showing edit history in detail panel
@@ -134,7 +134,7 @@ Phases execute in numeric order: 8 → 9 → 10
 | 6. Branding & Design | v1.0 | 2/2 | Complete | 2026-01-28 |
 | 7. Mobile & Deployment | v1.0 | 2/2 | Complete | 2026-01-28 |
 | 8. Edit Infrastructure | v1.1 | 1/1 | Complete | 2026-01-28 |
-| 9. Inline Editing UI | v1.1 | 0/2 | Planned | - |
+| 9. Inline Editing UI | v1.1 | 2/2 | Complete | 2026-01-28 |
 | 10. Edit History Display | v1.1 | 0/1 | Not started | - |
 
 ---

@@ -9,12 +9,12 @@ Requirements for admin inline editing milestone. Each maps to roadmap phases.
 
 ### Inline Editing
 
-- [ ] **EDIT-01**: Admin can click any field in detail view to edit inline
-- [ ] **EDIT-02**: All form fields are editable (name, email, floor, proposal, roadmap, impact, logistics — 18 fields total)
-- [ ] **EDIT-03**: Save on blur or Enter key, cancel on Escape key
-- [ ] **EDIT-04**: Visual edit state shows field is being edited (border, background change)
-- [ ] **EDIT-05**: Pencil icon appears on hover to indicate field is editable
-- [ ] **EDIT-06**: Validation before save (email format, required fields)
+- [x] **EDIT-01**: Admin can click any field in detail view to edit inline
+- [x] **EDIT-02**: All form fields are editable (name, email, floor, proposal, roadmap, impact, logistics — 19 fields total)
+- [x] **EDIT-03**: Save on blur or Enter key, cancel on Escape key
+- [x] **EDIT-04**: Visual edit state shows field is being edited (border, background change)
+- [x] **EDIT-05**: Pencil icon appears on hover to indicate field is editable
+- [x] **EDIT-06**: Validation before save (email format, required fields)
 
 ### Edit History
 
@@ -68,12 +68,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| EDIT-01 | Phase 9 | Pending |
-| EDIT-02 | Phase 9 | Pending |
-| EDIT-03 | Phase 9 | Pending |
-| EDIT-04 | Phase 9 | Pending |
-| EDIT-05 | Phase 9 | Pending |
-| EDIT-06 | Phase 9 | Pending |
+| EDIT-01 | Phase 9 | Complete |
+| EDIT-02 | Phase 9 | Complete |
+| EDIT-03 | Phase 9 | Complete |
+| EDIT-04 | Phase 9 | Complete |
+| EDIT-05 | Phase 9 | Complete |
+| EDIT-06 | Phase 9 | Complete |
 | HIST-01 | Phase 8 | Complete |
 | HIST-02 | Phase 10 | Pending |
 | HIST-03 | Phase 10 | Pending |
