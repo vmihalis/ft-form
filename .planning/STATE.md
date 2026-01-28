@@ -5,20 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-01-28)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** Planning next milestone
+**Current focus:** v1.1 Admin Inline Editing
 
 ## Current Position
 
-Phase: Ready for next milestone
-Plan: Not started
-Status: v1.0 shipped, awaiting v2 planning
-Last activity: 2026-01-28 — v1.0 milestone complete
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-28 — Milestone v1.1 started
 
-Progress: v1.0 ✅ SHIPPED
+Progress: v1.0 ✅ SHIPPED | v1.1 ○ Starting
 
 ## Milestones
 
 - **v1.0 MVP** — Shipped 2026-01-28 (7 phases, 19 plans)
+- **v1.1 Admin Inline Editing** — In progress
 
 ## Production URLs
 
@@ -35,7 +36,7 @@ All v1.0 decisions documented in PROJECT.md Key Decisions table.
 
 ### Pending Todos
 
-None - milestone complete.
+None.
 
 ### Blockers/Concerns
 
@@ -44,8 +45,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: v1.0 milestone completed
+Stopped at: Milestone v1.1 started, defining requirements
 Resume file: None
 
 ---
-*v1.0 shipped - next milestone starts with /gsd:new-milestone*
+*Milestone v1.1 in progress*

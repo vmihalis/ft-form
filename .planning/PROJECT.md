@@ -10,6 +10,15 @@ A web application for Frontier Tower to collect and manage proposals from people
 
 If everything else fails, the form must collect complete proposals and store them reliably for admin review.
 
+## Current Milestone: v1.1 Admin Inline Editing
+
+**Goal:** Enable admins to edit any field of a submitted application directly from the detail view, with full edit history tracking.
+
+**Target features:**
+- Inline editing for all form fields (click to edit in detail panel)
+- Edit history tracking (what changed, when, who edited)
+- Clean inline editing UX (save on blur/Enter, cancel on Escape)
+
 ## Requirements
 
 ### Validated
@@ -24,15 +33,23 @@ If everything else fails, the form must collect complete proposals and store the
 
 ### Active
 
-- [ ] **UX-V2-01**: Keyboard navigation (Enter to advance, arrow keys)
-- [ ] **UX-V2-02**: Estimated completion time shown at start
-- [ ] **UX-V2-03**: Microinteractions and button press feedback
-- [ ] **UX-V2-04**: Success animation on form submission
-- [ ] **ADMIN-V2-01**: CSV export of all submissions
-- [ ] **ADMIN-V2-02**: Dashboard stats (total applications, pending count)
-- [ ] **ADMIN-V2-03**: Admin notes on submissions
-- [ ] **ADMIN-V2-04**: Individual admin accounts with audit trail
-- [ ] **ADMIN-V2-05**: Email notifications on new submissions
+- [ ] **EDIT-01**: Admin can click any field in detail view to edit inline
+- [ ] **EDIT-02**: All form fields are editable (name, email, floor, proposal, roadmap, impact, logistics)
+- [ ] **EDIT-03**: Edit history tracked (field, old value, new value, timestamp)
+- [ ] **EDIT-04**: Inline editing UX (save on blur/Enter, cancel on Escape)
+- [ ] **EDIT-05**: Edit history viewable in detail panel
+
+### Future (v1.2+)
+
+- **UX-V2-01**: Keyboard navigation (Enter to advance, arrow keys)
+- **UX-V2-02**: Estimated completion time shown at start
+- **UX-V2-03**: Microinteractions and button press feedback
+- **UX-V2-04**: Success animation on form submission
+- **ADMIN-V2-01**: CSV export of all submissions
+- **ADMIN-V2-02**: Dashboard stats (total applications, pending count)
+- **ADMIN-V2-03**: Admin notes on submissions
+- **ADMIN-V2-04**: Individual admin accounts with audit trail
+- **ADMIN-V2-05**: Email notifications on new submissions
 
 ### Out of Scope
 
@@ -100,4 +117,4 @@ If everything else fails, the form must collect complete proposals and store the
 | localStorage for drafts | Resume capability without user accounts | ✓ Good |
 
 ---
-*Last updated: 2026-01-28 after v1.0 milestone*
+*Last updated: 2026-01-28 after v1.1 milestone started*
