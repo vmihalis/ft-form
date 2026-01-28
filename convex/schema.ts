@@ -45,4 +45,14 @@ export default defineSchema({
     .index("by_floor", ["floor"])
     .index("by_email", ["email"])
     .index("by_submitted", ["submittedAt"]),
+
+  editHistory: defineTable({
+    applicationId: v.id("applications"),
+    field: v.string(), // Technical field name: "fullName", "email", etc.
+    oldValue: v.string(), // Previous value as string
+    newValue: v.string(), // New value as string
+    editedAt: v.number(), // Unix timestamp (Date.now())
+  })
+    .index("by_application", ["applicationId", "editedAt"])
+    .index("by_application_field", ["applicationId", "field"]),
 });
