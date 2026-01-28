@@ -1,815 +1,510 @@
-# Pitfalls Research: Floor Lead Application System
+# Pitfalls Research: Inline Editing + Edit History (v1.1)
 
-**Domain:** Typeform-style multi-step form with admin dashboard
-**Technology Stack:** Next.js App Router + Tailwind + Convex + Vercel
-**Researched:** 2026-01-27
-**Overall Confidence:** HIGH (Context7 + official docs verified)
-
----
-
-## Multi-Step Form Pitfalls
-
-### Critical: End-of-Form Validation Only
-
-**What goes wrong:** Waiting until the final step to validate all fields. Users complete 5+ steps only to discover errors from step 1.
-
-**Warning signs:**
-- Single validation function that runs on submit
-- No per-step validation logic
-- Error messages reference fields from earlier steps
-
-**Prevention:**
-- Validate each step before allowing progression
-- Show errors immediately on the step where they occurred
-- Use schema-per-step approach (e.g., Zod schemas for each step)
-
-**Phase:** Core form implementation (Phase 1)
+**Domain:** Adding inline editing and edit history tracking to existing Convex admin dashboard
+**Researched:** 2026-01-28
+**Project:** FT Floor Lead Application System v1.1
+**Confidence:** HIGH (Convex-specific verified via official docs and table-history component)
 
 ---
 
-### Critical: No Back Navigation or Lost Progress
+## Critical Pitfalls
 
-**What goes wrong:** Users cannot return to previous steps, or returning wipes their data.
+High-impact mistakes that cause rewrites, data loss, or major issues.
+
+### Pitfall 1: Race Conditions with Rapid Inline Edits
+
+**What goes wrong:** User rapidly edits multiple fields or clicks save multiple times. Optimistic updates show incorrect intermediate states, then "snap back" to wrong values when mutations complete out of order.
+
+**Why it happens:** Each inline edit fires a mutation. If user edits field A, then B, then A again before first mutation completes, the final state can be wrong. React's `useOptimistic` doesn't solve this automatically.
+
+**Consequences:**
+- UI shows one value, database has another
+- User loses trust in the system
+- Potential data corruption if history is logged incorrectly
 
 **Warning signs:**
-- Single form state that resets on navigation
-- No persistent storage of partial submissions
-- Back button refreshes entire form
+- UI "flickers" between values during rapid edits
+- History shows duplicate or out-of-order entries
+- Users report "my changes didn't save"
 
 **Prevention:**
-- Store form state per-step (React state or localStorage)
-- Implement explicit back/forward navigation
-- Auto-save progress after each step completion
+- Debounce save operations (300-500ms delay after last keystroke)
+- Use local state during editing, only commit on blur/Enter
+- Consider disabling field while mutation is in-flight
+- For Convex: Rely on automatic rollback - if small mistakes happen, UI will eventually show correct values
 
-**Phase:** Form state management (Phase 1)
+**Phase to address:** Phase 1 (Inline Edit Infrastructure)
+
+**Sources:**
+- [TkDodo: Concurrent Optimistic Updates in React Query](https://tkdodo.eu/blog/concurrent-optimistic-updates-in-react-query)
+- [useOptimistic Won't Save You](https://www.columkelly.com/blog/use-optimistic)
+- [Convex Optimistic Updates](https://docs.convex.dev/client/react/optimistic-updates)
 
 ---
 
-### High: Too Many Fields Per Step
+### Pitfall 2: Non-Atomic History + Update Operations
 
-**What goes wrong:** Each step contains 8+ fields, defeating the purpose of multi-step design. Users feel overwhelmed despite the multi-step format.
+**What goes wrong:** Updating the application document and inserting the history record happen in separate mutations or actions. If one succeeds and the other fails, data integrity is compromised.
+
+**Why it happens:** Developer writes two separate `ctx.runMutation()` calls, or uses an action loop, losing transaction guarantees.
+
+**Consequences:**
+- Application updated but no history record (lost audit trail)
+- History record exists but application not updated (phantom edit)
+- Inconsistent data state that's hard to debug
 
 **Warning signs:**
-- Steps with more than 5 form fields
-- Scroll needed within a single step
-- Mixed unrelated questions in one step
+- History entries without corresponding document changes
+- Edit counts don't match history table row counts
+- Intermittent "missing edit" reports from admins
 
 **Prevention:**
-- Maximum 5 fields per step (Typeform uses 1 question per screen)
-- Group logically related fields only
-- Consider conditional logic to skip irrelevant questions
+- Do BOTH operations in a single mutation function
+- Convex mutations are atomic - all writes commit together or none do
+- Use Convex triggers (from convex-helpers) to automatically record history on every write
+- Consider using the official [table-history component](https://github.com/get-convex/table-history) which handles this correctly
 
-**Phase:** Form design/UX planning (Phase 1)
+**Phase to address:** Phase 1 (Database schema and mutation design)
+
+**Sources:**
+- [Convex OCC and Atomicity](https://docs.convex.dev/database/advanced/occ)
+- [Convex Database Triggers](https://stack.convex.dev/triggers)
+- [GitHub: convex table-history](https://github.com/get-convex/table-history)
 
 ---
 
-### Medium: Missing Progress Indicator
+### Pitfall 3: Mutating Objects in Optimistic Updates
 
-**What goes wrong:** Users don't know how long the form is, leading to abandonment when they feel lost.
+**What goes wrong:** Developer mutates existing objects inside optimistic update callbacks instead of creating new objects. This corrupts Convex client's internal state.
+
+**Why it happens:** Natural JavaScript instinct to modify objects directly: `localStore.get(id).field = newValue` instead of spreading to new object.
+
+**Consequences:**
+- Client state becomes corrupted
+- "Surprising results" - UI shows stale or wrong data
+- Very hard to debug - symptoms are inconsistent
 
 **Warning signs:**
-- No step counter or progress bar
-- Users asking "how much more?"
-- High drop-off rates mid-form
+- Queries return data that doesn't match database
+- State "randomly" reverts to old values
+- React devtools show different values than UI
 
 **Prevention:**
-- Add clear step indicator (Step 2 of 5)
-- Progress bar showing percentage complete
-- Consider showing remaining time estimate
+- Always create NEW objects in optimistic updates
+- Pattern: `{ ...existingDoc, fieldName: newValue }`
+- Lint rule or code review checklist item
+- Consider avoiding optimistic updates for edit operations (Convex real-time is fast enough)
 
-**Phase:** UI implementation (Phase 1)
+**Phase to address:** Phase 2 (Implementing optimistic updates, if used)
+
+**Sources:**
+- [Convex Optimistic Updates - Important Caveat](https://docs.convex.dev/client/react/optimistic-updates)
 
 ---
 
-### Medium: Premature or Overly Aggressive Validation
+### Pitfall 4: Input Focus Loss During Editing
 
-**What goes wrong:** Showing errors while user is still typing. Email field shows "invalid email" after typing "j".
+**What goes wrong:** User starts typing in inline edit field, but after one character the input loses focus. They have to click again to continue typing.
+
+**Why it happens:**
+- Component re-mounts on each render (often due to inline component definition)
+- Using edited value as part of React `key` prop
+- State update triggers parent re-render which unmounts edit component
+
+**Consequences:**
+- Unusable inline editing UX
+- Users give up and request different editing approach
+- Appears as a major bug
 
 **Warning signs:**
-- onChange validation for all fields
-- Red error states appearing instantly
-- Users reporting frustration with "jumping" errors
+- Focus lost after every keystroke
+- Works in isolation but breaks in context
+- Problem appears when adding state management
 
 **Prevention:**
-- Validate on blur (when field loses focus) or on step transition
-- For real-time validation, wait until field looks "complete" (e.g., email has @ and domain)
-- Use debounced validation (300ms delay) for sensitive fields
+- Define editable field components OUTSIDE the main component (not inline)
+- Never use field value as part of React `key`
+- Use local editing state that doesn't trigger parent re-renders
+- Pattern: `editingValue` local state, only sync on blur/Enter
 
-**Phase:** Form validation logic (Phase 1)
+**Phase to address:** Phase 1 (Inline Edit Component design)
+
+**Sources:**
+- [React.js loses input focus on typing](https://reactkungfu.com/2015/09/react-js-loses-input-focus-on-typing/)
+- [How to build an inline edit component in React](https://www.emgoto.com/react-inline-edit/)
 
 ---
 
-### Low: Confusing or Technical Language
+## Medium Pitfalls
 
-**What goes wrong:** Using jargon or unclear labels that confuse applicants.
+Common issues that cause delays or technical debt.
+
+### Pitfall 5: History Table Schema Coupling
+
+**What goes wrong:** History table schema is tightly coupled to main table schema. When adding/removing fields from applications table, history table breaks or shows incomplete data.
+
+**Why it happens:** Storing individual changed fields as separate columns in history table, mirroring the main schema.
+
+**Consequences:**
+- Schema migrations become complex (update N+1 tables)
+- Old history entries missing new fields
+- Historical data interpretation becomes ambiguous
 
 **Warning signs:**
-- Labels like "Primary Contact Information" instead of "Your phone number"
-- Technical terms without explanation
-- Users submitting wrong information
+- History queries require schema version awareness
+- Migration scripts grow exponentially complex
+- "What was the value of [new field] in January?" returns null incorrectly
 
 **Prevention:**
-- Use conversational, plain language
-- Test labels with real users
-- Provide helper text for any ambiguous fields
+- Store changes as JSON blob with field name, old value, new value
+- Schema: `{ documentId, timestamp, changes: [{ field, oldValue, newValue }], editedBy }`
+- History table schema stays stable regardless of main table changes
+- Convex table-history component uses this pattern automatically
 
-**Phase:** Content/copy review (Phase 1)
+**Phase to address:** Phase 1 (History table design)
+
+**Sources:**
+- [Design a Table to Keep Historical Changes](https://dev.to/zhiyueyi/design-a-table-to-keep-historical-changes-in-database-10fn)
+- [4 Common Designs of Audit Trail](https://medium.com/techtofreedom/4-common-designs-of-audit-trail-tracking-data-changes-in-databases-c894b7bb6d18)
 
 ---
 
-## Convex Pitfalls
+### Pitfall 6: Blur Save on Dropdown/Select Fields
 
-### Critical: Unawaited Promises
+**What goes wrong:** Save-on-blur works for text inputs but breaks for dropdowns. Dropdown closes (blur) before value is actually selected, saving wrong value or not saving at all.
 
-**What goes wrong:** Not awaiting `ctx.scheduler.runAfter`, `ctx.db.patch`, or other async operations. Functions appear to work but silently fail.
+**Why it happens:** Dropdown menu opening triggers blur on the select element. Click on dropdown option also first causes blur before click registers.
+
+**Consequences:**
+- Floor field (dropdown) inline edit doesn't work
+- Inconsistent behavior across field types
+- Users think their change saved when it didn't
 
 **Warning signs:**
-- Intermittent failures in scheduling or database operations
-- "Fire and forget" patterns in code
-- Missing error handling for async operations
+- Text fields save correctly, dropdowns don't
+- Value "snaps back" when selecting dropdown option
+- Works on some browsers but not others
 
 **Prevention:**
+- Handle dropdowns differently than text inputs
+- Save on explicit selection (`onValueChange`) not blur
+- Use controlled component with explicit save trigger
+- Consider save/cancel buttons for dropdown fields instead of auto-save
+
+**Phase to address:** Phase 2 (Field-specific edit implementations)
+
+**Sources:**
+- [DevExtreme: Select Dropdown does not blur and save proper value](https://github.com/DevExpress/devextreme-reactive/issues/3123)
+- [Atlassian: Allow disabling of save-on-blur for inline editing](https://jira.atlassian.com/browse/JRASERVER-30198)
+
+---
+
+### Pitfall 7: Unbounded History Table Growth
+
+**What goes wrong:** Every edit creates a history record forever. After months of use, history table grows large, slowing queries and increasing storage costs.
+
+**Why it happens:** No retention policy. "We'll deal with it later" becomes technical debt.
+
+**Consequences:**
+- Query performance degrades over time
+- Convex storage costs increase
+- History pagination becomes slow
+- Dashboard loads slower as history grows
+
+**Warning signs:**
+- History queries take >1 second
+- Storage usage growing faster than expected
+- Admins complain about slow history panel
+
+**Prevention:**
+- Design retention policy upfront (keep last N edits per document, or last 6 months)
+- Implement `vacuumHistory` function (table-history component provides this)
+- Set up periodic cleanup (scheduled function)
+- Add "Load more" pagination instead of loading all history
+
+**Phase to address:** Phase 3 (History viewing) - design now, implement when building history UI
+
+**Sources:**
+- [Microsoft: Recover database space by deleting audit logs](https://learn.microsoft.com/en-us/power-platform/admin/recover-database-space-deleting-audit-logs)
+- [LogicMonitor: What is log retention?](https://www.logicmonitor.com/blog/what-is-log-retention)
+- [GitHub: convex table-history vacuumHistory](https://github.com/get-convex/table-history)
+
+---
+
+### Pitfall 8: No "Cancel" Affordance for Keyboard Users
+
+**What goes wrong:** Save-on-blur means keyboard users can't cancel edits. Tab to next field = save. No escape hatch except refreshing the page.
+
+**Why it happens:** Over-simplified "auto-save" pattern without considering keyboard navigation.
+
+**Consequences:**
+- WCAG accessibility failure (2.1.1 Keyboard)
+- Users accidentally save wrong values
+- No undo creates anxiety about editing
+
+**Warning signs:**
+- Accessibility audit fails
+- Users ask "how do I cancel?"
+- Accidental saves reported
+
+**Prevention:**
+- Escape key must cancel edit and restore original value
+- Enter key saves (except for textarea where it adds newline)
+- Tab key should save and move to next field (or cancel, pick consistent behavior)
+- Visual indication that Escape cancels
+
+**Phase to address:** Phase 1 (Inline edit UX specification)
+
+**Sources:**
+- [PatternFly: Inline edit design guidelines](https://www.patternfly.org/components/inline-edit/design-guidelines/)
+- [WCAG 2.1.1: Full keyboard access](https://wcag.dock.codes/documentation/wcag211/)
+
+---
+
+### Pitfall 9: Concurrent Admin Edits Overwriting Each Other
+
+**What goes wrong:** Two admins (small team, but possible) edit same application simultaneously. Last save wins, silently overwriting first admin's changes.
+
+**Why it happens:** No conflict detection. Convex real-time shows changes, but if both are editing simultaneously, whoever saves last wins.
+
+**Consequences:**
+- Lost edits without notification
+- Confusion about "what happened to my changes"
+- Trust issues with the system
+
+**Warning signs:**
+- Admin reports "I edited X but it shows Y"
+- History shows two edits from different admins within seconds
+- Field values seem to "randomly" change
+
+**Prevention:**
+- For 1-3 admin team: Accept as low risk, trust real-time updates to show changes
+- Add "last edited by" indicator that updates in real-time
+- Consider optimistic locking: compare lastModified timestamp before save
+- Show "This field was just edited by [other admin]" warning
+
+**Phase to address:** Phase 3 (Polish) - low risk for small team, but good to have warning
+
+**Sources:**
+- [Convex: Keeping Users in Sync](https://stack.convex.dev/keeping-real-time-users-in-sync-convex)
+- [Conflict Resolution in Real-Time Collaborative Editing](https://tryhoverify.com/blog/conflict-resolution-in-real-time-collaborative-editing/)
+
+---
+
+## Low Pitfalls
+
+Minor gotchas that cause annoyance but are fixable.
+
+### Pitfall 10: Edit History Shows Technical Field Names
+
+**What goes wrong:** History shows `phase1Mvp changed from X to Y` instead of `Phase 1: MVP changed from X to Y`. Admins don't understand which field was edited.
+
+**Why it happens:** Storing raw database field names in history instead of display labels.
+
+**Consequences:**
+- Poor admin UX
+- Time wasted figuring out what changed
+- Makes history feature feel unpolished
+
+**Warning signs:**
+- History entries use camelCase field names
+- Admins ask "what does benefitToFT mean?"
+
+**Prevention:**
+- Create field label mapping: `{ phase1Mvp: "Phase 1: MVP", benefitToFT: "Benefit to FT" }`
+- Store display-friendly labels in history, OR transform on display
+- Consistency with how fields are labeled in detail panel
+
+**Phase to address:** Phase 3 (History display)
+
+---
+
+### Pitfall 11: Long Text Fields Awkward for Inline Edit
+
+**What goes wrong:** Bio, proposal, roadmap fields are 200+ character text blocks. Inline edit with a small text input is awkward. User can't see full context while editing.
+
+**Why it happens:** One-size-fits-all inline edit component for all field types.
+
+**Consequences:**
+- Poor UX for long-form content
+- Users truncate text to fit visible area
+- Editing feels cramped
+
+**Warning signs:**
+- Long fields show "..." in edit mode
+- Users scroll horizontally to edit
+- Editing long fields takes multiple attempts
+
+**Prevention:**
+- Use textarea for long text fields, text input for short fields
+- Auto-expand textarea to fit content
+- Consider modal editor for very long fields (bio, proposals)
+- Set minimum heights based on field type
+
+**Phase to address:** Phase 2 (Field-specific implementations)
+
+---
+
+### Pitfall 12: No Visual Distinction Between Editable and Non-Editable Fields
+
+**What goes wrong:** Users click on non-editable fields (submittedAt, status) expecting to edit, nothing happens. Or they don't realize editable fields ARE editable.
+
+**Why it happens:** No hover state or visual affordance indicating editability.
+
+**Consequences:**
+- Discovery problems - users don't find the feature
+- Frustration clicking on things that don't respond
+- Confusion about what can be changed
+
+**Warning signs:**
+- Users ask "can I edit this?"
+- Low adoption of inline editing feature
+- Users still request "edit form"
+
+**Prevention:**
+- Hover state shows pencil icon or subtle background change
+- Non-editable fields have no hover affordance
+- Cursor changes to pointer on editable fields
+- Consider subtle edit icon always visible
+
+**Phase to address:** Phase 2 (Inline edit styling)
+
+**Sources:**
+- [UXPlanet: Best Practices for Inline Editing in Tables](https://uxplanet.org/best-practices-for-inline-editing-in-tables-993caf06c171)
+- [Apiko: Inline Editing Implementation Experience](https://apiko.com/blog/inline-editing/)
+
+---
+
+### Pitfall 13: Date Field Inline Edit Browser Inconsistencies
+
+**What goes wrong:** `startDate` field uses native date picker. Behavior varies wildly across browsers. Safari shows text input, Chrome shows date picker, mobile is different again.
+
+**Why it happens:** Relying on `<input type="date">` which has poor cross-browser support.
+
+**Consequences:**
+- Inconsistent UX across browsers
+- Date format confusion (MM/DD vs DD/MM)
+- Mobile users struggle with tiny date picker
+
+**Warning signs:**
+- Works on your machine, breaks in user reports
+- Date validation errors from wrong format
+- Safari users can't select dates
+
+**Prevention:**
+- Use consistent date picker component (shadcn/ui has good ones)
+- Don't rely on native `<input type="date">`
+- Validate date format on save
+- Consider keeping date as display-only (how often does start date really change?)
+
+**Phase to address:** Phase 2 (Date field implementation)
+
+---
+
+## Phase-Specific Warnings Summary
+
+| Phase | Topic | Likely Pitfall | Mitigation |
+|-------|-------|----------------|------------|
+| Phase 1 | Schema design | Non-atomic operations (#2), Schema coupling (#5) | Single mutation for update+history, JSON changes format |
+| Phase 1 | Edit component | Focus loss (#4), No cancel (#8) | Component outside render, Escape to cancel |
+| Phase 2 | Optimistic updates | Race conditions (#1), Object mutation (#3) | Debounce, create new objects |
+| Phase 2 | Field types | Dropdown blur (#6), Long text UX (#11), Dates (#13) | Per-field-type handling |
+| Phase 3 | History display | Field names (#10), Growth (#7) | Label mapping, retention policy |
+| Phase 3 | Polish | Concurrent edits (#9), Editability affordance (#12) | Real-time indicators, hover states |
+
+---
+
+## Integration Notes for Existing Convex System
+
+### Current Schema Context
+
+The existing `applications` table has 20+ fields:
+- Applicant: `fullName`, `email`, `linkedIn`, `role`, `bio`
+- Proposal: `floor`, `initiativeName`, `tagline`, `values`, `targetCommunity`, `estimatedSize`
+- Roadmap: `phase1Mvp`, `phase2Expansion`, `phase3LongTerm`
+- Impact: `benefitToFT`
+- Logistics: `existingCommunity`, `spaceNeeds`, `startDate`, `additionalNotes`
+- Meta: `status`, `submittedAt`
+
+Adding edit history means:
+- New `editHistory` table needed (or use table-history component)
+- Existing `updateStatus` mutation should also record history
+- Consider whether status changes are "edits" for history purposes
+
+### Current Architecture Fit
+
+- `ApplicationSheet.tsx` displays `Field` components - these become `EditableField`
+- `AdminDashboard.tsx` manages sheet state - will need to handle edit states
+- `applications.ts` mutations need to be extended, not replaced
+
+### Existing Mutation: `updateStatus`
+
 ```typescript
-// BAD
-ctx.scheduler.runAfter(0, internal.emails.send, { to: email });
-
-// GOOD
-await ctx.scheduler.runAfter(0, internal.emails.send, { to: email });
-```
-- Enable `no-floating-promises` ESLint rule
-- Always await Convex context operations
-
-**Phase:** Backend setup (Phase 1)
-
-**Source:** [Convex Best Practices](https://docs.convex.dev/understanding/best-practices/)
-
----
-
-### Critical: Using `api.*` Instead of `internal.*` for Scheduled Functions
-
-**What goes wrong:** Scheduling public API functions instead of internal ones. Public functions can be called by anyone, creating security vulnerabilities.
-
-**Warning signs:**
-- `ctx.scheduler.runAfter(0, api.someFunction, ...)` in code
-- `ctx.runMutation(api.someFunction, ...)` patterns
-- Crons.ts using `api.*` references
-
-**Prevention:**
-- Search codebase for `api.` in scheduler/run calls
-- Use `internal.folder.function` for all internal operations
-- Mark functions as internal when only called within Convex
-
-**Phase:** Backend security review (Phase 2)
-
-**Source:** [Convex Best Practices](https://docs.convex.dev/understanding/best-practices/)
-
----
-
-### Critical: Missing Argument Validators on Public Functions
-
-**What goes wrong:** Public mutations accept any arguments, allowing malicious input or type mismatches.
-
-**Warning signs:**
-- Functions without `args: { ... }` validators
-- TypeScript-only validation (not runtime)
-- Direct database writes from unvalidated input
-
-**Prevention:**
-```typescript
-// BAD
-export const submitApplication = mutation({
-  handler: async (ctx, args) => { ... }
-});
-
-// GOOD
-export const submitApplication = mutation({
+// Current implementation (convex/applications.ts line 74-87)
+export const updateStatus = mutation({
   args: {
-    name: v.string(),
-    email: v.string(),
-    phone: v.optional(v.string()),
+    id: v.id("applications"),
+    status: v.union(...),
   },
-  handler: async (ctx, args) => { ... }
-});
-```
-- Use `@convex-dev/require-argument-validators` ESLint plugin
-
-**Phase:** Backend implementation (Phase 1)
-
-**Source:** [Convex Best Practices](https://docs.convex.dev/understanding/best-practices/)
-
----
-
-### High: Circular Imports in Schema
-
-**What goes wrong:** Validators become `undefined` due to import cycles, causing cryptic runtime errors.
-
-**Warning signs:**
-- "Validator is undefined" errors
-- schema.ts importing from files that import from schema.ts
-- Complex cross-file validator dependencies
-
-**Prevention:**
-- Define validators in "pure" files with minimal dependencies
-- Keep schema.ts as the single source of truth
-- Avoid re-exporting validators through schema.ts
-
-**Phase:** Database schema design (Phase 1)
-
----
-
-### High: Using `.filter()` Instead of `.withIndex()`
-
-**What goes wrong:** Querying all documents then filtering in memory. Works fine with 100 applications, crashes with 10,000.
-
-**Warning signs:**
-- `.filter()` calls on queries
-- Full table scans for common lookups
-- Increasing query times as data grows
-
-**Prevention:**
-```typescript
-// BAD - loads all applications, filters in memory
-const pending = await ctx.db
-  .query("applications")
-  .filter(q => q.eq(q.field("status"), "pending"))
-  .collect();
-
-// GOOD - uses index for efficient lookup
-const pending = await ctx.db
-  .query("applications")
-  .withIndex("by_status", q => q.eq("status", "pending"))
-  .collect();
-```
-- Define indexes for common query patterns upfront
-- Review queries for `.filter()` usage
-
-**Phase:** Database schema design (Phase 1)
-
-**Source:** [Convex Best Practices](https://docs.convex.dev/understanding/best-practices/)
-
----
-
-### Medium: Using `Date.now()` in Queries
-
-**What goes wrong:** Time-based queries don't re-run when time changes, causing stale data.
-
-**Warning signs:**
-- `Date.now()` calls inside query functions
-- "Show applications from last 24 hours" not updating
-- Inconsistent results based on cache timing
-
-**Prevention:**
-- Store timestamps in database, update via scheduled functions
-- Pass time as argument from client (where appropriate)
-- Use Convex's built-in `_creationTime` for creation-based filtering
-
-**Phase:** Dashboard queries (Phase 2)
-
----
-
-### Medium: Unbounded `.collect()` Calls
-
-**What goes wrong:** Collecting all documents without limits. Works with 50 applications, times out with 5,000.
-
-**Warning signs:**
-- `.collect()` without `.take()` or pagination
-- "All applications" queries without limits
-- Query timeouts as data grows
-
-**Prevention:**
-- Use pagination for lists: `usePaginatedQuery`
-- Add `.take(100)` for safety on development queries
-- Implement cursor-based pagination for admin views
-
-**Phase:** Admin dashboard (Phase 2)
-
----
-
-### Low: Overusing `ctx.runQuery/ctx.runMutation`
-
-**What goes wrong:** Using Convex context methods where plain TypeScript functions would work. Adds unnecessary overhead.
-
-**Warning signs:**
-- Chained `ctx.runQuery` calls in actions
-- Helper logic wrapped in query/mutation definitions
-- Slow action performance
-
-**Prevention:**
-- Extract shared logic to plain TypeScript helpers
-- Use `ctx.run*` only when transaction boundaries matter
-- Keep Convex functions as thin wrappers
-
-**Phase:** Code organization (Phase 2)
-
----
-
-## Animation/Transition Pitfalls
-
-### Critical: AnimatePresence Memory Leaks
-
-**What goes wrong:** Memory leaks when containers unmount mid-animation. Common in rapid navigation scenarios.
-
-**Warning signs:**
-- Memory growth during form testing
-- "setState on unmounted component" warnings
-- Performance degradation over time
-
-**Prevention:**
-- Avoid unmounting AnimatePresence containers mid-animation
-- Use cleanup in useEffect for custom animations
-- Test rapid navigation scenarios
-- Consider using `key` prop correctly on animated elements
-
-**Phase:** Animation implementation (Phase 1)
-
-**Source:** [Framer Motion GitHub Issues](https://github.com/framer/motion/issues/625)
-
----
-
-### High: Animating Layout Properties
-
-**What goes wrong:** Animating `width`, `height`, `top`, `left` instead of `transform`. Causes layout recalculation and janky performance.
-
-**Warning signs:**
-- Choppy animations, especially on mobile
-- High CPU usage during transitions
-- Visible "jank" on step changes
-
-**Prevention:**
-```typescript
-// BAD - triggers layout recalculation
-animate={{ width: isExpanded ? 400 : 200 }}
-
-// GOOD - GPU accelerated
-animate={{ scale: isExpanded ? 1 : 0.5 }}
-// or
-animate={{ x: 100 }}
-```
-- Use `transform` properties: `x`, `y`, `scale`, `rotate`
-- Use `opacity` for fade effects
-- Avoid animating `width`, `height`, `margin`, `padding`
-
-**Phase:** Animation implementation (Phase 1)
-
----
-
-### High: No `prefers-reduced-motion` Support
-
-**What goes wrong:** Users with vestibular disorders experience dizziness or nausea from animations. WCAG 2.3.3 compliance issue.
-
-**Warning signs:**
-- No motion preference detection in code
-- Animations that can't be disabled
-- Accessibility audit failures
-
-**Prevention:**
-```css
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-```
-Or in Framer Motion:
-```typescript
-const prefersReducedMotion = usePrefersReducedMotion();
-const variants = prefersReducedMotion ? {} : animationVariants;
-```
-- Test with browser reduced motion emulation
-- Provide skip/instant option for all transitions
-
-**Phase:** Animation implementation (Phase 1)
-
-**Source:** [W3C WCAG 2.3.3](https://www.w3.org/WAI/WCAG21/Understanding/animation-from-interactions.html)
-
----
-
-### Medium: Large Framer Motion Bundle
-
-**What goes wrong:** Full `motion` component adds ~34kb to bundle. Unnecessary for simple transitions.
-
-**Warning signs:**
-- Large initial JavaScript bundle
-- Slow Time to Interactive on mobile
-- Using full `motion` for simple fades
-
-**Prevention:**
-- Use `m` + `LazyMotion` for reduced bundle (~4.6kb)
-- Use `useAnimate` mini (2.3kb) for simple cases
-- Consider CSS transitions for basic step animations
-
-**Phase:** Performance optimization (Phase 2)
-
-**Source:** [Motion Bundle Size Docs](https://motion.dev/docs/react-reduce-bundle-size)
-
----
-
-### Low: Flash of Unstyled Content on Transition
-
-**What goes wrong:** Next step renders before animation completes, showing content flash.
-
-**Warning signs:**
-- Content "jumping" during step transitions
-- Visible layout shift
-- AnimatePresence `mode` not configured
-
-**Prevention:**
-```typescript
-<AnimatePresence mode="wait">
-  <motion.div key={currentStep}>
-    {/* step content */}
-  </motion.div>
-</AnimatePresence>
-```
-- Use `mode="wait"` for sequential exit/enter
-- Ensure unique `key` per step
-
-**Phase:** Animation implementation (Phase 1)
-
----
-
-## Admin Dashboard Pitfalls
-
-### Critical: Shared Password for All Admins
-
-**What goes wrong:** Single password used by everyone. No audit trail, no revocation, compromised credential affects all access.
-
-**Warning signs:**
-- One password in environment variable
-- No user differentiation in admin actions
-- Cannot revoke access for specific person
-
-**Prevention:**
-- Even for "simple" auth, create individual credentials per admin
-- Log which credential performed which action
-- Enable password rotation without breaking all access
-
-**For this project (simple password auth):**
-- Store hashed passwords in Convex, not env vars
-- Consider multiple admin accounts even if passwords are simple
-- Add `actorId` to mutation logs
-
-**Phase:** Admin auth implementation (Phase 2)
-
----
-
-### High: Client-Side Only Auth Checks
-
-**What goes wrong:** Auth check in React component but not in Convex function. Attacker calls mutation directly.
-
-**Warning signs:**
-- `isAdmin` check only in component
-- Convex mutations don't verify auth
-- Direct API calls bypass admin UI
-
-**Prevention:**
-```typescript
-// Every admin mutation must verify
-export const deleteApplication = mutation({
-  args: { id: v.id("applications"), adminToken: v.string() },
   handler: async (ctx, args) => {
-    const isValid = await verifyAdminToken(ctx, args.adminToken);
-    if (!isValid) throw new Error("Unauthorized");
-    // proceed with deletion
+    await ctx.db.patch(args.id, { status: args.status });
   },
 });
 ```
-- Auth check in EVERY admin mutation
-- Don't trust client-side state
 
-**Phase:** Admin auth implementation (Phase 2)
+This needs to be extended to also record edit history (status changes should be tracked too).
 
-**Source:** [Convex Auth Best Practices](https://stack.convex.dev/authentication-best-practices-convex-clerk-and-nextjs)
+### Convex-Specific Advantages for This Project
 
----
-
-### High: No Rate Limiting on Admin Login
-
-**What goes wrong:** Simple password auth with unlimited attempts. Brute force attacks succeed quickly.
-
-**Warning signs:**
-- No failed attempt tracking
-- No lockout after failures
-- Password is short or common
-
-**Prevention:**
-- Track failed attempts per IP/session
-- Implement exponential backoff (1s, 2s, 4s, 8s...)
-- Lock account after 5 failed attempts for 15 minutes
-- Consider CAPTCHA after 3 failures
-
-**Phase:** Admin auth hardening (Phase 2)
+- **Real-time sync:** Changes propagate immediately - optimistic updates may be unnecessary
+- **Transaction guarantees:** Single mutation = atomic update + history record
+- **Official component:** `table-history` provides battle-tested audit log solution
+- **Triggers:** `convex-helpers` can auto-record history on every write
 
 ---
 
-### Medium: Loading All Applications at Once
-
-**What goes wrong:** Admin dashboard fetches all 5,000 applications on load. Slow initial render, high bandwidth.
-
-**Warning signs:**
-- Long loading time on dashboard
-- Memory pressure on client
-- Single "getAllApplications" query
-
-**Prevention:**
-- Implement pagination from day one
-- Use `usePaginatedQuery` with reasonable page size (25-50)
-- Add filters (status, date) that reduce result set
-- Consider server-side search for large datasets
-
-**Phase:** Admin dashboard implementation (Phase 2)
-
----
-
-### Medium: No Action Confirmation for Destructive Operations
-
-**What goes wrong:** Single click deletes application or changes status with no undo.
-
-**Warning signs:**
-- Delete button with no confirmation
-- Accidental status changes reported
-- No audit log of changes
-
-**Prevention:**
-- Confirmation modal for destructive actions
-- Soft delete (mark as deleted, don't remove)
-- Audit log with timestamps and actor
-
-**Phase:** Admin dashboard UX (Phase 2)
-
----
-
-### Low: Poor Table Performance with Large Datasets
-
-**What goes wrong:** Rendering 1,000 rows in a table. Browser becomes unresponsive.
-
-**Warning signs:**
-- Scroll lag in application list
-- High memory usage
-- Slow filter/search
-
-**Prevention:**
-- Virtual scrolling for large lists (react-virtual, tanstack-virtual)
-- Pagination is usually sufficient for admin tools
-- Keep rendered row count under 100
-
-**Phase:** Admin dashboard optimization (Phase 2)
-
----
-
-## Mobile Pitfalls
-
-### Critical: Keyboard Viewport Issues
-
-**What goes wrong:** Mobile keyboard opens, pushes form off screen, or covers submit button. Fixed-position elements float mid-screen.
-
-**Warning signs:**
-- Users can't see input they're typing in
-- Submit button hidden behind keyboard
-- Layout "jumps" when keyboard opens
-
-**Prevention:**
-- Use `position: sticky` instead of `position: fixed`
-- Implement scroll-into-view on input focus
-- Test on actual iOS and Android devices
-- Use Visual Viewport API for precise positioning:
-```javascript
-window.visualViewport.addEventListener('resize', () => {
-  // Adjust layout based on keyboard height
-});
-```
-
-**Phase:** Mobile responsive design (Phase 1)
-
-**Source:** [Vercel Next.js Discussion](https://github.com/vercel/next.js/discussions/63724)
-
----
-
-### High: Touch Targets Too Small
-
-**What goes wrong:** Buttons and inputs smaller than 44x44 pixels. Users can't tap accurately on mobile.
-
-**Warning signs:**
-- Multiple taps needed to select input
-- Accidental taps on wrong element
-- Font sizes below 16px for inputs
-
-**Prevention:**
-- Minimum 44x44px touch targets (Apple HIG guideline)
-- Adequate spacing between interactive elements
-- Test with thumb, not precise cursor
-- Use Tailwind: `min-h-[44px] min-w-[44px]`
-
-**Phase:** Mobile responsive design (Phase 1)
-
----
-
-### High: Form Input Zoom on iOS
-
-**What goes wrong:** Input fields with font-size below 16px trigger iOS zoom on focus, breaking layout.
-
-**Warning signs:**
-- Page zooms when tapping input on iPhone
-- User has to pinch-zoom back out
-- Layout broken after zoom
-
-**Prevention:**
-```css
-input, select, textarea {
-  font-size: 16px; /* Prevents iOS zoom */
-}
-```
-- Never use font-size below 16px for form inputs
-- Tailwind: `text-base` (16px) or larger for inputs
-
-**Phase:** Form styling (Phase 1)
-
----
-
-### Medium: Tailwind Mobile-First Confusion
-
-**What goes wrong:** Using `sm:` prefix thinking it means "small screens". It actually means "small breakpoint and up".
-
-**Warning signs:**
-- Mobile styles applied at wrong breakpoints
-- `sm:hidden` hiding things on desktop, not mobile
-- Responsive utilities behaving unexpectedly
-
-**Prevention:**
-```typescript
-// BAD - this hides on tablets and up, shows on mobile
-className="sm:hidden"
-
-// GOOD - unprefixed is mobile, prefixed is breakpoint+
-className="hidden md:block"  // Hidden on mobile, visible on md+
-className="block md:hidden"  // Visible on mobile, hidden on md+
-```
-- Unprefixed = mobile default
-- Prefixed = that breakpoint and larger
-
-**Phase:** Responsive implementation (Phase 1)
-
-**Source:** [Tailwind Responsive Design](https://tailwindcss.com/docs/responsive-design)
-
----
-
-### Low: 100vh Issues on Mobile Safari
-
-**What goes wrong:** `height: 100vh` doesn't account for Safari's dynamic toolbar. Content is cut off.
-
-**Warning signs:**
-- Bottom of form cut off on iPhone Safari
-- Submit button partially visible
-- Works on desktop, breaks on mobile
-
-**Prevention:**
-```css
-/* Use dynamic viewport height */
-min-height: 100dvh;
-
-/* Or fallback approach */
-min-height: 100vh;
-min-height: -webkit-fill-available;
-```
-- Use `dvh` (dynamic viewport height) units
-- Test on actual Safari mobile
-
-**Phase:** Layout implementation (Phase 1)
-
----
-
-## CSV Export Pitfalls
-
-### High: Client-Side Export for Large Datasets
-
-**What goes wrong:** Generating CSV in browser with 10,000 rows. Browser freezes, users think app crashed.
-
-**Warning signs:**
-- UI freeze during export
-- Export button becomes unresponsive
-- Memory errors in console
-
-**Prevention:**
-- For >1,000 rows, generate CSV server-side (Convex action)
-- Use Web Workers for client-side generation
-- Show progress indicator during export
-- Consider streaming for very large exports
-
-**Phase:** Export feature (Phase 2)
-
----
-
-### Medium: react-csv Limitations
-
-**What goes wrong:** react-csv library fails silently with large datasets (2000+ rows can produce empty files).
-
-**Warning signs:**
-- Empty CSV file downloads
-- No error messages
-- Works for small exports, fails for large
-
-**Prevention:**
-- Use react-papaparse (better large file support)
-- Test export with realistic data volume
-- Implement server-side export for production data
-
-**Phase:** Export feature implementation (Phase 2)
-
-**Source:** [react-csv Issue #32](https://github.com/react-csv/react-csv/issues/32)
-
----
-
-### Low: Special Characters Breaking CSV
-
-**What goes wrong:** User input containing commas, quotes, or newlines breaks CSV structure.
-
-**Warning signs:**
-- Excel shows misaligned columns
-- Data appears in wrong fields
-- Quote characters cause parsing errors
-
-**Prevention:**
-- Use proper CSV library (not manual string concatenation)
-- Libraries like PapaParse handle escaping automatically
-- Test with edge case data: `"Hello, World"`, `Line 1\nLine 2`
-
-**Phase:** Export feature implementation (Phase 2)
-
----
-
-## Prevention Strategies Summary
-
-### Phase 1: Core Form Implementation
-
-| Pitfall | Prevention Strategy |
-|---------|---------------------|
-| End-of-form validation | Per-step Zod schemas, validate before progression |
-| Lost progress | localStorage persistence, explicit state management |
-| Too many fields | Max 5 fields per step, logical grouping |
-| Premature validation | Validate on blur or step transition |
-| AnimatePresence leaks | Proper cleanup, avoid unmounting mid-animation |
-| Layout animations | Use transform/opacity only |
-| No reduced motion | Implement `prefers-reduced-motion` |
-| Keyboard viewport | Visual Viewport API, scroll-into-view |
-| Touch targets | Min 44x44px, adequate spacing |
-| iOS zoom | 16px minimum font on inputs |
-| Tailwind mobile-first | Unprefixed = mobile, prefixed = breakpoint+ |
-| 100vh Safari | Use dvh units |
-
-### Phase 2: Backend & Admin Dashboard
-
-| Pitfall | Prevention Strategy |
-|---------|---------------------|
-| Unawaited promises | Enable `no-floating-promises` ESLint |
-| Public scheduled functions | Use `internal.*` only |
-| Missing validators | Require argument validators on all public functions |
-| Circular imports | Pure validator files |
-| `.filter()` instead of index | Define indexes for common queries |
-| Date.now() in queries | Store timestamps in DB |
-| Unbounded .collect() | Pagination from day one |
-| Shared admin password | Individual credentials, audit logging |
-| Client-side only auth | Auth check in every Convex mutation |
-| No rate limiting | Track failed attempts, exponential backoff |
-| Load all applications | Pagination, filters |
-| No confirmation | Confirmation modal, soft delete |
-| Client-side large CSV | Server-side generation or Web Workers |
-
----
-
-## Research Gaps
-
-- **Specific Vercel deployment pitfalls:** Not researched deeply (standard Next.js deployment)
-- **Form abandonment recovery:** Could implement auto-save + recovery email, but may be overkill for this use case
-- **Advanced Convex patterns:** Did not cover real-time subscriptions, file storage (not needed for this project)
+## Recommended Approach for v1.1
+
+Based on pitfall analysis:
+
+1. **Use single mutation for update + history** (avoids #2)
+2. **Store history as JSON changes array** (avoids #5)
+3. **Define EditableField component outside render** (avoids #4)
+4. **Handle dropdowns via onValueChange, not blur** (avoids #6)
+5. **Escape to cancel, Enter to save** (avoids #8)
+6. **Add field label mapping** (avoids #10)
+7. **Use textarea for long fields** (avoids #11)
+8. **Add hover state with pencil icon** (avoids #12)
 
 ---
 
 ## Sources
 
-### Multi-Step Forms
-- [Growform UX Best Practices](https://www.growform.co/must-follow-ux-best-practices-when-designing-a-multi-step-form/)
-- [Smashing Magazine Multi-Step Forms](https://www.smashingmagazine.com/2024/12/creating-effective-multistep-form-better-user-experience/)
-- [Zuko Form UX Tips](https://www.zuko.io/blog/form-ux-design-tips-best-practice-examples)
-- [NN/G Error Design Guidelines](https://www.nngroup.com/articles/errors-forms-design-guidelines/)
+### Convex Official
+- [Convex Optimistic Updates](https://docs.convex.dev/client/react/optimistic-updates)
+- [Convex OCC and Atomicity](https://docs.convex.dev/database/advanced/occ)
+- [Convex Database Triggers](https://stack.convex.dev/triggers)
+- [Convex: Keeping Users in Sync](https://stack.convex.dev/keeping-real-time-users-in-sync-convex)
 
-### Convex
-- [Convex Best Practices (Official)](https://docs.convex.dev/understanding/best-practices/)
-- [Convex Auth Best Practices](https://stack.convex.dev/authentication-best-practices-convex-clerk-and-nextjs)
-- [Convex Pagination](https://docs.convex.dev/database/pagination)
-- [Convex Queries That Scale](https://stack.convex.dev/queries-that-scale)
+### Convex Components
+- [GitHub: convex table-history](https://github.com/get-convex/table-history)
 
-### Animations
-- [Framer Motion AnimatePresence Issue](https://github.com/framer/motion/issues/625)
-- [Motion Bundle Size](https://motion.dev/docs/react-reduce-bundle-size)
-- [W3C WCAG 2.3.3](https://www.w3.org/WAI/WCAG21/Understanding/animation-from-interactions.html)
-- [MDN Reduced Motion](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries_for_accessibility)
+### UX/Accessibility
+- [PatternFly: Inline edit design guidelines](https://www.patternfly.org/components/inline-edit/design-guidelines/)
+- [UXPlanet: Best Practices for Inline Editing in Tables](https://uxplanet.org/best-practices-for-inline-editing-in-tables-993caf06c171)
+- [Apiko: Inline Editing Implementation Experience](https://apiko.com/blog/inline-editing/)
+- [WCAG 2.1.1: Full keyboard access](https://wcag.dock.codes/documentation/wcag211/)
 
-### Mobile
-- [Tailwind Responsive Design](https://tailwindcss.com/docs/responsive-design)
-- [Visual Viewport API Solution](https://dev.to/franciscomoretti/fix-mobile-keyboard-overlap-with-visualviewport-3a4a)
-- [Next.js Viewport Discussion](https://github.com/vercel/next.js/discussions/63724)
+### React Patterns
+- [How to build an inline edit component in React](https://www.emgoto.com/react-inline-edit/)
+- [React.js loses input focus on typing](https://reactkungfu.com/2015/09/react-js-loses-input-focus-on-typing/)
+- [TkDodo: Concurrent Optimistic Updates](https://tkdodo.eu/blog/concurrent-optimistic-updates-in-react-query)
+- [useOptimistic Won't Save You](https://www.columkelly.com/blog/use-optimistic)
 
-### CSV Export
-- [react-csv Issues](https://github.com/react-csv/react-csv/issues/32)
-- [React PapaParse Guide](https://blog.logrocket.com/working-csv-files-react-papaparse/)
+### Database Design
+- [Design a Table to Keep Historical Changes](https://dev.to/zhiyueyi/design-a-table-to-keep-historical-changes-in-database-10fn)
+- [4 Common Designs of Audit Trail](https://medium.com/techtofreedom/4-common-designs-of-audit-trail-tracking-data-changes-in-databases-c894b7bb6d18)
+
+### Data Management
+- [Microsoft: Recover database space by deleting audit logs](https://learn.microsoft.com/en-us/power-platform/admin/recover-database-space-deleting-audit-logs)
+- [LogicMonitor: What is log retention?](https://www.logicmonitor.com/blog/what-is-log-retention)
