@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-27)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** Phase 5 - Admin Authentication COMPLETE
+**Current focus:** Phase 6 - Admin Dashboard
 
 ## Current Position
 
-Phase: 5 of 7 (Admin Authentication)
-Plan: 2 of 2 complete
-Status: Phase complete
-Last activity: 2026-01-28 - Completed 05-02-PLAN.md
+Phase: 6 of 7 (Admin Dashboard)
+Plan: 1 of 3 complete
+Status: In progress
+Last activity: 2026-01-28 - Completed 06-01-PLAN.md
 
-Progress: [#########.] 88%
+Progress: [#########.] 94%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14
-- Average duration: 2min 26s
-- Total execution time: ~36min
+- Total plans completed: 15
+- Average duration: 2min 21s
+- Total execution time: ~37min
 
 **By Phase:**
 
@@ -32,9 +32,10 @@ Progress: [#########.] 88%
 | 03-form-ui-static | 5 | 13min 8s | 2min 38s |
 | 04-form-polish-and-animations | 3 | ~4min | ~1min 20s |
 | 05-admin-authentication | 2 | 3min 21s | 1min 41s |
+| 06-admin-dashboard | 1 | 1min 7s | 1min 7s |
 
 **Recent Trend:**
-- Last 5 plans: 04-02 (2m), 04-03 (5m), 05-01 (1m 33s), 05-02 (1m 48s)
+- Last 5 plans: 04-03 (5m), 05-01 (1m 33s), 05-02 (1m 48s), 06-01 (1m 7s)
 - Trend: Fast execution continues
 
 *Updated after each plan completion*
@@ -82,6 +83,8 @@ Recent decisions affecting current work:
 | Middleware at src/ root | Next.js convention, not in app/ folder | 05-02 |
 | Defense-in-depth session checks | Both middleware AND page verify session | 05-02 |
 | useActionState for login form | Modern React pattern with pending state | 05-02 |
+| TanStack Table 8.x for admin table | Headless state management, pairs with shadcn | 06-01 |
+| Convex query with index ordering | by_submitted index with desc order for newest first | 06-01 |
 
 ### Pending Todos
 
@@ -89,29 +92,31 @@ None.
 
 ### Blockers/Concerns
 
-None - Phase 5 complete, admin authentication fully functional.
+None - Phase 6 in progress.
 
-## Phase 5 Complete
+## Phase 6 Progress
 
-**All 2 plans completed:**
-- 05-01: Session Utilities (jose JWT, HttpOnly cookies, encrypt/decrypt)
-- 05-02: Login Page & Route Protection (middleware, login form, logout)
+**Plan 1 of 3 complete:**
+- 06-01: Foundation Dependencies (TanStack Table, shadcn components, Convex functions)
 
 **What's ready:**
-- `src/lib/auth/session.ts` - JWT session management
-- `src/middleware.ts` - Route protection for /admin/*
-- `src/app/admin/login/` - Login page with form and actions
-- `src/app/admin/` - Protected dashboard with logout
+- `@tanstack/react-table` - Headless table state management
+- `src/components/ui/table.tsx` - Table UI primitives
+- `src/components/ui/sheet.tsx` - Detail panel component
+- `src/components/ui/badge.tsx` - Status indicators
+- `src/components/ui/dropdown-menu.tsx` - Row action menus
+- `src/components/ui/skeleton.tsx` - Loading states
+- `convex/applications.ts` - list query and updateStatus mutation
 
-**User setup required:**
-- ADMIN_PASSWORD env var (any password string)
-- SESSION_SECRET env var (generate with: `openssl rand -base64 32`)
+**Remaining plans:**
+- 06-02: ApplicationsTable Component
+- 06-03: Detail Sheet & Status Actions
 
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: Completed 05-02-PLAN.md
+Stopped at: Completed 06-01-PLAN.md
 Resume file: None
 
 ---
-*Next step: Phase 6 - Admin Dashboard*
+*Next step: 06-02-PLAN.md - ApplicationsTable Component*
