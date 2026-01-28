@@ -42,7 +42,7 @@ export function ProgressIndicator() {
               {/* Step circle */}
               <div
                 className={cn(
-                  "relative z-10 flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium transition-colors bg-background",
+                  "relative z-10 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full text-xs sm:text-sm font-medium transition-colors bg-background",
                   isCompleted && "bg-primary text-primary-foreground",
                   isCurrent && !isCompleted && "bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2 ring-offset-background",
                   isFuture && !isCompleted && "border-2 border-muted-foreground/30 text-muted-foreground"
@@ -50,7 +50,7 @@ export function ProgressIndicator() {
                 aria-current={isCurrent ? "step" : undefined}
               >
                 {isCompleted ? (
-                  <Check className="h-5 w-5" aria-hidden="true" />
+                  <Check className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
                 ) : (
                   <span>{stepNumber}</span>
                 )}
@@ -65,7 +65,7 @@ export function ProgressIndicator() {
               {!isLast && (
                 <div
                   className={cn(
-                    "h-0.5 w-8 sm:w-12",
+                    "h-0.5 w-6 sm:w-12",
                     completedSteps.includes(stepNumber) ? "bg-primary" : "bg-muted-foreground/30"
                   )}
                   aria-hidden="true"
