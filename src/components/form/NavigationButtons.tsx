@@ -83,16 +83,13 @@ export function NavigationButtons({ isSubmitting = false }: NavigationButtonsPro
   }
 
   return (
-    <div className="flex justify-between gap-4 pt-6">
+    <div className={`flex gap-4 pt-6 ${isWelcome ? "justify-center" : "justify-between"}`}>
       {/* Back button - hidden on Welcome step */}
       {!isWelcome && (
         <Button type="button" variant="outline" onClick={handleBack}>
           Back
         </Button>
       )}
-
-      {/* Spacer when no back button */}
-      {isWelcome && <div />}
 
       {/* Next/Begin/Submit button */}
       {isReview ? (
