@@ -23,10 +23,10 @@ export default function ApplyPage() {
         className={`min-h-[100dvh] px-4 pb-safe ${
           isHeroScreen
             ? "flex items-center justify-center py-8"
-            : "py-8"
+            : "pt-8 pb-16"
         }`}
       >
-        <div className="mx-auto max-w-2xl w-full">
+        <div className="mx-auto max-w-2xl w-full glass-card rounded-2xl p-6 sm:p-8">
           <MultiStepForm />
         </div>
       </main>

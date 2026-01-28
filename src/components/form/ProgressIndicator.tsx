@@ -42,10 +42,10 @@ export function ProgressIndicator() {
               {/* Step circle */}
               <div
                 className={cn(
-                  "relative z-10 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full text-xs sm:text-sm font-medium transition-colors bg-background",
+                  "relative z-10 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full text-xs sm:text-sm font-medium transition-colors",
                   isCompleted && "bg-primary text-primary-foreground",
-                  isCurrent && !isCompleted && "bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2 ring-offset-background",
-                  isFuture && !isCompleted && "border-2 border-muted-foreground/30 text-muted-foreground"
+                  isCurrent && !isCompleted && "bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2 ring-offset-black/50",
+                  isFuture && !isCompleted && "border-2 border-muted-foreground/30 text-muted-foreground bg-black/30"
                 )}
                 aria-current={isCurrent ? "step" : undefined}
               >
