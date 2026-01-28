@@ -61,14 +61,14 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **BRAND-01**: Brand colors (#7b42e7 purple, white)
 - [x] **BRAND-02**: FT logo in hero and admin header
 - [x] **BRAND-03**: Minimal, modern, premium aesthetic
-- [ ] **BRAND-04**: Mobile responsive design (44x44px touch targets)
+- [x] **BRAND-04**: Mobile responsive design (44x44px touch targets)
 - [x] **BRAND-05**: Consistent design language across form and admin
 
 ### Deployment
 
-- [ ] **DEPLOY-01**: Vercel deployment configuration
-- [ ] **DEPLOY-02**: Environment variables for production (admin password, Convex keys)
-- [ ] **DEPLOY-03**: Mobile testing on iOS and Android
+- [x] **DEPLOY-01**: Vercel deployment configuration
+- [x] **DEPLOY-02**: Environment variables for production (admin password, Convex keys)
+- [x] **DEPLOY-03**: Mobile testing on iOS and Android
 
 ## v2 Requirements
 
@@ -147,10 +147,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ADMIN-04 | Phase 6 | Complete |
 | ADMIN-05 | Phase 6 | Complete |
 | ADMIN-06 | Phase 6 | Complete |
-| BRAND-04 | Phase 7 | Pending |
-| DEPLOY-01 | Phase 7 | Pending |
-| DEPLOY-02 | Phase 7 | Pending |
-| DEPLOY-03 | Phase 7 | Pending |
+| BRAND-04 | Phase 7 | Complete |
+| DEPLOY-01 | Phase 7 | Complete |
+| DEPLOY-02 | Phase 7 | Complete |
+| DEPLOY-03 | Phase 7 | Complete |
 
 **Coverage:**
 - v1 requirements: 42 total
@@ -170,4 +170,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-27*
-*Last updated: 2026-01-28 (Phase 6 complete)*
+*Last updated: 2026-01-28 (Phase 7 complete - all requirements satisfied)*
