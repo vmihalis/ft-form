@@ -49,12 +49,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Admin Dashboard
 
-- [ ] **ADMIN-01**: Table view of all submissions (name, email, floor, initiative, date)
-- [ ] **ADMIN-02**: Click row to view full submission details (modal or panel)
-- [ ] **ADMIN-03**: Status management (New, Under Review, Accepted, Rejected)
-- [ ] **ADMIN-04**: Filter submissions by floor
-- [ ] **ADMIN-05**: Search by name or initiative name
-- [ ] **ADMIN-06**: Real-time updates when new submissions arrive
+- [x] **ADMIN-01**: Table view of all submissions (name, email, floor, initiative, date)
+- [x] **ADMIN-02**: Click row to view full submission details (modal or panel)
+- [x] **ADMIN-03**: Status management (New, Under Review, Accepted, Rejected)
+- [x] **ADMIN-04**: Filter submissions by floor
+- [x] **ADMIN-05**: Search by name or initiative name
+- [x] **ADMIN-06**: Real-time updates when new submissions arrive
 
 ### Design & Branding
 
@@ -141,12 +141,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-03 | Phase 5 | Complete |
 | AUTH-04 | Phase 5 | Complete |
 | AUTH-05 | Phase 5 | Complete |
-| ADMIN-01 | Phase 6 | Pending |
-| ADMIN-02 | Phase 6 | Pending |
-| ADMIN-03 | Phase 6 | Pending |
-| ADMIN-04 | Phase 6 | Pending |
-| ADMIN-05 | Phase 6 | Pending |
-| ADMIN-06 | Phase 6 | Pending |
+| ADMIN-01 | Phase 6 | Complete |
+| ADMIN-02 | Phase 6 | Complete |
+| ADMIN-03 | Phase 6 | Complete |
+| ADMIN-04 | Phase 6 | Complete |
+| ADMIN-05 | Phase 6 | Complete |
+| ADMIN-06 | Phase 6 | Complete |
 | BRAND-04 | Phase 7 | Pending |
 | DEPLOY-01 | Phase 7 | Pending |
 | DEPLOY-02 | Phase 7 | Pending |
@@ -170,4 +170,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-27*
-*Last updated: 2026-01-28 (Phase 5 complete)*
+*Last updated: 2026-01-28 (Phase 6 complete)*

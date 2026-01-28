@@ -15,7 +15,7 @@ This roadmap delivers a Typeform-style floor lead application system for Frontie
 - [x] **Phase 3: Form UI (Static)** - All form step components with functional navigation
 - [x] **Phase 4: Form Polish & Animations** - Framer Motion transitions and UX refinements
 - [x] **Phase 5: Admin Authentication** - Password-protected login with session management
-- [ ] **Phase 6: Admin Dashboard** - Submission management interface with filtering and search
+- [x] **Phase 6: Admin Dashboard** - Submission management interface with filtering and search
 - [ ] **Phase 7: Mobile Optimization & Deployment** - Mobile testing and Vercel production deployment
 
 ## Phase Details
@@ -116,9 +116,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 06-01-PLAN.md - Install TanStack Table and shadcn components, add Convex list/updateStatus
-- [ ] 06-02-PLAN.md - Create ApplicationsTable with real-time data, filters, and search
-- [ ] 06-03-PLAN.md - Create ApplicationSheet, StatusDropdown, and integrate into admin page
+- [x] 06-01-PLAN.md - Install TanStack Table and shadcn components, add Convex list/updateStatus
+- [x] 06-02-PLAN.md - Create ApplicationsTable with real-time data, filters, and search
+- [x] 06-03-PLAN.md - Create ApplicationSheet, StatusDropdown, and integrate into admin page
 
 ### Phase 7: Mobile Optimization & Deployment
 **Goal**: Ensure mobile experience matches desktop quality and deploy to production
@@ -148,9 +148,9 @@ Note: Phase 5-6 (Admin) can execute in parallel with Phase 3-4 (Form) after Phas
 | 3. Form UI (Static) | 5/5 | Complete | 2026-01-28 |
 | 4. Form Polish & Animations | 3/3 | Complete | 2026-01-28 |
 | 5. Admin Authentication | 2/2 | Complete | 2026-01-28 |
-| 6. Admin Dashboard | 0/3 | Not started | - |
+| 6. Admin Dashboard | 3/3 | Complete | 2026-01-28 |
 | 7. Mobile Optimization & Deployment | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-27*
-*Last updated: 2026-01-28 (Phase 6 planned)*
+*Last updated: 2026-01-28 (Phase 6 complete)*
