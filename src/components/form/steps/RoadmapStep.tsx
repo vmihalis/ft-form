@@ -3,6 +3,7 @@
 import { useFormContext } from "react-hook-form";
 import { Field, FieldLabel, FieldDescription, FieldError } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
+import { useMobileKeyboard } from "@/hooks/useMobileKeyboard";
 import type { ApplicationFormData } from "@/types/form";
 
 /**
@@ -18,6 +19,7 @@ export function RoadmapStep() {
     register,
     formState: { errors },
   } = useFormContext<ApplicationFormData>();
+  const { onFocus } = useMobileKeyboard();
 
   return (
     <div className="space-y-6">
@@ -39,6 +41,7 @@ export function RoadmapStep() {
           placeholder="What's the minimum viable version of your floor community? What will you launch with?"
           rows={5}
           className="resize-none"
+          onFocus={onFocus}
         />
         <FieldDescription>
           Minimum 50 characters - describe your initial launch plan
@@ -56,6 +59,7 @@ export function RoadmapStep() {
           placeholder="How will you grow and expand the community? What new initiatives or events will you add?"
           rows={5}
           className="resize-none"
+          onFocus={onFocus}
         />
         <FieldDescription>
           Minimum 50 characters - describe your growth strategy
@@ -73,6 +77,7 @@ export function RoadmapStep() {
           placeholder="What's your long-term vision for this floor? How will it evolve and contribute to Frontier Tower?"
           rows={5}
           className="resize-none"
+          onFocus={onFocus}
         />
         <FieldDescription>
           Minimum 50 characters - describe your long-term vision

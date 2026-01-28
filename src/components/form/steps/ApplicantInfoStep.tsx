@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { Field, FieldLabel, FieldDescription, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useMobileKeyboard } from "@/hooks/useMobileKeyboard";
 import type { ApplicationFormData } from "@/types/form";
 
 /**
@@ -21,6 +22,7 @@ export function ApplicantInfoStep() {
     register,
     formState: { errors },
   } = useFormContext<ApplicationFormData>();
+  const { onFocus } = useMobileKeyboard();
 
   return (
     <div className="space-y-6">
@@ -40,6 +42,7 @@ export function ApplicantInfoStep() {
           {...register("fullName")}
           aria-invalid={!!errors.fullName}
           placeholder="Your full name"
+          onFocus={onFocus}
         />
         <FieldError>{errors.fullName?.message}</FieldError>
       </Field>
@@ -53,6 +56,7 @@ export function ApplicantInfoStep() {
           {...register("email")}
           aria-invalid={!!errors.email}
           placeholder="you@example.com"
+          onFocus={onFocus}
         />
         <FieldDescription>We&apos;ll use this to contact you about your application</FieldDescription>
         <FieldError>{errors.email?.message}</FieldError>
@@ -69,6 +73,7 @@ export function ApplicantInfoStep() {
           {...register("linkedIn")}
           aria-invalid={!!errors.linkedIn}
           placeholder="https://linkedin.com/in/yourprofile"
+          onFocus={onFocus}
         />
         <FieldError>{errors.linkedIn?.message}</FieldError>
       </Field>
@@ -81,6 +86,7 @@ export function ApplicantInfoStep() {
           {...register("role")}
           aria-invalid={!!errors.role}
           placeholder="e.g., Founder at TechCo, Research Scientist"
+          onFocus={onFocus}
         />
         <FieldDescription>Your current professional role or title</FieldDescription>
         <FieldError>{errors.role?.message}</FieldError>
@@ -96,6 +102,7 @@ export function ApplicantInfoStep() {
           placeholder="Tell us about your background, expertise, and what drives you..."
           rows={5}
           className="resize-none"
+          onFocus={onFocus}
         />
         <FieldDescription>Minimum 50 characters - tell us what makes you uniquely qualified</FieldDescription>
         <FieldError>{errors.bio?.message}</FieldError>

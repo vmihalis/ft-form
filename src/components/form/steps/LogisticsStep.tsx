@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { Field, FieldLabel, FieldDescription, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useMobileKeyboard } from "@/hooks/useMobileKeyboard";
 import type { ApplicationFormData } from "@/types/form";
 
 /**
@@ -20,6 +21,7 @@ export function LogisticsStep() {
     register,
     formState: { errors },
   } = useFormContext<ApplicationFormData>();
+  const { onFocus } = useMobileKeyboard();
 
   return (
     <div className="space-y-6">
@@ -41,6 +43,7 @@ export function LogisticsStep() {
           placeholder="Do you have an existing community? Describe your current network, any groups you lead, or communities you're part of."
           rows={4}
           className="resize-none"
+          onFocus={onFocus}
         />
         <FieldDescription>
           Tell us about any existing community or network you can bring
@@ -58,6 +61,7 @@ export function LogisticsStep() {
           placeholder="What physical space do you need? Consider desks, meeting rooms, event space, specialized equipment, storage, etc."
           rows={4}
           className="resize-none"
+          onFocus={onFocus}
         />
         <FieldDescription>
           Describe your ideal space setup and any special requirements
@@ -74,6 +78,7 @@ export function LogisticsStep() {
           {...register("startDate")}
           aria-invalid={!!errors.startDate}
           className="block"
+          onFocus={onFocus}
         />
         <FieldDescription>
           When would you like to launch your floor? (approximate is fine)
@@ -93,6 +98,7 @@ export function LogisticsStep() {
           placeholder="Anything else you'd like us to know? Questions, concerns, special circumstances, or additional context."
           rows={4}
           className="resize-none"
+          onFocus={onFocus}
         />
         <FieldError>{errors.additionalNotes?.message}</FieldError>
       </Field>

@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useMobileKeyboard } from "@/hooks/useMobileKeyboard";
 import { FRONTIER_TOWER_FLOORS } from "@/lib/constants/floors";
 import type { ApplicationFormData } from "@/types/form";
 
@@ -32,6 +33,7 @@ export function ProposalStep() {
     control,
     formState: { errors },
   } = useFormContext<ApplicationFormData>();
+  const { onFocus } = useMobileKeyboard();
 
   // useWatch isolates re-renders to this component only
   const selectedFloor = useWatch({
@@ -86,6 +88,7 @@ export function ProposalStep() {
             {...register("floorOther")}
             aria-invalid={!!errors.floorOther}
             placeholder="e.g., Quantum Computing Lab, Climate Tech Hub"
+            onFocus={onFocus}
           />
           <FieldDescription>What theme or focus would your floor have?</FieldDescription>
           <FieldError>{errors.floorOther?.message}</FieldError>
@@ -100,6 +103,7 @@ export function ProposalStep() {
           {...register("initiativeName")}
           aria-invalid={!!errors.initiativeName}
           placeholder="e.g., The Longevity Collective"
+          onFocus={onFocus}
         />
         <FieldDescription>A memorable name for your floor community</FieldDescription>
         <FieldError>{errors.initiativeName?.message}</FieldError>
@@ -114,6 +118,7 @@ export function ProposalStep() {
           aria-invalid={!!errors.tagline}
           placeholder="A short, catchy description of your vision"
           maxLength={100}
+          onFocus={onFocus}
         />
         <FieldDescription>Maximum 100 characters</FieldDescription>
         <FieldError>{errors.tagline?.message}</FieldError>
@@ -129,6 +134,7 @@ export function ProposalStep() {
           placeholder="What principles will guide your floor community?"
           rows={3}
           className="resize-none"
+          onFocus={onFocus}
         />
         <FieldDescription>Minimum 20 characters</FieldDescription>
         <FieldError>{errors.values?.message}</FieldError>
@@ -144,6 +150,7 @@ export function ProposalStep() {
           placeholder="Who would be ideal members of your floor community?"
           rows={3}
           className="resize-none"
+          onFocus={onFocus}
         />
         <FieldDescription>Minimum 20 characters - describe your ideal community members</FieldDescription>
         <FieldError>{errors.targetCommunity?.message}</FieldError>

@@ -3,6 +3,7 @@
 import { useFormContext } from "react-hook-form";
 import { Field, FieldLabel, FieldDescription, FieldError } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
+import { useMobileKeyboard } from "@/hooks/useMobileKeyboard";
 import type { ApplicationFormData } from "@/types/form";
 
 /**
@@ -16,6 +17,7 @@ export function ImpactStep() {
     register,
     formState: { errors },
   } = useFormContext<ApplicationFormData>();
+  const { onFocus } = useMobileKeyboard();
 
   return (
     <div className="space-y-6">
@@ -42,6 +44,7 @@ export function ImpactStep() {
 - How does your floor align with FT's mission of frontier technology and human flourishing?"
           rows={8}
           className="resize-none"
+          onFocus={onFocus}
         />
         <FieldDescription>
           Minimum 50 characters - be specific about the value you&apos;ll create
