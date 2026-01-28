@@ -15,7 +15,7 @@ export function WelcomeStep() {
       {/* FT Logo - BRAND-02 */}
       <div className="mx-auto mb-8 w-20 h-20 sm:w-24 sm:h-24 relative">
         <Image
-          src="/ft-logo.svg"
+          src="/logo.jpg"
           alt="Frontier Tower"
           fill
           className="object-contain"

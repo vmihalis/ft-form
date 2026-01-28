@@ -2,6 +2,7 @@
 
 import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 /**
  * ConfirmationStep - FORM-08
@@ -12,6 +13,17 @@ import { Button } from "@/components/ui/button";
 export function ConfirmationStep() {
   return (
     <div className="text-center py-8 sm:py-12">
+      {/* FT Logo */}
+      <div className="mx-auto mb-6 w-16 h-16 relative">
+        <Image
+          src="/logo.jpg"
+          alt="Frontier Tower"
+          fill
+          className="object-contain"
+          priority
+        />
+      </div>
+
       {/* Success icon */}
       <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
         <CheckCircle2 className="h-10 w-10 text-green-600 dark:text-green-400" />
