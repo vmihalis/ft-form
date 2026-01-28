@@ -96,10 +96,11 @@ Plans:
   3. Session persists across browser refresh (user stays logged in)
   4. Logout button clears session and redirects to login page
   5. Invalid password shows error message without granting access
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: TBD
+- [ ] 05-01-PLAN.md - Install jose and create JWT session utilities
+- [ ] 05-02-PLAN.md - Create login page, middleware, and logout functionality
 
 ### Phase 6: Admin Dashboard
 **Goal**: Build the submission management interface for reviewing and deciding on applications
@@ -144,10 +145,10 @@ Note: Phase 5-6 (Admin) can execute in parallel with Phase 3-4 (Form) after Phas
 | 2. Form Infrastructure | 2/2 | Complete | 2026-01-27 |
 | 3. Form UI (Static) | 5/5 | Complete | 2026-01-28 |
 | 4. Form Polish & Animations | 3/3 | Complete | 2026-01-28 |
-| 5. Admin Authentication | 0/TBD | Not started | - |
+| 5. Admin Authentication | 0/2 | Not started | - |
 | 6. Admin Dashboard | 0/TBD | Not started | - |
 | 7. Mobile Optimization & Deployment | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-27*
-*Last updated: 2026-01-28 (Phase 4 complete)*
+*Last updated: 2026-01-28 (Phase 5 planned)*
