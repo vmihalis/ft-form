@@ -1,32 +1,59 @@
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
-import { decrypt } from '@/lib/auth/session'
-import { logout } from './actions'
-import { Button } from '@/components/ui/button'
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { Metadata } from "next";
+import { decrypt } from "@/lib/auth/session";
+import { logout } from "./actions";
+import { Button } from "@/components/ui/button";
+import { AdminDashboard } from "@/components/admin/AdminDashboard";
 
+/**
+ * Metadata for the admin dashboard page
+ */
+export const metadata: Metadata = {
+  title: "Admin Dashboard | Frontier Tower",
+  description: "Manage floor lead applications for Frontier Tower",
+};
+
+/**
+ * Admin Dashboard Page
+ *
+ * Protected page for reviewing and managing floor lead applications.
+ * Session verification happens both in middleware and here (defense in depth).
+ *
+ * Features:
+ * - Applications table with filters (floor, search)
+ * - Click row to open detail sheet
+ * - Change application status from detail sheet
+ * - Real-time updates via Convex subscriptions
+ */
 export default async function AdminPage() {
   // Defense in depth: verify session even though middleware checks too
-  const cookieStore = await cookies()
-  const session = await decrypt(cookieStore.get('session')?.value)
+  // This ensures protection even if middleware is bypassed or misconfigured
+  const cookieStore = await cookies();
+  const session = await decrypt(cookieStore.get("session")?.value);
 
   if (!session?.isAuthenticated) {
-    redirect('/admin/login')
+    redirect("/admin/login");
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold">Admin Dashboard</h1>
-      <p className="mt-4 text-muted-foreground">
-        Manage floor lead applications
-      </p>
-      <div className="mt-8 flex gap-4">
-        <Button variant="outline">View Applications</Button>
-        <form action={logout}>
-          <Button type="submit" variant="outline">
-            Logout
-          </Button>
-        </form>
+    <main className="min-h-screen bg-background">
+      {/* Header with title and logout */}
+      <header className="border-b">
+        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+          <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+          <form action={logout}>
+            <Button type="submit" variant="outline">
+              Logout
+            </Button>
+          </form>
+        </div>
+      </header>
+
+      {/* Main content area */}
+      <div className="mx-auto max-w-7xl px-6 py-8">
+        <AdminDashboard />
       </div>
     </main>
-  )
+  );
 }
