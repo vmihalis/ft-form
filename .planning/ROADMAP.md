@@ -129,10 +129,11 @@ Plans:
   2. Mobile keyboard does not obscure active input fields
   3. Application is deployed and accessible at production URL
   4. Environment variables are properly configured for production (admin password, Convex keys)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 07-01: TBD
+- [ ] 07-01-PLAN.md - Mobile-optimize UI components for touch targets and keyboard handling
+- [ ] 07-02-PLAN.md - Deploy to Vercel with Convex backend integration
 
 ## Progress
 
@@ -149,8 +150,8 @@ Note: Phase 5-6 (Admin) can execute in parallel with Phase 3-4 (Form) after Phas
 | 4. Form Polish & Animations | 3/3 | Complete | 2026-01-28 |
 | 5. Admin Authentication | 2/2 | Complete | 2026-01-28 |
 | 6. Admin Dashboard | 3/3 | Complete | 2026-01-28 |
-| 7. Mobile Optimization & Deployment | 0/TBD | Not started | - |
+| 7. Mobile Optimization & Deployment | 0/2 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-27*
-*Last updated: 2026-01-28 (Phase 6 complete)*
+*Last updated: 2026-01-28 (Phase 7 planned)*
