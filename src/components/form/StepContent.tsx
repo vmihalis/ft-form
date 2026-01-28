@@ -26,6 +26,7 @@ interface StepContentProps {
  */
 export function StepContent({ step, isSubmitting = false }: StepContentProps) {
   const stepInfo = FORM_STEPS[step];
+  const isHeroScreen = step === 0 || step === 7;
 
   if (!stepInfo) {
     return (
@@ -64,7 +65,7 @@ export function StepContent({ step, isSubmitting = false }: StepContentProps) {
   };
 
   return (
-    <div className="min-h-[400px] sm:min-h-[500px]">
+    <div className={isHeroScreen ? "" : "min-h-[400px] sm:min-h-[500px]"}>
       <AnimatePresence mode="wait">
         <motion.div
           key={step}

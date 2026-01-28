@@ -124,3 +124,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Safe area utilities for notched devices (iPhone, etc.) */
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
