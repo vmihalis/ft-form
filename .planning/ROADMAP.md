@@ -99,11 +99,11 @@ Plans:
   4. Field shows visual edit state (border/background change) when being edited
   5. Pencil icon appears on field hover to indicate editability
   6. Invalid input (bad email format, empty required field) shows error and prevents save
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 09-01: EditableField component
-- [ ] 09-02: Field integration
+- [ ] 09-01-PLAN.md — Create EditableField component with all field type variants
+- [ ] 09-02-PLAN.md — Integrate EditableField into ApplicationSheet for all 18 fields
 
 #### Phase 10: Edit History Display
 **Goal**: Collapsible timeline showing edit history in detail panel
@@ -134,7 +134,7 @@ Phases execute in numeric order: 8 → 9 → 10
 | 6. Branding & Design | v1.0 | 2/2 | Complete | 2026-01-28 |
 | 7. Mobile & Deployment | v1.0 | 2/2 | Complete | 2026-01-28 |
 | 8. Edit Infrastructure | v1.1 | 1/1 | Complete | 2026-01-28 |
-| 9. Inline Editing UI | v1.1 | 0/2 | Not started | - |
+| 9. Inline Editing UI | v1.1 | 0/2 | Planned | - |
 | 10. Edit History Display | v1.1 | 0/1 | Not started | - |
 
 ---
