@@ -29,27 +29,28 @@ export function ProgressIndicator() {
         Step {currentStep} of {FORM_STEPS.length - 1}: {FORM_STEPS[currentStep]?.label}
       </span>
 
-      <ol className="flex items-center justify-center gap-2 sm:gap-4">
+      <ol className="flex items-center justify-center">
         {displaySteps.map((step, index) => {
           const stepNumber = index + 1; // Steps 1-6
           const isCompleted = completedSteps.includes(stepNumber);
           const isCurrent = currentStep === stepNumber;
           const isFuture = currentStep < stepNumber;
+          const isLast = index === displaySteps.length - 1;
 
           return (
             <li key={step.id} className="flex items-center">
               {/* Step circle */}
               <div
                 className={cn(
-                  "flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium transition-colors",
+                  "relative z-10 flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium transition-colors bg-background",
                   isCompleted && "bg-primary text-primary-foreground",
-                  isCurrent && !isCompleted && "bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2",
+                  isCurrent && !isCompleted && "bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2 ring-offset-background",
                   isFuture && !isCompleted && "border-2 border-muted-foreground/30 text-muted-foreground"
                 )}
                 aria-current={isCurrent ? "step" : undefined}
               >
                 {isCompleted ? (
-                  <Check className="h-4 w-4" aria-hidden="true" />
+                  <Check className="h-5 w-5" aria-hidden="true" />
                 ) : (
                   <span>{stepNumber}</span>
                 )}
@@ -61,10 +62,10 @@ export function ProgressIndicator() {
               </div>
 
               {/* Connector line (not after last step) */}
-              {index < displaySteps.length - 1 && (
+              {!isLast && (
                 <div
                   className={cn(
-                    "mx-1 h-0.5 w-4 sm:mx-2 sm:w-8",
+                    "h-0.5 w-8 sm:w-12",
                     completedSteps.includes(stepNumber) ? "bg-primary" : "bg-muted-foreground/30"
                   )}
                   aria-hidden="true"

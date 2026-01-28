@@ -9,6 +9,7 @@ import type { ApplicationFormData } from "@/types/form";
 
 interface NavigationButtonsProps {
   isSubmitting?: boolean;
+  step?: number;
 }
 
 /**
@@ -23,8 +24,9 @@ interface NavigationButtonsProps {
  * Next validates current step before advancing.
  * Back saves current values without validation.
  */
-export function NavigationButtons({ isSubmitting = false }: NavigationButtonsProps) {
-  const currentStep = useFormStore((state) => state.currentStep);
+export function NavigationButtons({ isSubmitting = false, step }: NavigationButtonsProps) {
+  const storeStep = useFormStore((state) => state.currentStep);
+  const currentStep = step ?? storeStep;
   const setCurrentStep = useFormStore((state) => state.setCurrentStep);
   const markStepCompleted = useFormStore((state) => state.markStepCompleted);
   const updateFormData = useFormStore((state) => state.updateFormData);

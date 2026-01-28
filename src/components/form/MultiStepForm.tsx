@@ -9,7 +9,6 @@ import { combinedApplicationSchema } from "@/lib/schemas/application";
 import { useFormStore } from "@/lib/stores/form-store";
 import { ProgressIndicator } from "./ProgressIndicator";
 import { StepContent } from "./StepContent";
-import { NavigationButtons } from "./NavigationButtons";
 import type { ApplicationFormData } from "@/types/form";
 
 /**
@@ -114,8 +113,8 @@ export function MultiStepForm() {
           </div>
         )}
 
-        {/* Step content */}
-        <StepContent step={currentStep} />
+        {/* Step content with navigation buttons */}
+        <StepContent step={currentStep} isSubmitting={isSubmitting} />
 
         {/* Submission error display */}
         {submitError && (
@@ -123,9 +122,6 @@ export function MultiStepForm() {
             {submitError}
           </div>
         )}
-
-        {/* Navigation buttons */}
-        <NavigationButtons isSubmitting={isSubmitting} />
       </form>
     </FormProvider>
   );

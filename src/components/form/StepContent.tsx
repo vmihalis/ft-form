@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, AnimatePresence } from "motion/react";
-import { usePrevious } from "@/lib/hooks/use-previous";
 import { FORM_STEPS } from "@/types/form";
 import { WelcomeStep } from "./steps/WelcomeStep";
 import { ApplicantInfoStep } from "./steps/ApplicantInfoStep";
@@ -11,40 +10,21 @@ import { ImpactStep } from "./steps/ImpactStep";
 import { LogisticsStep } from "./steps/LogisticsStep";
 import { ReviewStep } from "./steps/ReviewStep";
 import { ConfirmationStep } from "./steps/ConfirmationStep";
+import { NavigationButtons } from "./NavigationButtons";
 
 interface StepContentProps {
   step: number;
+  isSubmitting?: boolean;
 }
-
-type Direction = "forward" | "back";
-
-const stepVariants = {
-  initial: (direction: Direction) => ({
-    x: direction === "forward" ? 50 : -50,
-    opacity: 0,
-  }),
-  animate: {
-    x: 0,
-    opacity: 1,
-  },
-  exit: (direction: Direction) => ({
-    x: direction === "forward" ? -50 : 50,
-    opacity: 0,
-  }),
-};
 
 /**
  * StepContent component
  *
  * Routes to the appropriate step component based on current step.
  * All step components use FormProvider context from parent.
- * Animates transitions with direction-aware slide and fade effects.
+ * Animates transitions with a clean fade effect.
  */
-export function StepContent({ step }: StepContentProps) {
-  // Track direction for animations
-  const previousStep = usePrevious(step);
-  const direction: Direction = (previousStep ?? 0) < step ? "forward" : "back";
-
+export function StepContent({ step, isSubmitting = false }: StepContentProps) {
   const stepInfo = FORM_STEPS[step];
 
   if (!stepInfo) {
@@ -84,17 +64,22 @@ export function StepContent({ step }: StepContentProps) {
   };
 
   return (
-    <AnimatePresence mode="wait" custom={direction}>
-      <motion.div
-        key={step}
-        custom={direction}
-        initial={{ x: direction === "forward" ? 50 : -50, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        exit={{ x: direction === "forward" ? -50 : 50, opacity: 0 }}
-        transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
-      >
-        {getStepComponent()}
-      </motion.div>
-    </AnimatePresence>
+    <div className="min-h-[400px] sm:min-h-[500px]">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={step}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{
+            duration: 0.15,
+            ease: "easeOut"
+          }}
+        >
+          {getStepComponent()}
+          <NavigationButtons isSubmitting={isSubmitting} step={step} />
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 }
