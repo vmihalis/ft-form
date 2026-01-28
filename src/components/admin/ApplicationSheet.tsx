@@ -23,7 +23,7 @@ function Field({ label, value }: { label: string; value: string | undefined }) {
   return (
     <div className="space-y-1">
       <p className="text-sm font-medium text-muted-foreground">{label}</p>
-      <p className="text-sm whitespace-pre-wrap">{value}</p>
+      <p className="text-sm whitespace-pre-wrap break-words">{value}</p>
     </div>
   );
 }
@@ -63,14 +63,14 @@ export function ApplicationSheet({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="overflow-y-auto sm:max-w-lg">
+      <SheetContent className="w-full sm:w-[540px] sm:max-w-[calc(100vw-2rem)] overflow-y-auto">
         {/* Header */}
         <SheetHeader>
-          <SheetTitle>{application.initiativeName}</SheetTitle>
-          <SheetDescription>{application.tagline}</SheetDescription>
+          <SheetTitle className="break-words pr-8">{application.initiativeName}</SheetTitle>
+          <SheetDescription className="break-words">{application.tagline}</SheetDescription>
         </SheetHeader>
 
-        <div className="space-y-6 py-4">
+        <div className="space-y-6 px-4 py-4">
           {/* Status */}
           <Section title="Status">
             <StatusDropdown
@@ -95,7 +95,7 @@ export function ApplicationSheet({
                     href={application.linkedIn}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-primary hover:underline"
+                    className="text-sm text-primary hover:underline break-all"
                   >
                     {application.linkedIn}
                   </a>
