@@ -114,10 +114,10 @@ Plans:
   2. Timeline displays all edits with field name, old value, new value, and timestamp
   3. Most recent edits appear first in the timeline
   4. Field names display as human-readable labels (e.g., "Floor Preference" not "floorPreference")
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 10-01: Edit history timeline
+- [ ] 10-01-PLAN.md — Collapsible edit history timeline with field label mapping
 
 ## Progress
 
