@@ -41,11 +41,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Admin Authentication
 
-- [ ] **AUTH-01**: Password-protected admin login page
-- [ ] **AUTH-02**: Single shared password via environment variable
-- [ ] **AUTH-03**: Protected routes middleware for /admin/*
-- [ ] **AUTH-04**: Session management with JWT
-- [ ] **AUTH-05**: Logout functionality
+- [x] **AUTH-01**: Password-protected admin login page
+- [x] **AUTH-02**: Single shared password via environment variable
+- [x] **AUTH-03**: Protected routes middleware for /admin/*
+- [x] **AUTH-04**: Session management with JWT
+- [x] **AUTH-05**: Logout functionality
 
 ### Admin Dashboard
 
@@ -136,11 +136,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BRAND-01 | Phase 4 | Complete |
 | BRAND-03 | Phase 4 | Complete |
 | BRAND-05 | Phase 4 | Complete |
-| AUTH-01 | Phase 5 | Pending |
-| AUTH-02 | Phase 5 | Pending |
-| AUTH-03 | Phase 5 | Pending |
-| AUTH-04 | Phase 5 | Pending |
-| AUTH-05 | Phase 5 | Pending |
+| AUTH-01 | Phase 5 | Complete |
+| AUTH-02 | Phase 5 | Complete |
+| AUTH-03 | Phase 5 | Complete |
+| AUTH-04 | Phase 5 | Complete |
+| AUTH-05 | Phase 5 | Complete |
 | ADMIN-01 | Phase 6 | Pending |
 | ADMIN-02 | Phase 6 | Pending |
 | ADMIN-03 | Phase 6 | Pending |
@@ -170,4 +170,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-27*
-*Last updated: 2026-01-28 (Phase 4 complete)*
+*Last updated: 2026-01-28 (Phase 5 complete)*
