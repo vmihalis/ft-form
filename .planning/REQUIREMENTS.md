@@ -18,10 +18,10 @@ Requirements for admin inline editing milestone. Each maps to roadmap phases.
 
 ### Edit History
 
-- [ ] **HIST-01**: Edit history tracked in database (field, old value, new value, timestamp)
-- [ ] **HIST-02**: Edit history viewable in detail panel as collapsible timeline
-- [ ] **HIST-03**: Timeline shows most recent changes first
-- [ ] **HIST-04**: Field names displayed as human-readable labels (not technical names)
+- [x] **HIST-01**: Edit history tracked in database (field, old value, new value, timestamp)
+- [x] **HIST-02**: Edit history viewable in detail panel as collapsible timeline
+- [x] **HIST-03**: Timeline shows most recent changes first
+- [x] **HIST-04**: Field names displayed as human-readable labels (not technical names)
 
 ## Future Requirements (v1.2+)
 
@@ -75,9 +75,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EDIT-05 | Phase 9 | Complete |
 | EDIT-06 | Phase 9 | Complete |
 | HIST-01 | Phase 8 | Complete |
-| HIST-02 | Phase 10 | Pending |
-| HIST-03 | Phase 10 | Pending |
-| HIST-04 | Phase 10 | Pending |
+| HIST-02 | Phase 10 | Complete |
+| HIST-03 | Phase 10 | Complete |
+| HIST-04 | Phase 10 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 10 total

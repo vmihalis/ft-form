@@ -3,7 +3,7 @@
 ## Milestones
 
 - ✅ **v1.0 MVP** - Phases 1-7 (shipped 2026-01-28)
-- 🚧 **v1.1 Admin Inline Editing** - Phases 8-10 (in progress)
+- ✅ **v1.1 Admin Inline Editing** - Phases 8-10 (shipped 2026-01-28)
 
 ## Phases
 
@@ -70,7 +70,7 @@ Plans:
 
 </details>
 
-### 🚧 v1.1 Admin Inline Editing (In Progress)
+### ✅ v1.1 Admin Inline Editing (Complete)
 
 **Milestone Goal:** Enable admins to edit any field of a submitted application directly from the detail view, with full edit history tracking.
 
@@ -117,7 +117,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 10-01-PLAN.md — Collapsible edit history timeline with field label mapping
+- [x] 10-01-PLAN.md — Collapsible edit history timeline with field label mapping
 
 ## Progress
 
@@ -135,7 +135,7 @@ Phases execute in numeric order: 8 → 9 → 10
 | 7. Mobile & Deployment | v1.0 | 2/2 | Complete | 2026-01-28 |
 | 8. Edit Infrastructure | v1.1 | 1/1 | Complete | 2026-01-28 |
 | 9. Inline Editing UI | v1.1 | 2/2 | Complete | 2026-01-28 |
-| 10. Edit History Display | v1.1 | 0/1 | Not started | - |
+| 10. Edit History Display | v1.1 | 1/1 | Complete | 2026-01-28 |
 
 ---
 *Roadmap created: 2026-01-28*
