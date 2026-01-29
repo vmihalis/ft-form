@@ -13,7 +13,6 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Field, FieldLabel, FieldDescription } from "@/components/ui/field";
 
 /**
@@ -28,7 +27,6 @@ export default function NewFormPage() {
 
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
-  const [description, setDescription] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -41,7 +39,6 @@ export default function NewFormPage() {
       const formId = await createForm({
         name: name.trim(),
         slug: slug.trim(),
-        description: description.trim() || undefined,
       });
       router.push(`/admin/forms/${formId}`);
     } catch (err) {
@@ -106,21 +103,6 @@ export default function NewFormPage() {
                 <FieldDescription>
                   Lowercase letters, numbers, and hyphens only
                 </FieldDescription>
-              </Field>
-
-              {/* Description */}
-              <Field>
-                <FieldLabel htmlFor="description">
-                  Description
-                  <span className="text-muted-foreground font-normal">(optional)</span>
-                </FieldLabel>
-                <Textarea
-                  id="description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Brief description of this form's purpose"
-                  rows={3}
-                />
               </Field>
 
               {/* Error message */}

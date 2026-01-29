@@ -4,6 +4,7 @@ import Image from "next/image";
 
 interface DynamicWelcomeProps {
   formName: string;
+  welcomeMessage?: string;
 }
 
 /**
@@ -12,7 +13,9 @@ interface DynamicWelcomeProps {
  * Displays logo, form name as headline, and generic welcome text.
  * Follows existing WelcomeStep.tsx pattern.
  */
-export function DynamicWelcome({ formName }: DynamicWelcomeProps) {
+const DEFAULT_WELCOME_MESSAGE = "Please complete this form to submit your application. Your progress is automatically saved.";
+
+export function DynamicWelcome({ formName, welcomeMessage }: DynamicWelcomeProps) {
   return (
     <div className="text-center py-8 sm:py-12">
       {/* Logo */}
@@ -31,8 +34,7 @@ export function DynamicWelcome({ formName }: DynamicWelcomeProps) {
       </h1>
 
       <p className="mt-8 text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto px-4 leading-relaxed">
-        Please complete this form to submit your application.
-        Your progress is automatically saved.
+        {welcomeMessage || DEFAULT_WELCOME_MESSAGE}
       </p>
     </div>
   );

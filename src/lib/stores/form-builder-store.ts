@@ -58,6 +58,7 @@ const emptySchema: FormSchema = {
   settings: {
     submitButtonText: "Submit",
     successMessage: "Thank you!",
+    welcomeMessage: "Please complete this form to submit your application. Your progress is automatically saved.",
   },
 };
 

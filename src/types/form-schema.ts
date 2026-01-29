@@ -52,6 +52,7 @@ export interface FieldOption {
 export interface FormSettings {
   submitButtonText: string;
   successMessage: string;
+  welcomeMessage?: string;
 }
 
 // Convex document types (what comes from database queries)

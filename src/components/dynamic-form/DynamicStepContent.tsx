@@ -41,7 +41,7 @@ export function DynamicStepContent({
 
   const getStepContent = () => {
     if (isWelcome) {
-      return <DynamicWelcome formName={formName} />;
+      return <DynamicWelcome formName={formName} welcomeMessage={schema.settings.welcomeMessage} />;
     }
 
     if (isConfirmation) {

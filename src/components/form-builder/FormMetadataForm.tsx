@@ -34,9 +34,9 @@ export function FormMetadataForm({ formId }: FormMetadataFormProps) {
   // Local state for controlled inputs
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
-  const [description, setDescription] = useState("");
   const [submitButtonText, setSubmitButtonText] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [welcomeMessage, setWelcomeMessage] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   // Initialize local state from form data
@@ -44,9 +44,9 @@ export function FormMetadataForm({ formId }: FormMetadataFormProps) {
     if (form) {
       setName(form.name);
       setSlug(form.slug);
-      setDescription(form.description || "");
       setSubmitButtonText(form.draftSchema.settings?.submitButtonText || "Submit");
       setSuccessMessage(form.draftSchema.settings?.successMessage || "Thank you!");
+      setWelcomeMessage(form.draftSchema.settings?.welcomeMessage || "Please complete this form to submit your application. Your progress is automatically saved.");
     }
   }, [form]);
 
@@ -74,7 +74,7 @@ export function FormMetadataForm({ formId }: FormMetadataFormProps) {
 
   // Update store settings when settings change
   const updateSettings = useCallback(
-    (key: "submitButtonText" | "successMessage", value: string) => {
+    (key: "submitButtonText" | "successMessage" | "welcomeMessage", value: string) => {
       const { schema: currentSchema } = useFormBuilderStore.getState();
       useFormBuilderStore.setState({
         schema: {
@@ -151,20 +151,6 @@ export function FormMetadataForm({ formId }: FormMetadataFormProps) {
             Lowercase letters, numbers, and hyphens only
           </FieldDescription>
         </Field>
-
-        <Field>
-          <FieldLabel htmlFor="form-description">Description</FieldLabel>
-          <Textarea
-            id="form-description"
-            value={description}
-            onChange={(e) => {
-              setDescription(e.target.value);
-              debouncedSaveMetadata({ description: e.target.value || undefined });
-            }}
-            placeholder="Brief description of this form"
-            rows={2}
-          />
-        </Field>
       </div>
 
       <Separator />
@@ -200,6 +186,23 @@ export function FormMetadataForm({ formId }: FormMetadataFormProps) {
           />
           <FieldDescription>
             Shown after successful form submission
+          </FieldDescription>
+        </Field>
+
+        <Field>
+          <FieldLabel htmlFor="welcome-message">Welcome Message</FieldLabel>
+          <Textarea
+            id="welcome-message"
+            value={welcomeMessage}
+            onChange={(e) => {
+              setWelcomeMessage(e.target.value);
+              updateSettings("welcomeMessage", e.target.value);
+            }}
+            placeholder="Please complete this form to submit your application."
+            rows={3}
+          />
+          <FieldDescription>
+            Intro text shown on the first screen of the form
           </FieldDescription>
         </Field>
       </div>
