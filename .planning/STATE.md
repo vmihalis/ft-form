@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-29)
 ## Current Position
 
 Phase: 14 of 15 (Form Builder UI)
-Plan: 01 of TBD complete
+Plan: 03 of TBD complete
 Status: In progress
-Last activity: 2026-01-29 - Completed 14-01-PLAN.md (foundation and forms list)
+Last activity: 2026-01-29 - Completed 14-03-PLAN.md (field palette and form canvas)
 
-Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [##############______] 70%
+Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [################____] 80%
 
 ## Milestones
 
@@ -32,7 +32,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 28 (v1.0: 16, v1.1: 4, v1.2: 8)
+- Total plans completed: 29 (v1.0: 16, v1.1: 4, v1.2: 9)
 - Average duration: Not tracked for previous milestones
 - Total execution time: Not tracked
 
@@ -42,7 +42,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 |-----------|--------|-------|--------|
 | v1.0 | 7 | 16 | Complete |
 | v1.1 | 3 | 4 | Complete |
-| v1.2 | 5 | 8/TBD | In progress |
+| v1.2 | 5 | 9/TBD | In progress |
 
 ## Accumulated Context
 
@@ -74,6 +74,8 @@ Recent decisions affecting current work:
 - Form Flow: Progress indicator shows content steps + review (excludes welcome/confirmation)
 - Form Builder: No persistence middleware for builder store - state resets on navigation
 - Form Builder: Status badges use inline className pattern vs separate utility
+- Form Builder: Drag handle on left side only to allow click-to-select elsewhere
+- Form Builder: 8px activation constraint prevents accidental drags
 
 ### Pending Todos
 
@@ -86,8 +88,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 14-01-PLAN.md
+Stopped at: Completed 14-03-PLAN.md
 Resume file: None
 
 ---
-*v1.2 milestone in progress - Phase 14 Form Builder UI plan 01 complete*
+*v1.2 milestone in progress - Phase 14 Form Builder UI plan 03 complete*
