@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-29)
 
 **Core value:** The FT team can efficiently manage all aspects of Frontier Tower from a single, premium dashboard that feels as cutting-edge as the building itself.
-**Current focus:** Phase 21 - Dashboard Hub & Navigation
+**Current focus:** Phase 22 - WYSIWYG Form Builder
 
 ## Current Position
 
 Phase: 22 of 24 (WYSIWYG Form Builder)
-Plan: 1 of ? in current phase
+Plan: 3 of ? in current phase
 Status: In progress
-Last activity: 2026-01-29 - Completed 22-01-PLAN.md
+Last activity: 2026-01-29 - Completed 22-03-PLAN.md
 
-Progress: v1.0-v1.3 [####################] 100% | v2.0 [##########          ] 50%
+Progress: v1.0-v1.3 [####################] 100% | v2.0 [###########         ] 55%
 
 ## Milestones
 
@@ -33,7 +33,7 @@ Progress: v1.0-v1.3 [####################] 100% | v2.0 [##########          ] 50
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 53 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 10)
+- Total plans completed: 54 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 11)
 - Total requirements validated: 63+
 
 **By Milestone:**
@@ -69,6 +69,8 @@ Recent decisions for v2.0:
 - Shared AdminHeader - Theme toggle and logout accessible on all screen sizes
 - structuredClone for field duplication - Handles nested options array properly
 - " (Copy)" suffix on duplicated fields - Clear visual indicator for users
+- 2-column grid layout for FieldTypePicker - Fits nicely in popover width
+- Group hover pattern for AddFieldButton - Progressive disclosure UX
 
 ### Pending Todos
 
@@ -81,8 +83,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 22-01-PLAN.md (Foundation Components)
+Stopped at: Completed 22-03-PLAN.md (Add Field Button & Field Type Picker)
 Resume with: Next plan in Phase 22 (WYSIWYG Form Builder)
 
 ---
-*Phase 22 in progress. Foundation components (popover, tooltip) and store actions ready for WYSIWYG builder.*
+*Phase 22 in progress. AddFieldButton and FieldTypePicker components ready for integration into FormCanvas.*
