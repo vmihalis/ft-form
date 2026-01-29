@@ -9,6 +9,8 @@
  */
 
 import type * as applications from "../applications.js";
+import type * as forms from "../forms.js";
+import type * as submissions from "../submissions.js";
 
 import type {
   ApiFromModules,
@@ -18,6 +20,8 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   applications: typeof applications;
+  forms: typeof forms;
+  submissions: typeof submissions;
 }>;
 
 /**
