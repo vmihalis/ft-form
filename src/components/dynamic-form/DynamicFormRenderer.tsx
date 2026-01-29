@@ -33,14 +33,13 @@ export function DynamicFormRenderer({
 }: DynamicFormRendererProps) {
   // Store state - subscribe to draft data directly to trigger re-renders
   const draft = useDynamicFormStore((state) => state.drafts[slug]);
-  const setCurrentStep = useDynamicFormStore((state) => state.setCurrentStep);
-  const clearDraft = useDynamicFormStore((state) => state.clearDraft);
 
   const currentStep = draft?.currentStep ?? 0;
   const completedSteps = draft?.completedSteps ?? [];
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   // Convex mutation
   const submitForm = useMutation(api.submissions.submit);
@@ -52,10 +51,13 @@ export function DynamicFormRenderer({
   // Structure: Welcome (0) -> Content Steps (1 to N) -> Review (N+1) -> Confirmation (N+2)
   const totalContentSteps = schema.steps.length;
   const totalSteps = totalContentSteps + 3; // welcome + content + review + confirmation
-  const isWelcome = currentStep === 0;
-  const isConfirmation = currentStep === totalSteps - 1;
-  const isReview = currentStep === totalSteps - 2;
+  const isWelcome = currentStep === 0 && !isSubmitted;
+  const isConfirmation = isSubmitted || currentStep === totalSteps - 1;
+  const isReview = !isSubmitted && currentStep === totalSteps - 2;
   const contentStepIndex = currentStep - 1; // Maps to schema.steps index
+
+  // Use confirmation step for display when submitted
+  const displayStep = isSubmitted ? totalSteps - 1 : currentStep;
 
   // Initialize react-hook-form
   const methods = useForm({
@@ -90,11 +92,12 @@ export function DynamicFormRenderer({
         data: JSON.stringify(data),
       });
 
-      // Move to confirmation
-      setCurrentStep(slug, totalSteps - 1);
+      // Mark as submitted (triggers confirmation view)
+      setIsSubmitted(true);
 
-      // Clear draft from localStorage
-      clearDraft(slug);
+      // Clear draft from localStorage so refreshing starts fresh
+      // Use localStorage directly to avoid re-render before confirmation shows
+      localStorage.removeItem("ft-dynamic-form-drafts");
     } catch (error) {
       console.error("Submission failed:", error);
       setSubmitError(
@@ -126,7 +129,7 @@ export function DynamicFormRenderer({
           slug={slug}
           schema={schema}
           formName={formName}
-          currentStep={currentStep}
+          currentStep={displayStep}
           totalSteps={totalSteps}
           isSubmitting={isSubmitting}
           stepFieldIds={currentStepFieldIds}

@@ -10,13 +10,11 @@ interface PageProps {
  * Server component that renders the client-side DynamicFormPage.
  * Loads published form data from Convex and renders
  * the appropriate form UI based on schema.
+ *
+ * Matches styling of original /apply page with glass-card effect.
  */
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
 
-  return (
-    <main className="min-h-screen w-full max-w-3xl mx-auto px-4 py-8 sm:py-12">
-      <DynamicFormPage slug={slug} />
-    </main>
-  );
+  return <DynamicFormPage slug={slug} />;
 }
