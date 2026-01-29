@@ -95,12 +95,14 @@ Plans:
   5. Real-time preview shows form as users will see it
   6. Form has draft/published/archived status lifecycle
   7. Publishing creates immutable form version snapshot
-**Plans**: TBD
+**Plans**: 5 plans
 
 Plans:
-- [ ] 14-01: TBD
-- [ ] 14-02: TBD
-- [ ] 14-03: TBD
+- [ ] 14-01-PLAN.md — Install dnd-kit, create Zustand store, admin forms list page
+- [ ] 14-02-PLAN.md — New form page, form builder shell with three-panel layout
+- [ ] 14-03-PLAN.md — Field palette and form canvas with dnd-kit sortable
+- [ ] 14-04-PLAN.md — Property panel, options editor, validation settings
+- [ ] 14-05-PLAN.md — Preview panel, form status actions, publish/archive
 
 ### Phase 15: Admin Integration
 **Goal**: Admins can manage forms and view dynamic submissions with schema-aware rendering
@@ -130,9 +132,9 @@ Phases execute in numeric order: 11 -> 12 -> 13 -> 14 -> 15
 | 11. Schema Foundation | v1.2 | 2/2 | Complete | 2026-01-29 |
 | 12. File Upload Infrastructure | v1.2 | 2/2 | Complete | 2026-01-29 |
 | 13. Dynamic Form Renderer | v1.2 | 3/3 | Complete | 2026-01-29 |
-| 14. Form Builder UI | v1.2 | 0/TBD | Not started | - |
+| 14. Form Builder UI | v1.2 | 0/5 | Planning complete | - |
 | 15. Admin Integration | v1.2 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-29*
-*Last updated: 2026-01-29 after Phase 13 execution complete*
+*Last updated: 2026-01-29 after Phase 14 planning complete*
