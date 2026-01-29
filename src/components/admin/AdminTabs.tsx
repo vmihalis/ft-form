@@ -7,13 +7,15 @@ import { SubmissionsTable } from "./SubmissionsTable";
 import { SubmissionSheet } from "./SubmissionSheet";
 import { SubmissionRow } from "./submissions-columns";
 import { FormsList } from "@/components/form-builder/FormsList";
+import { ActivityFeed } from "./ActivityFeed";
 import { Id } from "../../../convex/_generated/dataModel";
 
 /**
  * Tab navigation for admin dashboard
  *
- * Two tabs:
- * - Submissions: Dynamic form submissions (default tab)
+ * Three tabs:
+ * - Dashboard: Activity feed showing recent submissions (default tab)
+ * - Submissions: Dynamic form submissions table
  * - Forms: Form management with FormsList
  *
  * Tab state is synced to URL via ?tab= query param for bookmarking/sharing.
@@ -33,13 +35,13 @@ export function AdminTabs() {
     setSubmissionSheetOpen(true);
   };
 
-  // Get current tab from URL, default to "submissions"
-  const currentTab = searchParams.get("tab") || "submissions";
+  // Get current tab from URL, default to "dashboard"
+  const currentTab = searchParams.get("tab") || "dashboard";
 
   // Handle tab change - update URL
   const handleTabChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (value === "submissions") {
+    if (value === "dashboard") {
       // Remove tab param for default value (cleaner URL)
       params.delete("tab");
     } else {
@@ -53,9 +55,14 @@ export function AdminTabs() {
     <>
       <Tabs value={currentTab} onValueChange={handleTabChange}>
         <TabsList>
+          <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
           <TabsTrigger value="submissions">Submissions</TabsTrigger>
           <TabsTrigger value="forms">Forms</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="dashboard">
+          <ActivityFeed />
+        </TabsContent>
 
         <TabsContent value="submissions">
           <SubmissionsTable onRowClick={handleSubmissionClick} />
