@@ -9,13 +9,13 @@ Requirements for FrontierOS Dashboard overhaul. Each maps to roadmap phases.
 
 ### Design System
 
-- [ ] **DS-01**: Theme toggle allows user to switch between light and dark modes
-- [ ] **DS-02**: Theme preference persists across sessions (localStorage)
-- [ ] **DS-03**: Glass utilities work correctly in both light and dark themes
-- [ ] **DS-04**: CSS variables define all theme-aware colors, shadows, and effects
+- [x] **DS-01**: Theme toggle allows user to switch between light and dark modes
+- [x] **DS-02**: Theme preference persists across sessions (localStorage)
+- [x] **DS-03**: Glass utilities work correctly in both light and dark themes
+- [x] **DS-04**: CSS variables define all theme-aware colors, shadows, and effects
 - [ ] **DS-05**: Glassmorphism effects applied to floating elements (modals, dropdowns, tooltips)
 - [ ] **DS-06**: Microinteractions (200-500ms transitions) on all interactive elements
-- [ ] **DS-07**: Design tokens documented and consistent across all components
+- [x] **DS-07**: Design tokens documented and consistent across all components
 
 ### Navigation & Layout
 
@@ -117,13 +117,13 @@ Requirements for FrontierOS Dashboard overhaul. Each maps to roadmap phases.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DS-01 | Phase 20 | Pending |
-| DS-02 | Phase 20 | Pending |
-| DS-03 | Phase 20 | Pending |
-| DS-04 | Phase 20 | Pending |
+| DS-01 | Phase 20 | Complete |
+| DS-02 | Phase 20 | Complete |
+| DS-03 | Phase 20 | Complete |
+| DS-04 | Phase 20 | Complete |
 | DS-05 | Phase 24 | Pending |
 | DS-06 | Phase 24 | Pending |
-| DS-07 | Phase 20 | Pending |
+| DS-07 | Phase 20 | Complete |
 | NAV-01 | Phase 21 | Pending |
 | NAV-02 | Phase 21 | Pending |
 | NAV-03 | Phase 21 | Pending |
@@ -168,4 +168,4 @@ Requirements for FrontierOS Dashboard overhaul. Each maps to roadmap phases.
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 after roadmap creation*
+*Last updated: 2026-01-29 after Phase 20 completion*

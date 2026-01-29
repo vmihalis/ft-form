@@ -53,7 +53,7 @@ See `.planning/milestones/v1.3-ROADMAP.md` for full details.
 
 **Milestone Goal:** Transform the admin dashboard into FrontierOS - a premium command center with glassmorphism design system, dashboard hub navigation, light/dark mode, and complete visual overhaul of all existing features.
 
-- [ ] **Phase 20: Design System Foundation** - Theme infrastructure and glass utilities
+- [x] **Phase 20: Design System Foundation** - Theme infrastructure and glass utilities (completed 2026-01-29)
 - [ ] **Phase 21: Dashboard Hub & Navigation** - Module cards, sidebar, placeholder modules
 - [ ] **Phase 22: WYSIWYG Form Builder** - Inline editing with floating toolbar
 - [ ] **Phase 23: Forms/Submissions Redesign** - Glass styling and animations
@@ -74,9 +74,9 @@ See `.planning/milestones/v1.3-ROADMAP.md` for full details.
 **Plans:** 3 plans
 
 Plans:
-- [ ] 20-01-PLAN.md — Install next-themes and theme-aware glass CSS variables
-- [ ] 20-02-PLAN.md — Create ModeToggle component and add to admin header
-- [ ] 20-03-PLAN.md — Document design tokens
+- [x] 20-01-PLAN.md — Install next-themes and theme-aware glass CSS variables
+- [x] 20-02-PLAN.md — Create ModeToggle component and add to admin header
+- [x] 20-03-PLAN.md — Document design tokens
 
 ### Phase 21: Dashboard Hub & Navigation
 **Goal:** Users land on a dashboard hub with module cards and can navigate via collapsible sidebar.
@@ -156,7 +156,7 @@ Plans:
 | 8-10 | v1.1 | 4/4 | Complete | 2026-01-29 |
 | 11-15 | v1.2 | 15/15 | Complete | 2026-01-29 |
 | 16-19 | v1.3 | 8/8 | Complete | 2026-01-29 |
-| 20 | v2.0 | 0/3 | Not started | - |
+| 20 | v2.0 | 3/3 | Complete | 2026-01-29 |
 | 21 | v2.0 | 0/TBD | Not started | - |
 | 22 | v2.0 | 0/TBD | Not started | - |
 | 23 | v2.0 | 0/TBD | Not started | - |
@@ -164,4 +164,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-29 after Phase 20 planning*
+*Last updated: 2026-01-29 after Phase 20 completion*
