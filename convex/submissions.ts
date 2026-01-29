@@ -215,6 +215,26 @@ export const getEditHistory = query({
 });
 
 /**
+ * Update submission internal notes
+ */
+export const updateNotes = mutation({
+  args: {
+    submissionId: v.id("submissions"),
+    notes: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const submission = await ctx.db.get(args.submissionId);
+    if (!submission) throw new Error("Submission not found");
+
+    await ctx.db.patch(args.submissionId, {
+      notes: args.notes,
+    });
+
+    return args.submissionId;
+  },
+});
+
+/**
  * Get submission stats (counts by status)
  * For admin dashboard stats cards
  */
