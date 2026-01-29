@@ -1,5 +1,33 @@
 # Project Milestones: Frontier Tower Floor Lead Application System
 
+## v1.2 Dynamic Form Builder (Shipped: 2026-01-29)
+
+**Delivered:** Admins can create custom application forms with drag-and-drop builder, multiple forms with unique URLs, and schema-driven submission viewing.
+
+**Phases completed:** 11-15 (15 plans total)
+
+**Key accomplishments:**
+
+- Dynamic form schema with immutable versioning — forms preserve structure at submission time
+- Drag-and-drop form builder with 8 field types (text, textarea, email, dropdown, number, date, checkbox, file)
+- Convex file storage integration with drag-and-drop uploads and progress tracking
+- Typeform-style public form renderer at unique URLs (/apply/[slug])
+- Schema-driven admin panel that renders submissions based on form structure
+- Form duplication and lifecycle management (draft → published → archived)
+
+**Stats:**
+
+- 102 files modified
+- ~11,900 lines of TypeScript (total codebase)
+- 5 phases, 15 plans, 27 requirements satisfied
+- ~3.5 hours from start to ship
+
+**Git range:** `feat(11-01)` → `feat(15-03)`
+
+**What's next:** v1.3+ enhancements (conditional logic, field branching, form analytics)
+
+---
+
 ## v1.1 Admin Inline Editing (Shipped: 2026-01-29)
 
 **Delivered:** Inline editing for all 19 application fields with full edit history tracking in the admin detail panel.

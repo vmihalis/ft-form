@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A web application for Frontier Tower to collect and manage proposals from people who want to lead community initiatives on different floors. Features a Typeform-style public application form with smooth animations and a password-protected admin dashboard for the FT team to review and manage submissions.
+A web application for Frontier Tower to collect and manage proposals from people who want to lead community initiatives on different floors. Features a Typeform-style public application form with smooth animations, a drag-and-drop form builder for admins to create custom forms, and a password-protected admin dashboard for the FT team to review and manage submissions.
 
 ## Core Value
 
@@ -12,20 +12,13 @@ If everything else fails, the form must collect complete proposals and store the
 
 ## Current State
 
-**Latest Release:** v1.1 Admin Inline Editing (shipped 2026-01-29)
+**Latest Release:** v1.2 Dynamic Form Builder (shipped 2026-01-29)
 
-Admins can now edit any of the 19 application fields directly in the detail panel with full edit history tracking. Click any field to edit, save with Enter/blur, cancel with Escape. All changes are recorded in a collapsible timeline.
+Admins can now create custom application forms with a drag-and-drop builder. Forms support 8 field types (text, textarea, email, dropdown, number, date, checkbox, file upload), each with configurable validation. Published forms get unique URLs (/apply/[slug]) and use immutable versioning to preserve form structure at submission time. The admin panel dynamically renders submissions based on each form's schema.
 
-## Current Milestone: v1.2 Dynamic Form Builder
-
-**Goal:** Enable admins to create and customize application forms with full control over fields, types, and structure.
-
-**Target features:**
-- Drag-and-drop form builder UI in admin dashboard
-- Multiple forms with unique URLs (/apply/[slug])
-- Rich field types: text, textarea, email, dropdown, file upload, date, number, checkbox
-- Form versioning — submissions preserve form structure at submission time
-- Convex file storage for file upload fields
+**Production URL:** https://ft-form.vercel.app
+**Convex backend:** https://usable-bobcat-946.convex.cloud
+**Total codebase:** ~11,900 lines TypeScript
 
 ## Requirements
 
@@ -40,17 +33,24 @@ Admins can now edit any of the 19 application fields directly in the detail pane
 - ✓ **DEPLOY-01 to DEPLOY-03** — v1.0: Vercel deployment, production env vars, mobile testing
 - ✓ **EDIT-01 to EDIT-06** — v1.1: Inline editing for all 19 fields with validation, visual states, pencil icon
 - ✓ **HIST-01 to HIST-04** — v1.1: Edit history tracking with collapsible timeline, human-readable labels
+- ✓ **SCHEMA-01 to SCHEMA-05** — v1.2: Forms stored with unique slugs, immutable version snapshots, submissions reference version, JSON storage, legacy coexistence
+- ✓ **FIELD-01 to FIELD-08** — v1.2: Text, textarea, email, dropdown, number, date, checkbox, file upload field types
+- ✓ **BUILD-01 to BUILD-08** — v1.2: Form creation, field adding, drag-and-drop reorder, property config, field removal, real-time preview, status lifecycle, immutable versions
+- ✓ **PUBLIC-01 to PUBLIC-06** — v1.2: Unique URLs, dynamic rendering, Typeform-style UX, field validation, immediate file uploads, formVersionId submission
+- ✓ **ADMIN-01 to ADMIN-05** — v1.2: Forms tab, submission filtering by form, form duplication, schema-driven detail panel, dynamic edit history labels
 
 ### Active
 
-- [ ] Dynamic form builder with drag-and-drop UI
-- [ ] Multiple forms with unique public URLs
-- [ ] Rich field types (text, textarea, email, dropdown, file, date, number, checkbox)
-- [ ] Form versioning for submission integrity
-- [ ] File upload support via Convex storage
+(None — ready for v1.3 planning)
 
-### Future (v1.2+)
+### Future (v1.3+)
 
+- **COND-01**: Conditional logic — show/hide fields based on other field values
+- **COND-02**: Field branching — skip to different steps based on answers
+- **MULTI-01**: Multi-column field layouts
+- **TEMPL-01**: Field templates library for common field patterns
+- **COLLAB-01**: Collaborative form editing with conflict resolution
+- **ANAL-01**: Form analytics (completion rates, drop-off points)
 - **UX-V2-01**: Keyboard navigation (Enter to advance, arrow keys)
 - **UX-V2-02**: Estimated completion time shown at start
 - **UX-V2-03**: Microinteractions and button press feedback
@@ -65,7 +65,7 @@ Admins can now edit any of the 19 application fields directly in the detail pane
 
 - Application editing after submission — applicants submit once, keeps data clean
 - Public application status tracking — applicants wait for direct contact from FT team
-- Conditional form branching — all floors use same form structure
+- Conditional form branching — explicitly deferred to v1.3+
 - Rich text editing in form fields — plain text is sufficient
 - PDF export — CSV covers analytics needs
 - Multi-language support — English only for v1
@@ -73,11 +73,18 @@ Admins can now edit any of the 19 application fields directly in the detail pane
 
 ## Context
 
-**Current State (v1.1 shipped 2026-01-29):**
-- Production URL: https://ft-form.vercel.app
-- Convex backend: https://usable-bobcat-946.convex.cloud
-- 4,818 lines TypeScript
-- Tech stack: Next.js 16, Tailwind CSS 4, Convex, shadcn/ui, Framer Motion, jose (JWT), Radix Collapsible
+**Tech Stack:**
+- Next.js 16 with App Router
+- Tailwind CSS 4
+- Convex (real-time database)
+- shadcn/ui + Radix primitives
+- Framer Motion (animations)
+- jose (JWT sessions)
+- TanStack Table (admin tables)
+- dnd-kit (drag-and-drop)
+- react-dropzone (file uploads)
+- Zod (validation)
+- Zustand (form state)
 
 **About Frontier Tower:**
 - 16-story "vertical village" at 995 Market St, San Francisco
@@ -129,6 +136,17 @@ Admins can now edit any of the 19 application fields directly in the detail pane
 | String storage for edit history | All values stored as strings for simplicity, avoids polymorphic storage | ✓ Good |
 | No-op detection | Skip history creation when value unchanged, prevents clutter | ✓ Good |
 | Collapsible starts collapsed | Keeps detail panel clean, history expandable on demand | ✓ Good |
+| JSON string for form schemas | Avoids Convex 16-level nesting limit, flexible structure | ✓ Good |
+| Immutable form versions | Submissions always reference exact schema they were submitted against | ✓ Good |
+| Separate submissions table | Dynamic forms use new table, legacy applications untouched | ✓ Good |
+| Reserved slugs list | Prevents form URLs from conflicting with app routes | ✓ Good |
+| Immediate file persistence | Files upload on selection, not form submit (avoids URL expiration) | ✓ Good |
+| XMLHttpRequest for uploads | Provides progress tracking (fetch lacks onprogress) | ✓ Good |
+| dnd-kit for drag-and-drop | Modern React DnD library, works well with Zustand state | ✓ Good |
+| Zod v4 for validation | Dynamic schema generation from form config, good error messages | ✓ Good |
+| Draft locking via versionId | Detects form schema changes, resets draft when outdated | ✓ Good |
+| Schema-driven admin panel | Submission display adapts to form schema instead of hardcoded fields | ✓ Good |
+| Stored fieldLabel in history | Edit history captures label at edit time, immune to schema changes | ✓ Good |
 
 ---
-*Last updated: 2026-01-29 after v1.2 milestone started*
+*Last updated: 2026-01-29 after v1.2 milestone*
