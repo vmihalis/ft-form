@@ -48,6 +48,11 @@ See `.planning/milestones/v1.2-ROADMAP.md` for full details.
 - MIGRATE-01: Admin can create dynamic form matching original 19-field application structure
 - MIGRATE-02: /apply route serves dynamic form instead of hardcoded form
 
+**Plans:** 1 plan
+
+Plans:
+- [ ] 16-01-PLAN.md — Create Floor Lead Application form and update /apply route
+
 **Success Criteria:**
 1. Admin can create a new form with all 19 original application fields (applicant info, proposal details, roadmap, impact, logistics)
 2. User visiting /apply sees and can complete the dynamic form with identical UX to the original
@@ -120,11 +125,11 @@ See `.planning/milestones/v1.2-ROADMAP.md` for full details.
 | 1-7 | v1.0 | 16/16 | Complete | 2026-01-28 |
 | 8-10 | v1.1 | 4/4 | Complete | 2026-01-29 |
 | 11-15 | v1.2 | 15/15 | Complete | 2026-01-29 |
-| 16 | v1.3 | 0/? | Pending | — |
+| 16 | v1.3 | 0/1 | Planned | — |
 | 17 | v1.3 | 0/? | Pending | — |
 | 18 | v1.3 | 0/? | Pending | — |
 | 19 | v1.3 | 0/? | Pending | — |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-29 after v1.3 phases added*
+*Last updated: 2026-01-29 after Phase 16 planned*
