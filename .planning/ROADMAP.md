@@ -147,12 +147,14 @@ Plans:
   4. All async operations show loading states or skeleton screens
   5. Empty states provide helpful guidance on next action
   6. Error states clearly communicate what went wrong and how to recover
-**Plans:** 3 plans
+**Plans:** 5 plans (3 core + 2 gap closure)
 
 Plans:
-- [ ] 24-01-PLAN.md — Add microinteraction transitions (duration-200) to Button, Input, Textarea
-- [ ] 24-02-PLAN.md — Apply glass styling to floating elements (dropdowns, tooltips, popovers, sheets, dialogs)
-- [ ] 24-03-PLAN.md — Create reusable EmptyState and ErrorState components
+- [x] 24-01-PLAN.md — Add microinteraction transitions (duration-200) to Button, Input, Textarea
+- [x] 24-02-PLAN.md — Apply glass styling to floating elements (dropdowns, tooltips, popovers, sheets, dialogs)
+- [x] 24-03-PLAN.md — Create reusable EmptyState and ErrorState components
+- [ ] 24-04-PLAN.md — [GAP] Add Submissions module card to dashboard for 2-click access
+- [ ] 24-05-PLAN.md — [GAP] Add loading state for form duplication operation
 
 ## Progress
 
@@ -166,7 +168,7 @@ Plans:
 | 21 | v2.0 | 4/4 | Complete | 2026-01-29 |
 | 22 | v2.0 | 4/4 | Complete | 2026-01-29 |
 | 23 | v2.0 | 5/5 | Complete | 2026-01-29 |
-| 24 | v2.0 | 0/3 | Not started | - |
+| 24 | v2.0 | 3/5 | Gap closure | - |
 
 ---
 *Roadmap created: 2026-01-28*
