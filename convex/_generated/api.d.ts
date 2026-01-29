@@ -8,7 +8,6 @@
  * @module
  */
 
-import type * as applications from "../applications.js";
 import type * as crons from "../crons.js";
 import type * as files from "../files.js";
 import type * as forms from "../forms.js";
@@ -22,7 +21,6 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
-  applications: typeof applications;
   crons: typeof crons;
   files: typeof files;
   forms: typeof forms;
