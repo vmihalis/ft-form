@@ -11,6 +11,8 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Eye, Save } from "lucide-react";
 import { StepTabs } from "./StepTabs";
 import { FormMetadataForm } from "./FormMetadataForm";
+import { FieldPalette } from "./FieldPalette";
+import { FormCanvas } from "./FormCanvas";
 
 interface FormBuilderProps {
   formId: string;
@@ -40,9 +42,9 @@ const statusConfig = {
  * FormBuilder
  *
  * Three-panel form builder layout:
- * - Left: Field palette (placeholder for Plan 03)
- * - Center: Step tabs + form canvas (placeholder for Plan 03)
- * - Right: Property panel or form metadata editor
+ * - Left: Field palette with 10 field types
+ * - Center: Step tabs + sortable form canvas with dnd-kit
+ * - Right: Property panel (when field selected) or form metadata editor
  */
 export function FormBuilder({ formId, formName, formStatus }: FormBuilderProps) {
   const updateForm = useMutation(api.forms.update);
@@ -107,21 +109,14 @@ export function FormBuilder({ formId, formName, formStatus }: FormBuilderProps) 
       <div className="flex flex-1 overflow-hidden">
         {/* Left: Field Palette */}
         <aside className="w-64 border-r p-4 bg-muted/30 overflow-y-auto">
-          <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wide mb-4">
-            Field Types
-          </h3>
-          <p className="text-sm text-muted-foreground">
-            Field palette coming in Plan 03
-          </p>
+          <FieldPalette />
         </aside>
 
         {/* Center: Step Tabs + Canvas */}
         <main className="flex-1 p-6 bg-background overflow-y-auto">
           <StepTabs />
-          <div className="mt-6 min-h-[200px] border-2 border-dashed border-muted-foreground/20 rounded-lg flex items-center justify-center">
-            <p className="text-muted-foreground">
-              Form canvas coming in Plan 03
-            </p>
+          <div className="mt-6">
+            <FormCanvas />
           </div>
         </main>
 
@@ -131,7 +126,7 @@ export function FormBuilder({ formId, formName, formStatus }: FormBuilderProps) 
             <div>
               <h3 className="font-semibold mb-4">Field Properties</h3>
               <p className="text-sm text-muted-foreground">
-                Property panel coming in Plan 03
+                Select a field to edit its properties
               </p>
             </div>
           ) : (
