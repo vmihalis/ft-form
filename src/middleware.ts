@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { decrypt } from '@/lib/auth/session'
+import { decrypt } from '@/lib/auth/decrypt'
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname

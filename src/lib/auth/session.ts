@@ -1,14 +1,13 @@
 import 'server-only'
-import { SignJWT, jwtVerify } from 'jose'
+import { SignJWT } from 'jose'
 import { cookies } from 'next/headers'
+import { SessionPayload } from './decrypt'
+
+// Re-export decrypt for server components that import from session.ts
+export { decrypt, type SessionPayload } from './decrypt'
 
 const secretKey = process.env.SESSION_SECRET
 const encodedKey = new TextEncoder().encode(secretKey)
-
-interface SessionPayload {
-  isAuthenticated: boolean
-  expiresAt: Date
-}
 
 export async function encrypt(payload: SessionPayload): Promise<string> {
   return new SignJWT(payload as unknown as Record<string, unknown>)
@@ -16,17 +15,6 @@ export async function encrypt(payload: SessionPayload): Promise<string> {
     .setIssuedAt()
     .setExpirationTime('7d')
     .sign(encodedKey)
-}
-
-export async function decrypt(session: string | undefined = ''): Promise<SessionPayload | null> {
-  try {
-    const { payload } = await jwtVerify(session, encodedKey, {
-      algorithms: ['HS256'],
-    })
-    return payload as unknown as SessionPayload
-  } catch {
-    return null
-  }
 }
 
 export async function createSession(): Promise<void> {
