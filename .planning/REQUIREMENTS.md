@@ -15,8 +15,8 @@ Requirements for milestone v1.3 Unification & Admin Productivity. Each maps to r
 
 ### Export
 
-- [ ] **EXPORT-01**: Admin can download all submissions for a form as CSV file
-- [ ] **EXPORT-02**: Admin can filter submissions by status and date range before exporting
+- [x] **EXPORT-01**: Admin can download all submissions for a form as CSV file
+- [x] **EXPORT-02**: Admin can filter submissions by status and date range before exporting
 
 ### Dashboard
 
@@ -75,8 +75,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | MIGRATE-01 | Phase 16 | Complete |
 | MIGRATE-02 | Phase 16 | Complete |
 | MIGRATE-03 | Phase 17 | Complete |
-| EXPORT-01 | Phase 18 | Pending |
-| EXPORT-02 | Phase 18 | Pending |
+| EXPORT-01 | Phase 18 | Complete |
+| EXPORT-02 | Phase 18 | Complete |
 | STATS-01 | Phase 19 | Pending |
 | STATS-02 | Phase 19 | Pending |
 | NOTES-01 | Phase 19 | Pending |
@@ -88,4 +88,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 after Phase 17 complete*
+*Last updated: 2026-01-29 after Phase 18 complete*

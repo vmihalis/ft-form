@@ -98,8 +98,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 18-01-PLAN.md — Create CSV utility and add status/date range filters
-- [ ] 18-02-PLAN.md — Add export button with schema-driven CSV headers
+- [x] 18-01-PLAN.md — Create CSV utility and add status/date range filters
+- [x] 18-02-PLAN.md — Add export button with schema-driven CSV headers
 
 **Success Criteria:**
 1. Admin can click export button on submissions view and download CSV
@@ -139,9 +139,9 @@ Plans:
 | 11-15 | v1.2 | 15/15 | Complete | 2026-01-29 |
 | 16 | v1.3 | 1/1 | Complete | 2026-01-29 |
 | 17 | v1.3 | 2/2 | Complete | 2026-01-29 |
-| 18 | v1.3 | 0/2 | Pending | — |
+| 18 | v1.3 | 2/2 | Complete | 2026-01-29 |
 | 19 | v1.3 | 0/? | Pending | — |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-29 after Phase 18 planned*
+*Last updated: 2026-01-29 after Phase 18 complete*
