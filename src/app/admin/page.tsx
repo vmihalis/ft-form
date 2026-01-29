@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { decrypt } from "@/lib/auth/session";
 import { logout } from "./actions";
 import { Button } from "@/components/ui/button";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 import { AdminDashboard } from "@/components/admin/AdminDashboard";
 
 /**
@@ -38,15 +39,18 @@ export default async function AdminPage() {
 
   return (
     <main className="min-h-screen bg-background">
-      {/* Header with title and logout */}
+      {/* Header with title, theme toggle, and logout */}
       <header className="border-b">
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-          <form action={logout}>
-            <Button type="submit" variant="outline">
-              Logout
-            </Button>
-          </form>
+          <div className="flex items-center gap-2">
+            <ModeToggle />
+            <form action={logout}>
+              <Button type="submit" variant="outline">
+                Logout
+              </Button>
+            </form>
+          </div>
         </div>
       </header>
 
