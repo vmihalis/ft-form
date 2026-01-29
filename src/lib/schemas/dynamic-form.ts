@@ -58,8 +58,7 @@ export function buildFieldSchema(field: FormField): z.ZodTypeAny {
 
     case "number":
       schema = z.coerce.number({
-        invalid_type_error:
-          field.validation?.customMessage || "Must be a number",
+        message: field.validation?.customMessage || "Must be a number",
       });
       if (field.validation?.min !== undefined) {
         schema = (schema as z.ZodNumber).min(
@@ -90,10 +89,8 @@ export function buildFieldSchema(field: FormField): z.ZodTypeAny {
           ...string[]
         ];
         schema = z.enum(values, {
-          errorMap: () => ({
-            message:
-              field.validation?.customMessage || "Please select an option",
-          }),
+          message:
+            field.validation?.customMessage || "Please select an option",
         });
       } else {
         schema = z.string();
