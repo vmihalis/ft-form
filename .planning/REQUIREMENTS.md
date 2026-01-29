@@ -17,13 +17,13 @@ Requirements for Dynamic Form Builder milestone. Each maps to roadmap phases.
 
 ### Field Types
 
-- [ ] **FIELD-01**: Text field type with label, placeholder, required flag, and help text
-- [ ] **FIELD-02**: Textarea field type for multi-line text input
-- [ ] **FIELD-03**: Email field type with format validation
-- [ ] **FIELD-04**: Dropdown field type with configurable options
-- [ ] **FIELD-05**: Number field type with optional min/max validation
-- [ ] **FIELD-06**: Date field type with calendar picker
-- [ ] **FIELD-07**: Checkbox field type for boolean/agreement inputs
+- [x] **FIELD-01**: Text field type with label, placeholder, required flag, and help text
+- [x] **FIELD-02**: Textarea field type for multi-line text input
+- [x] **FIELD-03**: Email field type with format validation
+- [x] **FIELD-04**: Dropdown field type with configurable options
+- [x] **FIELD-05**: Number field type with optional min/max validation
+- [x] **FIELD-06**: Date field type with calendar picker
+- [x] **FIELD-07**: Checkbox field type for boolean/agreement inputs
 - [x] **FIELD-08**: File upload field type with Convex storage integration
 
 ### Form Builder
@@ -39,12 +39,12 @@ Requirements for Dynamic Form Builder milestone. Each maps to roadmap phases.
 
 ### Public Form
 
-- [ ] **PUBLIC-01**: Each form accessible at unique URL /apply/[slug]
-- [ ] **PUBLIC-02**: Dynamic form renderer displays fields based on form schema
-- [ ] **PUBLIC-03**: Typeform-style step-by-step UX preserved for dynamic forms
-- [ ] **PUBLIC-04**: Form validation based on field configuration (required, format)
-- [ ] **PUBLIC-05**: File uploads persist immediately on selection (before final submit)
-- [ ] **PUBLIC-06**: Submission stores response data with formVersionId reference
+- [x] **PUBLIC-01**: Each form accessible at unique URL /apply/[slug]
+- [x] **PUBLIC-02**: Dynamic form renderer displays fields based on form schema
+- [x] **PUBLIC-03**: Typeform-style step-by-step UX preserved for dynamic forms
+- [x] **PUBLIC-04**: Form validation based on field configuration (required, format)
+- [x] **PUBLIC-05**: File uploads persist immediately on selection (before final submit)
+- [x] **PUBLIC-06**: Submission stores response data with formVersionId reference
 
 ### Admin Integration
 
@@ -89,13 +89,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SCHEMA-03 | Phase 11 | Complete |
 | SCHEMA-04 | Phase 11 | Complete |
 | SCHEMA-05 | Phase 11 | Complete |
-| FIELD-01 | Phase 13 | Pending |
-| FIELD-02 | Phase 13 | Pending |
-| FIELD-03 | Phase 13 | Pending |
-| FIELD-04 | Phase 13 | Pending |
-| FIELD-05 | Phase 13 | Pending |
-| FIELD-06 | Phase 13 | Pending |
-| FIELD-07 | Phase 13 | Pending |
+| FIELD-01 | Phase 13 | Complete |
+| FIELD-02 | Phase 13 | Complete |
+| FIELD-03 | Phase 13 | Complete |
+| FIELD-04 | Phase 13 | Complete |
+| FIELD-05 | Phase 13 | Complete |
+| FIELD-06 | Phase 13 | Complete |
+| FIELD-07 | Phase 13 | Complete |
 | FIELD-08 | Phase 12 | Complete |
 | BUILD-01 | Phase 14 | Pending |
 | BUILD-02 | Phase 14 | Pending |
@@ -105,12 +105,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BUILD-06 | Phase 14 | Pending |
 | BUILD-07 | Phase 14 | Pending |
 | BUILD-08 | Phase 14 | Pending |
-| PUBLIC-01 | Phase 13 | Pending |
-| PUBLIC-02 | Phase 13 | Pending |
-| PUBLIC-03 | Phase 13 | Pending |
-| PUBLIC-04 | Phase 13 | Pending |
-| PUBLIC-05 | Phase 13 | Pending |
-| PUBLIC-06 | Phase 13 | Pending |
+| PUBLIC-01 | Phase 13 | Complete |
+| PUBLIC-02 | Phase 13 | Complete |
+| PUBLIC-03 | Phase 13 | Complete |
+| PUBLIC-04 | Phase 13 | Complete |
+| PUBLIC-05 | Phase 13 | Complete |
+| PUBLIC-06 | Phase 13 | Complete |
 | ADMIN-01 | Phase 15 | Pending |
 | ADMIN-02 | Phase 15 | Pending |
 | ADMIN-03 | Phase 15 | Pending |
@@ -124,4 +124,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 after roadmap creation - all requirements mapped to phases*
+*Last updated: 2026-01-29 after Phase 13 complete - FIELD-01 to FIELD-07 and PUBLIC-01 to PUBLIC-06 complete*
