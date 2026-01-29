@@ -5,22 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-29)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** Planning next milestone (v1.3)
+**Current focus:** v1.3 Unification & Admin Productivity
 
 ## Current Position
 
-Phase: Not started (v1.3 not yet planned)
-Plan: N/A
-Status: Ready for /gsd:new-milestone
-Last activity: 2026-01-29 - v1.2 Dynamic Form Builder shipped
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-29 — Milestone v1.3 started
 
-Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [####################] 100%
+Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [####################] 100% | v1.3 [░░░░░░░░░░░░░░░░░░░░] 0%
 
 ## Milestones
 
 - **v1.0 MVP** - Shipped 2026-01-28 (7 phases, 16 plans)
 - **v1.1 Admin Inline Editing** - Shipped 2026-01-29 (3 phases, 4 plans)
 - **v1.2 Dynamic Form Builder** - Shipped 2026-01-29 (5 phases, 15 plans)
+- **v1.3 Unification & Admin Productivity** - In progress
 
 ## Production URLs
 
@@ -42,6 +43,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 | v1.0 | 7 | 16 | Shipped |
 | v1.1 | 3 | 4 | Shipped |
 | v1.2 | 5 | 15 | Shipped |
+| v1.3 | — | — | Defining requirements |
 
 ## Accumulated Context
 
@@ -60,8 +62,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: v1.2 milestone completion
+Stopped at: Milestone v1.3 initialization
 Resume file: None
 
 ---
-*Ready for next milestone: /gsd:new-milestone*
+*Defining requirements for v1.3*

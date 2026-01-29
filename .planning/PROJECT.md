@@ -10,6 +10,17 @@ A web application for Frontier Tower to collect and manage proposals from people
 
 If everything else fails, the form must collect complete proposals and store them reliably for admin review.
 
+## Current Milestone: v1.3 Unification & Admin Productivity
+
+**Goal:** Unify the legacy applications system with the dynamic submissions system, and add admin productivity features.
+
+**Target features:**
+- Migrate legacy /apply form to dynamic form system (create matching form, convert data)
+- Delete legacy applications table and code after migration
+- CSV export for submissions
+- Dashboard stats (total submissions, pending count, by status)
+- Admin notes on submissions (internal comments)
+
 ## Current State
 
 **Latest Release:** v1.2 Dynamic Form Builder (shipped 2026-01-29)
@@ -41,9 +52,15 @@ Admins can now create custom application forms with a drag-and-drop builder. For
 
 ### Active
 
-(None — ready for v1.3 planning)
+- [ ] **MIGRATE-01**: Create dynamic form matching original 19-field application structure
+- [ ] **MIGRATE-02**: Migrate existing applications to submissions table
+- [ ] **MIGRATE-03**: Update /apply route to use dynamic form system
+- [ ] **MIGRATE-04**: Delete legacy applications table, mutations, queries, and components
+- [ ] **EXPORT-01**: CSV export for submissions (download all submissions for a form)
+- [ ] **STATS-01**: Dashboard stats showing total submissions and counts by status
+- [ ] **NOTES-01**: Admin notes on submissions (internal comments, not visible to applicants)
 
-### Future (v1.3+)
+### Future (v1.4+)
 
 - **COND-01**: Conditional logic — show/hide fields based on other field values
 - **COND-02**: Field branching — skip to different steps based on answers
@@ -55,9 +72,6 @@ Admins can now create custom application forms with a drag-and-drop builder. For
 - **UX-V2-02**: Estimated completion time shown at start
 - **UX-V2-03**: Microinteractions and button press feedback
 - **UX-V2-04**: Success animation on form submission
-- **ADMIN-V2-01**: CSV export of all submissions
-- **ADMIN-V2-02**: Dashboard stats (total applications, pending count)
-- **ADMIN-V2-03**: Admin notes on submissions
 - **ADMIN-V2-04**: Individual admin accounts with audit trail
 - **ADMIN-V2-05**: Email notifications on new submissions
 
@@ -149,4 +163,4 @@ Admins can now create custom application forms with a drag-and-drop builder. For
 | Stored fieldLabel in history | Edit history captures label at edit time, immune to schema changes | ✓ Good |
 
 ---
-*Last updated: 2026-01-29 after v1.2 milestone*
+*Last updated: 2026-01-29 after v1.3 milestone started*
