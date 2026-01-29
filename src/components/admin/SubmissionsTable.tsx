@@ -11,6 +11,7 @@ import {
   flexRender,
   ColumnFiltersState,
 } from "@tanstack/react-table";
+import { motion } from "motion/react";
 import {
   Table,
   TableBody,
@@ -29,7 +30,7 @@ interface SubmissionsTableProps {
 
 function TableSkeleton() {
   return (
-    <div className="rounded-md border">
+    <div className="glass-card rounded-2xl overflow-hidden">
       <Table>
         <TableHeader>
           <TableRow>
@@ -136,7 +137,12 @@ export function SubmissionsTable({ onRowClick }: SubmissionsTableProps) {
       />
 
       {/* Table */}
-      <div className="rounded-md border">
+      <motion.div
+        className="glass-card rounded-2xl overflow-hidden"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -160,7 +166,7 @@ export function SubmissionsTable({ onRowClick }: SubmissionsTableProps) {
                 <TableRow
                   key={row.id}
                   onClick={() => onRowClick?.(row.original)}
-                  className="cursor-pointer hover:bg-muted/50"
+                  className="cursor-pointer hover:bg-white/5 dark:hover:bg-white/5 transition-colors"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -184,7 +190,7 @@ export function SubmissionsTable({ onRowClick }: SubmissionsTableProps) {
             )}
           </TableBody>
         </Table>
-      </div>
+      </motion.div>
     </div>
   );
 }
