@@ -41,6 +41,7 @@ export default defineSchema({
       v.literal("rejected")
     ),
     submittedAt: v.number(),
+    notes: v.optional(v.string()),       // Admin internal notes
   })
     .index("by_version", ["formVersionId"])
     .index("by_status", ["status"])
