@@ -31,12 +31,11 @@ export function DynamicFormRenderer({
   versionId,
   formName,
 }: DynamicFormRendererProps) {
-  // Store state
-  const getDraft = useDynamicFormStore((state) => state.getDraft);
+  // Store state - subscribe to draft data directly to trigger re-renders
+  const draft = useDynamicFormStore((state) => state.drafts[slug]);
   const setCurrentStep = useDynamicFormStore((state) => state.setCurrentStep);
   const clearDraft = useDynamicFormStore((state) => state.clearDraft);
 
-  const draft = getDraft(slug);
   const currentStep = draft?.currentStep ?? 0;
   const completedSteps = draft?.completedSteps ?? [];
 
