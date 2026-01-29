@@ -28,7 +28,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Copy, ExternalLink, Pencil, Trash2 } from "lucide-react";
+import { Copy, ExternalLink, Pencil, Plus, Trash2 } from "lucide-react";
 
 /**
  * Status badge colors for form status
@@ -98,6 +98,12 @@ function FormsListEmpty() {
       <p className="text-muted-foreground mb-4">
         Create your first form to get started collecting submissions.
       </p>
+      <Button asChild>
+        <Link href="/admin/forms/new">
+          <Plus className="h-4 w-4 mr-2" />
+          Create Form
+        </Link>
+      </Button>
     </div>
   );
 }
@@ -176,7 +182,16 @@ export function FormsList() {
   }
 
   return (
-    <Table>
+    <div className="space-y-4">
+      <div className="flex justify-end">
+        <Button asChild>
+          <Link href="/admin/forms/new">
+            <Plus className="h-4 w-4 mr-2" />
+            Create Form
+          </Link>
+        </Button>
+      </div>
+      <Table>
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
@@ -311,5 +326,6 @@ export function FormsList() {
         })}
       </TableBody>
     </Table>
+    </div>
   );
 }
