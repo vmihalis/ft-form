@@ -30,15 +30,15 @@ Requirements for FrontierOS Dashboard overhaul. Each maps to roadmap phases.
 
 ### WYSIWYG Form Builder
 
-- [ ] **BUILD-01**: Form builder shows form exactly as users will see it (WYSIWYG)
-- [ ] **BUILD-02**: Clicking a field reveals floating toolbar with edit/delete/duplicate actions
-- [ ] **BUILD-03**: Plus button appears between fields to add new fields
-- [ ] **BUILD-04**: Plus button opens field type picker (text, textarea, email, dropdown, etc.)
-- [ ] **BUILD-05**: Field properties edited inline or via floating panel
-- [ ] **BUILD-06**: Fields can be reordered via drag-and-drop
-- [ ] **BUILD-07**: All existing field types supported (text, textarea, email, dropdown, number, date, checkbox, file)
-- [ ] **BUILD-08**: Real-time validation feedback as user configures fields
-- [ ] **BUILD-09**: No separate "preview" mode - builder IS the preview
+- [x] **BUILD-01**: Form builder shows form exactly as users will see it (WYSIWYG)
+- [x] **BUILD-02**: Clicking a field reveals floating toolbar with edit/delete/duplicate actions
+- [x] **BUILD-03**: Plus button appears between fields to add new fields
+- [x] **BUILD-04**: Plus button opens field type picker (text, textarea, email, dropdown, etc.)
+- [x] **BUILD-05**: Field properties edited inline or via floating panel
+- [x] **BUILD-06**: Fields can be reordered via drag-and-drop
+- [x] **BUILD-07**: All existing field types supported (text, textarea, email, dropdown, number, date, checkbox, file)
+- [x] **BUILD-08**: Real-time validation feedback as user configures fields
+- [x] **BUILD-09**: No separate "preview" mode - builder IS the preview
 
 ### Forms Module Redesign
 
@@ -132,15 +132,15 @@ Requirements for FrontierOS Dashboard overhaul. Each maps to roadmap phases.
 | NAV-06 | Phase 21 | Complete |
 | NAV-07 | Phase 21 | Complete |
 | NAV-08 | Phase 21 | Complete |
-| BUILD-01 | Phase 22 | Pending |
-| BUILD-02 | Phase 22 | Pending |
-| BUILD-03 | Phase 22 | Pending |
-| BUILD-04 | Phase 22 | Pending |
-| BUILD-05 | Phase 22 | Pending |
-| BUILD-06 | Phase 22 | Pending |
-| BUILD-07 | Phase 22 | Pending |
-| BUILD-08 | Phase 22 | Pending |
-| BUILD-09 | Phase 22 | Pending |
+| BUILD-01 | Phase 22 | Complete |
+| BUILD-02 | Phase 22 | Complete |
+| BUILD-03 | Phase 22 | Complete |
+| BUILD-04 | Phase 22 | Complete |
+| BUILD-05 | Phase 22 | Complete |
+| BUILD-06 | Phase 22 | Complete |
+| BUILD-07 | Phase 22 | Complete |
+| BUILD-08 | Phase 22 | Complete |
+| BUILD-09 | Phase 22 | Complete |
 | FORM-01 | Phase 23 | Pending |
 | FORM-02 | Phase 23 | Pending |
 | FORM-03 | Phase 23 | Pending |
@@ -168,4 +168,4 @@ Requirements for FrontierOS Dashboard overhaul. Each maps to roadmap phases.
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 after Phase 21 completion*
+*Last updated: 2026-01-29 after Phase 22 completion*

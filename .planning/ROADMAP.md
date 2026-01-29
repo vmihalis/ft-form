@@ -55,7 +55,7 @@ See `.planning/milestones/v1.3-ROADMAP.md` for full details.
 
 - [x] **Phase 20: Design System Foundation** - Theme infrastructure and glass utilities (completed 2026-01-29)
 - [x] **Phase 21: Dashboard Hub & Navigation** - Module cards, sidebar, placeholder modules (completed 2026-01-29)
-- [ ] **Phase 22: WYSIWYG Form Builder** - Inline editing with floating toolbar
+- [x] **Phase 22: WYSIWYG Form Builder** - Inline editing with floating toolbar (completed 2026-01-29)
 - [ ] **Phase 23: Forms/Submissions Redesign** - Glass styling and animations
 - [ ] **Phase 24: Polish & UX** - Microinteractions, accessibility, refinement
 
@@ -111,10 +111,10 @@ Plans:
 **Plans:** 4 plans
 
 Plans:
-- [ ] 22-01-PLAN.md — Install popover/tooltip and add store WYSIWYG actions
-- [ ] 22-02-PLAN.md — Create WysiwygField and FieldToolbar components
-- [ ] 22-03-PLAN.md — Create AddFieldButton and FieldTypePicker components
-- [ ] 22-04-PLAN.md — Create WysiwygCanvas and update FormBuilder
+- [x] 22-01-PLAN.md — Install popover/tooltip and add store WYSIWYG actions
+- [x] 22-02-PLAN.md — Create WysiwygField and FieldToolbar components
+- [x] 22-03-PLAN.md — Create AddFieldButton and FieldTypePicker components
+- [x] 22-04-PLAN.md — Create WysiwygCanvas and update FormBuilder
 
 ### Phase 23: Forms/Submissions Redesign
 **Goal:** Forms list and submission management display with glassmorphism styling and smooth animations.
@@ -160,10 +160,10 @@ Plans:
 | 16-19 | v1.3 | 8/8 | Complete | 2026-01-29 |
 | 20 | v2.0 | 3/3 | Complete | 2026-01-29 |
 | 21 | v2.0 | 4/4 | Complete | 2026-01-29 |
-| 22 | v2.0 | 0/4 | Not started | - |
+| 22 | v2.0 | 4/4 | Complete | 2026-01-29 |
 | 23 | v2.0 | 0/TBD | Not started | - |
 | 24 | v2.0 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-29 after Phase 21 completion*
+*Last updated: 2026-01-29 after Phase 22 completion*
