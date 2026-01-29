@@ -1,247 +1,292 @@
-# Feature Landscape
+# Feature Landscape: Dynamic Form Builder
 
-**Domain:** Typeform-style multi-step form application with admin dashboard
-**Project:** Floor Lead Application System (Frontier Tower)
-**Researched:** 2026-01-27
-**Confidence:** HIGH (verified against multiple authoritative sources)
-
----
-
-## Typeform-Style Form UX
-
-### Table Stakes
-
-Features users expect. Missing = form feels broken or incomplete.
-
-| Feature | Why Expected | Complexity | Notes |
-|---------|--------------|------------|-------|
-| **One-question-at-a-time interface** | Core Typeform pattern; reduces cognitive load | Medium | Reduces abandonment from 80% to 40-50% vs traditional forms |
-| **Progress indicator** | Users need to know how much is left | Low | Show steps completed AND remaining (e.g., "Step 3 of 7") |
-| **Keyboard navigation (Enter to advance)** | Typeform signature UX; keeps hands on keyboard | Medium | Must work without mouse; Enter = advance, Shift+Enter = newline in textareas |
-| **Back/Forward navigation** | Users need to review and edit previous answers | Low | Always visible; maintain state when navigating |
-| **Mobile responsiveness** | 50%+ of form fills are mobile | Medium | Touch targets 44x44px minimum; thumb-friendly button placement |
-| **Inline validation** | Real-time feedback prevents frustration | Medium | Validate on blur, show errors immediately at the field |
-| **Clear error messages** | Users need to know what's wrong and how to fix it | Low | Specific messages at the field level, not global error banners |
-| **Required field indicators** | Set expectations before user commits | Low | Asterisk or "Required" label; explain at start if many required |
-| **Smooth transitions between questions** | Jarring transitions feel broken | Medium | CSS transitions 300-500ms; fade or slide, not instant swap |
-| **Form submission confirmation** | Users need to know it worked | Low | Clear success screen with next steps |
-
-### Differentiators
-
-Features that elevate from "functional form" to "premium experience." Not expected but valued.
-
-| Feature | Value Proposition | Complexity | Notes |
-|---------|-------------------|------------|-------|
-| **Estimated completion time** | Shown at start ("5 minutes"); sets expectations, reduces abandonment | Low | Calculate based on average field completion times |
-| **Contextual animations/microinteractions** | Button press feedback, field focus states, success animations | Medium | Use CSS transforms/transitions; respect `prefers-reduced-motion` |
-| **Question-specific placeholder examples** | Shows expected input format/quality | Low | "e.g., Organize weekly rooftop yoga sessions" |
-| **Auto-save/draft recovery** | Peace of mind for long forms; resume where left off | High | LocalStorage for anonymous; server-side for identified users |
-| **Conditional logic (skip questions)** | Personalized flow based on answers | High | Not needed for MVP but valuable if form branches |
-| **Custom branding (colors, fonts)** | Feels like Frontier Tower's form, not generic tool | Medium | CSS custom properties for theming |
-| **Typewriter effect for questions** | Conversational feel; questions "appear" as if being typed | Low | Optional; can feel slow for power users |
-| **Confetti/celebration on submit** | Memorable moment; positive association | Low | Simple canvas animation; celebrate application submission |
-| **Smart focus management** | Auto-focus next input after validation | Low | `focus()` on mount; smooth scroll to question |
-
-### Anti-Features
-
-Things to deliberately NOT build. Common mistakes in this domain.
-
-| Anti-Feature | Why Avoid | What to Do Instead |
-|--------------|-----------|-------------------|
-| **Hidden form complexity** | Showing 2 fields that expand to 20 feels like betrayal; destroys trust | Be transparent: show total steps upfront, never surprise-expand |
-| **Positive tabindex values** | Disrupts natural flow, accessibility nightmare | Use `tabindex="0"` for custom elements, never positive values |
-| **Auto-advancing without user action** | Users lose control, causes input errors | Always wait for explicit Enter/click/tap to advance |
-| **Character counters that block submission** | Frustrating; users see limit mid-thought | If limit exists, show it before they start typing; be generous |
-| **Elaborate loading animations** | Slows perceived performance | Instant feedback; if loading, show skeleton/spinner <100ms |
-| **Password/account requirement to apply** | Massive friction for one-time applicants | Allow anonymous submissions; email for confirmation only |
-| **CAPTCHA on submit** | Breaks flow, adds friction at worst moment | Rate limiting, honeypot fields, or invisible reCAPTCHA if needed |
-| **Multi-column form layouts** | Destroys reading flow, mobile nightmare | Single column always; one question = one focus |
-| **Breaking browser autofill** | Users have filled these fields before | Use standard `name` attributes, standard field types |
-| **Confirm-shaming copy** | "No, I don't want to improve my chances" manipulative | Neutral, respectful copy for all choices |
+**Domain:** Admin-facing form builder for application collection
+**Project:** Floor Lead Application System v1.2 (Frontier Tower)
+**Researched:** 2026-01-29
+**Confidence:** HIGH (well-documented domain with extensive prior art)
 
 ---
 
-## Admin Dashboard
+## Context: Building on v1.0/v1.1
 
-### Table Stakes
+This research focuses specifically on the **dynamic form builder** milestone (v1.2). The existing system already has:
+- Typeform-style 8-step public form with fixed fields
+- Admin dashboard with submission table, detail panel, inline editing
+- Status management, search, floor filter
+- Edit history tracking
 
-Features admins expect. Missing = dashboard is frustrating to use.
+The v1.2 goal is enabling admins to **create and customize** forms rather than using the hardcoded form structure.
 
-| Feature | Why Expected | Complexity | Notes |
-|---------|--------------|------------|-------|
-| **Table view of all submissions** | Overview of all applications at a glance | Medium | Sortable columns, pagination or virtual scroll |
-| **Detail view for single submission** | Read full application without leaving dashboard | Low | Modal or slide-out panel; all fields readable |
-| **Search** | Find specific applicant by name or content | Medium | Full-text search across key fields |
-| **Filter by status** | Focus on pending, approved, rejected | Low | Dropdown or toggle buttons for status filter |
-| **Status management** | Change application status (pending/approved/rejected) | Low | Click to update; optimistic UI with rollback |
-| **Sort by date** | See newest or oldest first | Low | Default: newest first |
-| **Password protection** | Prevent unauthorized access | Low | Simple password-protected route; no user accounts needed |
-| **Responsive admin UI** | Review submissions on tablet/phone | Medium | Mobile-friendly but desktop-optimized |
-| **CSV export** | Get data into spreadsheets for offline analysis | Medium | Export all or filtered results; include all fields |
-| **Submission count/stats** | Know total applications, pending review count | Low | Header stats: "47 applications, 12 pending review" |
+---
 
-### Nice-to-Haves
+## Table Stakes
 
-Could add later; not critical for MVP.
+Features users expect from a form builder. Missing = product feels incomplete or unprofessional.
 
-| Feature | Value Proposition | Complexity | Notes |
-|---------|-------------------|------------|-------|
-| **Bulk actions** | Select multiple submissions, change status at once | Medium | Checkbox column, "Mark all as reviewed" |
-| **PDF export of individual submissions** | Printable application for offline review | Medium | Server-side PDF generation or print stylesheet |
-| **Email notifications** | Alert admin when new application arrives | Medium | Requires email service integration |
-| **Notes/comments per submission** | Track internal decisions, share context with team | Medium | Simple text field stored with submission |
-| **Multiple user accounts with roles** | Different admins, different permissions | High | Overkill for small team; password protection sufficient |
-| **Saved filter views** | "Show me only approved tech proposals" | Medium | LocalStorage or server-side saved filters |
-| **Submission comparison view** | View two applications side by side | High | Useful for final decisions, but complex UI |
-| **Analytics/charts** | Submissions over time, category breakdown | Medium | Charts are nice but not essential |
-| **Audit log** | Who changed what, when | High | Enterprise feature; not needed for MVP |
-| **Dark mode** | Admin preference, reduce eye strain | Low | CSS custom properties make this easy |
+| Feature | Why Expected | Complexity | Dependencies | Notes |
+|---------|--------------|------------|--------------|-------|
+| **Drag-and-drop field placement** | Every modern form builder has this; it's the defining UX pattern | Medium | React DnD or similar library | Core differentiator between "form builder" and "code editing" |
+| **Core field types (text, textarea, email, dropdown)** | Minimum viable for any form | Low | Field renderer component | These cover 80% of form needs |
+| **Field configuration panel** | Users expect to set labels, placeholders, required flag | Low | React state management | Right-side panel pattern is standard |
+| **Real-time preview** | Users need to see what they're building | Medium | React state | Shows form as users will see it |
+| **Form save/persistence** | Forms must persist across sessions | Low | Existing Convex | Database already exists |
+| **Unique form URLs** | Each form needs shareable link | Low | Next.js dynamic routing | `/apply/[slug]` pattern requested |
+| **Form listing/management** | Admins need to see all forms | Low | Existing admin dashboard | List view in admin sidebar/page |
+| **Field validation config (required toggle)** | Basic data quality expectations | Low | Field schema | Per-field toggle in config panel |
+| **Form deletion** | Admins must manage form lifecycle | Low | Convex mutation | With confirmation dialog |
+| **Submission storage with form version** | Submissions must be readable after form changes | Medium | Schema design | Critical for data integrity |
 
-### Anti-Features
+## Differentiators
 
-Things to deliberately NOT build in admin dashboard.
+Features that add value beyond minimum expectations. Set product apart.
+
+| Feature | Value Proposition | Complexity | Dependencies | Notes |
+|---------|-------------------|------------|--------------|-------|
+| **File upload fields** | Enables portfolio/resume collection | Medium | Convex file storage | Explicitly requested in milestone |
+| **Number/date/checkbox fields** | Richer data collection beyond text | Low | Field components | Requested field types |
+| **Form duplication** | Quick form creation from templates or existing forms | Low | Convex mutation | One-click to copy a form |
+| **Form status (draft/published/archived)** | Control form visibility without deletion | Low | Schema addition | Standard lifecycle management |
+| **Smooth drag feedback** | Visual polish during field reordering | Medium | DnD library | Better UX than basic reorder |
+| **Form versioning with history access** | See past versions of a form definition | Medium | Version tracking schema | Beyond just preserving submissions |
+| **Field help text/descriptions** | Guidance for complex questions | Low | Field schema | Improves form completion rate |
+| **Typeform-style public rendering** | Matches existing v1.0 UX for consistency | Low | Existing step components | Reuse existing form step pattern |
+| **Per-form submission filtering** | Admin sees submissions grouped by form | Low | Query filter | Filter existing table by form ID |
+| **Dropdown option management** | UI to add/remove/reorder options for select fields | Low | Field config component | Essential for dropdown usability |
+
+## Anti-Features
+
+Features to explicitly NOT build. Either out of scope, over-engineered, or harmful.
 
 | Anti-Feature | Why Avoid | What to Do Instead |
 |--------------|-----------|-------------------|
-| **Auto-refresh that loses context** | Admin mid-review loses place, frustrating | Manual refresh or "New submissions available" notification |
-| **Destructive actions without confirmation** | Accidental delete/reject is irreversible | Confirm dialog for status changes, soft delete |
-| **Pagination that resets filters** | Navigate to page 2, lose your search | Preserve filter state across pagination |
-| **Inline editing in table view** | Accidental edits, unclear what's editable | Edit in detail view only, with clear affordance |
-| **Complex permission systems** | Overkill for small team, maintenance burden | Single admin password for MVP |
-| **Real-time collaboration features** | Multiple admins editing same submission | Not needed; design for single reviewer at a time |
-| **Aggressive notification badges** | Anxiety-inducing, distracting | Subtle "new" indicators, not red badges everywhere |
-| **Mandatory fields for admin actions** | Forcing notes/reasons for every status change | Make optional; trust the admin |
+| **Conditional logic / branching** | Explicitly out of scope per PROJECT.md; adds significant complexity (30%+ more work) | Keep forms linear; all respondents see same fields |
+| **Rich text editor for fields** | Overkill for this use case; complicates rendering and storage | Plain text with basic formatting like line breaks |
+| **Multi-page form builder** | Existing Typeform UX handles pacing via step-by-step; explicit page breaks add complexity | Each form renders as single flow, step-by-step |
+| **Field templates library** | Premature optimization; teams create forms infrequently | Start fresh or duplicate existing forms |
+| **Collaborative real-time editing** | Single admin team (1-3 people); no real-time conflict risk | Simple save overwrites; last write wins |
+| **A/B testing** | Out of scope; adds significant complexity for form creation and analytics | One active version per form |
+| **Payment collection fields** | Not a use case for floor lead applications | Omit payment fields entirely |
+| **Custom CSS/themes per form** | Brand consistency is desired; per-form theming adds complexity | Use existing FT brand colors for all forms |
+| **Email notifications on submission** | Explicitly user preference to omit (per PROJECT.md) | Admins check dashboard manually |
+| **Form analytics (conversion funnels)** | Nice-to-have but not MVP; focus on core builder | Defer to post-v1.2 |
+| **Form embedding (iframe/widget)** | All forms served from app directly; no external embed needed | Use unique URLs instead |
+| **API access for form definitions** | No external consumers expected | Internal admin use only |
+| **Signature fields** | Over-scoped for application collection | Use text field if signature needed |
+| **Address autocomplete fields** | Requires external API; not needed for applications | Use standard text fields |
+| **CAPTCHA integration** | Existing system works without it; adds UX friction | Rate limiting if needed later |
+
+---
+
+## Field Type Matrix
+
+Requested field types with implementation details.
+
+| Field Type | Input Component | Validation Options | Storage Type | Complexity | Notes |
+|------------|-----------------|-------------------|--------------|------------|-------|
+| **Text** | `<Input>` (shadcn) | Required, min/max length | string | Low | Single line short answer |
+| **Textarea** | `<Textarea>` (shadcn) | Required, min/max length | string | Low | Multi-line long answer |
+| **Email** | `<Input type="email">` | Required, email format regex | string | Low | Standard email validation built-in |
+| **Dropdown** | `<Select>` (shadcn) | Required, valid option | string | Low | Options configured in builder UI |
+| **File Upload** | Custom component | Required, file types, max size | Convex file ID (string) | Medium | Convex storage integration required |
+| **Date** | Date picker or native | Required, min/max date | string (ISO 8601) | Low | Consider native `<input type="date">` for simplicity |
+| **Number** | `<Input type="number">` | Required, min/max value, integer only | number | Low | Numeric validation |
+| **Checkbox** | `<Checkbox>` (shadcn) | Required (must be checked) | boolean | Low | Single checkbox, not checkbox group |
+
+### Field Schema Design
+
+Each field should store:
+```typescript
+interface FormField {
+  id: string;           // Unique identifier
+  type: FieldType;      // "text" | "textarea" | "email" | "dropdown" | "file" | "date" | "number" | "checkbox"
+  label: string;        // Question text
+  placeholder?: string; // Hint text
+  helpText?: string;    // Additional guidance
+  required: boolean;    // Validation flag
+  order: number;        // Position in form
+  config: FieldConfig;  // Type-specific config (options for dropdown, etc.)
+}
+```
 
 ---
 
 ## Feature Dependencies
 
-Understanding which features depend on others for implementation ordering.
-
 ```
-Core Form Flow (must build first)
-├── One-question-at-a-time layout
-├── Question navigation (back/forward)
-├── Progress indicator
-└── Form submission
-    └── Confirmation screen
-
-Input Features (build with core)
-├── Text inputs (short, long)
-├── Selection inputs (radio, checkbox)
-├── Inline validation
-└── Error messaging
-
-UX Polish (layer on core)
-├── Keyboard navigation (Enter to advance)
-│   └── Depends on: Core form flow
-├── Smooth transitions
-│   └── Depends on: Question navigation
-├── Estimated completion time
-│   └── Depends on: All questions defined
-└── Microinteractions
-    └── Depends on: Core input features
-
-Admin Core (parallel track)
-├── Table view
-│   └── Depends on: Submission data model
-├── Detail view
-│   └── Depends on: Table view (navigation)
-├── Status management
-│   └── Depends on: Detail view
-└── Password protection
-    └── Can build first
-
-Admin Features (layer on core)
-├── Search
-│   └── Depends on: Table view
-├── Filtering
-│   └── Depends on: Table view
-├── CSV export
-│   └── Depends on: Table view + submission data model
-└── Sorting
-    └── Depends on: Table view
+                    Form Schema Design
+                           |
+              +------------+------------+
+              |                         |
+       Field Types              Form Versioning
+              |                         |
+    +---------+---------+              |
+    |         |         |              |
+ Text   Dropdown   File Upload    Snapshot on Submit
+  |         |         |                 |
+  +----+----+         |                 |
+       |              |                 |
+  Field Config   Convex Storage         |
+       |              |                 |
+       +------+-------+-----------------+
+              |
+         Form Builder UI
+              |
+    +---------+---------+
+    |         |         |
+ DnD Panel  Preview  Config Panel
+              |
+         Form Save/Load
+              |
+    +---------+---------+
+    |                   |
+Form Management      Unique URLs
+    |                   |
+Admin Dashboard     Public Rendering
 ```
 
-### Recommended Build Order
+### Critical Path
 
-**Phase 1: Foundation**
-1. Data model for submissions
-2. Password-protected admin route
-3. Basic table view (no sorting/filtering)
-4. Basic form flow (multi-step, no animations)
-
-**Phase 2: Core Functionality**
-1. Complete form with all question types
-2. Form submission to database
-3. Admin detail view
-4. Status management
-5. Search and filter
-
-**Phase 3: Polish**
-1. Keyboard navigation
-2. Smooth transitions and animations
-3. Progress indicator
-4. Inline validation with good error messages
-5. CSV export
-6. Mobile optimization
-
-**Phase 4: Delight**
-1. Microinteractions
-2. Estimated completion time
-3. Auto-save (if time permits)
-4. Submission confirmation celebration
+1. **Form schema design** (what is a form, what is a field) - blocks everything
+2. **Basic field types** (text, textarea, email, dropdown) - minimum viable
+3. **Form builder UI with DnD** - core functionality
+4. **Form save/persistence** - usable forms
+5. **Public form rendering at unique URLs** - complete loop
+6. **Submission storage with version reference** - data integrity
+7. **Extended field types** (file, date, number, checkbox) - full feature set
 
 ---
 
 ## MVP Recommendation
 
-For MVP, prioritize:
+### Must Have (Core v1.2)
 
-1. **All Table Stakes for Form UX** - Missing any = feels broken
-2. **All Table Stakes for Admin** - Dashboard must be usable
-3. **ONE differentiator: Smooth transitions** - Biggest perceived quality boost for effort
+| Priority | Feature | Rationale |
+|----------|---------|-----------|
+| 1 | Form schema (forms table, fields as JSON array) | Foundation for everything |
+| 2 | Form builder page in admin dashboard | Where admins create forms |
+| 3 | Drag-and-drop field placement | Expected UX pattern |
+| 4 | Core field types: text, textarea, email, dropdown | Covers most use cases |
+| 5 | Field configuration: label, placeholder, required, help text | Essential field options |
+| 6 | Real-time preview while building | See what you're creating |
+| 7 | Form save with slug generation | Persistence and URLs |
+| 8 | Unique public URLs (`/apply/[slug]`) | Share forms |
+| 9 | Public form rendering (Typeform-style) | User-facing forms |
+| 10 | Form versioning on submission | Data integrity |
+| 11 | Form management in admin (list, edit, delete) | CRUD operations |
 
-Defer to post-MVP:
-- Auto-save/draft recovery: High complexity, low criticality for short forms
-- Conditional logic: Only needed if form actually branches
-- PDF export: CSV is sufficient for MVP
-- Analytics/charts: Nice but not essential
-- Multiple user accounts: Password protection sufficient
+### Should Have (Complete v1.2)
+
+| Priority | Feature | Rationale |
+|----------|---------|-----------|
+| 12 | Extended field types: number, date, checkbox | Requested types |
+| 13 | File upload with Convex storage | Explicitly requested |
+| 14 | Form status (draft/published/archived) | Lifecycle management |
+| 15 | Form duplication | Quick form creation |
+| 16 | Per-form submission filtering in admin | Organized data view |
+| 17 | Dropdown option management UI | Usable dropdown config |
+
+### Defer to Post-v1.2
+
+| Feature | Reason to Defer |
+|---------|-----------------|
+| Form version history UI | Core versioning works; viewing history is nice-to-have |
+| Advanced validation (regex, custom messages) | Basic required/type validation is sufficient |
+| Field grouping/sections in builder | Linear field list is simpler |
+| Form analytics | Focus on builder, not metrics |
+| Bulk form operations | Unlikely many forms at once |
+
+---
+
+## Complexity Estimates
+
+| Feature Area | Complexity | Rationale |
+|--------------|------------|-----------|
+| Form schema design | Low | Well-understood pattern; Convex makes this straightforward |
+| Drag-and-drop UI | Medium | Library handles heavy lifting; integration and polish take effort |
+| Field configuration panel | Low | Standard form/state management |
+| File upload | Medium | Convex storage is documented but new integration for this project |
+| Form versioning | Medium | Requires careful schema design upfront; snapshot on submit |
+| Public form rendering | Low | Reuse existing Typeform-style components |
+| Admin integration | Low | Existing dashboard patterns to follow; add sidebar link |
+| Dropdown option management | Low | Array manipulation in config panel |
+
+---
+
+## Integration with Existing Features
+
+| Existing Feature | How Form Builder Integrates |
+|------------------|------------------------------|
+| **Typeform-style form UX** | Public forms reuse existing step-by-step pattern; new renderer reads field config |
+| **Admin dashboard** | Form builder is new page in admin; forms list in sidebar or tab |
+| **Submission table** | Add form name column; filter by form; show form version in detail |
+| **Detail panel** | Shows submission data labeled by form field labels at time of submission |
+| **Inline editing** | Works with dynamic fields; uses field type for appropriate input |
+| **Edit history** | Extends to track form definition changes (optional enhancement) |
+| **Convex backend** | New tables: `forms`, maybe `formVersions`; extends `applications` with form reference |
+
+---
+
+## Form Builder UI Patterns
+
+Based on industry research, the standard layout:
+
+```
++--------------------------------------------------+
+|  Form Builder: [Form Title]           [Preview] [Save] |
++--------------------------------------------------+
+|                    |                              |
+|   Field Palette    |      Form Canvas            |  Field Config
+|                    |                              |
+|   [Text]           |   [Field 1: Email]          |  Label: ___
+|   [Textarea]       |   [Field 2: Name]           |  Placeholder: ___
+|   [Email]          |   [Field 3: Floor Choice]   |  Required: [x]
+|   [Dropdown]       |   [Field 4: Description]    |  Help text: ___
+|   [File]           |                              |
+|   [Date]           |   + Add Field               |  (shown when field
+|   [Number]         |                              |   selected)
+|   [Checkbox]       |                              |
+|                    |                              |
++--------------------------------------------------+
+```
+
+**Key interactions:**
+1. Drag field type from palette to canvas (or click to append)
+2. Click field on canvas to select and show config panel
+3. Drag fields on canvas to reorder
+4. Real-time preview updates as changes are made
+5. Save button persists to database
 
 ---
 
 ## Sources
 
-### Typeform UX Patterns
-- [Smashing Magazine - Creating Effective Multistep Forms](https://www.smashingmagazine.com/2024/12/creating-effective-multistep-form-better-user-experience/)
-- [FormAssembly - Multi-Step Form Best Practices](https://www.formassembly.com/blog/multi-step-form-best-practices/)
-- [Typeform Mobile Form Design Best Practices](https://www.typeform.com/blog/mobile-form-design-best-practices)
-- [WeWeb - Multi-Step Form Design](https://www.weweb.io/blog/multi-step-form-design)
-- [Designlab - Design Multi-Step Forms](https://designlab.com/blog/design-multi-step-forms-enhance-user-experience)
-- [Typeform Engineering Blog - Reducing Motion](https://medium.com/typeforms-engineering-blog/reducing-motion-in-typeform-38ad3dd84a)
+### Form Builder Patterns
+- [Buildform - Types of Form Fields](https://buildform.ai/blog/types-of-form-fields/) - Comprehensive field type overview
+- [Elementor - Advanced Form Fields](https://elementor.com/blog/advanced-form-fields/) - File upload, date picker patterns
+- [Jotform - Quick Overview of Form Fields](https://www.jotform.com/help/46-quick-overview-of-form-fields/) - Field type reference
+- [Fillout - Field Types](https://www.fillout.com/help/question-types) - Modern field type catalog
+
+### Drag-and-Drop UX
+- [Formester - Drag and Drop Form Builder](https://formester.com/features/drag-and-drop-form-builder/) - UI patterns
+- [FormEngine - Open-Source Form Builder](https://formengine.io/) - React implementation patterns
+- [Seven Square Tech - Drag Drop Form Builder ReactJS](https://www.sevensquaretech.com/dynamic-drag-drop-form-builder-reactjs-github-code/) - Technical reference
+
+### Schema Versioning
+- [MongoDB - Schema Versioning Pattern](https://www.mongodb.com/blog/post/building-with-patterns-the-schema-versioning-pattern) - Version field approach
+- [Enterprise Craftsmanship - Database Versioning](https://enterprisecraftsmanship.com/posts/database-versioning-best-practices/) - Best practices
+- [Cosmos DB - Schema Versioning](https://devblogs.microsoft.com/cosmosdb/azure-cosmos-db-design-patterns-part-9-schema-versioning/) - Document versioning patterns
+
+### Anti-Patterns and Mistakes
+- [Formsort - 10 Common Form Building Mistakes](https://formsort.com/article/10-common-form-building-mistakes/) - What to avoid
+- [Cursor - Avoiding Anti-Patterns in Forms](https://cursor.co.uk/blog/avoiding-anti-patterns-in-forms/) - Design anti-patterns
+- [FormAssembly - Form Building Mistakes](https://www.formassembly.com/blog/form-building-mistakes/) - Common errors
+
+### Conditional Logic (Reference for Anti-Feature Decision)
+- [SurveyJS - Conditional Logic and Branching](https://surveyjs.io/form-library/examples/conditional-logic-and-branching-in-surveys/reactjs) - Complexity example
+- [Wufoo - Conditional Logic and Branching](https://www.wufoo.com/guides/conditional-logic-and-branching/) - Feature scope example
+- [involve.me - Form Builders with Conditional Logic 2026](https://www.involve.me/blog/best-form-builders-with-conditional-logic) - Market reference
 
 ### Competitor Analysis
-- [Tally - Typeform Alternatives Comparison 2026](https://tally.so/help/best-alternatives-to-typeform-comparison-2025)
-- [Fillout - Form Builder Comparison](https://www.fillout.com/form-builder-comparison)
-- [Hackceleration - Typeform Review 2026](https://hackceleration.com/typeform-review/)
-
-### Admin Dashboard Patterns
-- [WeWeb - Admin Dashboard Ultimate Guide](https://www.weweb.io/blog/admin-dashboard-ultimate-guide-templates-examples)
-- [Jotform - Export Submission Data](https://www.jotform.com/features/export-submission-data/)
-- [HubSpot - Export Form Submissions](https://knowledge.hubspot.com/forms/export-form-submissions)
-
-### Anti-Patterns
-- [Cursor - Avoiding Anti-Patterns in Forms](https://cursor.co.uk/blog/avoiding-anti-patterns-in-forms)
-- [Creative Bloq - Form UX Patterns When to Avoid](https://www.creativebloq.com/features/6-form-ux-patterns-and-when-to-avoid-them)
-- [Zuko - Bad Web Form Design Examples](https://www.zuko.io/blog/7-examples-of-bad-web-form-designs)
-
-### Accessibility
-- [W3C WAI - WCAG 2.1 Keyboard](https://www.w3.org/WAI/WCAG21/Understanding/keyboard.html)
-- [W3C WAI - Multi-page Forms](https://www.w3.org/WAI/tutorials/forms/multi-page/)
-- [WebAIM - Keyboard Accessibility](https://webaim.org/techniques/keyboard/)
-
-### Progress Indicators
-- [FormAssembly - Progress Bar Feature](https://www.formassembly.com/product/features/progress-bar/)
-- [Mobbin - Progress Indicator UI Design](https://mobbin.com/glossary/progress-indicator)
-- [US Web Design System - Step Indicator](https://designsystem.digital.gov/components/step-indicator/)
+- [Typeform vs Google Forms 2026](https://www-cdn.involve.me/blog/typeform-vs-google-forms) - Feature comparison
+- [Fillout - Form Builder Comparison 2026](https://www.fillout.com/form-builder-comparison) - Market landscape
+- [Best Form Builders 2026](https://www.inkl.com/news/best-form-builders-in-2026) - Current market

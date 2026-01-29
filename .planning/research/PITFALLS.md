@@ -1,293 +1,552 @@
-# Pitfalls Research: Inline Editing + Edit History (v1.1)
+# Pitfalls Research: Dynamic Form Builder (v1.2)
 
-**Domain:** Adding inline editing and edit history tracking to existing Convex admin dashboard
-**Researched:** 2026-01-28
-**Project:** FT Floor Lead Application System v1.1
-**Confidence:** HIGH (Convex-specific verified via official docs and table-history component)
+**Domain:** Adding dynamic form builder to existing Frontier Tower application system
+**Researched:** 2026-01-29
+**Project:** FT Floor Lead Application System v1.2
+**Confidence:** HIGH (Convex-verified, patterns validated against existing codebase)
+
+---
+
+## Context: Existing System
+
+Before diving into pitfalls, understand what exists:
+
+**Current hardcoded structure:**
+- 19 fields across 8 form steps (Welcome through Confirmation)
+- Fixed schema in `convex/schema.ts` with typed fields
+- Step components in `src/components/form/steps/*.tsx`
+- Validation via Zod schemas in `src/lib/schemas/application.ts`
+- Typeform-style one-question-at-a-time UX with Framer Motion transitions
+- localStorage draft persistence via Zustand store
+- Edit history tracking for admin inline edits
+
+**What v1.2 adds:**
+- Dynamic form definitions (admin-created schemas)
+- Multiple forms with unique URLs (`/apply/[slug]`)
+- Form versioning for submission integrity
+- File upload fields via Convex storage
+- Rich field types (text, textarea, email, dropdown, file, date, number, checkbox)
 
 ---
 
 ## Critical Pitfalls
 
-High-impact mistakes that cause rewrites, data loss, or major issues.
+High-impact mistakes that cause rewrites, data loss, or major UX degradation.
 
-### Pitfall 1: Race Conditions with Rapid Inline Edits
+### Pitfall 1: Breaking Existing Submissions When Schema Changes
 
-**What goes wrong:** User rapidly edits multiple fields or clicks save multiple times. Optimistic updates show incorrect intermediate states, then "snap back" to wrong values when mutations complete out of order.
-
-**Why it happens:** Each inline edit fires a mutation. If user edits field A, then B, then A again before first mutation completes, the final state can be wrong. React's `useOptimistic` doesn't solve this automatically.
-
-**Consequences:**
-- UI shows one value, database has another
-- User loses trust in the system
-- Potential data corruption if history is logged incorrectly
-
-**Warning signs:**
-- UI "flickers" between values during rapid edits
-- History shows duplicate or out-of-order entries
-- Users report "my changes didn't save"
-
-**Prevention:**
-- Debounce save operations (300-500ms delay after last keystroke)
-- Use local state during editing, only commit on blur/Enter
-- Consider disabling field while mutation is in-flight
-- For Convex: Rely on automatic rollback - if small mistakes happen, UI will eventually show correct values
-
-**Phase to address:** Phase 1 (Inline Edit Infrastructure)
-
-**Sources:**
-- [TkDodo: Concurrent Optimistic Updates in React Query](https://tkdodo.eu/blog/concurrent-optimistic-updates-in-react-query)
-- [useOptimistic Won't Save You](https://www.columkelly.com/blog/use-optimistic)
-- [Convex Optimistic Updates](https://docs.convex.dev/client/react/optimistic-updates)
-
----
-
-### Pitfall 2: Non-Atomic History + Update Operations
-
-**What goes wrong:** Updating the application document and inserting the history record happen in separate mutations or actions. If one succeeds and the other fails, data integrity is compromised.
-
-**Why it happens:** Developer writes two separate `ctx.runMutation()` calls, or uses an action loop, losing transaction guarantees.
-
-**Consequences:**
-- Application updated but no history record (lost audit trail)
-- History record exists but application not updated (phantom edit)
-- Inconsistent data state that's hard to debug
-
-**Warning signs:**
-- History entries without corresponding document changes
-- Edit counts don't match history table row counts
-- Intermittent "missing edit" reports from admins
-
-**Prevention:**
-- Do BOTH operations in a single mutation function
-- Convex mutations are atomic - all writes commit together or none do
-- Use Convex triggers (from convex-helpers) to automatically record history on every write
-- Consider using the official [table-history component](https://github.com/get-convex/table-history) which handles this correctly
-
-**Phase to address:** Phase 1 (Database schema and mutation design)
-
-**Sources:**
-- [Convex OCC and Atomicity](https://docs.convex.dev/database/advanced/occ)
-- [Convex Database Triggers](https://stack.convex.dev/triggers)
-- [GitHub: convex table-history](https://github.com/get-convex/table-history)
-
----
-
-### Pitfall 3: Mutating Objects in Optimistic Updates
-
-**What goes wrong:** Developer mutates existing objects inside optimistic update callbacks instead of creating new objects. This corrupts Convex client's internal state.
-
-**Why it happens:** Natural JavaScript instinct to modify objects directly: `localStore.get(id).field = newValue` instead of spreading to new object.
-
-**Consequences:**
-- Client state becomes corrupted
-- "Surprising results" - UI shows stale or wrong data
-- Very hard to debug - symptoms are inconsistent
-
-**Warning signs:**
-- Queries return data that doesn't match database
-- State "randomly" reverts to old values
-- React devtools show different values than UI
-
-**Prevention:**
-- Always create NEW objects in optimistic updates
-- Pattern: `{ ...existingDoc, fieldName: newValue }`
-- Lint rule or code review checklist item
-- Consider avoiding optimistic updates for edit operations (Convex real-time is fast enough)
-
-**Phase to address:** Phase 2 (Implementing optimistic updates, if used)
-
-**Sources:**
-- [Convex Optimistic Updates - Important Caveat](https://docs.convex.dev/client/react/optimistic-updates)
-
----
-
-### Pitfall 4: Input Focus Loss During Editing
-
-**What goes wrong:** User starts typing in inline edit field, but after one character the input loses focus. They have to click again to continue typing.
+**What goes wrong:** The existing `applications` table has 19 hardcoded fields. When you introduce dynamic schemas, existing submissions either break (if you remove old fields) or become orphaned (if you create a new table structure without migration).
 
 **Why it happens:**
-- Component re-mounts on each render (often due to inline component definition)
-- Using edited value as part of React `key` prop
-- State update triggers parent re-render which unmounts edit component
+- Developers focus on the new dynamic system and forget about the ~X existing submissions
+- No migration strategy for existing data
+- New queries don't account for legacy submission shape
 
 **Consequences:**
-- Unusable inline editing UX
-- Users give up and request different editing approach
-- Appears as a major bug
+- Existing admin dashboard breaks or shows incomplete data
+- Historical submissions become inaccessible
+- Loss of applicant data that may have business value
 
 **Warning signs:**
-- Focus lost after every keystroke
-- Works in isolation but breaks in context
-- Problem appears when adding state management
+- Admin dashboard shows empty fields for old submissions
+- Queries error on legacy documents
+- Status management stops working
 
 **Prevention:**
-- Define editable field components OUTSIDE the main component (not inline)
-- Never use field value as part of React `key`
-- Use local editing state that doesn't trigger parent re-renders
-- Pattern: `editingValue` local state, only sync on blur/Enter
+1. **Treat existing submissions as "v0" schema** - Add a `formVersion` field that defaults to `"v0"` for legacy data
+2. **Keep legacy fields on applications table** - Don't remove them, mark as optional
+3. **Create migration mutation** - Backfill `formVersion: "v0"` on all existing submissions
+4. **Design queries to handle both** - Legacy submissions (no formId) and new dynamic submissions (with formId)
 
-**Phase to address:** Phase 1 (Inline Edit Component design)
+**Phase to address:** Phase 1 (Foundation/Schema Design)
 
 **Sources:**
-- [React.js loses input focus on typing](https://reactkungfu.com/2015/09/react-js-loses-input-focus-on-typing/)
-- [How to build an inline edit component in React](https://www.emgoto.com/react-inline-edit/)
+- [MongoDB Document Versioning Pattern](https://www.mongodb.com/docs/manual/data-modeling/design-patterns/data-versioning/)
+- [Azure Cosmos DB Schema Versioning](https://devblogs.microsoft.com/cosmosdb/azure-cosmos-db-design-patterns-part-9-schema-versioning/)
+
+---
+
+### Pitfall 2: Form Version Drift - Submissions Reference Deleted/Changed Forms
+
+**What goes wrong:** User starts filling out form v1. Admin edits form to v2. User submits. The submission references a form structure that no longer exists or has different field IDs.
+
+**Why it happens:**
+- Storing only `formId` without preserving the schema snapshot
+- No immutable form versions
+- Admin can edit forms while users are actively filling them out
+
+**Consequences:**
+- Submission data doesn't match form structure
+- Admin sees mismatched field labels/values
+- Historical submissions become uninterpretable
+- "What question did they answer?" is unanswerable
+
+**Warning signs:**
+- Submission data has field IDs that don't exist in current form
+- Admin view shows "unknown field" or crashes
+- Historical reporting becomes impossible
+
+**Prevention:**
+1. **Store full schema snapshot with each submission** - Include `formSchema` (the form definition at submission time)
+2. **Or implement immutable form versions** - Forms get versions (v1, v2), edits create new version, old submissions reference old version
+3. **Never allow in-place form mutation** - Every edit creates a new version
+4. **Display submissions using their stored schema**, not current form
+
+**Recommended pattern for Convex:**
+```typescript
+// submissions table
+{
+  formId: v.id("forms"),
+  formVersion: v.number(), // or v.string() for semver
+  formSchemaSnapshot: v.any(), // JSON of form structure at submission time
+  responses: v.any(), // { fieldId: value }
+  submittedAt: v.number(),
+}
+```
+
+**Phase to address:** Phase 1 (Schema Design) - Critical to get right upfront
+
+**Sources:**
+- [Schema Evolution Best Practices](https://dataengineeracademy.com/module/best-practices-for-managing-schema-evolution-in-data-pipelines/)
+- [Form.io Migration Guide](https://help.form.io/deployments/maintenance-and-migration)
+
+---
+
+### Pitfall 3: File Upload URL Expiration During Long Forms
+
+**What goes wrong:** User uploads a file on step 3 of a 10-step form. By the time they reach submission (30+ minutes later), the storage reference or upload has issues. Or they refresh the page and lose the upload entirely.
+
+**Why it happens:**
+- Convex upload URLs expire in 1 hour
+- File is uploaded but not persisted to database until final submission
+- localStorage can't persist file references across sessions
+- Draft restoration doesn't restore file uploads
+
+**Consequences:**
+- Users think they uploaded a file, submit, and it's missing
+- Long forms have higher abandonment rates
+- Support requests about "lost" file uploads
+- Incomplete applications in database
+
+**Warning signs:**
+- File upload shows success but submission has no file
+- Users report "my file disappeared"
+- File appears in preview but not after submission
+
+**Prevention:**
+1. **Immediate file persistence** - Upload file immediately on selection, store `storageId` in form state
+2. **Persist storageId to localStorage** - Include in draft persistence
+3. **Validate file exists before submission** - Check `storage.getUrl(storageId)` returns valid URL
+4. **Show clear "file uploaded" confirmation** - Not just a progress bar, actual server confirmation
+5. **Handle upload failures gracefully** - Clear error messages, retry option
+
+**Implementation pattern:**
+```typescript
+// On file select (not on form submit)
+const uploadUrl = await generateUploadUrl();
+const result = await fetch(uploadUrl, { method: 'POST', body: file });
+const { storageId } = await result.json();
+// Store storageId in form state immediately
+setFieldValue(fieldId, storageId);
+```
+
+**Phase to address:** Phase 2 (File Upload Infrastructure)
+
+**Sources:**
+- [Convex File Upload Documentation](https://docs.convex.dev/file-storage/upload-files)
+- [Convex File Storage Limits](https://docs.convex.dev/production/state/limits)
+
+---
+
+### Pitfall 4: Typeform UX Degradation with Dynamic Fields
+
+**What goes wrong:** The beautiful one-question-at-a-time flow breaks down with dynamic forms. Transitions feel janky, progress indicator doesn't reflect actual progress, long forms feel tedious.
+
+**Why it happens:**
+- Dynamic field count means step count varies
+- Existing step components are hardcoded for specific fields
+- Animation system assumes fixed step count
+- Progress calculation breaks with conditional logic
+
+**Consequences:**
+- Users abandon forms that feel broken
+- Typeform-style experience degrades to "just another form"
+- Loss of the premium feel that differentiates the product
+- Higher bounce rates
+
+**Warning signs:**
+- Progress bar jumps erratically
+- Animations stutter or skip
+- Long forms feel interminable
+- Users ask "how many more questions?"
+
+**Prevention:**
+1. **Preserve step-based UX** - Group related dynamic fields into "pages" or "sections"
+2. **Calculate progress from total fields**, not hardcoded steps
+3. **Test animations with various field counts** - 3 fields, 10 fields, 20 fields
+4. **Set field-per-step guidelines** - Maximum 3-5 fields per step for focus
+5. **Show estimated time** - "About 5 minutes" based on field count
+6. **Limit form length** - Typeform research shows 6 questions is the sweet spot for completion rates
+
+**Implementation pattern:**
+```typescript
+// Dynamic progress calculation
+const totalFields = formSchema.fields.filter(f => !f.hidden).length;
+const completedFields = Object.keys(responses).length;
+const progress = (completedFields / totalFields) * 100;
+```
+
+**Phase to address:** Phase 3 (Form Renderer UI)
+
+**Sources:**
+- [Typeform Data Report on Form Completion](https://www.typeform.com/blog/create-better-online-forms)
+- [Fillout on Typeform Alternatives](https://www.fillout.com/blog/8-typeform-alternatives)
+
+---
+
+### Pitfall 5: Form Slug Collision and URL Breakage
+
+**What goes wrong:** Admin creates form with slug "apply". Another admin creates form with slug "apply" (case variation or similar). URLs break, wrong form loads, or system crashes.
+
+**Why it happens:**
+- No uniqueness constraint on slug field
+- No validation during form creation
+- Case sensitivity issues (Apply vs apply vs APPLY)
+- Reserved paths conflict (/apply exists, admin creates form slug "apply")
+
+**Consequences:**
+- 404 errors for valid form URLs
+- Wrong form displayed to users
+- Existing shared links break when slugs collide
+- SEO damage from duplicate content
+
+**Warning signs:**
+- Forms "disappear" from their URLs
+- Users report landing on wrong form
+- Admin can create duplicate slugs
+- URL routing unpredictable
+
+**Prevention:**
+1. **Database-level unique constraint** - Convex index with unique: true on slug
+2. **Case-insensitive normalization** - Store lowercase, normalize on lookup
+3. **Reserve system paths** - Block "admin", "api", "login", etc.
+4. **Validate on create AND update** - Check for collisions
+5. **Slug format validation** - Only alphanumeric, hyphens, no spaces
+
+**Implementation:**
+```typescript
+// In schema
+forms: defineTable({
+  slug: v.string(),
+  // ...
+}).index("by_slug", ["slug"], { unique: true })
+
+// In mutation
+const normalized = args.slug.toLowerCase().replace(/[^a-z0-9-]/g, '-');
+const existing = await ctx.db.query("forms")
+  .withIndex("by_slug", q => q.eq("slug", normalized))
+  .first();
+if (existing) throw new Error("Slug already in use");
+```
+
+**Phase to address:** Phase 1 (Forms Table Schema)
+
+**Sources:**
+- [URL Slug Design Patterns](https://patterns.dataincubator.org/book/url-slug.html)
+- [The Hidden Cost of URL Design](https://alfy.blog/2025/10/16/hidden-cost-of-url-design.html)
 
 ---
 
 ## Medium Pitfalls
 
-Common issues that cause delays or technical debt.
+Common issues that cause delays, technical debt, or degraded UX.
 
-### Pitfall 5: History Table Schema Coupling
+### Pitfall 6: Dynamic Validation Schema Out of Sync with Form Definition
 
-**What goes wrong:** History table schema is tightly coupled to main table schema. When adding/removing fields from applications table, history table breaks or shows incomplete data.
+**What goes wrong:** Form builder allows creating required fields, min/max lengths, email formats. But the validation schema generation doesn't match, causing valid inputs to fail or invalid inputs to pass.
 
-**Why it happens:** Storing individual changed fields as separate columns in history table, mirroring the main schema.
+**Why it happens:**
+- Validation rules live in two places (form definition + Zod schema)
+- Manual synchronization between builder and validator
+- Edge cases not handled (optional + minLength = ??)
+- Server validation differs from client validation
 
 **Consequences:**
-- Schema migrations become complex (update N+1 tables)
-- Old history entries missing new fields
-- Historical data interpretation becomes ambiguous
+- Users pass client validation but fail server
+- "Required" fields can be submitted empty
+- Format validations inconsistent
+- Support requests about "broken" forms
 
 **Warning signs:**
-- History queries require schema version awareness
-- Migration scripts grow exponentially complex
-- "What was the value of [new field] in January?" returns null incorrectly
+- Submissions with empty required fields
+- Different behavior on client vs server
+- Validation errors that don't match field rules
 
 **Prevention:**
-- Store changes as JSON blob with field name, old value, new value
-- Schema: `{ documentId, timestamp, changes: [{ field, oldValue, newValue }], editedBy }`
-- History table schema stays stable regardless of main table changes
-- Convex table-history component uses this pattern automatically
+1. **Single source of truth** - Generate Zod schema FROM form definition
+2. **Share validation logic** - Same function on client and server
+3. **Test validation generation** - Unit tests for every field type + rule combo
+4. **Validate on both sides** - Client for UX, server for security
 
-**Phase to address:** Phase 1 (History table design)
+**Pattern:**
+```typescript
+// Generate Zod schema from form definition
+function generateSchema(formDef: FormDefinition): z.ZodObject<any> {
+  const shape: Record<string, z.ZodTypeAny> = {};
+  for (const field of formDef.fields) {
+    let fieldSchema = getBaseSchema(field.type);
+    if (field.required) fieldSchema = fieldSchema.min(1, "Required");
+    if (field.minLength) fieldSchema = fieldSchema.min(field.minLength);
+    // ... etc
+    if (!field.required) fieldSchema = fieldSchema.optional();
+    shape[field.id] = fieldSchema;
+  }
+  return z.object(shape);
+}
+```
 
-**Sources:**
-- [Design a Table to Keep Historical Changes](https://dev.to/zhiyueyi/design-a-table-to-keep-historical-changes-in-database-10fn)
-- [4 Common Designs of Audit Trail](https://medium.com/techtofreedom/4-common-designs-of-audit-trail-tracking-data-changes-in-databases-c894b7bb6d18)
+**Phase to address:** Phase 2 (Form Renderer/Validation)
 
 ---
 
-### Pitfall 6: Blur Save on Dropdown/Select Fields
+### Pitfall 7: Edit History Breaks with Dynamic Fields
 
-**What goes wrong:** Save-on-blur works for text inputs but breaks for dropdowns. Dropdown closes (blur) before value is actually selected, saving wrong value or not saving at all.
+**What goes wrong:** v1.1 edit history tracks changes by field name ("fullName changed from X to Y"). Dynamic forms have field IDs like "field_abc123". History becomes meaningless.
 
-**Why it happens:** Dropdown menu opening triggers blur on the select element. Click on dropdown option also first causes blur before click registers.
+**Why it happens:**
+- Edit history designed for hardcoded field names
+- Dynamic fields have generated IDs, not human names
+- No field label stored in history
+- Legacy vs dynamic submission handling differs
 
 **Consequences:**
-- Floor field (dropdown) inline edit doesn't work
-- Inconsistent behavior across field types
-- Users think their change saved when it didn't
+- Edit history shows "field_abc123 changed to X"
+- Admins can't understand what was edited
+- History feature becomes useless for dynamic forms
 
 **Warning signs:**
-- Text fields save correctly, dropdowns don't
-- Value "snaps back" when selecting dropdown option
-- Works on some browsers but not others
+- History entries show UUIDs instead of labels
+- No way to correlate field ID to question text
+- Legacy submissions show names, new ones show IDs
 
 **Prevention:**
-- Handle dropdowns differently than text inputs
-- Save on explicit selection (`onValueChange`) not blur
-- Use controlled component with explicit save trigger
-- Consider save/cancel buttons for dropdown fields instead of auto-save
+1. **Store field label in history record** - Not just field ID
+2. **Or resolve label at display time** - Look up from stored schema snapshot
+3. **Handle both formats** - Legacy (fieldName) and dynamic (fieldId + label)
+4. **Include field context** - "Email (from Application Details section)"
 
-**Phase to address:** Phase 2 (Field-specific edit implementations)
+**Schema update:**
+```typescript
+editHistory: defineTable({
+  applicationId: v.id("applications"), // or submissions
+  fieldId: v.string(),
+  fieldLabel: v.optional(v.string()), // Human-readable label
+  oldValue: v.string(),
+  newValue: v.string(),
+  editedAt: v.number(),
+})
+```
 
-**Sources:**
-- [DevExtreme: Select Dropdown does not blur and save proper value](https://github.com/DevExpress/devextreme-reactive/issues/3123)
-- [Atlassian: Allow disabling of save-on-blur for inline editing](https://jira.atlassian.com/browse/JRASERVER-30198)
+**Phase to address:** Phase 4 (Admin Integration)
 
 ---
 
-### Pitfall 7: Unbounded History Table Growth
+### Pitfall 8: Drag-and-Drop Builder Inaccessible
 
-**What goes wrong:** Every edit creates a history record forever. After months of use, history table grows large, slowing queries and increasing storage costs.
+**What goes wrong:** Form builder uses drag-and-drop exclusively. Keyboard users, screen reader users, and mobile users can't create forms.
 
-**Why it happens:** No retention policy. "We'll deal with it later" becomes technical debt.
+**Why it happens:**
+- Drag-and-drop libraries often lack accessibility
+- "It works for me" testing doesn't catch a11y issues
+- Mobile experience is an afterthought
+- ARIA implementation is complex and skipped
 
 **Consequences:**
-- Query performance degrades over time
-- Convex storage costs increase
-- History pagination becomes slow
-- Dashboard loads slower as history grows
+- WCAG violations
+- Portion of admin users can't use builder
+- Mobile admins frustrated
+- Legal/compliance risk
 
 **Warning signs:**
-- History queries take >1 second
-- Storage usage growing faster than expected
-- Admins complain about slow history panel
+- Can't tab through builder interface
+- Screen reader announces nothing useful
+- Mobile drag gestures don't work
+- Focus disappears after drag operations
 
 **Prevention:**
-- Design retention policy upfront (keep last N edits per document, or last 6 months)
-- Implement `vacuumHistory` function (table-history component provides this)
-- Set up periodic cleanup (scheduled function)
-- Add "Load more" pagination instead of loading all history
+1. **Always provide keyboard alternative** - Move up/down buttons alongside drag
+2. **Implement proper ARIA** - aria-grabbed, aria-dropeffect, live regions
+3. **Test with keyboard only** - Tab, Enter, Escape, Arrow keys
+4. **Test with screen reader** - VoiceOver, NVDA
+5. **Use accessible library** - @dnd-kit has good a11y, react-beautiful-dnd deprecated
 
-**Phase to address:** Phase 3 (History viewing) - design now, implement when building history UI
+**Pattern:**
+```tsx
+// Alongside drag handle
+<button onClick={() => moveField(index, index - 1)} aria-label="Move field up">
+  <ChevronUp />
+</button>
+<button onClick={() => moveField(index, index + 1)} aria-label="Move field down">
+  <ChevronDown />
+</button>
+```
+
+**Phase to address:** Phase 3 (Form Builder UI)
 
 **Sources:**
-- [Microsoft: Recover database space by deleting audit logs](https://learn.microsoft.com/en-us/power-platform/admin/recover-database-space-deleting-audit-logs)
-- [LogicMonitor: What is log retention?](https://www.logicmonitor.com/blog/what-is-log-retention)
-- [GitHub: convex table-history vacuumHistory](https://github.com/get-convex/table-history)
+- [Salesforce: 4 Patterns for Accessible Drag and Drop](https://medium.com/salesforce-ux/4-major-patterns-for-accessible-drag-and-drop-1d43f64ebf09)
+- [Drag-and-Drop UX Best Practices](https://smart-interface-design-patterns.com/articles/drag-and-drop-ux/)
+- [WCAG 2.2 Dragging Movements](https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements)
 
 ---
 
-### Pitfall 8: No "Cancel" Affordance for Keyboard Users
+### Pitfall 9: Large File Uploads via HTTP Action Limit
 
-**What goes wrong:** Save-on-blur means keyboard users can't cancel edits. Tab to next field = save. No escape hatch except refreshing the page.
+**What goes wrong:** File upload implemented via HTTP action. Users try to upload files >20MB (common for PDFs, videos, presentations). Upload silently fails or crashes.
 
-**Why it happens:** Over-simplified "auto-save" pattern without considering keyboard navigation.
+**Why it happens:**
+- Developer uses HTTP action for simplicity
+- Convex HTTP action limit is 20MB
+- No file size validation on client
+- Error handling doesn't surface the real issue
 
 **Consequences:**
-- WCAG accessibility failure (2.1.1 Keyboard)
-- Users accidentally save wrong values
-- No undo creates anxiety about editing
+- Large files fail mysteriously
+- Users retry repeatedly
+- Support tickets about "upload doesn't work"
+- Incomplete applications
 
 **Warning signs:**
-- Accessibility audit fails
-- Users ask "how do I cancel?"
-- Accidental saves reported
+- File uploads fail for large files only
+- Network tab shows 413 or timeout
+- Works in development (small test files)
 
 **Prevention:**
-- Escape key must cancel edit and restore original value
-- Enter key saves (except for textarea where it adds newline)
-- Tab key should save and move to next field (or cancel, pick consistent behavior)
-- Visual indication that Escape cancels
+1. **Use upload URLs** - No size limit (use `storage.generateUploadUrl()`)
+2. **Client-side size validation** - Warn before upload attempt
+3. **Show clear limits** - "Maximum file size: 50MB"
+4. **Graceful error handling** - "File too large" not "Upload failed"
 
-**Phase to address:** Phase 1 (Inline edit UX specification)
+**Implementation:**
+```typescript
+// Client-side validation
+const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+if (file.size > MAX_FILE_SIZE) {
+  setError(`File too large. Maximum size is ${MAX_FILE_SIZE / 1024 / 1024}MB`);
+  return;
+}
+// Use upload URL method
+const uploadUrl = await generateUploadUrl();
+```
+
+**Phase to address:** Phase 2 (File Upload Infrastructure)
 
 **Sources:**
-- [PatternFly: Inline edit design guidelines](https://www.patternfly.org/components/inline-edit/design-guidelines/)
-- [WCAG 2.1.1: Full keyboard access](https://wcag.dock.codes/documentation/wcag211/)
+- [Convex File Upload Documentation](https://docs.convex.dev/file-storage/upload-files)
+- [Convex Limits](https://docs.convex.dev/production/state/limits)
 
 ---
 
-### Pitfall 9: Concurrent Admin Edits Overwriting Each Other
+### Pitfall 10: Responses Stored Without Field Type Context
 
-**What goes wrong:** Two admins (small team, but possible) edit same application simultaneously. Last save wins, silently overwriting first admin's changes.
+**What goes wrong:** Submission stores `{ field_123: "2025-03-15" }`. Is that a string? A date? How should admin display/edit it? Type information lost.
 
-**Why it happens:** No conflict detection. Convex real-time shows changes, but if both are editing simultaneously, whoever saves last wins.
+**Why it happens:**
+- Responses stored as simple key-value JSON
+- Field type info only in form schema
+- Schema snapshot too large to query repeatedly
+- Display logic guesses based on value patterns
 
 **Consequences:**
-- Lost edits without notification
-- Confusion about "what happened to my changes"
-- Trust issues with the system
+- Dates displayed as strings
+- Numbers sorted alphabetically
+- Dropdowns show raw values not labels
+- Editing uses wrong input type
 
 **Warning signs:**
-- Admin reports "I edited X but it shows Y"
-- History shows two edits from different admins within seconds
-- Field values seem to "randomly" change
+- Admin sees "1" instead of "Option A"
+- Date sorting broken
+- Number fields accept text
+- CSV export has inconsistent types
 
 **Prevention:**
-- For 1-3 admin team: Accept as low risk, trust real-time updates to show changes
-- Add "last edited by" indicator that updates in real-time
-- Consider optimistic locking: compare lastModified timestamp before save
-- Show "This field was just edited by [other admin]" warning
+1. **Store field type with each response** - `{ field_123: { value: "2025-03-15", type: "date" } }`
+2. **Or always resolve from schema snapshot** - Store schema per-submission
+3. **Store dropdown label + value** - `{ value: "option_a", label: "Option A" }`
+4. **Normalize on submission** - Convert to consistent storage format
 
-**Phase to address:** Phase 3 (Polish) - low risk for small team, but good to have warning
+**Pattern:**
+```typescript
+// Store with type context
+responses: {
+  [fieldId: string]: {
+    value: string | number | boolean | string[], // Actual value
+    type: FieldType, // "text" | "date" | "dropdown" | etc.
+    // For dropdowns:
+    selectedOption?: { value: string, label: string }
+  }
+}
+```
 
-**Sources:**
-- [Convex: Keeping Users in Sync](https://stack.convex.dev/keeping-real-time-users-in-sync-convex)
-- [Conflict Resolution in Real-Time Collaborative Editing](https://tryhoverify.com/blog/conflict-resolution-in-real-time-collaborative-editing/)
+**Phase to address:** Phase 2 (Submission Storage Design)
+
+---
+
+### Pitfall 11: Performance Degradation with Large Form Schemas
+
+**What goes wrong:** Form with 50+ fields. Schema stored as JSON blob. Every query fetches full schema. List view becomes slow.
+
+**Why it happens:**
+- Schema stored inline with form document
+- Queries fetch full document even when only needing name/slug
+- No pagination on large response sets
+- Real-time subscriptions update on every schema change
+
+**Consequences:**
+- Form list takes seconds to load
+- Admin dashboard sluggish
+- Mobile devices struggle
+- Bandwidth costs increase
+
+**Warning signs:**
+- Network tab shows large payloads
+- List views slow with many forms
+- Mobile performance noticeably worse
+- Convex bandwidth warnings
+
+**Prevention:**
+1. **Separate schema from form metadata** - `forms` table (name, slug, status) + `formSchemas` table (full definition)
+2. **Query only what's needed** - List views don't need full schema
+3. **Paginate form list** - Don't load 100 forms at once
+4. **Lazy load schema** - Only fetch when editing/viewing form
+
+**Pattern:**
+```typescript
+// Lean query for list view
+export const listForms = query({
+  handler: async (ctx) => {
+    return ctx.db.query("forms")
+      .withIndex("by_status")
+      .order("desc")
+      .collect(); // Returns only id, name, slug, status
+  }
+});
+
+// Full query for editor
+export const getFormWithSchema = query({
+  args: { formId: v.id("forms") },
+  handler: async (ctx, args) => {
+    const form = await ctx.db.get(args.formId);
+    const schema = await ctx.db.query("formSchemas")
+      .withIndex("by_form", q => q.eq("formId", args.formId))
+      .order("desc")
+      .first(); // Latest version
+    return { ...form, schema };
+  }
+});
+```
+
+**Phase to address:** Phase 1 (Schema Design)
 
 ---
 
@@ -295,109 +554,58 @@ Common issues that cause delays or technical debt.
 
 Minor gotchas that cause annoyance but are fixable.
 
-### Pitfall 10: Edit History Shows Technical Field Names
+### Pitfall 12: No Preview Mode for Form Builder
 
-**What goes wrong:** History shows `phase1Mvp changed from X to Y` instead of `Phase 1: MVP changed from X to Y`. Admins don't understand which field was edited.
+**What goes wrong:** Admin builds form, publishes, realizes it looks wrong. No way to preview without publishing.
 
-**Why it happens:** Storing raw database field names in history instead of display labels.
-
-**Consequences:**
-- Poor admin UX
-- Time wasted figuring out what changed
-- Makes history feature feel unpolished
-
-**Warning signs:**
-- History entries use camelCase field names
-- Admins ask "what does benefitToFT mean?"
+**Why it happens:** Focus on builder, not validation workflow.
 
 **Prevention:**
-- Create field label mapping: `{ phase1Mvp: "Phase 1: MVP", benefitToFT: "Benefit to FT" }`
-- Store display-friendly labels in history, OR transform on display
-- Consistency with how fields are labeled in detail panel
+- Add preview mode that renders form exactly as users will see
+- Preview should work unpublished
+- Consider side-by-side builder/preview
 
-**Phase to address:** Phase 3 (History display)
+**Phase to address:** Phase 3 (Form Builder UI)
 
 ---
 
-### Pitfall 11: Long Text Fields Awkward for Inline Edit
+### Pitfall 13: Field ID Changes Break Existing Drafts
 
-**What goes wrong:** Bio, proposal, roadmap fields are 200+ character text blocks. Inline edit with a small text input is awkward. User can't see full context while editing.
-
-**Why it happens:** One-size-fits-all inline edit component for all field types.
-
-**Consequences:**
-- Poor UX for long-form content
-- Users truncate text to fit visible area
-- Editing feels cramped
-
-**Warning signs:**
-- Long fields show "..." in edit mode
-- Users scroll horizontally to edit
-- Editing long fields takes multiple attempts
+**What goes wrong:** User starts form, admin renames/reorders fields, user's localStorage draft has old field IDs.
 
 **Prevention:**
-- Use textarea for long text fields, text input for short fields
-- Auto-expand textarea to fit content
-- Consider modal editor for very long fields (bio, proposals)
-- Set minimum heights based on field type
+- Use stable UUIDs for field IDs, not derived from labels
+- Clear draft warning if form version changed
+- Or migrate draft data to new field IDs
 
-**Phase to address:** Phase 2 (Field-specific implementations)
+**Phase to address:** Phase 3 (Form Renderer)
 
 ---
 
-### Pitfall 12: No Visual Distinction Between Editable and Non-Editable Fields
+### Pitfall 14: No Form Version History for Admins
 
-**What goes wrong:** Users click on non-editable fields (submittedAt, status) expecting to edit, nothing happens. Or they don't realize editable fields ARE editable.
-
-**Why it happens:** No hover state or visual affordance indicating editability.
-
-**Consequences:**
-- Discovery problems - users don't find the feature
-- Frustration clicking on things that don't respond
-- Confusion about what can be changed
-
-**Warning signs:**
-- Users ask "can I edit this?"
-- Low adoption of inline editing feature
-- Users still request "edit form"
+**What goes wrong:** Admin edits form, makes mistake, can't undo. No way to see what changed or roll back.
 
 **Prevention:**
-- Hover state shows pencil icon or subtle background change
-- Non-editable fields have no hover affordance
-- Cursor changes to pointer on editable fields
-- Consider subtle edit icon always visible
+- Store all form versions (immutable versioning)
+- Show version history in builder
+- Allow rollback to previous version
 
-**Phase to address:** Phase 2 (Inline edit styling)
-
-**Sources:**
-- [UXPlanet: Best Practices for Inline Editing in Tables](https://uxplanet.org/best-practices-for-inline-editing-in-tables-993caf06c171)
-- [Apiko: Inline Editing Implementation Experience](https://apiko.com/blog/inline-editing/)
+**Phase to address:** Phase 4 (Form Builder Polish)
 
 ---
 
-### Pitfall 13: Date Field Inline Edit Browser Inconsistencies
+### Pitfall 15: Conditional Logic Creates Impossible States
 
-**What goes wrong:** `startDate` field uses native date picker. Behavior varies wildly across browsers. Safari shows text input, Chrome shows date picker, mobile is different again.
-
-**Why it happens:** Relying on `<input type="date">` which has poor cross-browser support.
-
-**Consequences:**
-- Inconsistent UX across browsers
-- Date format confusion (MM/DD vs DD/MM)
-- Mobile users struggle with tiny date picker
-
-**Warning signs:**
-- Works on your machine, breaks in user reports
-- Date validation errors from wrong format
-- Safari users can't select dates
+**What goes wrong:** "Show field B if field A = X" but field A is deleted. Or circular conditions (A shows if B, B shows if A).
 
 **Prevention:**
-- Use consistent date picker component (shadcn/ui has good ones)
-- Don't rely on native `<input type="date">`
-- Validate date format on save
-- Consider keeping date as display-only (how often does start date really change?)
+- Validate conditional logic on save
+- Detect and prevent circular dependencies
+- Warn when deleting referenced fields
+- Clear conditions when field deleted
 
-**Phase to address:** Phase 2 (Date field implementation)
+**Phase to address:** Phase 3 (Form Builder Validation)
 
 ---
 
@@ -405,106 +613,142 @@ Minor gotchas that cause annoyance but are fixable.
 
 | Phase | Topic | Likely Pitfall | Mitigation |
 |-------|-------|----------------|------------|
-| Phase 1 | Schema design | Non-atomic operations (#2), Schema coupling (#5) | Single mutation for update+history, JSON changes format |
-| Phase 1 | Edit component | Focus loss (#4), No cancel (#8) | Component outside render, Escape to cancel |
-| Phase 2 | Optimistic updates | Race conditions (#1), Object mutation (#3) | Debounce, create new objects |
-| Phase 2 | Field types | Dropdown blur (#6), Long text UX (#11), Dates (#13) | Per-field-type handling |
-| Phase 3 | History display | Field names (#10), Growth (#7) | Label mapping, retention policy |
-| Phase 3 | Polish | Concurrent edits (#9), Editability affordance (#12) | Real-time indicators, hover states |
+| Phase 1 | Schema design | Breaking existing submissions (#1), Version drift (#2), Slug collision (#5) | Version field on legacy data, immutable form versions, unique slug index |
+| Phase 2 | File upload | URL expiration (#3), HTTP action limit (#9), Type context (#10) | Immediate upload, use upload URLs, store type with responses |
+| Phase 3 | Form builder | Typeform UX degradation (#4), Drag-drop a11y (#8), Preview (#12) | Dynamic progress, keyboard alternatives, preview mode |
+| Phase 3 | Form renderer | Validation sync (#6), Draft breakage (#13) | Generate schema from definition, stable field IDs |
+| Phase 4 | Admin integration | Edit history breaks (#7), Performance (#11) | Store field labels, separate schema table |
 
 ---
 
-## Integration Notes for Existing Convex System
+## Integration Notes for Existing System
+
+### Backward Compatibility Strategy
+
+```
+                    +------------------+
+                    |   applications   |
+                    |  (legacy v1.0)   |
+                    |  19 fixed fields |
+                    +--------+---------+
+                             |
+                    formVersion: "v0"
+                             |
+    +------------------------+------------------------+
+    |                                                 |
+    v                                                 v
++---+---+                                     +-------+-------+
+| Legacy|                                     |   Dynamic     |
+|Display|                                     |  Submissions  |
+| Path  |                                     +-------+-------+
++---+---+                                             |
+    |                                         formVersion: "v1+"
+    |                                         formId: Id<"forms">
+    |                                         formSchemaSnapshot: {...}
+    |                                         responses: {...}
+    |                                                 |
+    +-------------------------------------------------+
+                              |
+                              v
+                    +-------------------+
+                    |  Admin Dashboard  |
+                    | (handles both)    |
+                    +-------------------+
+```
 
 ### Current Schema Context
 
-The existing `applications` table has 20+ fields:
-- Applicant: `fullName`, `email`, `linkedIn`, `role`, `bio`
-- Proposal: `floor`, `initiativeName`, `tagline`, `values`, `targetCommunity`, `estimatedSize`
-- Roadmap: `phase1Mvp`, `phase2Expansion`, `phase3LongTerm`
-- Impact: `benefitToFT`
-- Logistics: `existingCommunity`, `spaceNeeds`, `startDate`, `additionalNotes`
-- Meta: `status`, `submittedAt`
+The existing `applications` table has 19+ fields. Adding dynamic forms means:
 
-Adding edit history means:
-- New `editHistory` table needed (or use table-history component)
-- Existing `updateStatus` mutation should also record history
-- Consider whether status changes are "edits" for history purposes
+1. **New `forms` table** - Form definitions
+2. **New `formSchemas` table** (or inline) - Versioned form structures
+3. **New `submissions` table** (or extend applications) - Dynamic responses
+4. **Keep `applications` table** - For legacy data, mark with formVersion: "v0"
 
-### Current Architecture Fit
-
-- `ApplicationSheet.tsx` displays `Field` components - these become `EditableField`
-- `AdminDashboard.tsx` manages sheet state - will need to handle edit states
-- `applications.ts` mutations need to be extended, not replaced
-
-### Existing Mutation: `updateStatus`
+### Query Strategy
 
 ```typescript
-// Current implementation (convex/applications.ts line 74-87)
-export const updateStatus = mutation({
-  args: {
-    id: v.id("applications"),
-    status: v.union(...),
-  },
-  handler: async (ctx, args) => {
-    await ctx.db.patch(args.id, { status: args.status });
-  },
+// Query that handles both legacy and dynamic
+export const listAllSubmissions = query({
+  handler: async (ctx) => {
+    // Legacy applications (no formId)
+    const legacy = await ctx.db.query("applications")
+      .withIndex("by_submitted")
+      .order("desc")
+      .collect();
+
+    // Dynamic submissions (have formId)
+    const dynamic = await ctx.db.query("submissions")
+      .withIndex("by_submitted")
+      .order("desc")
+      .collect();
+
+    // Merge and sort
+    return [...legacy, ...dynamic].sort((a, b) => b.submittedAt - a.submittedAt);
+  }
 });
 ```
 
-This needs to be extended to also record edit history (status changes should be tracked too).
-
-### Convex-Specific Advantages for This Project
-
-- **Real-time sync:** Changes propagate immediately - optimistic updates may be unnecessary
-- **Transaction guarantees:** Single mutation = atomic update + history record
-- **Official component:** `table-history` provides battle-tested audit log solution
-- **Triggers:** `convex-helpers` can auto-record history on every write
-
 ---
 
-## Recommended Approach for v1.1
+## Recommended Approach for v1.2
 
-Based on pitfall analysis:
+Based on pitfall analysis, prioritize:
 
-1. **Use single mutation for update + history** (avoids #2)
-2. **Store history as JSON changes array** (avoids #5)
-3. **Define EditableField component outside render** (avoids #4)
-4. **Handle dropdowns via onValueChange, not blur** (avoids #6)
-5. **Escape to cancel, Enter to save** (avoids #8)
-6. **Add field label mapping** (avoids #10)
-7. **Use textarea for long fields** (avoids #11)
-8. **Add hover state with pencil icon** (avoids #12)
+1. **Schema design first** (Phases 1-2)
+   - Immutable form versions (avoids #2)
+   - Version field on legacy data (avoids #1)
+   - Unique slug constraint (avoids #5)
+   - Separate schema table (avoids #11)
+   - Store type context with responses (avoids #10)
+
+2. **File upload infrastructure early** (Phase 2)
+   - Use upload URLs not HTTP actions (avoids #9)
+   - Immediate persistence (avoids #3)
+   - Size validation on client
+
+3. **UX quality as you build** (Phase 3)
+   - Test Typeform flow with dynamic fields (avoids #4)
+   - Keyboard alternatives for drag-drop (avoids #8)
+   - Preview mode from the start (avoids #12)
+
+4. **Admin integration last** (Phase 4)
+   - Extend edit history for dynamic fields (avoids #7)
+   - Generate validation from definition (avoids #6)
 
 ---
 
 ## Sources
 
 ### Convex Official
-- [Convex Optimistic Updates](https://docs.convex.dev/client/react/optimistic-updates)
-- [Convex OCC and Atomicity](https://docs.convex.dev/database/advanced/occ)
-- [Convex Database Triggers](https://stack.convex.dev/triggers)
-- [Convex: Keeping Users in Sync](https://stack.convex.dev/keeping-real-time-users-in-sync-convex)
+- [Convex File Upload Documentation](https://docs.convex.dev/file-storage/upload-files)
+- [Convex File Storage](https://docs.convex.dev/file-storage)
+- [Convex Limits](https://docs.convex.dev/production/state/limits)
 
-### Convex Components
-- [GitHub: convex table-history](https://github.com/get-convex/table-history)
+### Schema Versioning
+- [MongoDB Document Versioning Pattern](https://www.mongodb.com/docs/manual/data-modeling/design-patterns/data-versioning/)
+- [Azure Cosmos DB Schema Versioning](https://devblogs.microsoft.com/cosmosdb/azure-cosmos-db-design-patterns-part-9-schema-versioning/)
+- [Schema Evolution Best Practices](https://dataengineeracademy.com/module/best-practices-for-managing-schema-evolution-in-data-pipelines/)
+- [GeeksforGeeks: Schema Versioning in DBMS](https://www.geeksforgeeks.org/dbms/what-is-schema-versioning-in-dbms/)
 
-### UX/Accessibility
-- [PatternFly: Inline edit design guidelines](https://www.patternfly.org/components/inline-edit/design-guidelines/)
-- [UXPlanet: Best Practices for Inline Editing in Tables](https://uxplanet.org/best-practices-for-inline-editing-in-tables-993caf06c171)
-- [Apiko: Inline Editing Implementation Experience](https://apiko.com/blog/inline-editing/)
-- [WCAG 2.1.1: Full keyboard access](https://wcag.dock.codes/documentation/wcag211/)
+### Form Builder UX
+- [Typeform Blog: Create Better Forms](https://www.typeform.com/blog/create-better-online-forms)
+- [Fillout: Typeform Alternatives](https://www.fillout.com/blog/8-typeform-alternatives)
+- [DZone: Dynamic Web Forms in React](https://dzone.com/articles/dynamic-web-forms-react-enterprise-platforms)
+- [React Hook Form Performance](https://makersden.io/blog/composable-form-handling-in-2025-react-hook-form-tanstack-form-and-beyond)
 
-### React Patterns
-- [How to build an inline edit component in React](https://www.emgoto.com/react-inline-edit/)
-- [React.js loses input focus on typing](https://reactkungfu.com/2015/09/react-js-loses-input-focus-on-typing/)
-- [TkDodo: Concurrent Optimistic Updates](https://tkdodo.eu/blog/concurrent-optimistic-updates-in-react-query)
-- [useOptimistic Won't Save You](https://www.columkelly.com/blog/use-optimistic)
+### Accessibility
+- [Salesforce: 4 Patterns for Accessible Drag and Drop](https://medium.com/salesforce-ux/4-major-patterns-for-accessible-drag-and-drop-1d43f64ebf09)
+- [Drag-and-Drop UX Best Practices](https://smart-interface-design-patterns.com/articles/drag-and-drop-ux/)
+- [Make.com: Accessibility for Forms](https://www.make.com/en/blog/accessibility-for-forms)
+- [SubUX: Why Drag and Drop Fails Accessibility](https://medium.com/@subux.contact/why-most-drag-and-drop-uis-fail-accessibility-and-how-to-fix-yours-1faeab06942a)
 
-### Database Design
-- [Design a Table to Keep Historical Changes](https://dev.to/zhiyueyi/design-a-table-to-keep-historical-changes-in-database-10fn)
-- [4 Common Designs of Audit Trail](https://medium.com/techtofreedom/4-common-designs-of-audit-trail-tracking-data-changes-in-databases-c894b7bb6d18)
+### URL Design
+- [URL Slug Pattern](https://patterns.dataincubator.org/book/url-slug.html)
+- [The Hidden Cost of URL Design](https://alfy.blog/2025/10/16/hidden-cost-of-url-design.html)
+- [Payload CMS: Slugs with Safe Uniqueness](https://www.buildwithmatija.com/blog/payload-cms-slugs-and-skus)
 
-### Data Management
-- [Microsoft: Recover database space by deleting audit logs](https://learn.microsoft.com/en-us/power-platform/admin/recover-database-space-deleting-audit-logs)
-- [LogicMonitor: What is log retention?](https://www.logicmonitor.com/blog/what-is-log-retention)
+### Migration Strategies
+- [Form.io Migration Guide](https://help.form.io/deployments/maintenance-and-migration)
+- [Metaplane: Database Schema Changes](https://www.metaplane.dev/blog/database-schema-changes)
+- [Data Migration Testing Best Practices](https://www.softwaretestinghelp.com/data-migration-testing/)
