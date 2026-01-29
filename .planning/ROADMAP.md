@@ -108,12 +108,13 @@ Plans:
   4. Field properties can be edited inline or via floating panel
   5. Fields can be reordered via drag-and-drop
   6. No separate preview mode needed - builder IS the preview
-**Plans:** TBD
+**Plans:** 4 plans
 
 Plans:
-- [ ] 22-01: TBD
-- [ ] 22-02: TBD
-- [ ] 22-03: TBD
+- [ ] 22-01-PLAN.md — Install popover/tooltip and add store WYSIWYG actions
+- [ ] 22-02-PLAN.md — Create WysiwygField and FieldToolbar components
+- [ ] 22-03-PLAN.md — Create AddFieldButton and FieldTypePicker components
+- [ ] 22-04-PLAN.md — Create WysiwygCanvas and update FormBuilder
 
 ### Phase 23: Forms/Submissions Redesign
 **Goal:** Forms list and submission management display with glassmorphism styling and smooth animations.
@@ -159,7 +160,7 @@ Plans:
 | 16-19 | v1.3 | 8/8 | Complete | 2026-01-29 |
 | 20 | v2.0 | 3/3 | Complete | 2026-01-29 |
 | 21 | v2.0 | 4/4 | Complete | 2026-01-29 |
-| 22 | v2.0 | 0/TBD | Not started | - |
+| 22 | v2.0 | 0/4 | Not started | - |
 | 23 | v2.0 | 0/TBD | Not started | - |
 | 24 | v2.0 | 0/TBD | Not started | - |
 
