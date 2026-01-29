@@ -30,7 +30,7 @@ See git history for v1.1 phase details.
 - [x] **Phase 12: File Upload Infrastructure** - Convex storage integration for file fields
 - [x] **Phase 13: Dynamic Form Renderer** - Field components and public form rendering
 - [x] **Phase 14: Form Builder UI** - Drag-and-drop form creation interface
-- [ ] **Phase 15: Admin Integration** - Forms management and dynamic submission viewing
+- [x] **Phase 15: Admin Integration** - Forms management and dynamic submission viewing
 
 ## Phase Details
 
@@ -117,9 +117,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 15-01-PLAN.md — Tab navigation, Forms tab, form duplication
-- [ ] 15-02-PLAN.md — SubmissionsTable with FormFilter
-- [ ] 15-03-PLAN.md — SubmissionSheet with DynamicEditableField and EditHistory
+- [x] 15-01-PLAN.md — Tab navigation, Forms tab, form duplication
+- [x] 15-02-PLAN.md — SubmissionsTable with FormFilter
+- [x] 15-03-PLAN.md — SubmissionSheet with DynamicEditableField and EditHistory
 
 ## Progress
 
@@ -134,8 +134,8 @@ Phases execute in numeric order: 11 -> 12 -> 13 -> 14 -> 15
 | 12. File Upload Infrastructure | v1.2 | 2/2 | Complete | 2026-01-29 |
 | 13. Dynamic Form Renderer | v1.2 | 3/3 | Complete | 2026-01-29 |
 | 14. Form Builder UI | v1.2 | 5/5 | Complete | 2026-01-29 |
-| 15. Admin Integration | v1.2 | 0/3 | Not started | - |
+| 15. Admin Integration | v1.2 | 3/3 | Complete | 2026-01-29 |
 
 ---
 *Roadmap created: 2026-01-29*
-*Last updated: 2026-01-29 after Phase 15 planned*
+*Last updated: 2026-01-29 after Phase 15 complete - v1.2 milestone complete*

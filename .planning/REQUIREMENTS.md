@@ -48,11 +48,11 @@ Requirements for Dynamic Form Builder milestone. Each maps to roadmap phases.
 
 ### Admin Integration
 
-- [ ] **ADMIN-01**: Forms tab in admin dashboard lists all forms
-- [ ] **ADMIN-02**: Admin can filter submissions by which form they came from
-- [ ] **ADMIN-03**: Admin can duplicate existing form as starting point for new form
-- [ ] **ADMIN-04**: Submission detail panel renders based on form schema (not hardcoded fields)
-- [ ] **ADMIN-05**: Edit history works with dynamic field labels
+- [x] **ADMIN-01**: Forms tab in admin dashboard lists all forms
+- [x] **ADMIN-02**: Admin can filter submissions by which form they came from
+- [x] **ADMIN-03**: Admin can duplicate existing form as starting point for new form
+- [x] **ADMIN-04**: Submission detail panel renders based on form schema (not hardcoded fields)
+- [x] **ADMIN-05**: Edit history works with dynamic field labels
 
 ## Future Requirements (v1.3+)
 
@@ -111,11 +111,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PUBLIC-04 | Phase 13 | Complete |
 | PUBLIC-05 | Phase 13 | Complete |
 | PUBLIC-06 | Phase 13 | Complete |
-| ADMIN-01 | Phase 15 | Pending |
-| ADMIN-02 | Phase 15 | Pending |
-| ADMIN-03 | Phase 15 | Pending |
-| ADMIN-04 | Phase 15 | Pending |
-| ADMIN-05 | Phase 15 | Pending |
+| ADMIN-01 | Phase 15 | Complete |
+| ADMIN-02 | Phase 15 | Complete |
+| ADMIN-03 | Phase 15 | Complete |
+| ADMIN-04 | Phase 15 | Complete |
+| ADMIN-05 | Phase 15 | Complete |
 
 **Coverage:**
 - v1.2 requirements: 32 total
@@ -124,4 +124,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 after Phase 14 complete - BUILD-01 to BUILD-08 complete (21/27 requirements)*
+*Last updated: 2026-01-29 after Phase 15 complete - All v1.2 requirements complete (27/27)*
