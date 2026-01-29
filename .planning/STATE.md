@@ -10,17 +10,17 @@ See: .planning/PROJECT.md (updated 2026-01-29)
 ## Current Position
 
 Phase: 14 of 15 (Form Builder UI)
-Plan: 02 and 03 of 5 complete (Wave 2 complete)
+Plan: 04 of 5 complete (Wave 3 complete)
 Status: In progress
-Last activity: 2026-01-29 - Completed 14-02-PLAN.md (form pages and builder layout)
+Last activity: 2026-01-29 - Completed 14-04-PLAN.md (property panel and field configuration)
 
-Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [################____] 80%
+Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [#################___] 85%
 
 ## Milestones
 
 - **v1.0 MVP** - Shipped 2026-01-28 (7 phases, 16 plans)
 - **v1.1 Admin Inline Editing** - Shipped 2026-01-29 (3 phases, 4 plans)
-- **v1.2 Dynamic Form Builder** - In progress (5 phases, 8 plans complete)
+- **v1.2 Dynamic Form Builder** - In progress (5 phases, 11 plans complete)
 
 ## Production URLs
 
@@ -32,7 +32,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 30 (v1.0: 16, v1.1: 4, v1.2: 10)
+- Total plans completed: 31 (v1.0: 16, v1.1: 4, v1.2: 11)
 - Average duration: Not tracked for previous milestones
 - Total execution time: Not tracked
 
@@ -42,7 +42,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 |-----------|--------|-------|--------|
 | v1.0 | 7 | 16 | Complete |
 | v1.1 | 3 | 4 | Complete |
-| v1.2 | 5 | 10/TBD | In progress |
+| v1.2 | 5 | 11/TBD | In progress |
 
 ## Accumulated Context
 
@@ -79,6 +79,9 @@ Recent decisions affecting current work:
 - Form Builder: Three-panel layout (w-64 left, flex-1 center, w-80 right)
 - Form Builder: Debounced metadata updates (500ms) for autosave
 - Form Builder: Store resets on page unmount to prevent stale state
+- Property Panel: 300ms debounce for field property changes
+- Property Panel: Auto-generate option values from labels on blur
+- Property Panel: Pattern presets (phone, URL, custom) for text validation
 
 ### Pending Todos
 
@@ -91,8 +94,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 14-02-PLAN.md (Wave 2 complete: 14-02 + 14-03)
+Stopped at: Completed 14-04-PLAN.md (Wave 3 complete)
 Resume file: None
 
 ---
-*v1.2 milestone in progress - Phase 14 Form Builder UI Wave 2 complete*
+*v1.2 milestone in progress - Phase 14 Form Builder UI Wave 3 complete*
