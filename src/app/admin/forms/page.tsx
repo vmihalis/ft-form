@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { decrypt } from "@/lib/auth/session";
 import { Button } from "@/components/ui/button";
+import { AnimatedPage } from "@/components/ui/animated-page";
 import { FormsList } from "@/components/form-builder/FormsList";
 import { Plus } from "lucide-react";
 
@@ -31,7 +32,7 @@ export default async function FormsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background">
+    <AnimatedPage className="min-h-screen bg-background">
       {/* Header with title and new form button */}
       <header className="border-b">
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
@@ -49,6 +50,6 @@ export default async function FormsPage() {
       <div className="mx-auto max-w-7xl px-6 py-8">
         <FormsList />
       </div>
-    </main>
+    </AnimatedPage>
   );
 }
