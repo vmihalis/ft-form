@@ -84,17 +84,18 @@ Plans:
 **Requirements:** NAV-01, NAV-02, NAV-03, NAV-04, NAV-05, NAV-06, NAV-07, NAV-08, PLACE-01, PLACE-02, PLACE-03, PLACE-04, PLACE-05
 **Success Criteria** (what must be TRUE):
   1. After login, user sees dashboard hub with module cards (Forms + 4 placeholders)
-  2. Each module card displays relevant stats/status and quick action buttons
+  2. Each module card displays icon and label (minimal content per CONTEXT.md)
   3. Clicking a module card navigates to that module's main view
   4. Sidebar can be expanded (with labels) or collapsed (icons only)
   5. Sidebar collapse state persists across sessions
   6. Dashboard layout adapts properly to mobile viewport
-**Plans:** TBD
+**Plans:** 4 plans
 
 Plans:
-- [ ] 21-01: TBD
-- [ ] 21-02: TBD
-- [ ] 21-03: TBD
+- [ ] 21-01-PLAN.md — Sidebar store with localStorage persistence and admin layout structure
+- [ ] 21-02-PLAN.md — Collapsible sidebar component with navigation items
+- [ ] 21-03-PLAN.md — Dashboard hub with module cards grid
+- [ ] 21-04-PLAN.md — Mobile navigation with hamburger menu and shared header
 
 ### Phase 22: WYSIWYG Form Builder
 **Goal:** Form builder displays forms exactly as users will see them with inline editing and floating toolbar.
@@ -157,11 +158,11 @@ Plans:
 | 11-15 | v1.2 | 15/15 | Complete | 2026-01-29 |
 | 16-19 | v1.3 | 8/8 | Complete | 2026-01-29 |
 | 20 | v2.0 | 3/3 | Complete | 2026-01-29 |
-| 21 | v2.0 | 0/TBD | Not started | - |
+| 21 | v2.0 | 0/4 | Not started | - |
 | 22 | v2.0 | 0/TBD | Not started | - |
 | 23 | v2.0 | 0/TBD | Not started | - |
 | 24 | v2.0 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-29 after Phase 20 completion*
+*Last updated: 2026-01-29 after Phase 21 planning*
