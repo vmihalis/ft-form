@@ -10,17 +10,17 @@ See: .planning/PROJECT.md (updated 2026-01-29)
 ## Current Position
 
 Phase: 11 of 15 (Schema Foundation)
-Plan: 01 of 01 complete
+Plan: 02 of 02 complete
 Status: Phase 11 complete
-Last activity: 2026-01-29 - Completed 11-01-PLAN.md (Schema Foundation)
+Last activity: 2026-01-29 - Completed 11-02-PLAN.md (Forms and Submissions API)
 
-Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [####________________] 20%
+Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [########____________] 40%
 
 ## Milestones
 
 - **v1.0 MVP** - Shipped 2026-01-28 (7 phases, 16 plans)
 - **v1.1 Admin Inline Editing** - Shipped 2026-01-29 (3 phases, 4 plans)
-- **v1.2 Dynamic Form Builder** - In progress (5 phases, 1 plan complete)
+- **v1.2 Dynamic Form Builder** - In progress (5 phases, 2 plans complete)
 
 ## Production URLs
 
@@ -32,7 +32,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 21 (v1.0: 16, v1.1: 4, v1.2: 1)
+- Total plans completed: 22 (v1.0: 16, v1.1: 4, v1.2: 2)
 - Average duration: Not tracked for previous milestones
 - Total execution time: Not tracked
 
@@ -42,7 +42,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 |-----------|--------|-------|--------|
 | v1.0 | 7 | 16 | Complete |
 | v1.1 | 3 | 4 | Complete |
-| v1.2 | 5 | 1/TBD | In progress |
+| v1.2 | 5 | 2/TBD | In progress |
 
 ## Accumulated Context
 
@@ -54,6 +54,8 @@ Recent decisions affecting current work:
 - Schema Foundation: JSON string storage for form schemas (avoids Convex 16-level nesting limit)
 - Schema Foundation: Immutable form versions for data integrity
 - Schema Foundation: Separate submissions table from legacy applications
+- Schema Foundation: Reserved slugs list prevents route conflicts
+- Schema Foundation: Submissions reference formVersionId (not formId)
 - File Upload: Immediate persistence pattern (avoid URL expiration)
 
 ### Pending Todos
@@ -66,9 +68,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-29T00:47:20Z
-Stopped at: Completed 11-01-PLAN.md (Schema Foundation)
+Last session: 2026-01-29T00:50:00Z
+Stopped at: Completed 11-02-PLAN.md (Forms and Submissions API)
 Resume file: None
 
 ---
-*v1.2 milestone in progress - Phase 11 complete, ready for Phase 12 (Form CRUD)*
+*v1.2 milestone in progress - Phase 11 complete, ready for Phase 12*
