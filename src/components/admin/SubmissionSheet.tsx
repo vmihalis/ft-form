@@ -34,18 +34,18 @@ const STATUS_OPTIONS: { value: SubmissionStatus; label: string }[] = [
 ];
 
 const statusConfig = {
-  new: { label: "New", className: "bg-blue-100 text-blue-800 border-blue-200" },
+  new: { label: "New", className: "bg-blue-100/90 text-blue-800 border-blue-200 dark:bg-blue-900/50 dark:text-blue-400 dark:border-blue-800" },
   under_review: {
     label: "Under Review",
-    className: "bg-yellow-100 text-yellow-800 border-yellow-200",
+    className: "bg-yellow-100/90 text-yellow-800 border-yellow-200 dark:bg-yellow-900/50 dark:text-yellow-400 dark:border-yellow-800",
   },
   accepted: {
     label: "Accepted",
-    className: "bg-green-100 text-green-800 border-green-200",
+    className: "bg-green-100/90 text-green-800 border-green-200 dark:bg-green-900/50 dark:text-green-400 dark:border-green-800",
   },
   rejected: {
     label: "Rejected",
-    className: "bg-red-100 text-red-800 border-red-200",
+    className: "bg-red-100/90 text-red-800 border-red-200 dark:bg-red-900/50 dark:text-red-400 dark:border-red-800",
   },
 };
 
@@ -64,7 +64,7 @@ function Section({
 }) {
   return (
     <div className="space-y-3">
-      <h3 className="font-medium">{title}</h3>
+      <h3 className="font-medium text-foreground">{title}</h3>
       {children}
     </div>
   );
@@ -138,7 +138,7 @@ export function SubmissionSheet({
   if (!submissionId) {
     return (
       <Sheet open={open} onOpenChange={onOpenChange}>
-        <SheetContent className="overflow-y-auto" />
+        <SheetContent className="glass overflow-y-auto" />
       </Sheet>
     );
   }
@@ -147,7 +147,7 @@ export function SubmissionSheet({
   if (result === undefined) {
     return (
       <Sheet open={open} onOpenChange={onOpenChange}>
-        <SheetContent className="w-full sm:w-[540px] sm:max-w-[calc(100vw-2rem)] overflow-y-auto">
+        <SheetContent className="glass w-full sm:w-[540px] sm:max-w-[calc(100vw-2rem)] overflow-y-auto">
           <SheetHeader>
             <SheetTitle>Loading...</SheetTitle>
           </SheetHeader>
@@ -160,7 +160,7 @@ export function SubmissionSheet({
   if (result === null) {
     return (
       <Sheet open={open} onOpenChange={onOpenChange}>
-        <SheetContent className="w-full sm:w-[540px] sm:max-w-[calc(100vw-2rem)] overflow-y-auto">
+        <SheetContent className="glass w-full sm:w-[540px] sm:max-w-[calc(100vw-2rem)] overflow-y-auto">
           <SheetHeader>
             <SheetTitle>Submission Not Found</SheetTitle>
             <SheetDescription>
@@ -178,7 +178,7 @@ export function SubmissionSheet({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent className="w-full sm:w-[540px] sm:max-w-[calc(100vw-2rem)] overflow-y-auto">
+      <SheetContent className="glass w-full sm:w-[540px] sm:max-w-[calc(100vw-2rem)] overflow-y-auto">
         {/* Header */}
         <SheetHeader>
           <SheetTitle className="break-words pr-8">{formName}</SheetTitle>
