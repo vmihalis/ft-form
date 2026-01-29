@@ -15,8 +15,20 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Copy, ExternalLink } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Copy, ExternalLink, Pencil, Trash2 } from "lucide-react";
 
 /**
  * Status badge colors for form status
@@ -48,7 +60,7 @@ function FormsListSkeleton() {
           <TableHead>URL</TableHead>
           <TableHead>Status</TableHead>
           <TableHead>Created</TableHead>
-          <TableHead className="w-[100px]">Actions</TableHead>
+          <TableHead className="w-[280px]">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -100,7 +112,15 @@ export function FormsList() {
   const router = useRouter();
   const forms = useQuery(api.forms.list);
   const duplicate = useMutation(api.forms.duplicate);
+  const publish = useMutation(api.forms.publish);
+  const unpublish = useMutation(api.forms.unpublish);
+  const remove = useMutation(api.forms.remove);
+
   const [duplicatingId, setDuplicatingId] = useState<Id<"forms"> | null>(null);
+  const [togglingStatusId, setTogglingStatusId] = useState<Id<"forms"> | null>(
+    null
+  );
+  const [deletingId, setDeletingId] = useState<Id<"forms"> | null>(null);
 
   // Handle form duplication
   const handleDuplicate = async (formId: Id<"forms">) => {
@@ -111,6 +131,37 @@ export function FormsList() {
     } catch (error) {
       console.error("Failed to duplicate form:", error);
       setDuplicatingId(null);
+    }
+  };
+
+  // Handle status toggle (draft <-> published)
+  const handleToggleStatus = async (
+    formId: Id<"forms">,
+    currentStatus: string
+  ) => {
+    setTogglingStatusId(formId);
+    try {
+      if (currentStatus === "published") {
+        await unpublish({ formId });
+      } else {
+        await publish({ formId });
+      }
+    } catch (error) {
+      console.error("Failed to toggle status:", error);
+    } finally {
+      setTogglingStatusId(null);
+    }
+  };
+
+  // Handle form deletion
+  const handleDelete = async (formId: Id<"forms">) => {
+    setDeletingId(formId);
+    try {
+      await remove({ formId });
+    } catch (error) {
+      console.error("Failed to delete form:", error);
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -132,7 +183,7 @@ export function FormsList() {
           <TableHead>URL</TableHead>
           <TableHead>Status</TableHead>
           <TableHead>Created</TableHead>
-          <TableHead className="w-[100px]">Actions</TableHead>
+          <TableHead className="w-[280px]">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -141,6 +192,8 @@ export function FormsList() {
           const createdDate = new Date(form.createdAt).toLocaleDateString();
           const formUrl = `/apply/${form.slug}`;
           const isDuplicating = duplicatingId === form._id;
+          const isTogglingStatus = togglingStatusId === form._id;
+          const isDeleting = deletingId === form._id;
 
           return (
             <TableRow key={form._id}>
@@ -166,28 +219,91 @@ export function FormsList() {
                 {createdDate}
               </TableCell>
               <TableCell>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDuplicate(form._id);
-                    }}
-                    disabled={isDuplicating}
-                    className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground disabled:opacity-50"
-                    title="Duplicate form"
+                <div className="flex items-center gap-1">
+                  {/* Edit */}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild
+                    className="h-8 px-2"
                   >
-                    <Copy className="h-4 w-4" />
-                  </button>
-                  {form.status === "published" && (
-                    <Link
-                      href={formUrl}
-                      target="_blank"
-                      className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
-                      title="View live form"
-                    >
-                      <ExternalLink className="h-4 w-4" />
+                    <Link href={`/admin/forms/${form._id}`}>
+                      <Pencil className="h-4 w-4 mr-1" />
+                      Edit
                     </Link>
+                  </Button>
+
+                  {/* Duplicate */}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleDuplicate(form._id)}
+                    disabled={isDuplicating}
+                    className="h-8 px-2"
+                  >
+                    <Copy className="h-4 w-4 mr-1" />
+                    Duplicate
+                  </Button>
+
+                  {/* Status Toggle */}
+                  {form.status !== "archived" && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleToggleStatus(form._id, form.status)}
+                      disabled={isTogglingStatus}
+                      className="h-8 px-2"
+                    >
+                      {form.status === "published" ? "Unpublish" : "Publish"}
+                    </Button>
                   )}
+
+                  {/* View Live (only for published) */}
+                  {form.status === "published" && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      asChild
+                      className="h-8 px-2"
+                    >
+                      <Link href={formUrl} target="_blank">
+                        <ExternalLink className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                  )}
+
+                  {/* Delete */}
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 px-2 text-destructive hover:text-destructive hover:bg-destructive/10"
+                        disabled={isDeleting}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Delete Form</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Are you sure you want to delete &quot;{form.name}
+                          &quot;? This will permanently delete the form and all
+                          its submissions. This action cannot be undone.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => handleDelete(form._id)}
+                          className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        >
+                          Delete
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
               </TableCell>
             </TableRow>

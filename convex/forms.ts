@@ -205,6 +205,76 @@ export const archive = mutation({
 });
 
 /**
+ * Unpublish form - reverts status to draft
+ * Keeps the current version reference for potential re-publish
+ */
+export const unpublish = mutation({
+  args: { formId: v.id("forms") },
+  handler: async (ctx, args) => {
+    const form = await ctx.db.get(args.formId);
+    if (!form) throw new Error("Form not found");
+
+    if (form.status !== "published") {
+      throw new Error("Only published forms can be unpublished");
+    }
+
+    await ctx.db.patch(args.formId, {
+      status: "draft",
+      updatedAt: Date.now(),
+    });
+
+    return args.formId;
+  },
+});
+
+/**
+ * Delete form permanently
+ * Also deletes all associated versions and submissions
+ */
+export const remove = mutation({
+  args: { formId: v.id("forms") },
+  handler: async (ctx, args) => {
+    const form = await ctx.db.get(args.formId);
+    if (!form) throw new Error("Form not found");
+
+    // Get all versions for this form
+    const versions = await ctx.db
+      .query("formVersions")
+      .withIndex("by_form", (q) => q.eq("formId", args.formId))
+      .collect();
+
+    // Delete all submissions for each version (and their edit history)
+    for (const version of versions) {
+      const submissions = await ctx.db
+        .query("submissions")
+        .withIndex("by_version", (q) => q.eq("formVersionId", version._id))
+        .collect();
+
+      for (const submission of submissions) {
+        // Delete edit history for this submission
+        const editHistory = await ctx.db
+          .query("submissionEditHistory")
+          .withIndex("by_submission", (q) => q.eq("submissionId", submission._id))
+          .collect();
+
+        for (const history of editHistory) {
+          await ctx.db.delete(history._id);
+        }
+
+        await ctx.db.delete(submission._id);
+      }
+
+      await ctx.db.delete(version._id);
+    }
+
+    // Delete the form
+    await ctx.db.delete(args.formId);
+
+    return args.formId;
+  },
+});
+
+/**
  * Get form by slug (for public form rendering)
  * Returns null if form doesn't exist or isn't published
  */
