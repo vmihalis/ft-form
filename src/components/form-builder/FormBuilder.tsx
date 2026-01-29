@@ -1,16 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { useFormBuilderStore } from "@/lib/stores/form-builder-store";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, Eye, PenSquare } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { StepTabs } from "./StepTabs";
 import { FormMetadataForm } from "./FormMetadataForm";
 import { FieldPalette } from "./FieldPalette";
-import { FormCanvas } from "./FormCanvas";
+import { WysiwygCanvas } from "./WysiwygCanvas";
 import { PropertyPanel } from "./PropertyPanel";
-import { PreviewPanel } from "./PreviewPanel";
 import { FormStatusActions } from "./FormStatusActions";
 
 interface FormBuilderProps {
@@ -20,16 +17,17 @@ interface FormBuilderProps {
 }
 
 /**
- * FormBuilder
+ * FormBuilder - WYSIWYG Form Builder
  *
- * Three-panel form builder layout:
- * - Left: Field palette with 10 field types (hidden in preview mode)
- * - Center: Step tabs + sortable form canvas (or preview panel in preview mode)
+ * Three-panel layout:
+ * - Left: Field palette (reference for field types)
+ * - Center: Step tabs + WYSIWYG canvas (forms render as users see them)
  * - Right: Property panel (when field selected) or form metadata editor
+ *
+ * No preview mode needed - builder IS the preview (WYSIWYG).
  */
 export function FormBuilder({ formId, formName }: FormBuilderProps) {
   const { selectedFieldId } = useFormBuilderStore();
-  const [previewMode, setPreviewMode] = useState(false);
 
   return (
     <div className="h-screen flex flex-col">
@@ -45,25 +43,6 @@ export function FormBuilder({ formId, formName }: FormBuilderProps) {
           <h1 className="text-lg font-semibold">{formName}</h1>
         </div>
         <div className="flex items-center gap-2">
-          {/* Preview toggle */}
-          <Button
-            variant={previewMode ? "default" : "outline"}
-            size="sm"
-            onClick={() => setPreviewMode(!previewMode)}
-          >
-            {previewMode ? (
-              <>
-                <PenSquare className="h-4 w-4 mr-2" />
-                Edit
-              </>
-            ) : (
-              <>
-                <Eye className="h-4 w-4 mr-2" />
-                Preview
-              </>
-            )}
-          </Button>
-
           {/* Status actions (badge, save, publish, archive) */}
           <FormStatusActions formId={formId} />
         </div>
@@ -71,37 +50,27 @@ export function FormBuilder({ formId, formName }: FormBuilderProps) {
 
       {/* Three-panel layout */}
       <div className="flex flex-1 overflow-hidden">
-        {/* Left: Field Palette (hidden in preview mode) */}
-        {!previewMode && (
-          <aside className="w-64 border-r p-4 bg-muted/30 overflow-y-auto">
-            <FieldPalette />
-          </aside>
-        )}
+        {/* Left: Field Palette */}
+        <aside className="w-64 border-r p-4 bg-muted/30 overflow-y-auto">
+          <FieldPalette />
+        </aside>
 
-        {/* Center: Step Tabs + Canvas OR Preview Panel */}
+        {/* Center: Step Tabs + WYSIWYG Canvas */}
         <main className="flex-1 p-6 bg-background overflow-y-auto">
-          {previewMode ? (
-            <PreviewPanel />
-          ) : (
-            <>
-              <StepTabs />
-              <div className="mt-6">
-                <FormCanvas />
-              </div>
-            </>
-          )}
+          <StepTabs />
+          <div className="mt-6">
+            <WysiwygCanvas />
+          </div>
         </main>
 
-        {/* Right: Property Panel or Form Metadata (hidden in preview mode) */}
-        {!previewMode && (
-          <aside className="w-80 border-l p-4 bg-muted/30 overflow-y-auto">
-            {selectedFieldId ? (
-              <PropertyPanel fieldId={selectedFieldId} />
-            ) : (
-              <FormMetadataForm formId={formId} />
-            )}
-          </aside>
-        )}
+        {/* Right: Property Panel or Form Metadata */}
+        <aside className="w-80 border-l p-4 bg-muted/30 overflow-y-auto">
+          {selectedFieldId ? (
+            <PropertyPanel fieldId={selectedFieldId} />
+          ) : (
+            <FormMetadataForm formId={formId} />
+          )}
+        </aside>
       </div>
     </div>
   );
