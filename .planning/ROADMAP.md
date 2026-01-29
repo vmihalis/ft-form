@@ -56,7 +56,7 @@ See `.planning/milestones/v1.3-ROADMAP.md` for full details.
 - [x] **Phase 20: Design System Foundation** - Theme infrastructure and glass utilities (completed 2026-01-29)
 - [x] **Phase 21: Dashboard Hub & Navigation** - Module cards, sidebar, placeholder modules (completed 2026-01-29)
 - [x] **Phase 22: WYSIWYG Form Builder** - Inline editing with floating toolbar (completed 2026-01-29)
-- [ ] **Phase 23: Forms/Submissions Redesign** - Glass styling and animations
+- [x] **Phase 23: Forms/Submissions Redesign** - Glass styling and animations (completed 2026-01-29)
 - [ ] **Phase 24: Polish & UX** - Microinteractions, accessibility, refinement
 
 ## Phase Details
@@ -130,11 +130,11 @@ Plans:
 **Plans:** 5 plans
 
 Plans:
-- [ ] 23-01-PLAN.md — Backend submission count + FormCard and FormQuickActions components
-- [ ] 23-02-PLAN.md — FormsGrid with stagger animations and FormsList refactor
+- [x] 23-01-PLAN.md — Backend submission count + FormCard and FormQuickActions components
+- [x] 23-02-PLAN.md — FormsGrid with stagger animations and FormsList refactor
 - [x] 23-03-PLAN.md — Submissions table glass container and SubmissionSheet glass styling
-- [ ] 23-04-PLAN.md — SubmissionsFilters glass styling and column optimization
-- [ ] 23-05-PLAN.md — Tab switching and page navigation animations
+- [x] 23-04-PLAN.md — SubmissionsFilters glass styling and column optimization
+- [x] 23-05-PLAN.md — Tab switching and page navigation animations
 
 ### Phase 24: Polish & UX
 **Goal:** Microinteractions feel premium, common actions are fast, and the interface guides users clearly.
@@ -164,9 +164,9 @@ Plans:
 | 20 | v2.0 | 3/3 | Complete | 2026-01-29 |
 | 21 | v2.0 | 4/4 | Complete | 2026-01-29 |
 | 22 | v2.0 | 4/4 | Complete | 2026-01-29 |
-| 23 | v2.0 | 1/5 | In progress | - |
+| 23 | v2.0 | 5/5 | Complete | 2026-01-29 |
 | 24 | v2.0 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-29 after Phase 22 completion*
+*Last updated: 2026-01-29 after Phase 23 completion*
