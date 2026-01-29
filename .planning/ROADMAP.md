@@ -51,7 +51,7 @@ See `.planning/milestones/v1.2-ROADMAP.md` for full details.
 **Plans:** 1 plan
 
 Plans:
-- [x] 16-01-PLAN.md — Create Floor Lead Application form and update /apply route ✓
+- [x] 16-01-PLAN.md — Create Floor Lead Application form and update /apply route
 
 **Success Criteria:**
 1. Admin can create a new form with all 19 original application fields (applicant info, proposal details, roadmap, impact, logistics)
@@ -69,6 +69,12 @@ Plans:
 
 **Requirements:**
 - MIGRATE-03: Legacy applications table, mutations, queries, and components deleted from codebase
+
+**Plans:** 2 plans
+
+Plans:
+- [ ] 17-01-PLAN.md — Remove Applications tab from admin dashboard
+- [ ] 17-02-PLAN.md — Delete all legacy application code and Convex tables
 
 **Success Criteria:**
 1. Legacy `applications` table is deleted from Convex schema
@@ -126,10 +132,10 @@ Plans:
 | 8-10 | v1.1 | 4/4 | Complete | 2026-01-29 |
 | 11-15 | v1.2 | 15/15 | Complete | 2026-01-29 |
 | 16 | v1.3 | 1/1 | Complete | 2026-01-29 |
-| 17 | v1.3 | 0/? | Pending | — |
+| 17 | v1.3 | 0/2 | Pending | — |
 | 18 | v1.3 | 0/? | Pending | — |
 | 19 | v1.3 | 0/? | Pending | — |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-29 after Phase 16 completed*
+*Last updated: 2026-01-29 after Phase 17 planned*
