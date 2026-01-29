@@ -37,31 +37,34 @@ export function SubmissionsFilters({
   filteredIds,
 }: SubmissionsFiltersProps) {
   return (
-    <div className="flex flex-wrap gap-4 items-center">
-      <FormFilter value={formFilter} onValueChange={onFormFilterChange} />
-      <StatusFilter value={statusFilter} onValueChange={onStatusFilterChange} />
-      <DateRangeFilter
-        startDate={startDate}
-        endDate={endDate}
-        onStartDateChange={onStartDateChange}
-        onEndDateChange={onEndDateChange}
-      />
-      <SearchInput
-        value={searchValue}
-        onChange={onSearchChange}
-        placeholder="Search by form name..."
-      />
+    <div className="glass-card rounded-2xl p-4">
+      <div className="flex flex-col lg:flex-row gap-4">
+        {/* Filter controls: Search + Form + Status + Date Range */}
+        <div className="flex flex-wrap flex-1 gap-4">
+          <SearchInput
+            value={searchValue}
+            onChange={onSearchChange}
+            placeholder="Search by form name..."
+            className="bg-background/50 border-glass-border"
+          />
+          <FormFilter value={formFilter} onValueChange={onFormFilterChange} />
+          <StatusFilter value={statusFilter} onValueChange={onStatusFilterChange} />
+          <DateRangeFilter
+            startDate={startDate}
+            endDate={endDate}
+            onStartDateChange={onStartDateChange}
+            onEndDateChange={onEndDateChange}
+          />
+        </div>
 
-      {/* Spacer to push export right */}
-      <div className="flex-1" />
-
-      {/* Count display */}
-      <span className="text-sm text-muted-foreground whitespace-nowrap">
-        {filteredCount} submission{filteredCount !== 1 ? "s" : ""}
-      </span>
-
-      {/* Export button */}
-      <ExportButton submissionIds={filteredIds} />
+        {/* Results count + Export */}
+        <div className="flex items-center gap-4 shrink-0">
+          <span className="text-sm text-muted-foreground whitespace-nowrap">
+            {filteredCount} submission{filteredCount !== 1 ? "s" : ""}
+          </span>
+          <ExportButton submissionIds={filteredIds} />
+        </div>
+      </div>
     </div>
   );
 }

@@ -2,17 +2,20 @@
 
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 interface SearchInputProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  className?: string;
 }
 
 export function SearchInput({
   value,
   onChange,
   placeholder = "Search by name or initiative...",
+  className,
 }: SearchInputProps) {
   return (
     <div className="relative flex-1 max-w-sm">
@@ -21,7 +24,7 @@ export function SearchInput({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="pl-9"
+        className={cn("pl-9", className)}
       />
     </div>
   );
