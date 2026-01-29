@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
+import { Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { FormQuickActions } from "./FormQuickActions";
 import { Id } from "@/../convex/_generated/dataModel";
+import { cn } from "@/lib/utils";
 
 const statusConfig = {
   draft: {
@@ -31,9 +33,10 @@ interface FormCardProps {
     updatedAt: number;
   };
   onDuplicate: () => void;
+  isLoading?: boolean;
 }
 
-export function FormCard({ form, onDuplicate }: FormCardProps) {
+export function FormCard({ form, onDuplicate, isLoading }: FormCardProps) {
   const status = statusConfig[form.status];
   const lastUpdated = new Date(form.updatedAt).toLocaleDateString("en-US", {
     month: "short",
@@ -42,7 +45,10 @@ export function FormCard({ form, onDuplicate }: FormCardProps) {
 
   return (
     <motion.div
-      className="glass-card rounded-2xl p-6 min-h-[180px] flex flex-col"
+      className={cn(
+        "glass-card rounded-2xl p-6 min-h-[180px] flex flex-col relative",
+        isLoading && "pointer-events-none"
+      )}
       whileHover={{
         scale: 1.02,
         boxShadow: "0 30px 60px -12px oklch(0 0 0 / 20%)",
@@ -50,8 +56,15 @@ export function FormCard({ form, onDuplicate }: FormCardProps) {
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.2 }}
     >
+      {/* Loading overlay */}
+      {isLoading && (
+        <div className="absolute inset-0 bg-background/50 rounded-2xl flex items-center justify-center z-10">
+          <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+        </div>
+      )}
+
       {/* Header with status and actions */}
-      <div className="flex items-start justify-between mb-4">
+      <div className={cn("flex items-start justify-between mb-4", isLoading && "opacity-50")}>
         <Badge variant="outline" className={status.className}>
           {status.label}
         </Badge>
@@ -60,11 +73,12 @@ export function FormCard({ form, onDuplicate }: FormCardProps) {
           slug={form.slug}
           status={form.status}
           onDuplicate={onDuplicate}
+          isDuplicating={isLoading}
         />
       </div>
 
       {/* Main content - clickable area */}
-      <Link href={`/admin/forms/${form._id}`} className="flex-1 block">
+      <Link href={`/admin/forms/${form._id}`} className={cn("flex-1 block", isLoading && "opacity-50")}>
         <h3 className="font-display text-lg font-semibold text-foreground truncate mb-2">
           {form.name}
         </h3>
@@ -73,7 +87,10 @@ export function FormCard({ form, onDuplicate }: FormCardProps) {
 
       {/* Footer stats */}
       <div
-        className="flex items-center justify-between mt-4 pt-4 text-sm text-muted-foreground"
+        className={cn(
+          "flex items-center justify-between mt-4 pt-4 text-sm text-muted-foreground",
+          isLoading && "opacity-50"
+        )}
         style={{ borderTop: "1px solid var(--glass-border)" }}
       >
         <span>
