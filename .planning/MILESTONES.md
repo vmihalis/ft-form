@@ -1,5 +1,33 @@
 # Project Milestones: Frontier Tower Floor Lead Application System
 
+## v1.3 Unification & Admin Productivity (Shipped: 2026-01-29)
+
+**Delivered:** Unified legacy applications into dynamic form system, deleted all legacy code, added CSV export with filtering, dashboard stats, activity feed, and admin notes.
+
+**Phases completed:** 16-19 (8 plans total)
+
+**Key accomplishments:**
+
+- Migrated legacy /apply form to dynamic form system (Floor Lead Application with 19 fields across 5 steps)
+- Deleted all legacy application code (26 files, simplified Convex schema from 6 to 4 tables)
+- RFC 4180-compliant CSV export with status and date range filtering
+- Dashboard stats cards with real-time submission counts by status
+- Activity feed showing recent submissions with submitter name extraction
+- Internal notes on submissions for admin collaboration (save-on-blur pattern)
+
+**Stats:**
+
+- 83 files modified (6,742 insertions, 2,792 deletions)
+- ~10,556 lines of TypeScript (total codebase)
+- 4 phases, 8 plans
+- 1 day to ship (2026-01-29)
+
+**Git range:** `e1b3c16` → `df83ea1`
+
+**What's next:** v1.4+ enhancements (conditional logic, field branching, form analytics)
+
+---
+
 ## v1.2 Dynamic Form Builder (Shipped: 2026-01-29)
 
 **Delivered:** Admins can create custom application forms with drag-and-drop builder, multiple forms with unique URLs, and schema-driven submission viewing.

@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A web application for Frontier Tower to collect and manage proposals from people who want to lead community initiatives on different floors. Features a Typeform-style public application form with smooth animations, a drag-and-drop form builder for admins to create custom forms, and a password-protected admin dashboard for the FT team to review and manage submissions.
+A web application for Frontier Tower to collect and manage proposals from people who want to lead community initiatives on different floors. Features a Typeform-style public application form with smooth animations, a drag-and-drop form builder for admins to create custom forms, CSV export with filtering, real-time dashboard stats, and a password-protected admin dashboard for the FT team to review and manage submissions.
 
 ## Core Value
 
@@ -10,26 +10,15 @@ A web application for Frontier Tower to collect and manage proposals from people
 
 If everything else fails, the form must collect complete proposals and store them reliably for admin review.
 
-## Current Milestone: v1.3 Unification & Admin Productivity
-
-**Goal:** Unify the legacy applications system with the dynamic submissions system, and add admin productivity features.
-
-**Target features:**
-- Migrate legacy /apply form to dynamic form system (create matching form, no data migration)
-- Delete legacy applications table and code
-- CSV export for submissions with filtering
-- Dashboard stats and activity feed
-- Admin notes on submissions (internal comments)
-
 ## Current State
 
-**Latest Release:** v1.2 Dynamic Form Builder (shipped 2026-01-29)
+**Latest Release:** v1.3 Unification & Admin Productivity (shipped 2026-01-29)
 
-Admins can now create custom application forms with a drag-and-drop builder. Forms support 8 field types (text, textarea, email, dropdown, number, date, checkbox, file upload), each with configurable validation. Published forms get unique URLs (/apply/[slug]) and use immutable versioning to preserve form structure at submission time. The admin panel dynamically renders submissions based on each form's schema.
+The codebase is now unified under a single dynamic form system. The legacy /apply form has been migrated to the dynamic form system (Floor Lead Application with 19 fields), and all legacy application code has been deleted. Admins can export submissions to CSV with status and date range filtering. The dashboard shows real-time stats (submission counts by status) and an activity feed with recent submissions. Admins can add internal notes to submissions for collaboration.
 
 **Production URL:** https://ft-form.vercel.app
 **Convex backend:** https://usable-bobcat-946.convex.cloud
-**Total codebase:** ~11,900 lines TypeScript
+**Total codebase:** ~10,556 lines TypeScript
 
 ## Requirements
 
@@ -49,17 +38,14 @@ Admins can now create custom application forms with a drag-and-drop builder. For
 - ✓ **BUILD-01 to BUILD-08** — v1.2: Form creation, field adding, drag-and-drop reorder, property config, field removal, real-time preview, status lifecycle, immutable versions
 - ✓ **PUBLIC-01 to PUBLIC-06** — v1.2: Unique URLs, dynamic rendering, Typeform-style UX, field validation, immediate file uploads, formVersionId submission
 - ✓ **ADMIN-01 to ADMIN-05** — v1.2: Forms tab, submission filtering by form, form duplication, schema-driven detail panel, dynamic edit history labels
+- ✓ **MIGRATE-01 to MIGRATE-03** — v1.3: Legacy /apply migrated to dynamic form, all legacy code deleted
+- ✓ **EXPORT-01 to EXPORT-02** — v1.3: CSV export with status and date range filtering
+- ✓ **STATS-01 to STATS-02** — v1.3: Dashboard stats cards and activity feed
+- ✓ **NOTES-01** — v1.3: Internal notes on submissions
 
 ### Active
 
-- [ ] **MIGRATE-01**: Create dynamic form matching original 19-field application structure
-- [ ] **MIGRATE-02**: Update /apply route to use dynamic form system
-- [ ] **MIGRATE-03**: Delete legacy applications table, mutations, queries, and components
-- [ ] **EXPORT-01**: CSV export button to download all submissions for a form
-- [ ] **EXPORT-02**: Filter submissions before export (by status, date range)
-- [ ] **STATS-01**: Stats cards showing total submissions and counts by status
-- [ ] **STATS-02**: Activity feed showing recent submissions and status changes
-- [ ] **NOTES-01**: Admin notes on submissions (internal comments, not visible to applicants)
+(No active requirements — start next milestone with `/gsd:new-milestone`)
 
 ### Future (v1.4+)
 
@@ -80,7 +66,6 @@ Admins can now create custom application forms with a drag-and-drop builder. For
 
 - Application editing after submission — applicants submit once, keeps data clean
 - Public application status tracking — applicants wait for direct contact from FT team
-- Conditional form branching — explicitly deferred to v1.3+
 - Rich text editing in form fields — plain text is sufficient
 - PDF export — CSV covers analytics needs
 - Multi-language support — English only for v1
@@ -164,4 +149,4 @@ Admins can now create custom application forms with a drag-and-drop builder. For
 | Stored fieldLabel in history | Edit history captures label at edit time, immune to schema changes | ✓ Good |
 
 ---
-*Last updated: 2026-01-29 after v1.3 milestone started*
+*Last updated: 2026-01-29 after v1.3 milestone complete*
