@@ -132,7 +132,7 @@ Plans:
 Plans:
 - [ ] 23-01-PLAN.md — Backend submission count + FormCard and FormQuickActions components
 - [ ] 23-02-PLAN.md — FormsGrid with stagger animations and FormsList refactor
-- [ ] 23-03-PLAN.md — Submissions table glass container and SubmissionSheet glass styling
+- [x] 23-03-PLAN.md — Submissions table glass container and SubmissionSheet glass styling
 - [ ] 23-04-PLAN.md — SubmissionsFilters glass styling and column optimization
 - [ ] 23-05-PLAN.md — Tab switching and page navigation animations
 
@@ -164,7 +164,7 @@ Plans:
 | 20 | v2.0 | 3/3 | Complete | 2026-01-29 |
 | 21 | v2.0 | 4/4 | Complete | 2026-01-29 |
 | 22 | v2.0 | 4/4 | Complete | 2026-01-29 |
-| 23 | v2.0 | 0/5 | Not started | - |
+| 23 | v2.0 | 1/5 | In progress | - |
 | 24 | v2.0 | 0/TBD | Not started | - |
 
 ---
