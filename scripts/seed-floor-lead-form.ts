@@ -101,7 +101,7 @@ const formSchema = {
           required: true,
           placeholder: "A short, catchy description of your vision",
           description: "Maximum 100 characters",
-          maxLength: 100,
+          validation: { maxLength: 100 },
         },
         {
           id: "values",
