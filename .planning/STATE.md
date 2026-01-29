@@ -11,10 +11,10 @@ See: .planning/PROJECT.md (updated 2026-01-29)
 
 Phase: 17 - Legacy Cleanup (COMPLETE)
 Plan: 02 (complete)
-Status: Phase 17 complete, ready for Phase 18
-Last activity: 2026-01-29 - Completed 17-02-PLAN.md
+Status: Phase 17 verified, ready for Phase 18
+Last activity: 2026-01-29 — Phase 17 verified
 
-Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [####################] 100% | v1.3 [███████████████░░░░░] 75%
+Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [####################] 100% | v1.3 [██████████░░░░░░░░░░] 50%
 
 ## Milestones
 
@@ -27,8 +27,8 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 
 | Phase | Goal | Requirements | Status |
 |-------|------|--------------|--------|
-| 16 | Form Migration | MIGRATE-01, MIGRATE-02 | Complete |
-| 17 | Legacy Cleanup | MIGRATE-03 | Complete |
+| 16 | Form Migration | MIGRATE-01, MIGRATE-02 | ✓ Complete |
+| 17 | Legacy Cleanup | MIGRATE-03 | ✓ Complete |
 | 18 | Export | EXPORT-01, EXPORT-02 | Pending |
 | 19 | Dashboard Enhancement | STATS-01, STATS-02, NOTES-01 | Pending |
 
@@ -81,4 +81,4 @@ Stopped at: Completed 17-02-PLAN.md (Phase 17 complete)
 Resume with: `/gsd:plan-phase 18`
 
 ---
-*Phase 17 Legacy Cleanup complete. Codebase unified under dynamic form system. Ready for Phase 18 (Export).*
+*Phase 17 verified — all must-haves confirmed in codebase. Ready for Phase 18 (Export).*

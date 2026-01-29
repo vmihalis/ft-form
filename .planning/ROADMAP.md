@@ -73,8 +73,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 17-01-PLAN.md — Remove Applications tab from admin dashboard
-- [ ] 17-02-PLAN.md — Delete all legacy application code and Convex tables
+- [x] 17-01-PLAN.md — Remove Applications tab from admin dashboard
+- [x] 17-02-PLAN.md — Delete all legacy application code and Convex tables
 
 **Success Criteria:**
 1. Legacy `applications` table is deleted from Convex schema
@@ -132,10 +132,10 @@ Plans:
 | 8-10 | v1.1 | 4/4 | Complete | 2026-01-29 |
 | 11-15 | v1.2 | 15/15 | Complete | 2026-01-29 |
 | 16 | v1.3 | 1/1 | Complete | 2026-01-29 |
-| 17 | v1.3 | 0/2 | Pending | — |
+| 17 | v1.3 | 2/2 | Complete | 2026-01-29 |
 | 18 | v1.3 | 0/? | Pending | — |
 | 19 | v1.3 | 0/? | Pending | — |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-29 after Phase 17 planned*
+*Last updated: 2026-01-29 after Phase 17 complete*

@@ -9,9 +9,9 @@ Requirements for milestone v1.3 Unification & Admin Productivity. Each maps to r
 
 ### Migration
 
-- [ ] **MIGRATE-01**: Admin can create dynamic form matching original 19-field application structure
-- [ ] **MIGRATE-02**: /apply route serves dynamic form instead of hardcoded form
-- [ ] **MIGRATE-03**: Legacy applications table, mutations, queries, and components deleted from codebase
+- [x] **MIGRATE-01**: Admin can create dynamic form matching original 19-field application structure
+- [x] **MIGRATE-02**: /apply route serves dynamic form instead of hardcoded form
+- [x] **MIGRATE-03**: Legacy applications table, mutations, queries, and components deleted from codebase
 
 ### Export
 
@@ -72,9 +72,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| MIGRATE-01 | Phase 16 | Pending |
-| MIGRATE-02 | Phase 16 | Pending |
-| MIGRATE-03 | Phase 17 | Pending |
+| MIGRATE-01 | Phase 16 | Complete |
+| MIGRATE-02 | Phase 16 | Complete |
+| MIGRATE-03 | Phase 17 | Complete |
 | EXPORT-01 | Phase 18 | Pending |
 | EXPORT-02 | Phase 18 | Pending |
 | STATS-01 | Phase 19 | Pending |
@@ -88,4 +88,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 after roadmap phase mapping*
+*Last updated: 2026-01-29 after Phase 17 complete*
