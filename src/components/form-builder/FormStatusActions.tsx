@@ -18,7 +18,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Save, Send, Archive, AlertCircle, Check } from "lucide-react";
+import { Save, Send, Archive, AlertCircle, Check, ExternalLink, Copy } from "lucide-react";
 import type { FormSchema, FormField } from "@/types/form-schema";
 
 interface FormStatusActionsProps {
@@ -129,13 +129,29 @@ export function FormStatusActions({ formId }: FormStatusActionsProps) {
   const [feedback, setFeedback] = useState<{
     type: "success" | "error";
     message: string;
+    url?: string;
   } | null>(null);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [copied, setCopied] = useState(false);
 
-  // Clear feedback after 3 seconds
-  const showFeedback = (type: "success" | "error", message: string) => {
-    setFeedback({ type, message });
-    setTimeout(() => setFeedback(null), 3000);
+  // Clear feedback after timeout (longer for publish success with URL)
+  const showFeedback = (type: "success" | "error", message: string, url?: string) => {
+    setFeedback({ type, message, url });
+    setCopied(false);
+    // Keep publish success with URL visible longer
+    const timeout = url ? 10000 : 3000;
+    setTimeout(() => setFeedback(null), timeout);
+  };
+
+  // Copy URL to clipboard
+  const handleCopyUrl = async (url: string) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      console.error("Failed to copy:", error);
+    }
   };
 
   // Handle save
@@ -186,7 +202,10 @@ export function FormStatusActions({ formId }: FormStatusActionsProps) {
         formId: formId as Id<"forms">,
       });
 
-      showFeedback("success", `Published as version ${result.version}`);
+      // Build the full public URL
+      const baseUrl = typeof window !== "undefined" ? window.location.origin : "";
+      const formUrl = `${baseUrl}/apply/${form?.slug}`;
+      showFeedback("success", `Published v${result.version}`, formUrl);
     } catch (error) {
       console.error("Failed to publish form:", error);
       showFeedback(
@@ -233,18 +252,39 @@ export function FormStatusActions({ formId }: FormStatusActionsProps) {
       {/* Feedback message */}
       {feedback && (
         <div
-          className={`flex items-center gap-1 px-2 py-1 rounded text-xs ${
+          className={`flex items-center gap-2 px-3 py-2 rounded text-sm ${
             feedback.type === "success"
               ? "bg-green-100 text-green-800"
               : "bg-red-100 text-red-800"
           }`}
         >
           {feedback.type === "success" ? (
-            <Check className="h-3 w-3" />
+            <Check className="h-4 w-4 flex-shrink-0" />
           ) : (
-            <AlertCircle className="h-3 w-3" />
+            <AlertCircle className="h-4 w-4 flex-shrink-0" />
           )}
-          {feedback.message}
+          <span>{feedback.message}</span>
+          {feedback.url && (
+            <div className="flex items-center gap-1 ml-2 border-l border-green-300 pl-2">
+              <a
+                href={feedback.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline flex items-center gap-1"
+              >
+                <ExternalLink className="h-3 w-3" />
+                Open
+              </a>
+              <button
+                onClick={() => handleCopyUrl(feedback.url!)}
+                className="hover:bg-green-200 p-1 rounded"
+                title="Copy URL"
+              >
+                <Copy className="h-3 w-3" />
+              </button>
+              {copied && <span className="text-xs">Copied!</span>}
+            </div>
+          )}
         </div>
       )}
 
