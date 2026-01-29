@@ -2,34 +2,26 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { decrypt } from "@/lib/auth/session";
-import { logout } from "./actions";
-import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/ui/mode-toggle";
-import { AdminDashboard } from "@/components/admin/AdminDashboard";
+import { ModuleCard } from "@/components/admin/ModuleCard";
+import { FileText, Users, Calendar, DoorOpen, Heart } from "lucide-react";
 
-/**
- * Metadata for the admin dashboard page
- */
 export const metadata: Metadata = {
-  title: "Admin Dashboard | Frontier Tower",
-  description: "Manage floor proposals for Frontier Tower",
+  title: "Dashboard | FrontierOS",
+  description: "FrontierOS command center for Frontier Tower",
 };
 
 /**
- * Admin Dashboard Page
+ * Dashboard Hub Page
  *
- * Protected page for reviewing and managing floor lead applications.
- * Session verification happens both in middleware and here (defense in depth).
+ * The central command center of FrontierOS. Users land here after login
+ * and navigate to specific modules via hero cards.
  *
- * Features:
- * - Applications table with filters (floor, search)
- * - Click row to open detail sheet
- * - Change application status from detail sheet
- * - Real-time updates via Convex subscriptions
+ * Modules:
+ * - Forms: Active, links to /admin/forms
+ * - Members, Events, Spaces, Wellness: Placeholder cards showing "Coming Soon"
  */
-export default async function AdminPage() {
+export default async function DashboardPage() {
   // Defense in depth: verify session even though middleware checks too
-  // This ensures protection even if middleware is bypassed or misconfigured
   const cookieStore = await cookies();
   const session = await decrypt(cookieStore.get("session")?.value);
 
@@ -38,26 +30,47 @@ export default async function AdminPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background">
-      {/* Header with title, theme toggle, and logout */}
-      <header className="border-b">
-        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-          <div className="flex items-center gap-2">
-            <ModeToggle />
-            <form action={logout}>
-              <Button type="submit" variant="outline">
-                Logout
-              </Button>
-            </form>
-          </div>
-        </div>
+    <div className="min-h-screen">
+      {/* Header */}
+      <header className="px-8 py-6">
+        <h1 className="text-3xl font-display font-bold text-foreground">
+          FrontierOS
+        </h1>
+        <p className="text-muted-foreground mt-1">
+          Command center for Frontier Tower
+        </p>
       </header>
 
-      {/* Main content area */}
-      <div className="mx-auto max-w-7xl px-6 py-8">
-        <AdminDashboard />
-      </div>
-    </main>
+      {/* Module Cards Grid */}
+      <main className="px-8 pb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ModuleCard
+            icon={FileText}
+            label="Forms"
+            href="/admin/forms"
+          />
+          <ModuleCard
+            icon={Users}
+            label="Members"
+            disabled
+          />
+          <ModuleCard
+            icon={Calendar}
+            label="Events"
+            disabled
+          />
+          <ModuleCard
+            icon={DoorOpen}
+            label="Spaces"
+            disabled
+          />
+          <ModuleCard
+            icon={Heart}
+            label="Wellness"
+            disabled
+          />
+        </div>
+      </main>
+    </div>
   );
 }
