@@ -38,8 +38,10 @@ export const useDynamicFormStore = create<DynamicFormState>()(
 
       initDraft: (slug: string, versionId: string) => {
         const { drafts } = get();
-        // Only create if doesn't exist
-        if (!drafts[slug]) {
+        const existingDraft = drafts[slug];
+
+        // Reset if doesn't exist OR version changed
+        if (!existingDraft || existingDraft.versionId !== versionId) {
           set({
             drafts: {
               ...drafts,
