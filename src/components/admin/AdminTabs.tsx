@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Plus } from "lucide-react";
+import { motion } from "motion/react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { SubmissionsTable } from "./SubmissionsTable";
@@ -64,7 +65,12 @@ export function AdminTabs() {
         </TabsList>
 
         <TabsContent value="dashboard">
-          <div className="space-y-4">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2 }}
+            className="space-y-4"
+          >
             <div className="flex justify-end">
               <Button asChild>
                 <Link href="/admin/forms/new">
@@ -74,15 +80,27 @@ export function AdminTabs() {
               </Button>
             </div>
             <ActivityFeed />
-          </div>
+          </motion.div>
         </TabsContent>
 
         <TabsContent value="submissions">
-          <SubmissionsTable onRowClick={handleSubmissionClick} />
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <SubmissionsTable onRowClick={handleSubmissionClick} />
+          </motion.div>
         </TabsContent>
 
         <TabsContent value="forms">
-          <FormsList />
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <FormsList />
+          </motion.div>
         </TabsContent>
       </Tabs>
 
