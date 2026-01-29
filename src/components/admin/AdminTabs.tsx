@@ -6,9 +6,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ApplicationsTable } from "./ApplicationsTable";
 import { ApplicationSheet } from "./ApplicationSheet";
 import { SubmissionsTable } from "./SubmissionsTable";
+import { SubmissionSheet } from "./SubmissionSheet";
 import { SubmissionRow } from "./submissions-columns";
 import { FormsList } from "@/components/form-builder/FormsList";
-import { Doc } from "../../../convex/_generated/dataModel";
+import { Doc, Id } from "../../../convex/_generated/dataModel";
 
 interface AdminTabsProps {
   selectedApplication: Doc<"applications"> | null;
@@ -36,7 +37,7 @@ export function AdminTabs({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // State for submissions tab (SubmissionSheet added in Plan 03)
+  // State for submissions tab
   const [selectedSubmission, setSelectedSubmission] =
     useState<SubmissionRow | null>(null);
   const [submissionSheetOpen, setSubmissionSheetOpen] = useState(false);
@@ -45,7 +46,6 @@ export function AdminTabs({
   const handleSubmissionClick = (submission: SubmissionRow) => {
     setSelectedSubmission(submission);
     setSubmissionSheetOpen(true);
-    // SubmissionSheet component added in Plan 03
   };
 
   // Get current tab from URL, default to "applications"
@@ -79,7 +79,6 @@ export function AdminTabs({
 
         <TabsContent value="submissions">
           <SubmissionsTable onRowClick={handleSubmissionClick} />
-          {/* SubmissionSheet added in Plan 03 */}
         </TabsContent>
 
         <TabsContent value="forms">
@@ -92,6 +91,13 @@ export function AdminTabs({
         application={selectedApplication}
         open={sheetOpen}
         onOpenChange={onSheetOpenChange}
+      />
+
+      {/* SubmissionSheet for submissions tab */}
+      <SubmissionSheet
+        submissionId={selectedSubmission?._id as Id<"submissions"> | null}
+        open={submissionSheetOpen}
+        onOpenChange={setSubmissionSheetOpen}
       />
     </>
   );
