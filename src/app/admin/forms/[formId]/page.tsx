@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { decrypt } from "@/lib/auth/session";
+import { AnimatedPage } from "@/components/ui/animated-page";
 import { FormBuilderWrapper } from "@/components/form-builder/FormBuilderWrapper";
 
 /**
@@ -34,5 +35,9 @@ export default async function FormBuilderPage({ params }: FormBuilderPageProps) 
   // Next.js 16: params is a Promise
   const { formId } = await params;
 
-  return <FormBuilderWrapper formId={formId} />;
+  return (
+    <AnimatedPage>
+      <FormBuilderWrapper formId={formId} />
+    </AnimatedPage>
+  );
 }
