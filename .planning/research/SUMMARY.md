@@ -1,229 +1,278 @@
 # Project Research Summary
 
-**Project:** Frontier Tower Floor Lead Application System - v1.2 Dynamic Form Builder
-**Domain:** Admin-facing form builder with dynamic form creation and public form rendering
+**Project:** FrontierOS Dashboard v2.0 - Glassmorphism Visual Overhaul
+**Domain:** Premium Admin Dashboard with Design System Migration
 **Researched:** 2026-01-29
 **Confidence:** HIGH
 
 ## Executive Summary
 
-The v1.2 Dynamic Form Builder milestone adds form creation capabilities to the existing Frontier Tower application system. Research shows this is a well-documented domain with established patterns. The existing stack (Next.js 16, React 19, Tailwind 4, Convex, shadcn/ui) is well-suited for this feature. Only two new dependencies are required: @dnd-kit for drag-and-drop field reordering and nanoid for unique field ID generation. All other functionality (date pickers, file uploads, checkboxes) can be achieved with existing libraries or Convex built-ins.
+FrontierOS v2.0 is a complete visual transformation of an existing admin dashboard, overlaying glassmorphism design patterns and light/dark mode switching onto a functional Next.js application with Convex backend. The current codebase already has strong foundations—Tailwind CSS 4 with dark mode configured, shadcn/ui components using CSS variables, and basic glassmorphism utilities. However, three critical infrastructure gaps exist: (1) hard-coded dark mode without a theme provider, (2) glass utilities that only work in dark mode, and (3) no background layer on admin routes for glass effects to "catch."
 
-The recommended approach is to introduce a form schema layer that decouples form structure from code while preserving the existing Typeform-style user experience. Store form schemas in Convex as JSON strings (avoiding nesting limits), use immutable form versioning to maintain data integrity across schema changes, and generate Zod validators at runtime from stored schemas. The architecture integrates cleanly with existing components through schema prop injection, maintaining backward compatibility with the hardcoded v1.0/v1.1 form.
+The recommended approach is a four-phase migration: start with theme infrastructure and CSS variable refactoring (Phase 1), then build the new dashboard hub design (Phase 2), migrate existing admin pages to the new aesthetic (Phase 3), and finish with polish and animations (Phase 4). This order maintains deployable state at each boundary, avoids breaking existing functionality, and allows incremental rollout. The biggest risk is the "big bang refactor" anti-pattern—attempting to overhaul everything at once will lead to extended periods of broken UI and team burnout.
 
-The most critical risk is form version drift causing submissions to reference non-existent or changed form structures. This is mitigated through immutable formVersions table and schema snapshots stored with each submission. Other key risks include breaking existing submissions (handle via versioning), file upload URL expiration (immediate upload to Convex storage), and Typeform UX degradation (preserve step-based grouping with dynamic field counts). With careful schema design upfront and adherence to established patterns, this is a high-confidence build.
+Key risks to mitigate: (1) Flash of Unstyled Content (FOUC) from improper theme provider setup, (2) WCAG contrast failures from glassmorphism on complex backgrounds, (3) mobile performance degradation from backdrop-filter overuse, and (4) breaking existing form submission flows during visual changes. All are preventable with the phase structure and testing discipline outlined in the research.
 
 ## Key Findings
 
 ### Recommended Stack
 
-The existing stack handles 95% of requirements. Only minimal additions needed. The @dnd-kit packages (core + sortable) provide production-ready drag-and-drop with React 19 support, chosen over alternatives like pragmatic-drag-and-drop (React 19 issues) and react-beautiful-dnd (deprecated). Nanoid generates unique, URL-safe field IDs at 118 bytes versus uuid's 423 bytes. Convex's built-in file storage eliminates the need for react-dropzone or similar libraries. Shadcn/ui components (Calendar, Popover, Checkbox) are confirmed React 19 compatible and already in use.
+**Only one new dependency required: `next-themes ^0.4.6` for theme management.** The existing stack is perfectly suited for the glassmorphism overhaul. Tailwind CSS 4's CSS-first approach with `@custom-variant dark` already supports theming, shadcn/ui components use CSS variables that automatically adapt to theme changes, and the motion library (v12.29.2) handles all premium animations. All glassmorphism effects can be achieved with pure Tailwind utilities—backdrop-blur, transparent backgrounds, and borders—without additional component libraries or visual frameworks.
 
 **Core technologies:**
-- **@dnd-kit/core + @dnd-kit/sortable** (v6.3.1 + v10.0.0): Drag-and-drop field reordering — lightweight, accessible, React 19 compatible with 2039+ dependents
-- **nanoid** (v5.0.9): Unique field ID generation — 118 bytes, URL-safe, more compact than uuid
-- **Convex file storage** (built-in): File upload fields — native upload URL method, no size limits beyond HTTP action constraints
-- **Zustand** (existing 5.0.10): Form builder state — extend existing store for builder state, draft persistence
-- **React Hook Form + Zod** (existing): Dynamic form rendering and validation — generate Zod schemas at runtime from stored form definitions
-- **shadcn/ui Calendar, Checkbox** (add components): Date and checkbox field types — React 19 compatible per official docs
+- **next-themes**: Theme management with localStorage persistence and SSR hydration handling—the shadcn/ui-recommended standard for Next.js dark mode
+- **Tailwind CSS 4 (existing)**: Native dark mode support via `@custom-variant dark`, backdrop-filter utilities, and CSS variable theming already configured
+- **shadcn/ui (existing)**: Components already use semantic CSS variables that automatically adapt to theme changes
+- **motion library v12.29.2 (existing)**: Handles all premium animations (glass panel entrances, hover effects, staggered reveals)
+- **OKLCH color space (existing)**: Already in use for all CSS variables, provides superior color interpolation for dark mode transitions
+
+**Critical integration note:** The hard-coded `className="dark"` in layout.tsx must be replaced with next-themes dynamic control. Add `suppressHydrationWarning` to prevent hydration warnings. The existing glass utilities use hardcoded dark-mode colors (`oklch(0 0 0 / 40%)`) and must be refactored to CSS variables for light/dark mode support.
 
 ### Expected Features
 
-Research identified a clear feature hierarchy based on industry standards and user expectations for form builders.
+Premium admin dashboards in 2026 combine clarity-first design principles with glassmorphism as an accent, not a foundation. The key insight: glassmorphism works best on floating elements (modals, command palettes, hero cards) where there's visual content behind to distort. Applying glass to everything creates accessibility nightmares and performance issues.
 
 **Must have (table stakes):**
-- Drag-and-drop field placement — defining UX pattern for form builders
-- Core field types (text, textarea, email, dropdown) — covers 80% of form needs
-- Field configuration panel — label, placeholder, required flag, help text
-- Real-time preview — users need to see what they're building
-- Form save/persistence — forms must persist across sessions
-- Unique form URLs — each form needs shareable link at /apply/[slug]
-- Form listing/management — admins need CRUD operations
-- Field validation config — basic required toggles and format rules
-- Submission storage with form version — critical for data integrity after schema changes
+- Collapsible sidebar navigation (240-300px expanded, 48-64px collapsed with localStorage persistence)—industry standard from Notion, Linear, Slack
+- Light/dark mode toggle respecting system preferences with manual override—expected in every premium app
+- Module cards with clear hierarchy (max 5-6 visible, stats + quick actions per module)—dashboard hub pattern for at-a-glance status
+- Responsive design with off-canvas sidebar on mobile—mobile admin access is expected
+- Consistent visual patterns via design tokens—inconsistency equals confusion
+- Loading states with skeleton screens—perceived performance matters
+- Error handling with clear recovery paths—users need to know what went wrong
 
-**Should have (competitive):**
-- File upload fields — enables portfolio/resume collection (explicitly requested)
-- Extended field types (number, date, checkbox) — richer data collection beyond text
-- Form duplication — quick form creation from templates
-- Form status (draft/published/archived) — lifecycle management without deletion
-- Smooth drag feedback — visual polish during reordering
-- Form versioning with history access — see past versions of form definitions
-- Field help text/descriptions — improves form completion rate
-- Typeform-style public rendering — matches existing v1.0 UX for consistency
-- Per-form submission filtering — admin sees submissions grouped by form
-- Dropdown option management UI — add/remove/reorder options
+**Should have (competitive edge):**
+- Command palette (Cmd+K) with keyboard-first navigation—Linear, Notion, Slack pattern that 2-3x speeds power users
+- Keyboard shortcuts using G+X pattern for navigation, single keys for actions—professional feel
+- Glassmorphism accents on hero sections, modals, floating elements—premium modern aesthetic that differentiates from "Bootstrap admin" look
+- Microinteractions with 200-500ms durations—interface feels alive and responsive
+- Real-time updates leveraging existing Convex subscriptions—data feels live without refresh
+- Context-aware empty states with actionable CTAs—first-run experience that guides users
+- Animated data transitions using motion library—numbers that count up, charts that animate in
 
 **Defer (v2+):**
-- Conditional logic/branching — explicitly out of scope per PROJECT.md, adds 30%+ complexity
-- Rich text editor for fields — overkill, complicates rendering/storage
-- Multi-page form builder — existing step-by-step UX handles pacing
-- Field templates library — premature optimization for infrequent form creation
-- Collaborative real-time editing — single admin team (1-3 people)
-- A/B testing — adds significant complexity for minimal value
-- Form analytics (conversion funnels) — nice-to-have but not MVP
-- Form embedding (iframe/widget) — use unique URLs instead
+- Dashboard widgets with drag-drop customization—massive complexity, rarely used, maintenance burden
+- Complex multi-level sidebar navigation—cognitive overload, indicates poor information architecture
+- Charts/graphs for every metric—data visualization is often worse than well-formatted numbers
+
+**Anti-features to deliberately avoid:**
+- Glassmorphism on everything—accessibility disaster, performance hit, gimmicky
+- Animated backgrounds everywhere—distracting, battery drain, motion sickness
+- Hover-only visible actions—mobile unfriendly, discoverability issues
+- Custom scrollbars—platform inconsistency, accessibility concerns
+- Notification badges on everything—badge blindness from overuse
 
 ### Architecture Approach
 
-The existing architecture has a well-structured but hardcoded form system. Adding dynamic forms requires introducing a form schema layer that decouples form structure from code. Store form schemas as JSON strings in Convex (avoids 16-level nesting limit), create immutable formVersions snapshots on publish, and reference formVersionId with each submission. Generate Zod validators at runtime from stored schemas to maintain validation consistency.
+**Extend existing components rather than replacing them.** The codebase already has shadcn/ui components using CSS variables via OKLCH colors. The integration strategy is to add glass variants using CVA (Class Variance Authority) while keeping default variants unchanged for backward compatibility. This allows incremental migration—existing code continues to work while new code opts into the glass aesthetic.
 
-**Major components:**
-1. **Schema Foundation** — New Convex tables (forms, formVersions, submissions, submissionFiles) with JSON string schema storage to avoid nesting limits
-2. **Dynamic Renderer** — DynamicStep and DynamicField components that read schema and route to field type registry, preserving Typeform-style one-question-at-a-time UX
-3. **Form Builder** — Admin-only drag-and-drop editor with FieldPalette, StepEditor, FieldEditor using @dnd-kit sortable with keyboard alternatives
-4. **File Upload System** — FileField component using Convex storage upload URLs (handles files >20MB), immediate persistence on selection to avoid expiration issues
-5. **Submission Pipeline** — Dynamic /apply/[slug] routes fetch published form versions, render with DynamicMultiStepForm, store responses with formVersionId and schema snapshot
-6. **Admin Integration** — Modify ApplicationSheet to read sections from schema, extend EditHistory to store field labels, add form selector to dashboard
+**Major components to extend:**
+1. **Theme System** — Create ThemeProvider wrapper for next-themes, replace hard-coded `className="dark"` with dynamic theme control, add ModeToggle component
+2. **CSS Variable System** — Extend existing `:root` and `.dark` blocks with glassmorphism tokens (`--glass-bg`, `--glass-border`, `--glass-blur`, `--glass-shadow`), add surface hierarchy variables for elevation layers
+3. **Glass Utility System** — Convert hardcoded glass utilities to use CSS variables for theme-awareness, add intensity variants (`glass-subtle`, `glass-heavy`), create interactive states with hover/focus
+4. **Component Variants** — Add glass variants to Card (`variant="glass"`), Sheet, Tabs, DropdownMenu, and Dialog using CVA pattern without breaking existing APIs
+5. **Design Tokens Library** — Create centralized `src/lib/design-tokens.ts` for programmatic access to glass composition utilities
+
+**File modification priority:**
+1. `src/app/globals.css` — Extend glass tokens and utilities (Phase 1)
+2. `src/app/layout.tsx` — Add ThemeProvider, remove hard-coded dark class (Phase 1)
+3. `src/components/ui/card.tsx` — Add glass variant (Phase 2)
+4. `src/components/ui/background-wrapper.tsx` — Enable backgrounds for admin routes (Phase 1)
+5. Component-by-component updates to apply glass variants (Phases 2-3)
+
+**Architecture principles:**
+- CSS-first theming using Tailwind 4's native approach (no theme plugin config)
+- Backward-compatible component API changes (deprecate, don't break)
+- Semantic CSS variables for automatic theme adaptation
+- Single source of truth for design tokens in globals.css
+- Limit glass to 3-5 elements per viewport for performance
 
 ### Critical Pitfalls
 
-Research identified 15 pitfalls; top 5 require phase 1 attention:
+1. **No Theme Provider Infrastructure (CRIT-1)** — The hardcoded `className="dark"` in layout.tsx will cause hydration mismatches and Flash of Unstyled Content (FOUC) when adding light mode. Must install next-themes early, add ThemeProvider wrapper, and set `suppressHydrationWarning` on `<html>` before any theme-aware components are built. Without this, users see a jarring flash of light theme before dark loads.
 
-1. **Breaking Existing Submissions When Schema Changes** — Existing applications table has 19 hardcoded fields; migration strategy needed. Treat existing submissions as "v0" schema, backfill formVersion field, design queries to handle both legacy and dynamic submissions. Address in Phase 1 (Foundation).
+2. **Glass Utilities Are Dark-Mode-Only (CRIT-2)** — Current glass utilities use `oklch(0 0 0 / 40%)` which is black and nearly invisible on light backgrounds. Must refactor to CSS custom properties that switch between light and dark variants. Test all 5 existing usages of `glass-card` in DynamicFormPage and apply page to ensure they work in both themes. Without this, switching to light mode makes glass panels disappear.
 
-2. **Form Version Drift - Submissions Reference Deleted/Changed Forms** — User fills form v1, admin edits to v2, submission references non-existent structure. Implement immutable formVersions table, store full schema snapshot with each submission, never allow in-place mutation. Address in Phase 1 (Schema Design).
+3. **Contrast Ratio Failures (GLASS-1)** — Text on semi-transparent backgrounds easily fails WCAG 4.5:1 requirements. Glass effect creates variable contrast as content scrolls behind. Must add semi-opaque solid overlay behind text (`background: oklch(0 0 0 / 60%)` minimum in dark mode), test with worst-case busy backgrounds, and use contrast checker tools during design. This is not optional—failing WCAG means failing accessibility audits.
 
-3. **File Upload URL Expiration During Long Forms** — Convex upload URLs expire in 1 hour; long forms risk losing files. Implement immediate file persistence on selection (not on final submit), store storageId in localStorage draft, validate file exists before submission. Address in Phase 2 (File Upload).
+4. **Flash of Unstyled Content (DARK-1)** — Users see light theme flash before dark loads if theme isn't set before React hydrates. next-themes solves this by injecting a blocking script in document head that reads localStorage and applies theme class before first paint. Must use `suppressHydrationWarning` on `<html>` and set `disableTransitionOnChange` in ThemeProvider to prevent jarring transitions.
 
-4. **Typeform UX Degradation with Dynamic Fields** — Beautiful one-question-at-a-time flow breaks with varying field counts. Preserve step-based grouping, calculate progress from total fields, test animations with various counts, limit 3-5 fields per step. Address in Phase 3 (Form Renderer).
+5. **Background Layer Assumptions (CRIT-3)** — NeuralBackground component only renders on non-admin routes, but glassmorphism requires "something behind the glass" to distort. On solid black (`oklch(0.145 0 0)`) backgrounds, glass effects look flat and muddy. Must either enable NeuralBackground for admin routes, add subtle gradient backgrounds, or accept reduced glass impact on admin pages.
 
-5. **Form Slug Collision and URL Breakage** — Admin creates duplicate slugs, URLs break or wrong form loads. Implement database-level unique constraint on slug, case-insensitive normalization, reserve system paths, validate on create and update. Address in Phase 1 (Forms Table Schema).
+6. **Big Bang Refactor (MIG-1)** — Attempting to overhaul entire UI at once leads to extended periods of broken functionality, difficulty isolating bugs, and team burnout. Must refactor in phases tied to feature areas, maintain deployable state at each boundary, and use feature flags for gradual rollout. Never freeze the codebase.
+
+7. **Backdrop-Filter Performance (PERF-1)** — Applying backdrop-filter to large areas or animating blur radius causes severe mobile performance issues. Limit to card-sized elements, never animate backdrop-filter directly (use opacity fade instead), and profile with Chrome DevTools on 4x CPU throttling to simulate low-end devices.
+
+8. **Motion Sensitivity Ignored (A11Y-1)** — Continuous animations like NeuralBackground trigger vestibular conditions (dizziness, nausea). Must respect `prefers-reduced-motion` media query by disabling animations and providing static alternatives. Test with system "Reduce Motion" enabled.
 
 ## Implications for Roadmap
 
-Based on research, the build order should prioritize schema foundation and file infrastructure before UI/builder work. The architecture analysis shows clear dependencies: schema design blocks everything, file upload is independent, builder and renderer can develop in parallel after schema is stable.
+Based on research, recommended four-phase structure that maintains deployable state and avoids breaking existing functionality:
 
-### Phase 1: Schema Foundation and Legacy Migration
-**Rationale:** Form schema design is the foundation that blocks all other work. Getting versioning right upfront prevents painful rewrites. Legacy migration must happen early to avoid breaking existing admin dashboard.
-**Delivers:** Convex tables (forms, formVersions, submissions, submissionFiles), TypeScript types (FormSchema, FormField), schema-to-zod generator, legacy data migration (formVersion: "v0" backfill)
-**Addresses:** Table stakes features (form persistence, unique URLs), must establish data model
-**Avoids:** Pitfall #1 (breaking existing submissions), Pitfall #2 (version drift), Pitfall #5 (slug collision), Pitfall #11 (performance with large schemas)
-**Research flag:** Standard patterns, well-documented. Skip /gsd:research-phase.
+### Phase 1: Design System Foundation
+**Rationale:** Infrastructure must be in place before any visual changes. Theme provider setup, CSS variable refactoring, and glass utilities need to work before components can use them. This phase delivers no visible UI changes but enables all subsequent work.
 
-### Phase 2: File Upload Infrastructure
-**Rationale:** File uploads are independent of builder UI and required for form rendering. Complex enough to warrant dedicated phase. Upload URL method and immediate persistence pattern need careful implementation.
-**Delivers:** FileField component, Convex file mutations (generateUploadUrl, saveFile), upload validation (size, type), storage with formVersionId reference
-**Uses:** Convex storage (built-in), existing Zustand store for draft persistence
-**Implements:** File upload component from architecture, immediate persistence pattern to avoid URL expiration
-**Avoids:** Pitfall #3 (URL expiration), Pitfall #9 (HTTP action limit >20MB)
-**Research flag:** Well-documented via Convex official docs. Skip /gsd:research-phase.
+**Delivers:**
+- next-themes installed with ThemeProvider wrapper
+- Hard-coded `className="dark"` replaced with dynamic theme control
+- `suppressHydrationWarning` on `<html>` to prevent React warnings
+- Glass utilities refactored to use CSS variables for light/dark mode support
+- CSS variable system extended with glassmorphism tokens
+- ModeToggle component created and added to admin header
+- Background system modified to support glass effects on admin routes
 
-### Phase 3: Dynamic Form Renderer
-**Rationale:** Must work before builder is useful (can't test forms without rendering). Can develop with hardcoded schema matching existing form before builder exists.
-**Delivers:** DynamicStep component, DynamicField component, field type registry, /apply/[slug] route, schema-to-zod validation, preserve Typeform-style step transitions
-**Addresses:** Table stakes features (field types, validation, public rendering), differentiators (Typeform-style UX)
-**Implements:** Dynamic renderer architecture, preserves existing MultiStepForm for legacy /apply route
-**Avoids:** Pitfall #4 (Typeform UX degradation), Pitfall #6 (validation sync), Pitfall #13 (draft breakage with field ID changes)
-**Research flag:** Standard patterns for dynamic forms. Skip /gsd:research-phase.
+**Addresses:** Theme infrastructure (table stakes), prevents FOUC (DARK-1), prevents hydration mismatches, sets up glass theming (CRIT-2)
 
-### Phase 4: Form Builder UI
-**Rationale:** Depends on schema (Phase 1) being stable. Builder is useless without renderer (Phase 3) to test created forms. Admin-only feature with lower urgency than public-facing renderer.
-**Delivers:** FormBuilder container, FieldPalette (draggable types), StepEditor (@dnd-kit sortable), FieldEditor (property panel), PreviewPane (live preview), /admin/forms routes
-**Uses:** @dnd-kit/core + sortable (new dependency), nanoid (new dependency), Zustand builder-store (new)
-**Implements:** Form builder architecture with drag-and-drop, keyboard alternatives for accessibility
-**Avoids:** Pitfall #8 (drag-drop accessibility), Pitfall #12 (no preview mode), Pitfall #14 (no version history)
-**Research flag:** Drag-and-drop accessibility needs attention. Consider /gsd:research-phase for a11y patterns.
+**Avoids:** CRIT-1 (no theme provider), DARK-1 (FOUC), CRIT-2 (dark-mode-only glass)
 
-### Phase 5: Admin Integration and Submission Management
-**Rationale:** Requires renderer (Phase 3) to display submissions correctly. Extends existing admin components rather than building from scratch. Final integration phase.
-**Delivers:** SubmissionSheet (dynamic version of ApplicationSheet), form selector in admin dashboard, per-form submission filtering, edit history with field labels, form management (list/edit/delete)
-**Addresses:** Table stakes (form management, submission viewing), differentiators (per-form filtering)
-**Implements:** ApplicationSheet dynamic sections from architecture, handles both legacy and dynamic submissions
-**Avoids:** Pitfall #7 (edit history breaks), Pitfall #10 (responses without type context)
-**Research flag:** Extends existing patterns. Skip /gsd:research-phase.
+**Checkpoint:** Dark mode toggle works, no visual regressions, glass utilities available for next phase
+
+### Phase 2: Dashboard Hub Design
+**Rationale:** Build new components rather than modifying existing ones first. Dashboard hub is new functionality that doesn't risk breaking current forms/builder/submissions workflows. This allows testing the glass aesthetic and component patterns before touching critical admin pages.
+
+**Delivers:**
+- Dashboard hub component with module cards grid (Forms, Members, Events, Spaces, Communications)
+- Card component extended with glass variants (`variant="glass" | "glass-subtle" | "elevated"`)
+- Tabs component with glass TabsList variant
+- Sheet component with glass option for overlays
+- Module cards showing stats, trends, and quick actions
+- Design tokens library (`src/lib/design-tokens.ts`)
+- Consistent spacing, elevation, and glass composition utilities
+
+**Uses:** next-themes for theme-aware glass, existing motion library for card entrance animations, existing shadcn/ui Card as base
+
+**Implements:** Dashboard hub pattern from research (5-6 module cards, collapsible sidebar, consistent visual hierarchy)
+
+**Addresses:** Module cards (table stakes), dashboard hub (table stakes), glassmorphism accents (differentiator), microinteractions (differentiator)
+
+**Avoids:** GLASS-4 (too many layered glass elements), PERF-3 (stacking context issues), MIG-2 (breaking existing functionality—this is new code)
+
+**Checkpoint:** Dashboard hub functional and visually complete, glass aesthetic established, no performance issues
+
+### Phase 3: Admin Page Migration
+**Rationale:** Now that glass patterns are established and tested in dashboard hub, migrate existing admin pages one by one. Each page is a separate deliverable—if one breaks, others remain functional. Order by visual impact: Forms list → Form builder → Submissions.
+
+**Delivers:**
+- Forms list page (`/admin/forms`) migrated to glass aesthetic
+- Form builder page (`/admin/forms/[formId]`) with glass panels
+- Submissions table with consistent styling
+- Submission detail sheet with glass overlay
+- All components using new glass variants where appropriate
+- Keyboard shortcuts for navigation (G+D, G+F, G+M, etc.)
+- Loading states with skeleton screens
+- Error handling with toast notifications
+
+**Implements:** Linear-style minimal interface (reduced visual noise, increased density, keyboard-first)
+
+**Addresses:** Consistent visual patterns (table stakes), keyboard shortcuts (differentiator), loading states (table stakes)
+
+**Avoids:** MIG-2 (breaking functionality—test form submission, file upload, inline editing after each page), MIG-3 (component API breakage—maintain backward compatibility)
+
+**Testing discipline:**
+- [ ] Form submission works (all field types)
+- [ ] File upload still functions
+- [ ] Navigation between admin sections works
+- [ ] Draft persistence functions
+- [ ] Inline editing works
+- [ ] Test in BOTH light and dark modes
+
+**Checkpoint:** All admin pages visually consistent with dashboard hub, no functional regressions
+
+### Phase 4: Polish and Accessibility
+**Rationale:** After functionality is complete and visual design is applied, refine animations, accessibility, and performance. This phase is about making the experience premium rather than adding features. Safe to defer because earlier phases deliver working product.
+
+**Delivers:**
+- Glass hover/focus states with motion library animations
+- Transition animations between theme modes
+- Command palette (Cmd+K) with glassmorphism overlay and keyboard navigation
+- Animated data transitions (numbers counting up, chart entry animations)
+- Context-aware empty states with custom illustrations
+- `prefers-reduced-motion` media query support
+- `prefers-reduced-transparency` media query support
+- Contrast ratio verification (4.5:1 body text, 3:1 large text/UI)
+- Focus indicator improvements for glass surfaces
+- Mobile performance optimization (reduced blur on mobile, limited glass elements)
+
+**Addresses:** Command palette (differentiator), animated transitions (differentiator), context-aware empty states (differentiator), accessibility requirements (table stakes)
+
+**Avoids:** A11Y-1 (motion sensitivity), A11Y-2 (transparency preferences), A11Y-3 (focus states), PERF-4 (mobile performance)
+
+**Testing checklist:**
+- [ ] Test with system "Reduce Motion" enabled
+- [ ] Test with system transparency reduction enabled
+- [ ] Verify focus indicators visible on all interactive elements
+- [ ] Profile scroll performance on mobile (target 60fps)
+- [ ] Test keyboard navigation through all glass surfaces
+- [ ] Run contrast checker on all text over glass
+
+**Checkpoint:** Complete visual overhaul, accessible, performant on mobile
 
 ### Phase Ordering Rationale
 
-- **Foundation first (Phase 1):** Schema design discovered to be critical. Changing schema after renderer/builder are built causes rewrites. Immutable versioning must be designed upfront to avoid data integrity issues (Pitfalls #1, #2).
-- **File upload independent (Phase 2):** Can develop in parallel with renderer. Convex storage upload URL pattern is self-contained. Getting immediate persistence right early prevents later refactoring.
-- **Renderer before builder (Phase 3 → 4):** Builder creates forms that renderer displays. Can't validate builder output without renderer. Renderer can be tested with hardcoded schemas during development.
-- **Admin integration last (Phase 5):** Requires both schema and renderer to be stable. Extends existing components rather than building new patterns. Least critical for launch (admin can view raw data if needed).
-- **Parallel opportunities:** Phase 2 (file upload) can develop alongside Phase 3 (renderer) since they share minimal code. Phase 4 (builder) and Phase 5 (admin) must be sequential due to dependencies.
+- **Foundation before features:** Theme infrastructure (Phase 1) must exist before any glass components (Phase 2-3) can use it. Attempting to build glass components without theme provider causes hydration issues and FOUC.
+- **New before migration:** Building dashboard hub (Phase 2) before migrating existing pages (Phase 3) allows testing glass patterns without risking form submission flows. If glass design doesn't work, pivot without breaking production functionality.
+- **Polish last:** Animations and accessibility refinements (Phase 4) don't block deployment. Earlier phases deliver working product with new aesthetic; Phase 4 makes it premium.
+- **One page at a time:** Phase 3 migrates pages individually (Forms list → Builder → Submissions) to maintain deployable state. If one page breaks, rollback is isolated.
 
 ### Research Flags
 
-**Needs deeper research:**
-- **Phase 4 (Form Builder):** Drag-and-drop accessibility patterns — Research shows most DnD UIs fail accessibility. @dnd-kit has better a11y than alternatives, but keyboard navigation, screen reader announcements, and ARIA implementation need careful attention. Consider /gsd:research-phase for a11y patterns.
+**Phases likely needing deeper research during planning:**
+- **Phase 2 (Dashboard Hub):** Module card component architecture—need to define exact props, data shape, and interaction patterns. Current research provides patterns but not specific implementation for FrontierOS modules.
+- **Phase 3 (Form Builder Migration):** Complex existing component with conditional rendering, file uploads, and draft persistence. Risk of breaking functionality during visual changes. May need focused research on refactoring patterns for complex components.
+- **Phase 4 (Command Palette):** Command palette is listed as "HIGH complexity" differentiator. Need to research specific implementation patterns (fuzzy search libraries, keyboard navigation state management, action registry architecture).
 
-**Standard patterns (skip research):**
-- **Phase 1 (Schema Foundation):** Convex schema design, versioning patterns — well-documented in official docs and MongoDB patterns
-- **Phase 2 (File Upload):** Convex storage upload URLs — official documentation is comprehensive
-- **Phase 3 (Dynamic Renderer):** React Hook Form + Zod, schema-to-validator generation — established pattern
-- **Phase 5 (Admin Integration):** Extending existing components — follows patterns already in codebase
+**Phases with standard patterns (skip research-phase):**
+- **Phase 1 (Foundation):** next-themes integration is well-documented with official shadcn/ui guide. CSS variable refactoring follows established Tailwind 4 patterns. No ambiguity.
+- **Phase 3 (Forms List, Submissions):** Table and list patterns are standard. shadcn/ui Table component already exists. Migration is applying glass variants to existing markup—no novel patterns.
 
 ## Confidence Assessment
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | All dependencies verified via npm registry and official docs. @dnd-kit v6.3.1 stable with 2039 dependents, React 19 compatible. Convex file storage officially documented. Shadcn/ui React 19 compatibility confirmed. |
-| Features | HIGH | Form builder domain is well-documented with extensive prior art. Feature hierarchy clear from industry analysis (Typeform, Google Forms, Fillout). TABLE_STAKES vs DIFFERENTIATORS vs ANTI-FEATURES well-defined. |
-| Architecture | HIGH | Existing codebase analysis shows clean structure. Integration points identified (StepContent, ApplicationSheet). Convex schema patterns documented. Dynamic form rendering is established pattern. |
-| Pitfalls | HIGH | Critical pitfalls verified against Convex docs (nesting limits, file upload URLs). Schema versioning patterns from MongoDB/Cosmos DB. Accessibility issues documented by Salesforce and WCAG 2.2. |
+| Stack | HIGH | Only one new dependency (next-themes). Existing stack perfectly suited. Official docs for next-themes + shadcn/ui integration. OKLCH color system already in use. |
+| Features | HIGH | Multiple 2026 sources (NN/G, Linear redesign, Muzli dashboard examples) converge on same patterns. Clear consensus on table stakes vs differentiators. Anti-patterns well-documented. |
+| Architecture | HIGH | Current codebase analyzed directly. Tailwind 4 dark mode already configured. shadcn/ui CSS variable system ready for theming. CVA pattern for variants is established shadcn practice. |
+| Pitfalls | HIGH | Critical pitfalls (FOUC, hydration, contrast failures) verified with official WCAG docs and next-themes issue tracker. Performance issues confirmed via shadcn/ui GitHub issues and Mozilla bugs. |
 
 **Overall confidence:** HIGH
 
-The research is based on official documentation (Convex, dnd-kit, shadcn/ui), verified package versions from npm registry, and industry-standard patterns for form builders. The existing codebase provides strong architectural guidance. All critical pitfalls have documented prevention strategies.
-
 ### Gaps to Address
 
-Minor gaps that need attention during implementation:
+1. **Command Palette Implementation Details** — Research identifies command palette as key differentiator but doesn't specify implementation library. During Phase 4 planning, need to research `cmdk` (shadcn's command component) vs `kbar` vs custom implementation. This is a known gap that doesn't block earlier phases.
 
-- **File size limits:** Research shows Convex HTTP actions limited to 20MB, upload URLs have no documented limit. Need to confirm acceptable file size range for typical form uploads (resumes, portfolios) and set client-side validation accordingly. Recommend 50MB limit.
+2. **Module-Specific Quick Actions** — Dashboard hub research shows "quick actions per module" but doesn't define what actions are appropriate for each FrontierOS module (Forms, Members, Events, Spaces, Communications). During Phase 2 planning, enumerate specific actions based on existing functionality.
 
-- **Form version pruning strategy:** Research shows strong consensus on immutable versioning, but no guidance on whether to keep all versions forever or implement cleanup. Decision needed during Phase 1: keep all (simpler) or prune old versions (disk space optimization). Recommend keeping all initially.
+3. **Mobile Glass Reduction Strategy** — Research notes that mobile may need reduced glass, but doesn't specify breakpoints or fallback patterns. During Phase 2-3, determine if glass should be disabled below certain viewport width or just reduced blur radius.
 
-- **Conditional logic deferral:** Explicitly marked as anti-feature per PROJECT.md, but field schema includes conditionalLogic interface from architecture research. Clarify during Phase 1 whether to include schema support (for future) or omit entirely (cleaner v1.2).
+4. **NeuralBackground Admin Integration** — Research identifies that admin routes need background for glass to work, but doesn't specify if NeuralBackground should be modified for admin or if a different background pattern is needed. During Phase 1, decide: (a) enable existing NeuralBackground, (b) create simplified admin-specific background, or (c) use static gradient.
 
-- **Draft restoration with dynamic schemas:** Pitfall #13 identified but solution ambiguous. Need to decide: (1) clear draft if form version changed, (2) attempt field ID migration, or (3) version-aware draft storage. Recommend option 1 (clear with warning) for simplicity.
-
-- **Edit history storage format:** Pitfall #7 shows need for field labels in history, but implementation pattern unclear. Need to decide: store label snapshot in each history record (simpler, redundant) or resolve from schema at display time (complex, accurate). Recommend snapshot approach.
+5. **Keyboard Shortcut Registry** — Research shows G+X navigation pattern, but doesn't define registration mechanism for shortcuts across multiple pages. During Phase 3, design global shortcut registry and collision detection to prevent conflicts.
 
 ## Sources
 
 ### Primary (HIGH confidence)
-
-**Official Documentation:**
-- [Convex Schema Philosophy](https://docs.convex.dev/database/advanced/schema-philosophy) — 16-level nesting limit, document size constraints
-- [Convex File Storage](https://docs.convex.dev/file-storage/upload-files) — Upload URL method, 20MB HTTP action limit
-- [Convex Best Practices](https://docs.convex.dev/understanding/best-practices/) — Schema design patterns
-- [dnd-kit Documentation](https://docs.dndkit.com) — Sortable preset, accessibility features
-- [shadcn/ui React 19 Compatibility](https://ui.shadcn.com/docs/react-19) — Component compatibility confirmed
-- [nanoid GitHub](https://github.com/ai/nanoid) — 118 bytes, URL-safe, secure
-
-**npm Registry (verified versions):**
-- [@dnd-kit/core](https://www.npmjs.com/package/@dnd-kit/core) v6.3.1 — 2039 dependents, active maintenance
-- [@dnd-kit/sortable](https://www.npmjs.com/package/@dnd-kit/sortable) v10.0.0 — Stable release
-- [nanoid](https://www.npmjs.com/package/nanoid) v5.0.9 — Latest stable
+- [shadcn/ui Dark Mode for Next.js](https://ui.shadcn.com/docs/dark-mode/next) — Official next-themes integration guide
+- [Tailwind CSS v4 Dark Mode](https://tailwindcss.com/docs/dark-mode) — CSS-first dark mode with @custom-variant
+- [Linear: How We Redesigned the Linear UI](https://linear.app/now/how-we-redesigned-the-linear-ui) — Real-world premium dashboard redesign
+- [NN/G Glassmorphism Definition and Best Practices](https://www.nngroup.com/articles/glassmorphism/) — Nielsen Norman Group research
+- [WCAG 2.1 Understanding Contrast Minimum](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html) — Accessibility requirements
+- [PatternFly Dashboard Design Guidelines](https://www.patternfly.org/patterns/dashboard/design-guidelines/) — Enterprise dashboard patterns
+- [next-themes GitHub](https://github.com/pacocoursey/next-themes) — v0.4.6 documentation
 
 ### Secondary (MEDIUM confidence)
+- [Muzli: Best Dashboard Design Examples 2026](https://muz.li/blog/best-dashboard-design-examples-inspirations-for-2026/) — Current design trends
+- [Superhuman: How to Build a Remarkable Command Palette](https://blog.superhuman.com/how-to-build-a-remarkable-command-palette/) — Command palette UX patterns
+- [Axess Lab: Glassmorphism Meets Accessibility](https://axesslab.com/glassmorphism-meets-accessibility-can-frosted-glass-be-inclusive/) — Accessibility implications
+- [Primotech: UI/UX Evolution 2026 - Microinteractions](https://primotech.com/ui-ux-evolution-2026-why-micro-interactions-and-motion-matter-more-than-ever/) — Microinteraction trends
+- [Knock: How to Design Great Keyboard Shortcuts](https://knock.app/blog/how-to-design-great-keyboard-shortcuts) — Keyboard shortcut patterns
+- [UX Planet: Best Practices for Sidebar Design](https://uxplanet.org/best-ux-practices-for-designing-a-sidebar-9174ee0ecaa2) — Sidebar navigation patterns
 
-**Schema Versioning Patterns:**
-- [MongoDB Document Versioning](https://www.mongodb.com/docs/manual/data-modeling/design-patterns/data-versioning/) — Immutable version pattern
-- [Azure Cosmos DB Schema Versioning](https://devblogs.microsoft.com/cosmosdb/azure-cosmos-db-design-patterns-part-9-schema-versioning/) — Document versioning best practices
-- [Schema Evolution in Data Pipelines](https://dataengineeracademy.com/module/best-practices-for-managing-schema-evolution-in-data-pipelines/) — Migration strategies
-
-**Form Builder Patterns:**
-- [Buildform - Types of Form Fields](https://buildform.ai/blog/types-of-form-fields/) — Comprehensive field type overview
-- [Jotform - Form Fields Overview](https://www.jotform.com/help/46-quick-overview-of-form-fields/) — Industry standard field types
-- [FormEngine - Open-Source Form Builder](https://formengine.io/) — React implementation patterns
-- [Schema-Driven Dynamic Forms](https://medium.com/hike-medical/scaling-clinical-workflows-with-schema-driven-dynamic-forms-091f89cc730f) — Enterprise implementation
-
-**Accessibility:**
-- [Salesforce: 4 Patterns for Accessible Drag and Drop](https://medium.com/salesforce-ux/4-major-patterns-for-accessible-drag-and-drop-1d43f64ebf09) — Industry a11y patterns
-- [WCAG 2.2 Dragging Movements](https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements) — Accessibility requirements
-- [Drag-and-Drop UX Best Practices](https://smart-interface-design-patterns.com/articles/drag-and-drop-ux/) — Keyboard alternatives
-
-### Tertiary (LOW confidence)
-
-**Market Research:**
-- [Top 5 DnD Libraries for React 2026](https://puckeditor.com/blog/top-5-drag-and-drop-libraries-for-react) — @dnd-kit recommended over alternatives
-- [Typeform vs Google Forms 2026](https://www-cdn.involve.me/blog/typeform-vs-google-forms) — Feature comparison for competitive analysis
-- [Fillout - Typeform Alternatives](https://www.fillout.com/blog/8-typeform-alternatives) — Market landscape
-
-**Anti-Patterns:**
-- [Formsort - 10 Common Form Building Mistakes](https://formsort.com/article/10-common-form-building-mistakes/) — What to avoid
-- [Form.io Migration Guide](https://help.form.io/deployments/maintenance-and-migration) — Migration pitfalls
+### Codebase Analysis
+- `src/app/globals.css` — Current Tailwind 4 setup, existing glass utilities, dark mode configuration
+- `src/app/layout.tsx` — Hard-coded dark class, layout structure
+- `src/components/ui/card.tsx` — shadcn/ui Card component structure for variant extension
+- `components.json` — shadcn/ui configuration with cssVariables: true
+- `src/components/ui/background-wrapper.tsx` — Conditional NeuralBackground rendering
 
 ---
 *Research completed: 2026-01-29*
