@@ -71,11 +71,12 @@ See `.planning/milestones/v1.3-ROADMAP.md` for full details.
   3. All existing UI remains functional in both light and dark modes
   4. Glass utilities display correctly on both light and dark backgrounds
   5. CSS variables document all theme-aware colors and effects
-**Plans:** TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 20-01: TBD
-- [ ] 20-02: TBD
+- [ ] 20-01-PLAN.md — Install next-themes and theme-aware glass CSS variables
+- [ ] 20-02-PLAN.md — Create ModeToggle component and add to admin header
+- [ ] 20-03-PLAN.md — Document design tokens
 
 ### Phase 21: Dashboard Hub & Navigation
 **Goal:** Users land on a dashboard hub with module cards and can navigate via collapsible sidebar.
@@ -155,7 +156,7 @@ Plans:
 | 8-10 | v1.1 | 4/4 | Complete | 2026-01-29 |
 | 11-15 | v1.2 | 15/15 | Complete | 2026-01-29 |
 | 16-19 | v1.3 | 8/8 | Complete | 2026-01-29 |
-| 20 | v2.0 | 0/TBD | Not started | - |
+| 20 | v2.0 | 0/3 | Not started | - |
 | 21 | v2.0 | 0/TBD | Not started | - |
 | 22 | v2.0 | 0/TBD | Not started | - |
 | 23 | v2.0 | 0/TBD | Not started | - |
@@ -163,4 +164,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-29 after v2.0 roadmap creation*
+*Last updated: 2026-01-29 after Phase 20 planning*
