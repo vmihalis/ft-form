@@ -2,17 +2,42 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import { LucideIcon } from "lucide-react";
+import {
+  FileText,
+  Inbox,
+  Users,
+  Calendar,
+  DoorOpen,
+  Heart,
+  type LucideIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
+/**
+ * Map of icon names to Lucide icon components.
+ * Icons must be imported and mapped here because Server Components
+ * cannot pass component references to Client Components.
+ */
+const iconMap: Record<string, LucideIcon> = {
+  FileText,
+  Inbox,
+  Users,
+  Calendar,
+  DoorOpen,
+  Heart,
+};
+
+export type ModuleIconName = keyof typeof iconMap;
+
 interface ModuleCardProps {
-  icon: LucideIcon;
+  icon: ModuleIconName;
   label: string;
   href?: string;
   disabled?: boolean;
 }
 
-export function ModuleCard({ icon: Icon, label, href, disabled }: ModuleCardProps) {
+export function ModuleCard({ icon, label, href, disabled }: ModuleCardProps) {
+  const Icon = iconMap[icon] ?? FileText;
   const cardContent = (
     <motion.div
       className={cn(
