@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { decrypt } from "@/lib/auth/session";
 import { ModuleCard } from "@/components/admin/ModuleCard";
-import { FileText, Users, Calendar, DoorOpen, Heart } from "lucide-react";
+import { FileText, Inbox, Users, Calendar, DoorOpen, Heart } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Dashboard | FrontierOS",
@@ -48,6 +48,11 @@ export default async function DashboardPage() {
             icon={FileText}
             label="Forms"
             href="/admin/forms"
+          />
+          <ModuleCard
+            icon={Inbox}
+            label="Submissions"
+            href="/admin/submissions"
           />
           <ModuleCard
             icon={Users}
