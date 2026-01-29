@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-01-29)
 ## Current Position
 
 Phase: 14 of 15 (Form Builder UI)
-Plan: 03 of TBD complete
+Plan: 02 and 03 of 5 complete (Wave 2 complete)
 Status: In progress
-Last activity: 2026-01-29 - Completed 14-03-PLAN.md (field palette and form canvas)
+Last activity: 2026-01-29 - Completed 14-02-PLAN.md (form pages and builder layout)
 
 Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [################____] 80%
 
@@ -32,7 +32,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 29 (v1.0: 16, v1.1: 4, v1.2: 9)
+- Total plans completed: 30 (v1.0: 16, v1.1: 4, v1.2: 10)
 - Average duration: Not tracked for previous milestones
 - Total execution time: Not tracked
 
@@ -42,7 +42,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 |-----------|--------|-------|--------|
 | v1.0 | 7 | 16 | Complete |
 | v1.1 | 3 | 4 | Complete |
-| v1.2 | 5 | 9/TBD | In progress |
+| v1.2 | 5 | 10/TBD | In progress |
 
 ## Accumulated Context
 
@@ -76,6 +76,9 @@ Recent decisions affecting current work:
 - Form Builder: Status badges use inline className pattern vs separate utility
 - Form Builder: Drag handle on left side only to allow click-to-select elsewhere
 - Form Builder: 8px activation constraint prevents accidental drags
+- Form Builder: Three-panel layout (w-64 left, flex-1 center, w-80 right)
+- Form Builder: Debounced metadata updates (500ms) for autosave
+- Form Builder: Store resets on page unmount to prevent stale state
 
 ### Pending Todos
 
@@ -88,8 +91,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 14-03-PLAN.md
+Stopped at: Completed 14-02-PLAN.md (Wave 2 complete: 14-02 + 14-03)
 Resume file: None
 
 ---
-*v1.2 milestone in progress - Phase 14 Form Builder UI plan 03 complete*
+*v1.2 milestone in progress - Phase 14 Form Builder UI Wave 2 complete*
