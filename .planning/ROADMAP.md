@@ -59,10 +59,11 @@ Plans:
   2. Selected files persist immediately to Convex storage (before form submission)
   3. Uploaded files are associated with form version and can be retrieved
   4. Upload handles reasonable file sizes (up to 50MB)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 12-01: TBD
+- [ ] 12-01-PLAN.md — Convex storage mutations, queries, and orphan cleanup cron
+- [ ] 12-02-PLAN.md — useFileUpload hook and FileField component with drag-and-drop
 
 ### Phase 13: Dynamic Form Renderer
 **Goal**: Dynamic forms render at unique URLs with Typeform-style UX and validate based on field configuration
@@ -127,11 +128,11 @@ Phases execute in numeric order: 11 -> 12 -> 13 -> 14 -> 15
 | 1-7 | v1.0 | 16/16 | Complete | 2026-01-28 |
 | 8-10 | v1.1 | 4/4 | Complete | 2026-01-29 |
 | 11. Schema Foundation | v1.2 | 2/2 | Complete | 2026-01-29 |
-| 12. File Upload Infrastructure | v1.2 | 0/TBD | Not started | - |
+| 12. File Upload Infrastructure | v1.2 | 0/2 | Not started | - |
 | 13. Dynamic Form Renderer | v1.2 | 0/TBD | Not started | - |
 | 14. Form Builder UI | v1.2 | 0/TBD | Not started | - |
 | 15. Admin Integration | v1.2 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-29*
-*Last updated: 2026-01-29 after Phase 11 execution complete*
+*Last updated: 2026-01-29 after Phase 12 planning complete*
