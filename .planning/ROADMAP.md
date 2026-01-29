@@ -29,7 +29,7 @@ See git history for v1.1 phase details.
 - [x] **Phase 11: Schema Foundation** - Database tables and versioning infrastructure
 - [x] **Phase 12: File Upload Infrastructure** - Convex storage integration for file fields
 - [x] **Phase 13: Dynamic Form Renderer** - Field components and public form rendering
-- [ ] **Phase 14: Form Builder UI** - Drag-and-drop form creation interface
+- [x] **Phase 14: Form Builder UI** - Drag-and-drop form creation interface
 - [ ] **Phase 15: Admin Integration** - Forms management and dynamic submission viewing
 
 ## Phase Details
@@ -98,11 +98,11 @@ Plans:
 **Plans**: 5 plans
 
 Plans:
-- [ ] 14-01-PLAN.md — Install dnd-kit, create Zustand store, admin forms list page
-- [ ] 14-02-PLAN.md — New form page, form builder shell with three-panel layout
-- [ ] 14-03-PLAN.md — Field palette and form canvas with dnd-kit sortable
-- [ ] 14-04-PLAN.md — Property panel, options editor, validation settings
-- [ ] 14-05-PLAN.md — Preview panel, form status actions, publish/archive
+- [x] 14-01-PLAN.md — Install dnd-kit, create Zustand store, admin forms list page
+- [x] 14-02-PLAN.md — New form page, form builder shell with three-panel layout
+- [x] 14-03-PLAN.md — Field palette and form canvas with dnd-kit sortable
+- [x] 14-04-PLAN.md — Property panel, options editor, validation settings
+- [x] 14-05-PLAN.md — Preview panel, form status actions, publish/archive
 
 ### Phase 15: Admin Integration
 **Goal**: Admins can manage forms and view dynamic submissions with schema-aware rendering
@@ -132,9 +132,9 @@ Phases execute in numeric order: 11 -> 12 -> 13 -> 14 -> 15
 | 11. Schema Foundation | v1.2 | 2/2 | Complete | 2026-01-29 |
 | 12. File Upload Infrastructure | v1.2 | 2/2 | Complete | 2026-01-29 |
 | 13. Dynamic Form Renderer | v1.2 | 3/3 | Complete | 2026-01-29 |
-| 14. Form Builder UI | v1.2 | 0/5 | Planning complete | - |
+| 14. Form Builder UI | v1.2 | 5/5 | Complete | 2026-01-29 |
 | 15. Admin Integration | v1.2 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-29*
-*Last updated: 2026-01-29 after Phase 14 planning complete*
+*Last updated: 2026-01-29 after Phase 14 complete*

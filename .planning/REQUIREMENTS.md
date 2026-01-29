@@ -28,14 +28,14 @@ Requirements for Dynamic Form Builder milestone. Each maps to roadmap phases.
 
 ### Form Builder
 
-- [ ] **BUILD-01**: Admin can create new form with name and URL slug
-- [ ] **BUILD-02**: Admin can add fields to form from field type palette
-- [ ] **BUILD-03**: Admin can drag-and-drop to reorder fields within form
-- [ ] **BUILD-04**: Admin can configure field properties (label, placeholder, required, help text)
-- [ ] **BUILD-05**: Admin can remove fields from form
-- [ ] **BUILD-06**: Real-time preview shows form as users will see it
-- [ ] **BUILD-07**: Form has status lifecycle: draft, published, archived
-- [ ] **BUILD-08**: Publishing creates immutable form version snapshot
+- [x] **BUILD-01**: Admin can create new form with name and URL slug
+- [x] **BUILD-02**: Admin can add fields to form from field type palette
+- [x] **BUILD-03**: Admin can drag-and-drop to reorder fields within form
+- [x] **BUILD-04**: Admin can configure field properties (label, placeholder, required, help text)
+- [x] **BUILD-05**: Admin can remove fields from form
+- [x] **BUILD-06**: Real-time preview shows form as users will see it
+- [x] **BUILD-07**: Form has status lifecycle: draft, published, archived
+- [x] **BUILD-08**: Publishing creates immutable form version snapshot
 
 ### Public Form
 
@@ -97,14 +97,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FIELD-06 | Phase 13 | Complete |
 | FIELD-07 | Phase 13 | Complete |
 | FIELD-08 | Phase 12 | Complete |
-| BUILD-01 | Phase 14 | Pending |
-| BUILD-02 | Phase 14 | Pending |
-| BUILD-03 | Phase 14 | Pending |
-| BUILD-04 | Phase 14 | Pending |
-| BUILD-05 | Phase 14 | Pending |
-| BUILD-06 | Phase 14 | Pending |
-| BUILD-07 | Phase 14 | Pending |
-| BUILD-08 | Phase 14 | Pending |
+| BUILD-01 | Phase 14 | Complete |
+| BUILD-02 | Phase 14 | Complete |
+| BUILD-03 | Phase 14 | Complete |
+| BUILD-04 | Phase 14 | Complete |
+| BUILD-05 | Phase 14 | Complete |
+| BUILD-06 | Phase 14 | Complete |
+| BUILD-07 | Phase 14 | Complete |
+| BUILD-08 | Phase 14 | Complete |
 | PUBLIC-01 | Phase 13 | Complete |
 | PUBLIC-02 | Phase 13 | Complete |
 | PUBLIC-03 | Phase 13 | Complete |
@@ -124,4 +124,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 after Phase 13 complete - FIELD-01 to FIELD-07 and PUBLIC-01 to PUBLIC-06 complete*
+*Last updated: 2026-01-29 after Phase 14 complete - BUILD-01 to BUILD-08 complete (21/27 requirements)*
