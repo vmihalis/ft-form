@@ -76,12 +76,12 @@ Plans:
   5. File uploads persist immediately on selection
   6. Submission stores response data with formVersionId reference
   7. Uploaded files are associated with form version and can be retrieved
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 13-01: TBD
-- [ ] 13-02: TBD
-- [ ] 13-03: TBD
+- [ ] 13-01-PLAN.md — Dynamic route, Zod schema generation, and Zustand store
+- [ ] 13-02-PLAN.md — Field renderer components for all field types
+- [ ] 13-03-PLAN.md — Form container, step components, navigation, and review
 
 ### Phase 14: Form Builder UI
 **Goal**: Admins can create and configure forms through drag-and-drop interface with real-time preview
@@ -129,10 +129,10 @@ Phases execute in numeric order: 11 -> 12 -> 13 -> 14 -> 15
 | 8-10 | v1.1 | 4/4 | Complete | 2026-01-29 |
 | 11. Schema Foundation | v1.2 | 2/2 | Complete | 2026-01-29 |
 | 12. File Upload Infrastructure | v1.2 | 2/2 | Complete | 2026-01-29 |
-| 13. Dynamic Form Renderer | v1.2 | 0/TBD | Not started | - |
+| 13. Dynamic Form Renderer | v1.2 | 0/3 | Planned | - |
 | 14. Form Builder UI | v1.2 | 0/TBD | Not started | - |
 | 15. Admin Integration | v1.2 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-29*
-*Last updated: 2026-01-29 after Phase 12 execution complete*
+*Last updated: 2026-01-29 after Phase 13 planning complete*
