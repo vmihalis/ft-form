@@ -26,6 +26,7 @@ interface FormBuilderState {
 
   // Field actions
   addField: (stepIndex: number, type: FieldType) => void;
+  addFieldAtIndex: (stepIndex: number, type: FieldType, insertIndex: number) => void;
   updateField: (fieldId: string, updates: Partial<FormField>) => void;
   removeField: (fieldId: string) => void;
   reorderFields: (
@@ -34,6 +35,7 @@ interface FormBuilderState {
     newIndex: number
   ) => void;
   selectField: (fieldId: string | null) => void;
+  duplicateField: (fieldId: string) => void;
 
   // Step actions
   addStep: () => void;
@@ -116,6 +118,44 @@ export const useFormBuilderStore = create<FormBuilderState>((set, get) => ({
     });
   },
 
+  addFieldAtIndex: (stepIndex, type, insertIndex) => {
+    const { schema } = get();
+
+    // Create field with default values based on type
+    const newField: FormField = {
+      id: nanoid(),
+      type,
+      label: `New ${type} field`,
+      required: false,
+      placeholder: "",
+    };
+
+    // Add default options for select/radio types
+    if (type === "select" || type === "radio") {
+      newField.options = [
+        { value: "option_1", label: "Option 1" },
+        { value: "option_2", label: "Option 2" },
+      ];
+    }
+
+    const newSteps = [...schema.steps];
+    const fields = [...newSteps[stepIndex].fields];
+
+    // Insert at specific index using splice
+    fields.splice(insertIndex, 0, newField);
+
+    newSteps[stepIndex] = {
+      ...newSteps[stepIndex],
+      fields,
+    };
+
+    set({
+      schema: { ...schema, steps: newSteps },
+      isDirty: true,
+      selectedFieldId: newField.id,
+    });
+  },
+
   updateField: (fieldId, updates) => {
     const { schema } = get();
     const newSteps = schema.steps.map((step) => ({
@@ -154,6 +194,41 @@ export const useFormBuilderStore = create<FormBuilderState>((set, get) => ({
   },
 
   selectField: (fieldId) => set({ selectedFieldId: fieldId }),
+
+  duplicateField: (fieldId) => {
+    const { schema, getStepByFieldId, getFieldById } = get();
+
+    const field = getFieldById(fieldId);
+    const stepInfo = getStepByFieldId(fieldId);
+
+    if (!field || !stepInfo) return;
+
+    // Deep copy the field with new ID
+    const duplicatedField: FormField = {
+      ...structuredClone(field),
+      id: nanoid(),
+      label: `${field.label} (Copy)`,
+    };
+
+    const { stepIndex } = stepInfo;
+    const newSteps = [...schema.steps];
+    const fields = [...newSteps[stepIndex].fields];
+
+    // Find index of original field and insert copy immediately after
+    const originalIndex = fields.findIndex((f) => f.id === fieldId);
+    fields.splice(originalIndex + 1, 0, duplicatedField);
+
+    newSteps[stepIndex] = {
+      ...newSteps[stepIndex],
+      fields,
+    };
+
+    set({
+      schema: { ...schema, steps: newSteps },
+      isDirty: true,
+      selectedFieldId: duplicatedField.id,
+    });
+  },
 
   // Step actions
   addStep: () => {
