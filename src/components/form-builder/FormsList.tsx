@@ -136,7 +136,7 @@ export function FormsList() {
       </div>
 
       {/* Forms grid */}
-      <FormsGrid forms={forms} onDuplicate={handleDuplicate} />
+      <FormsGrid forms={forms} onDuplicate={handleDuplicate} duplicatingId={duplicatingId} />
     </div>
   );
 }

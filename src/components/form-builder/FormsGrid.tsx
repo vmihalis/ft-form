@@ -44,9 +44,10 @@ interface FormData {
 interface FormsGridProps {
   forms: FormData[];
   onDuplicate: (formId: Id<"forms">) => void;
+  duplicatingId?: Id<"forms"> | null;
 }
 
-export function FormsGrid({ forms, onDuplicate }: FormsGridProps) {
+export function FormsGrid({ forms, onDuplicate, duplicatingId }: FormsGridProps) {
   return (
     <motion.div
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
@@ -62,7 +63,11 @@ export function FormsGrid({ forms, onDuplicate }: FormsGridProps) {
             layout
             exit="exit"
           >
-            <FormCard form={form} onDuplicate={() => onDuplicate(form._id)} />
+            <FormCard
+              form={form}
+              onDuplicate={() => onDuplicate(form._id)}
+              isLoading={form._id === duplicatingId}
+            />
           </motion.div>
         ))}
       </AnimatePresence>
