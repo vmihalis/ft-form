@@ -26,7 +26,7 @@ See git history for v1.1 phase details.
 
 **Milestone Goal:** Enable admins to create and customize application forms with full control over fields, types, and structure. Multiple forms with unique URLs, form versioning for data integrity, and rich field types including file uploads.
 
-- [ ] **Phase 11: Schema Foundation** - Database tables and versioning infrastructure
+- [x] **Phase 11: Schema Foundation** - Database tables and versioning infrastructure
 - [ ] **Phase 12: File Upload Infrastructure** - Convex storage integration for file fields
 - [ ] **Phase 13: Dynamic Form Renderer** - Field components and public form rendering
 - [ ] **Phase 14: Form Builder UI** - Drag-and-drop form creation interface
@@ -47,8 +47,8 @@ See git history for v1.1 phase details.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 11-01-PLAN.md — TypeScript types and Convex schema for dynamic forms
-- [ ] 11-02-PLAN.md — Form and submission mutations/queries with versioning
+- [x] 11-01-PLAN.md — TypeScript types and Convex schema for dynamic forms
+- [x] 11-02-PLAN.md — Form and submission mutations/queries with versioning
 
 ### Phase 12: File Upload Infrastructure
 **Goal**: Users can upload files in dynamic forms with immediate persistence to Convex storage
@@ -126,7 +126,7 @@ Phases execute in numeric order: 11 -> 12 -> 13 -> 14 -> 15
 |-------|-----------|----------------|--------|-----------|
 | 1-7 | v1.0 | 16/16 | Complete | 2026-01-28 |
 | 8-10 | v1.1 | 4/4 | Complete | 2026-01-29 |
-| 11. Schema Foundation | v1.2 | 0/2 | Planned | - |
+| 11. Schema Foundation | v1.2 | 2/2 | Complete | 2026-01-29 |
 | 12. File Upload Infrastructure | v1.2 | 0/TBD | Not started | - |
 | 13. Dynamic Form Renderer | v1.2 | 0/TBD | Not started | - |
 | 14. Form Builder UI | v1.2 | 0/TBD | Not started | - |
@@ -134,4 +134,4 @@ Phases execute in numeric order: 11 -> 12 -> 13 -> 14 -> 15
 
 ---
 *Roadmap created: 2026-01-29*
-*Last updated: 2026-01-29 after Phase 11 planning*
+*Last updated: 2026-01-29 after Phase 11 execution complete*

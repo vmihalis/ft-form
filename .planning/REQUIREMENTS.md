@@ -9,11 +9,11 @@ Requirements for Dynamic Form Builder milestone. Each maps to roadmap phases.
 
 ### Schema Foundation
 
-- [ ] **SCHEMA-01**: Forms stored in database with unique slug for URL routing
-- [ ] **SCHEMA-02**: Form versions are immutable snapshots preserving structure at publish time
-- [ ] **SCHEMA-03**: Submissions reference the form version they were submitted against
-- [ ] **SCHEMA-04**: Dynamic submissions table stores responses as flexible JSON with formVersionId
-- [ ] **SCHEMA-05**: Legacy applications coexist with new dynamic submissions
+- [x] **SCHEMA-01**: Forms stored in database with unique slug for URL routing
+- [x] **SCHEMA-02**: Form versions are immutable snapshots preserving structure at publish time
+- [x] **SCHEMA-03**: Submissions reference the form version they were submitted against
+- [x] **SCHEMA-04**: Dynamic submissions table stores responses as flexible JSON with formVersionId
+- [x] **SCHEMA-05**: Legacy applications coexist with new dynamic submissions
 
 ### Field Types
 
@@ -84,11 +84,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SCHEMA-01 | Phase 11 | Pending |
-| SCHEMA-02 | Phase 11 | Pending |
-| SCHEMA-03 | Phase 11 | Pending |
-| SCHEMA-04 | Phase 11 | Pending |
-| SCHEMA-05 | Phase 11 | Pending |
+| SCHEMA-01 | Phase 11 | Complete |
+| SCHEMA-02 | Phase 11 | Complete |
+| SCHEMA-03 | Phase 11 | Complete |
+| SCHEMA-04 | Phase 11 | Complete |
+| SCHEMA-05 | Phase 11 | Complete |
 | FIELD-01 | Phase 13 | Pending |
 | FIELD-02 | Phase 13 | Pending |
 | FIELD-03 | Phase 13 | Pending |
