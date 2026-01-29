@@ -44,11 +44,11 @@ See git history for v1.1 phase details.
   3. Submissions reference the exact form version they were submitted against
   4. Dynamic submissions store responses as flexible JSON with formVersionId
   5. Legacy applications table continues to work alongside new dynamic submissions
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 11-01: TBD
-- [ ] 11-02: TBD
+- [ ] 11-01-PLAN.md — TypeScript types and Convex schema for dynamic forms
+- [ ] 11-02-PLAN.md — Form and submission mutations/queries with versioning
 
 ### Phase 12: File Upload Infrastructure
 **Goal**: Users can upload files in dynamic forms with immediate persistence to Convex storage
@@ -126,7 +126,7 @@ Phases execute in numeric order: 11 -> 12 -> 13 -> 14 -> 15
 |-------|-----------|----------------|--------|-----------|
 | 1-7 | v1.0 | 16/16 | Complete | 2026-01-28 |
 | 8-10 | v1.1 | 4/4 | Complete | 2026-01-29 |
-| 11. Schema Foundation | v1.2 | 0/TBD | Not started | - |
+| 11. Schema Foundation | v1.2 | 0/2 | Planned | - |
 | 12. File Upload Infrastructure | v1.2 | 0/TBD | Not started | - |
 | 13. Dynamic Form Renderer | v1.2 | 0/TBD | Not started | - |
 | 14. Form Builder UI | v1.2 | 0/TBD | Not started | - |
@@ -134,4 +134,4 @@ Phases execute in numeric order: 11 -> 12 -> 13 -> 14 -> 15
 
 ---
 *Roadmap created: 2026-01-29*
-*Last updated: 2026-01-29 after v1.2 roadmap creation*
+*Last updated: 2026-01-29 after Phase 11 planning*
