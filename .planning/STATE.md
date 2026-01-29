@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-29)
 ## Current Position
 
 Phase: 22 of 24 (WYSIWYG Form Builder)
-Plan: 3 of ? in current phase
-Status: In progress
-Last activity: 2026-01-29 - Completed 22-03-PLAN.md
+Plan: 4 of 4 in current phase
+Status: Phase complete
+Last activity: 2026-01-29 - Completed 22-04-PLAN.md
 
-Progress: v1.0-v1.3 [####################] 100% | v2.0 [###########         ] 55%
+Progress: v1.0-v1.3 [####################] 100% | v2.0 [############        ] 60%
 
 ## Milestones
 
@@ -33,7 +33,7 @@ Progress: v1.0-v1.3 [####################] 100% | v2.0 [###########         ] 55
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 54 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 11)
+- Total plans completed: 55 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 12)
 - Total requirements validated: 63+
 
 **By Milestone:**
@@ -73,6 +73,10 @@ Recent decisions for v2.0:
 - Popover open={true} for FieldToolbar - Persistent toolbar while field is selected
 - 2-column grid layout for FieldTypePicker - Fits nicely in popover width
 - Group hover pattern for AddFieldButton - Progressive disclosure UX
+- FormProvider context wraps WysiwygCanvas - DynamicField rendering needs form context
+- DragOverlay shows actual field appearance - WYSIWYG even while dragging
+- Canvas click deselects field - Click outside pattern for UX
+- No separate preview mode - Builder IS the preview (BUILD-09)
 
 ### Pending Todos
 
@@ -85,8 +89,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 22-03-PLAN.md (Add Field Button & Field Type Picker)
-Resume with: Next plan in Phase 22 (WYSIWYG Form Builder)
+Stopped at: Completed 22-04-PLAN.md (WysiwygCanvas Integration)
+Resume with: Next phase (Phase 23 or next v2.0 milestone)
 
 ---
-*Phase 22 in progress. AddFieldButton and FieldTypePicker components ready for integration into FormCanvas.*
+*Phase 22 complete. WYSIWYG Form Builder fully functional - fields render as actual inputs, floating toolbar, plus buttons for insertion, drag-drop reordering, no separate preview mode.*
