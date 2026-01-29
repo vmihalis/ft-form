@@ -38,7 +38,7 @@ Requirements for FrontierOS Dashboard overhaul. Each maps to roadmap phases.
 - [ ] **BUILD-06**: Fields can be reordered via drag-and-drop
 - [ ] **BUILD-07**: All existing field types supported (text, textarea, email, dropdown, number, date, checkbox, file)
 - [ ] **BUILD-08**: Real-time validation feedback as user configures fields
-- [ ] **BUILD-09**: No separate "preview" mode — builder IS the preview
+- [ ] **BUILD-09**: No separate "preview" mode - builder IS the preview
 
 ### Forms Module Redesign
 
@@ -121,7 +121,7 @@ Requirements for FrontierOS Dashboard overhaul. Each maps to roadmap phases.
 | DS-02 | Phase 20 | Pending |
 | DS-03 | Phase 20 | Pending |
 | DS-04 | Phase 20 | Pending |
-| DS-05 | Phase 21 | Pending |
+| DS-05 | Phase 24 | Pending |
 | DS-06 | Phase 24 | Pending |
 | DS-07 | Phase 20 | Pending |
 | NAV-01 | Phase 21 | Pending |
@@ -164,8 +164,8 @@ Requirements for FrontierOS Dashboard overhaul. Each maps to roadmap phases.
 **Coverage:**
 - v2.0 requirements: 37 total
 - Mapped to phases: 37
-- Unmapped: 0 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 after initial definition*
+*Last updated: 2026-01-29 after roadmap creation*
