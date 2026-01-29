@@ -80,6 +80,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  /* Glass tokens - light mode */
+  --glass-bg: oklch(1 0 0 / 60%);
+  --glass-bg-heavy: oklch(1 0 0 / 70%);
+  --glass-border: oklch(0 0 0 / 8%);
+  --glass-shadow: 0 8px 32px oklch(0 0 0 / 8%);
+  --glass-shadow-heavy: 0 25px 50px -12px oklch(0 0 0 / 15%);
 }
 
 .dark {
@@ -114,6 +120,12 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  /* Glass tokens - dark mode */
+  --glass-bg: oklch(0.15 0 0 / 60%);
+  --glass-bg-heavy: oklch(0 0 0 / 50%);
+  --glass-border: oklch(1 0 0 / 12%);
+  --glass-shadow: 0 8px 32px oklch(0 0 0 / 40%);
+  --glass-shadow-heavy: 0 25px 50px -12px oklch(0 0 0 / 25%);
 }
 
 @layer base {
@@ -132,16 +144,38 @@
 
 /* Glass-morphism utilities for neural background */
 @utility glass {
-  background: oklch(0 0 0 / 40%);
+  background: var(--glass-bg);
   backdrop-filter: blur(16px);
-  border: 1px solid oklch(1 0 0 / 10%);
+  border: 1px solid var(--glass-border);
 }
 
 @utility glass-card {
-  background: oklch(0 0 0 / 50%);
+  background: var(--glass-bg-heavy);
   backdrop-filter: blur(12px);
-  border: 1px solid oklch(1 0 0 / 10%);
-  box-shadow: 0 25px 50px -12px oklch(0 0 0 / 25%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow-heavy);
+}
+
+/* Accessibility: reduced transparency support */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-bg: oklch(0.97 0 0 / 95%);
+    --glass-bg-heavy: oklch(0.95 0 0 / 98%);
+  }
+  .dark {
+    --glass-bg: oklch(0.15 0 0 / 95%);
+    --glass-bg-heavy: oklch(0.12 0 0 / 98%);
+  }
+  .glass, .glass-card {
+    backdrop-filter: none;
+  }
+}
+
+/* Fallback for browsers without backdrop-filter */
+@supports not (backdrop-filter: blur(1px)) {
+  .glass, .glass-card {
+    background: var(--card);
+  }
 }
 
 /* Fix iOS Safari textarea placeholder scrolling */
