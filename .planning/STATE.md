@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-01-29)
 ## Current Position
 
 Phase: 15 of 15 (Admin Integration)
-Plan: 02 of 4 complete (15-01 parallel)
+Plan: 02 of 4 complete
 Status: Phase 15 in progress
-Last activity: 2026-01-29 - Completed 15-02-PLAN.md (Submissions Table)
+Last activity: 2026-01-29 - Completed 15-01-PLAN.md (Admin Tabs) and 15-02-PLAN.md (Submissions Table)
 
 Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [###################_] 95%
 
@@ -86,6 +86,8 @@ Recent decisions affecting current work:
 - Preview Panel: Filter incomplete fields from preview
 - Publish Workflow: Validate schema before publishing (labels, options required)
 - Draft State: Reset draft when form version changes
+- Admin Tabs: URL query params (?tab=) for tab state persistence
+- Admin Tabs: Navigate to editor immediately after form duplication
 - Submissions Table: Filter by formName column value (not formId) for UI simplicity
 - Submissions Table: State prepared for SubmissionSheet integration (Plan 03)
 
@@ -100,7 +102,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 15-02-PLAN.md (Submissions Table)
+Stopped at: Completed 15-01-PLAN.md (Admin Tabs) and 15-02-PLAN.md (Submissions Table)
 Resume file: None
 
 ---
