@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ApplicationsTable } from "./ApplicationsTable";
 import { ApplicationSheet } from "./ApplicationSheet";
+import { SubmissionsTable } from "./SubmissionsTable";
+import { SubmissionRow } from "./submissions-columns";
 import { FormsList } from "@/components/form-builder/FormsList";
 import { Doc } from "../../../convex/_generated/dataModel";
 
@@ -19,7 +22,7 @@ interface AdminTabsProps {
  *
  * Three tabs:
  * - Applications: Legacy floor lead applications (existing functionality)
- * - Submissions: Dynamic form submissions (placeholder for Plan 02)
+ * - Submissions: Dynamic form submissions (with FormFilter)
  * - Forms: Form management with FormsList
  *
  * Tab state is synced to URL via ?tab= query param for bookmarking/sharing.
@@ -32,6 +35,18 @@ export function AdminTabs({
 }: AdminTabsProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  // State for submissions tab (SubmissionSheet added in Plan 03)
+  const [selectedSubmission, setSelectedSubmission] =
+    useState<SubmissionRow | null>(null);
+  const [submissionSheetOpen, setSubmissionSheetOpen] = useState(false);
+
+  // Handle submission row click
+  const handleSubmissionClick = (submission: SubmissionRow) => {
+    setSelectedSubmission(submission);
+    setSubmissionSheetOpen(true);
+    // SubmissionSheet component added in Plan 03
+  };
 
   // Get current tab from URL, default to "applications"
   const currentTab = searchParams.get("tab") || "applications";
@@ -63,11 +78,8 @@ export function AdminTabs({
         </TabsContent>
 
         <TabsContent value="submissions">
-          <div className="flex items-center justify-center h-64 border border-dashed rounded-lg">
-            <p className="text-muted-foreground">
-              Submissions view coming soon...
-            </p>
-          </div>
+          <SubmissionsTable onRowClick={handleSubmissionClick} />
+          {/* SubmissionSheet added in Plan 03 */}
         </TabsContent>
 
         <TabsContent value="forms">
