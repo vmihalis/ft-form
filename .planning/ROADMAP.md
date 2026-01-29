@@ -54,7 +54,7 @@ See `.planning/milestones/v1.3-ROADMAP.md` for full details.
 **Milestone Goal:** Transform the admin dashboard into FrontierOS - a premium command center with glassmorphism design system, dashboard hub navigation, light/dark mode, and complete visual overhaul of all existing features.
 
 - [x] **Phase 20: Design System Foundation** - Theme infrastructure and glass utilities (completed 2026-01-29)
-- [ ] **Phase 21: Dashboard Hub & Navigation** - Module cards, sidebar, placeholder modules
+- [x] **Phase 21: Dashboard Hub & Navigation** - Module cards, sidebar, placeholder modules (completed 2026-01-29)
 - [ ] **Phase 22: WYSIWYG Form Builder** - Inline editing with floating toolbar
 - [ ] **Phase 23: Forms/Submissions Redesign** - Glass styling and animations
 - [ ] **Phase 24: Polish & UX** - Microinteractions, accessibility, refinement
@@ -92,10 +92,10 @@ Plans:
 **Plans:** 4 plans
 
 Plans:
-- [ ] 21-01-PLAN.md — Sidebar store with localStorage persistence and admin layout structure
-- [ ] 21-02-PLAN.md — Collapsible sidebar component with navigation items
-- [ ] 21-03-PLAN.md — Dashboard hub with module cards grid
-- [ ] 21-04-PLAN.md — Mobile navigation with hamburger menu and shared header
+- [x] 21-01-PLAN.md — Sidebar store with localStorage persistence and admin layout structure
+- [x] 21-02-PLAN.md — Collapsible sidebar component with navigation items
+- [x] 21-03-PLAN.md — Dashboard hub with module cards grid
+- [x] 21-04-PLAN.md — Mobile navigation with hamburger menu and shared header
 
 ### Phase 22: WYSIWYG Form Builder
 **Goal:** Form builder displays forms exactly as users will see them with inline editing and floating toolbar.
@@ -158,11 +158,11 @@ Plans:
 | 11-15 | v1.2 | 15/15 | Complete | 2026-01-29 |
 | 16-19 | v1.3 | 8/8 | Complete | 2026-01-29 |
 | 20 | v2.0 | 3/3 | Complete | 2026-01-29 |
-| 21 | v2.0 | 0/4 | Not started | - |
+| 21 | v2.0 | 4/4 | Complete | 2026-01-29 |
 | 22 | v2.0 | 0/TBD | Not started | - |
 | 23 | v2.0 | 0/TBD | Not started | - |
 | 24 | v2.0 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-29 after Phase 21 planning*
+*Last updated: 2026-01-29 after Phase 21 completion*

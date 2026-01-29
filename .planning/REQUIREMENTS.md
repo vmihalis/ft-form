@@ -19,14 +19,14 @@ Requirements for FrontierOS Dashboard overhaul. Each maps to roadmap phases.
 
 ### Navigation & Layout
 
-- [ ] **NAV-01**: Dashboard hub is the landing page after login
-- [ ] **NAV-02**: Module cards display on dashboard hub (Forms + 4 placeholders)
-- [ ] **NAV-03**: Each module card shows relevant stats and quick actions
-- [ ] **NAV-04**: Clicking module card navigates to that module's main view
-- [ ] **NAV-05**: Collapsible sidebar provides persistent navigation
-- [ ] **NAV-06**: Sidebar expands to ~240px with labels, collapses to ~64px with icons only
-- [ ] **NAV-07**: Sidebar collapse state persists across sessions
-- [ ] **NAV-08**: Responsive layout works on mobile devices
+- [x] **NAV-01**: Dashboard hub is the landing page after login
+- [x] **NAV-02**: Module cards display on dashboard hub (Forms + 4 placeholders)
+- [x] **NAV-03**: Each module card shows relevant stats and quick actions (simplified to icon + label per CONTEXT.md)
+- [x] **NAV-04**: Clicking module card navigates to that module's main view
+- [x] **NAV-05**: Collapsible sidebar provides persistent navigation
+- [x] **NAV-06**: Sidebar expands to ~240px with labels, collapses to ~64px with icons only
+- [x] **NAV-07**: Sidebar collapse state persists across sessions
+- [x] **NAV-08**: Responsive layout works on mobile devices
 
 ### WYSIWYG Form Builder
 
@@ -56,11 +56,11 @@ Requirements for FrontierOS Dashboard overhaul. Each maps to roadmap phases.
 
 ### Placeholder Modules
 
-- [ ] **PLACE-01**: Members module card with placeholder UI (visual only)
-- [ ] **PLACE-02**: Events module card with placeholder UI (visual only)
-- [ ] **PLACE-03**: Spaces/Booking module card with placeholder UI (visual only)
-- [ ] **PLACE-04**: Communications module card with placeholder UI (visual only)
-- [ ] **PLACE-05**: Placeholder cards show "Coming Soon" state with teaser content
+- [x] **PLACE-01**: Members module card with placeholder UI (visual only)
+- [x] **PLACE-02**: Events module card with placeholder UI (visual only)
+- [x] **PLACE-03**: Spaces/Booking module card with placeholder UI (visual only)
+- [x] **PLACE-04**: Wellness module card with placeholder UI (visual only) - renamed from Communications per CONTEXT.md
+- [x] **PLACE-05**: Placeholder cards show "Coming Soon" state with teaser content
 
 ### UX Optimization
 
@@ -124,14 +124,14 @@ Requirements for FrontierOS Dashboard overhaul. Each maps to roadmap phases.
 | DS-05 | Phase 24 | Pending |
 | DS-06 | Phase 24 | Pending |
 | DS-07 | Phase 20 | Complete |
-| NAV-01 | Phase 21 | Pending |
-| NAV-02 | Phase 21 | Pending |
-| NAV-03 | Phase 21 | Pending |
-| NAV-04 | Phase 21 | Pending |
-| NAV-05 | Phase 21 | Pending |
-| NAV-06 | Phase 21 | Pending |
-| NAV-07 | Phase 21 | Pending |
-| NAV-08 | Phase 21 | Pending |
+| NAV-01 | Phase 21 | Complete |
+| NAV-02 | Phase 21 | Complete |
+| NAV-03 | Phase 21 | Complete |
+| NAV-04 | Phase 21 | Complete |
+| NAV-05 | Phase 21 | Complete |
+| NAV-06 | Phase 21 | Complete |
+| NAV-07 | Phase 21 | Complete |
+| NAV-08 | Phase 21 | Complete |
 | BUILD-01 | Phase 22 | Pending |
 | BUILD-02 | Phase 22 | Pending |
 | BUILD-03 | Phase 22 | Pending |
@@ -149,11 +149,11 @@ Requirements for FrontierOS Dashboard overhaul. Each maps to roadmap phases.
 | SUB-02 | Phase 23 | Pending |
 | SUB-03 | Phase 23 | Pending |
 | SUB-04 | Phase 23 | Pending |
-| PLACE-01 | Phase 21 | Pending |
-| PLACE-02 | Phase 21 | Pending |
-| PLACE-03 | Phase 21 | Pending |
-| PLACE-04 | Phase 21 | Pending |
-| PLACE-05 | Phase 21 | Pending |
+| PLACE-01 | Phase 21 | Complete |
+| PLACE-02 | Phase 21 | Complete |
+| PLACE-03 | Phase 21 | Complete |
+| PLACE-04 | Phase 21 | Complete |
+| PLACE-05 | Phase 21 | Complete |
 | UX-01 | Phase 24 | Pending |
 | UX-02 | Phase 24 | Pending |
 | UX-03 | Phase 24 | Pending |
@@ -168,4 +168,4 @@ Requirements for FrontierOS Dashboard overhaul. Each maps to roadmap phases.
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 after Phase 20 completion*
+*Last updated: 2026-01-29 after Phase 21 completion*
