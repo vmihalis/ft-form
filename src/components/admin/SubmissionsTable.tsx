@@ -23,6 +23,8 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { submissionsColumns, SubmissionRow } from "./submissions-columns";
 import { SubmissionsFilters } from "./SubmissionsFilters";
+import { EmptyState } from "@/components/ui/empty-state";
+import { Inbox } from "lucide-react";
 
 interface SubmissionsTableProps {
   onRowClick?: (submission: SubmissionRow) => void;
@@ -180,11 +182,13 @@ export function SubmissionsTable({ onRowClick }: SubmissionsTableProps) {
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={submissionsColumns.length}
-                  className="h-24 text-center"
-                >
-                  No submissions found.
+                <TableCell colSpan={submissionsColumns.length} className="p-0">
+                  <EmptyState
+                    icon={Inbox}
+                    title="No submissions found"
+                    description="Try adjusting your filters or wait for new submissions to come in."
+                    className="rounded-none border-0 shadow-none bg-transparent"
+                  />
                 </TableCell>
               </TableRow>
             )}

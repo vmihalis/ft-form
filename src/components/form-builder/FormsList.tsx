@@ -8,8 +8,9 @@ import { api } from "@/../convex/_generated/api";
 import { Id } from "@/../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Plus } from "lucide-react";
+import { Plus, FileText } from "lucide-react";
 import { FormsGrid } from "./FormsGrid";
+import { EmptyState } from "@/components/ui/empty-state";
 
 /**
  * Loading skeleton for forms grid
@@ -41,18 +42,15 @@ function FormsGridSkeleton() {
  */
 function FormsListEmpty() {
   return (
-    <div className="glass-card rounded-2xl p-12 text-center">
-      <h3 className="text-lg font-medium text-foreground mb-2">No forms yet</h3>
-      <p className="text-muted-foreground mb-6">
-        Create your first form to get started collecting submissions.
-      </p>
-      <Button asChild>
-        <Link href="/admin/forms/new">
-          <Plus className="h-4 w-4 mr-2" />
-          Create Form
-        </Link>
-      </Button>
-    </div>
+    <EmptyState
+      icon={FileText}
+      title="No forms yet"
+      description="Create your first form to get started collecting submissions."
+      action={{
+        label: "Create Form",
+        href: "/admin/forms/new",
+      }}
+    />
   );
 }
 
