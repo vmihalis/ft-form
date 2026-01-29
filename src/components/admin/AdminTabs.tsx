@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Plus } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import { SubmissionsTable } from "./SubmissionsTable";
 import { SubmissionSheet } from "./SubmissionSheet";
 import { SubmissionRow } from "./submissions-columns";
@@ -61,7 +64,17 @@ export function AdminTabs() {
         </TabsList>
 
         <TabsContent value="dashboard">
-          <ActivityFeed />
+          <div className="space-y-4">
+            <div className="flex justify-end">
+              <Button asChild>
+                <Link href="/admin/forms/new">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Create Form
+                </Link>
+              </Button>
+            </div>
+            <ActivityFeed />
+          </div>
         </TabsContent>
 
         <TabsContent value="submissions">
