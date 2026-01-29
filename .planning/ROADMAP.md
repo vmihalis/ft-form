@@ -57,8 +57,7 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. File field component renders with upload UI
   2. Selected files persist immediately to Convex storage (before form submission)
-  3. Uploaded files are associated with form version and can be retrieved
-  4. Upload handles reasonable file sizes (up to 50MB)
+  3. Upload handles reasonable file sizes (up to 50MB)
 **Plans**: 2 plans
 
 Plans:
@@ -76,6 +75,7 @@ Plans:
   4. Required fields and format validation (email) enforces field configuration
   5. File uploads persist immediately on selection
   6. Submission stores response data with formVersionId reference
+  7. Uploaded files are associated with form version and can be retrieved
 **Plans**: TBD
 
 Plans:
