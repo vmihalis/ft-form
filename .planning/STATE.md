@@ -5,22 +5,22 @@
 See: .planning/PROJECT.md (updated 2026-01-29)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** v1.2 Dynamic Form Builder - Phase 14 verified
+**Current focus:** v1.2 Dynamic Form Builder - Phase 15 in progress
 
 ## Current Position
 
-Phase: 14 of 15 (Form Builder UI)
-Plan: 05 of 5 complete (Phase complete)
-Status: Phase 14 verified (7/7 must-haves)
-Last activity: 2026-01-29 - Phase 14 verified, ready for Phase 15
+Phase: 15 of 15 (Admin Integration)
+Plan: 02 of 4 complete (15-01 parallel)
+Status: Phase 15 in progress
+Last activity: 2026-01-29 - Completed 15-02-PLAN.md (Submissions Table)
 
-Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [##################__] 90%
+Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [###################_] 95%
 
 ## Milestones
 
 - **v1.0 MVP** - Shipped 2026-01-28 (7 phases, 16 plans)
 - **v1.1 Admin Inline Editing** - Shipped 2026-01-29 (3 phases, 4 plans)
-- **v1.2 Dynamic Form Builder** - In progress (5 phases, 12 plans complete)
+- **v1.2 Dynamic Form Builder** - In progress (5 phases, 14 plans complete)
 
 ## Production URLs
 
@@ -32,7 +32,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 32 (v1.0: 16, v1.1: 4, v1.2: 12)
+- Total plans completed: 34 (v1.0: 16, v1.1: 4, v1.2: 14)
 - Average duration: Not tracked for previous milestones
 - Total execution time: Not tracked
 
@@ -42,7 +42,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 |-----------|--------|-------|--------|
 | v1.0 | 7 | 16 | Complete |
 | v1.1 | 3 | 4 | Complete |
-| v1.2 | 5 | 12/TBD | In progress |
+| v1.2 | 5 | 14/16 | In progress |
 
 ## Accumulated Context
 
@@ -86,6 +86,8 @@ Recent decisions affecting current work:
 - Preview Panel: Filter incomplete fields from preview
 - Publish Workflow: Validate schema before publishing (labels, options required)
 - Draft State: Reset draft when form version changes
+- Submissions Table: Filter by formName column value (not formId) for UI simplicity
+- Submissions Table: State prepared for SubmissionSheet integration (Plan 03)
 
 ### Pending Todos
 
@@ -98,8 +100,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 14-05-PLAN.md (Phase 14 complete)
+Stopped at: Completed 15-02-PLAN.md (Submissions Table)
 Resume file: None
 
 ---
-*v1.2 milestone in progress - Phase 14 Form Builder UI complete*
+*v1.2 milestone in progress - Phase 15 Admin Integration in progress*
