@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Plus, FileText } from "lucide-react";
 import { FormsGrid } from "./FormsGrid";
 import { EmptyState } from "@/components/ui/empty-state";
+import { ErrorState } from "@/components/ui/error-state";
 
 /**
  * Loading skeleton for forms grid
@@ -66,18 +67,35 @@ export function FormsList() {
   const duplicate = useMutation(api.forms.duplicate);
 
   const [duplicatingId, setDuplicatingId] = useState<Id<"forms"> | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   // Handle form duplication
   const handleDuplicate = async (formId: Id<"forms">) => {
     setDuplicatingId(formId);
+    setError(null);
     try {
       const newFormId = await duplicate({ formId });
       router.push(`/admin/forms/${newFormId}`);
-    } catch (error) {
-      console.error("Failed to duplicate form:", error);
+    } catch (err) {
+      console.error("Failed to duplicate form:", err);
+      setError("Failed to duplicate form. Please try again.");
       setDuplicatingId(null);
     }
   };
+
+  // Error state
+  if (error) {
+    return (
+      <ErrorState
+        title="Failed to load forms"
+        message={error}
+        action={{
+          label: "Retry",
+          onClick: () => setError(null),
+        }}
+      />
+    );
+  }
 
   // Loading state
   if (forms === undefined) {

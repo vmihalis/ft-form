@@ -24,6 +24,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { submissionsColumns, SubmissionRow } from "./submissions-columns";
 import { SubmissionsFilters } from "./SubmissionsFilters";
 import { EmptyState } from "@/components/ui/empty-state";
+import { ErrorState } from "@/components/ui/error-state";
 import { Inbox } from "lucide-react";
 
 interface SubmissionsTableProps {
@@ -74,6 +75,12 @@ export function SubmissionsTable({ onRowClick }: SubmissionsTableProps) {
   const [statusFilter, setStatusFilter] = useState("all");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  // Reset error and trigger refetch by forcing component to re-render
+  const handleRetry = () => {
+    setError(null);
+  };
 
   const table = useReactTable({
     data: (submissions ?? []) as SubmissionRow[],
@@ -97,6 +104,20 @@ export function SubmissionsTable({ onRowClick }: SubmissionsTableProps) {
     const dateFilter = startDate || endDate ? { start: startDate, end: endDate } : undefined;
     table.getColumn("submittedAt")?.setFilterValue(dateFilter);
   }, [startDate, endDate, table]);
+
+  // Error state
+  if (error) {
+    return (
+      <ErrorState
+        title="Failed to load submissions"
+        message={error}
+        action={{
+          label: "Retry",
+          onClick: handleRetry,
+        }}
+      />
+    );
+  }
 
   // Loading state
   if (submissions === undefined) {
