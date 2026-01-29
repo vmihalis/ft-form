@@ -84,44 +84,44 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SCHEMA-01 | — | Pending |
-| SCHEMA-02 | — | Pending |
-| SCHEMA-03 | — | Pending |
-| SCHEMA-04 | — | Pending |
-| SCHEMA-05 | — | Pending |
-| FIELD-01 | — | Pending |
-| FIELD-02 | — | Pending |
-| FIELD-03 | — | Pending |
-| FIELD-04 | — | Pending |
-| FIELD-05 | — | Pending |
-| FIELD-06 | — | Pending |
-| FIELD-07 | — | Pending |
-| FIELD-08 | — | Pending |
-| BUILD-01 | — | Pending |
-| BUILD-02 | — | Pending |
-| BUILD-03 | — | Pending |
-| BUILD-04 | — | Pending |
-| BUILD-05 | — | Pending |
-| BUILD-06 | — | Pending |
-| BUILD-07 | — | Pending |
-| BUILD-08 | — | Pending |
-| PUBLIC-01 | — | Pending |
-| PUBLIC-02 | — | Pending |
-| PUBLIC-03 | — | Pending |
-| PUBLIC-04 | — | Pending |
-| PUBLIC-05 | — | Pending |
-| PUBLIC-06 | — | Pending |
-| ADMIN-01 | — | Pending |
-| ADMIN-02 | — | Pending |
-| ADMIN-03 | — | Pending |
-| ADMIN-04 | — | Pending |
-| ADMIN-05 | — | Pending |
+| SCHEMA-01 | Phase 11 | Pending |
+| SCHEMA-02 | Phase 11 | Pending |
+| SCHEMA-03 | Phase 11 | Pending |
+| SCHEMA-04 | Phase 11 | Pending |
+| SCHEMA-05 | Phase 11 | Pending |
+| FIELD-01 | Phase 13 | Pending |
+| FIELD-02 | Phase 13 | Pending |
+| FIELD-03 | Phase 13 | Pending |
+| FIELD-04 | Phase 13 | Pending |
+| FIELD-05 | Phase 13 | Pending |
+| FIELD-06 | Phase 13 | Pending |
+| FIELD-07 | Phase 13 | Pending |
+| FIELD-08 | Phase 12 | Pending |
+| BUILD-01 | Phase 14 | Pending |
+| BUILD-02 | Phase 14 | Pending |
+| BUILD-03 | Phase 14 | Pending |
+| BUILD-04 | Phase 14 | Pending |
+| BUILD-05 | Phase 14 | Pending |
+| BUILD-06 | Phase 14 | Pending |
+| BUILD-07 | Phase 14 | Pending |
+| BUILD-08 | Phase 14 | Pending |
+| PUBLIC-01 | Phase 13 | Pending |
+| PUBLIC-02 | Phase 13 | Pending |
+| PUBLIC-03 | Phase 13 | Pending |
+| PUBLIC-04 | Phase 13 | Pending |
+| PUBLIC-05 | Phase 13 | Pending |
+| PUBLIC-06 | Phase 13 | Pending |
+| ADMIN-01 | Phase 15 | Pending |
+| ADMIN-02 | Phase 15 | Pending |
+| ADMIN-03 | Phase 15 | Pending |
+| ADMIN-04 | Phase 15 | Pending |
+| ADMIN-05 | Phase 15 | Pending |
 
 **Coverage:**
-- v1.2 requirements: 31 total
-- Mapped to phases: 0
-- Unmapped: 31
+- v1.2 requirements: 32 total
+- Mapped to phases: 32
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 after initial definition*
+*Last updated: 2026-01-29 after roadmap creation - all requirements mapped to phases*
