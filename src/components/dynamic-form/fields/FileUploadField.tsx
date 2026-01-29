@@ -2,7 +2,7 @@
 
 import { Controller, useFormContext } from "react-hook-form";
 import { Field, FieldError } from "@/components/ui/field";
-import { FileField } from "@/components/form/fields/FileField";
+import { FileField } from "./FileField";
 import type { FormField } from "@/types/form-schema";
 import type { Id } from "../../../../convex/_generated/dataModel";
 
