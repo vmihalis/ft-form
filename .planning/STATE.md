@@ -5,7 +5,7 @@
 See: .planning/PROJECT.md (updated 2026-01-29)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** v1.3 Unification & Admin Productivity
+**Current focus:** v1.3 Unification & Admin Productivity — Shipped
 
 ## Current Position
 
@@ -21,7 +21,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 - **v1.0 MVP** - Shipped 2026-01-28 (7 phases, 16 plans)
 - **v1.1 Admin Inline Editing** - Shipped 2026-01-29 (3 phases, 4 plans)
 - **v1.2 Dynamic Form Builder** - Shipped 2026-01-29 (5 phases, 15 plans)
-- **v1.3 Unification & Admin Productivity** - Complete 2026-01-29 (4 phases, 8 plans)
+- **v1.3 Unification & Admin Productivity** - Shipped 2026-01-29 (4 phases, 9 plans)
 
 ## v1.3 Phase Overview
 
@@ -52,7 +52,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 | v1.0 | 7 | 16 | Shipped |
 | v1.1 | 3 | 4 | Shipped |
 | v1.2 | 5 | 15 | Shipped |
-| v1.3 | 4 | 9 | Complete |
+| v1.3 | 4 | 9 | Shipped |
 
 ## Accumulated Context
 
@@ -86,7 +86,7 @@ None.
 
 Last session: 2026-01-29
 Stopped at: Completed 19-03-PLAN.md (Admin Notes)
-Resume with: v1.3 complete - verify all requirements or plan v1.4
+Resume with: `/gsd:audit-milestone` or `/gsd:complete-milestone`
 
 ---
 *v1.3 Unification & Admin Productivity milestone complete. All 4 phases delivered: Form Migration, Legacy Cleanup, Export, Dashboard Enhancement.*

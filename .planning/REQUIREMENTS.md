@@ -20,9 +20,9 @@ Requirements for milestone v1.3 Unification & Admin Productivity. Each maps to r
 
 ### Dashboard
 
-- [ ] **STATS-01**: Admin dashboard shows stats cards with total submissions and counts by status
-- [ ] **STATS-02**: Admin dashboard shows activity feed with recent submissions and status changes
-- [ ] **NOTES-01**: Admin can add internal notes to submissions (not visible to applicants)
+- [x] **STATS-01**: Admin dashboard shows stats cards with total submissions and counts by status
+- [x] **STATS-02**: Admin dashboard shows activity feed with recent submissions and status changes
+- [x] **NOTES-01**: Admin can add internal notes to submissions (not visible to applicants)
 
 ## Future Requirements (v1.4+)
 
@@ -77,9 +77,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | MIGRATE-03 | Phase 17 | Complete |
 | EXPORT-01 | Phase 18 | Complete |
 | EXPORT-02 | Phase 18 | Complete |
-| STATS-01 | Phase 19 | Pending |
-| STATS-02 | Phase 19 | Pending |
-| NOTES-01 | Phase 19 | Pending |
+| STATS-01 | Phase 19 | Complete |
+| STATS-02 | Phase 19 | Complete |
+| NOTES-01 | Phase 19 | Complete |
 
 **Coverage:**
 - v1.3 requirements: 8 total
@@ -88,4 +88,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 after Phase 18 complete*
+*Last updated: 2026-01-29 after Phase 19 complete — v1.3 milestone shipped*
