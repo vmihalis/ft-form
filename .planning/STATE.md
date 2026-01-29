@@ -5,22 +5,22 @@
 See: .planning/PROJECT.md (updated 2026-01-29)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** v1.2 Dynamic Form Builder - Phase 14 in progress
+**Current focus:** v1.2 Dynamic Form Builder - Phase 14 complete
 
 ## Current Position
 
 Phase: 14 of 15 (Form Builder UI)
-Plan: 04 of 5 complete (Wave 3 complete)
-Status: In progress
-Last activity: 2026-01-29 - Completed 14-04-PLAN.md (property panel and field configuration)
+Plan: 05 of 5 complete (Phase complete)
+Status: Phase 14 complete
+Last activity: 2026-01-29 - Completed 14-05-PLAN.md (preview and status actions)
 
-Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [#################___] 85%
+Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [##################__] 90%
 
 ## Milestones
 
 - **v1.0 MVP** - Shipped 2026-01-28 (7 phases, 16 plans)
 - **v1.1 Admin Inline Editing** - Shipped 2026-01-29 (3 phases, 4 plans)
-- **v1.2 Dynamic Form Builder** - In progress (5 phases, 11 plans complete)
+- **v1.2 Dynamic Form Builder** - In progress (5 phases, 12 plans complete)
 
 ## Production URLs
 
@@ -32,7 +32,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 31 (v1.0: 16, v1.1: 4, v1.2: 11)
+- Total plans completed: 32 (v1.0: 16, v1.1: 4, v1.2: 12)
 - Average duration: Not tracked for previous milestones
 - Total execution time: Not tracked
 
@@ -42,7 +42,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 |-----------|--------|-------|--------|
 | v1.0 | 7 | 16 | Complete |
 | v1.1 | 3 | 4 | Complete |
-| v1.2 | 5 | 11/TBD | In progress |
+| v1.2 | 5 | 12/TBD | In progress |
 
 ## Accumulated Context
 
@@ -82,6 +82,10 @@ Recent decisions affecting current work:
 - Property Panel: 300ms debounce for field property changes
 - Property Panel: Auto-generate option values from labels on blur
 - Property Panel: Pattern presets (phone, URL, custom) for text validation
+- Preview Panel: Mobile/desktop device modes with visual frame
+- Preview Panel: Filter incomplete fields from preview
+- Publish Workflow: Validate schema before publishing (labels, options required)
+- Draft State: Reset draft when form version changes
 
 ### Pending Todos
 
@@ -94,8 +98,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 14-04-PLAN.md (Wave 3 complete)
+Stopped at: Completed 14-05-PLAN.md (Phase 14 complete)
 Resume file: None
 
 ---
-*v1.2 milestone in progress - Phase 14 Form Builder UI Wave 3 complete*
+*v1.2 milestone in progress - Phase 14 Form Builder UI complete*
