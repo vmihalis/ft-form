@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useMutation } from "convex/react";
 import { api } from "@/../convex/_generated/api";
 import { Id } from "@/../convex/_generated/dataModel";
-import { MoreHorizontal, Pencil, Copy, Archive, ExternalLink, RotateCcw } from "lucide-react";
+import { MoreHorizontal, Pencil, Copy, Archive, ExternalLink, RotateCcw, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -20,6 +20,7 @@ interface FormQuickActionsProps {
   slug: string;
   status: "draft" | "published" | "archived";
   onDuplicate?: () => void;
+  isDuplicating?: boolean;
 }
 
 export function FormQuickActions({
@@ -27,6 +28,7 @@ export function FormQuickActions({
   slug,
   status,
   onDuplicate,
+  isDuplicating,
 }: FormQuickActionsProps) {
   const publish = useMutation(api.forms.publish);
   const unpublish = useMutation(api.forms.unpublish);
@@ -69,9 +71,21 @@ export function FormQuickActions({
         </DropdownMenuItem>
 
         {onDuplicate && (
-          <DropdownMenuItem onClick={(e) => { e.stopPropagation(); onDuplicate(); }}>
-            <Copy className="h-4 w-4 mr-2" />
-            Duplicate
+          <DropdownMenuItem
+            onClick={(e) => { e.stopPropagation(); onDuplicate(); }}
+            disabled={isDuplicating}
+          >
+            {isDuplicating ? (
+              <>
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                Duplicating...
+              </>
+            ) : (
+              <>
+                <Copy className="h-4 w-4 mr-2" />
+                Duplicate
+              </>
+            )}
           </DropdownMenuItem>
         )}
 
