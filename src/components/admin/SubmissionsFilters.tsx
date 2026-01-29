@@ -4,6 +4,8 @@ import { FormFilter } from "./FormFilter";
 import { StatusFilter } from "./StatusFilter";
 import { DateRangeFilter } from "./DateRangeFilter";
 import { SearchInput } from "./SearchInput";
+import { ExportButton } from "./ExportButton";
+import { Id } from "../../../convex/_generated/dataModel";
 
 interface SubmissionsFiltersProps {
   formFilter: string;
@@ -16,6 +18,8 @@ interface SubmissionsFiltersProps {
   onEndDateChange: (value: string) => void;
   searchValue: string;
   onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  filteredCount: number;
+  filteredIds: Id<"submissions">[];
 }
 
 export function SubmissionsFilters({
@@ -29,6 +33,8 @@ export function SubmissionsFilters({
   onEndDateChange,
   searchValue,
   onSearchChange,
+  filteredCount,
+  filteredIds,
 }: SubmissionsFiltersProps) {
   return (
     <div className="flex flex-wrap gap-4 items-center">
@@ -45,6 +51,17 @@ export function SubmissionsFilters({
         onChange={onSearchChange}
         placeholder="Search by form name..."
       />
+
+      {/* Spacer to push export right */}
+      <div className="flex-1" />
+
+      {/* Count display */}
+      <span className="text-sm text-muted-foreground whitespace-nowrap">
+        {filteredCount} submission{filteredCount !== 1 ? "s" : ""}
+      </span>
+
+      {/* Export button */}
+      <ExportButton submissionIds={filteredIds} />
     </div>
   );
 }

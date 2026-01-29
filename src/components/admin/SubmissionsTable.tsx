@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { Id } from "../../../convex/_generated/dataModel";
 import {
   useReactTable,
   getCoreRowModel,
@@ -111,6 +112,10 @@ export function SubmissionsTable({ onRowClick }: SubmissionsTableProps) {
     table.getColumn("submittedAt")?.setFilterValue(dateFilter);
   }, [startDate, endDate, table]);
 
+  // Get filtered row IDs for export
+  const filteredRows = table.getFilteredRowModel().rows;
+  const filteredIds = filteredRows.map((row) => row.original._id as Id<"submissions">);
+
   return (
     <div className="space-y-4">
       {/* Filters row */}
@@ -125,6 +130,8 @@ export function SubmissionsTable({ onRowClick }: SubmissionsTableProps) {
         onEndDateChange={setEndDate}
         searchValue={globalFilter}
         onSearchChange={(e) => setGlobalFilter(e.target.value)}
+        filteredCount={filteredRows.length}
+        filteredIds={filteredIds}
       />
 
       {/* Table */}
