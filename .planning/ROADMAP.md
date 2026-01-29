@@ -6,7 +6,7 @@
 - **v1.1 Admin Inline Editing** - Phases 8-10 (shipped 2026-01-29)
 - **v1.2 Dynamic Form Builder** - Phases 11-15 (shipped 2026-01-29)
 - **v1.3 Unification & Admin Productivity** - Phases 16-19 (shipped 2026-01-29)
-- **v2.0 FrontierOS Dashboard** - Phases 20-24 (in progress)
+- **v2.0 FrontierOS Dashboard** - Phases 20-24 (shipped 2026-01-29)
 
 ## Phases
 
@@ -49,7 +49,8 @@ See `.planning/milestones/v1.3-ROADMAP.md` for full details.
 
 </details>
 
-### v2.0 FrontierOS Dashboard (In Progress)
+<details>
+<summary>v2.0 FrontierOS Dashboard (Phases 20-24) - SHIPPED 2026-01-29</summary>
 
 **Milestone Goal:** Transform the admin dashboard into FrontierOS - a premium command center with glassmorphism design system, dashboard hub navigation, light/dark mode, and complete visual overhaul of all existing features.
 
@@ -57,7 +58,11 @@ See `.planning/milestones/v1.3-ROADMAP.md` for full details.
 - [x] **Phase 21: Dashboard Hub & Navigation** - Module cards, sidebar, placeholder modules (completed 2026-01-29)
 - [x] **Phase 22: WYSIWYG Form Builder** - Inline editing with floating toolbar (completed 2026-01-29)
 - [x] **Phase 23: Forms/Submissions Redesign** - Glass styling and animations (completed 2026-01-29)
-- [ ] **Phase 24: Polish & UX** - Microinteractions, accessibility, refinement
+- [x] **Phase 24: Polish & UX** - Microinteractions, accessibility, refinement (completed 2026-01-29)
+
+See `.planning/milestones/v2.0-ROADMAP.md` for full details.
+
+</details>
 
 ## Phase Details
 
@@ -153,8 +158,8 @@ Plans:
 - [x] 24-01-PLAN.md — Add microinteraction transitions (duration-200) to Button, Input, Textarea
 - [x] 24-02-PLAN.md — Apply glass styling to floating elements (dropdowns, tooltips, popovers, sheets, dialogs)
 - [x] 24-03-PLAN.md — Create reusable EmptyState and ErrorState components
-- [ ] 24-04-PLAN.md — [GAP] Add Submissions module card to dashboard for 2-click access
-- [ ] 24-05-PLAN.md — [GAP] Add loading state for form duplication operation
+- [x] 24-04-PLAN.md — [GAP] Add Submissions module card to dashboard for 2-click access
+- [x] 24-05-PLAN.md — [GAP] Add loading state for form duplication operation
 
 ## Progress
 
@@ -168,8 +173,8 @@ Plans:
 | 21 | v2.0 | 4/4 | Complete | 2026-01-29 |
 | 22 | v2.0 | 4/4 | Complete | 2026-01-29 |
 | 23 | v2.0 | 5/5 | Complete | 2026-01-29 |
-| 24 | v2.0 | 3/5 | Gap closure | - |
+| 24 | v2.0 | 5/5 | Complete | 2026-01-29 |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-29 after Phase 24 planning*
+*Last updated: 2026-01-29 after Phase 24 completion*
