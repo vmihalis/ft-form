@@ -24,7 +24,7 @@ Requirements for Dynamic Form Builder milestone. Each maps to roadmap phases.
 - [ ] **FIELD-05**: Number field type with optional min/max validation
 - [ ] **FIELD-06**: Date field type with calendar picker
 - [ ] **FIELD-07**: Checkbox field type for boolean/agreement inputs
-- [ ] **FIELD-08**: File upload field type with Convex storage integration
+- [x] **FIELD-08**: File upload field type with Convex storage integration
 
 ### Form Builder
 
@@ -96,7 +96,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FIELD-05 | Phase 13 | Pending |
 | FIELD-06 | Phase 13 | Pending |
 | FIELD-07 | Phase 13 | Pending |
-| FIELD-08 | Phase 12 | Pending |
+| FIELD-08 | Phase 12 | Complete |
 | BUILD-01 | Phase 14 | Pending |
 | BUILD-02 | Phase 14 | Pending |
 | BUILD-03 | Phase 14 | Pending |

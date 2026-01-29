@@ -27,7 +27,7 @@ See git history for v1.1 phase details.
 **Milestone Goal:** Enable admins to create and customize application forms with full control over fields, types, and structure. Multiple forms with unique URLs, form versioning for data integrity, and rich field types including file uploads.
 
 - [x] **Phase 11: Schema Foundation** - Database tables and versioning infrastructure
-- [ ] **Phase 12: File Upload Infrastructure** - Convex storage integration for file fields
+- [x] **Phase 12: File Upload Infrastructure** - Convex storage integration for file fields
 - [ ] **Phase 13: Dynamic Form Renderer** - Field components and public form rendering
 - [ ] **Phase 14: Form Builder UI** - Drag-and-drop form creation interface
 - [ ] **Phase 15: Admin Integration** - Forms management and dynamic submission viewing
@@ -61,8 +61,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 12-01-PLAN.md — Convex storage mutations, queries, and orphan cleanup cron
-- [ ] 12-02-PLAN.md — useFileUpload hook and FileField component with drag-and-drop
+- [x] 12-01-PLAN.md — Convex storage mutations, queries, and orphan cleanup cron
+- [x] 12-02-PLAN.md — useFileUpload hook and FileField component with drag-and-drop
 
 ### Phase 13: Dynamic Form Renderer
 **Goal**: Dynamic forms render at unique URLs with Typeform-style UX and validate based on field configuration
@@ -128,11 +128,11 @@ Phases execute in numeric order: 11 -> 12 -> 13 -> 14 -> 15
 | 1-7 | v1.0 | 16/16 | Complete | 2026-01-28 |
 | 8-10 | v1.1 | 4/4 | Complete | 2026-01-29 |
 | 11. Schema Foundation | v1.2 | 2/2 | Complete | 2026-01-29 |
-| 12. File Upload Infrastructure | v1.2 | 0/2 | Not started | - |
+| 12. File Upload Infrastructure | v1.2 | 2/2 | Complete | 2026-01-29 |
 | 13. Dynamic Form Renderer | v1.2 | 0/TBD | Not started | - |
 | 14. Form Builder UI | v1.2 | 0/TBD | Not started | - |
 | 15. Admin Integration | v1.2 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-29*
-*Last updated: 2026-01-29 after Phase 12 planning complete*
+*Last updated: 2026-01-29 after Phase 12 execution complete*
