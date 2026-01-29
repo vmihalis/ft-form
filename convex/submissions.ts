@@ -215,6 +215,81 @@ export const getEditHistory = query({
 });
 
 /**
+ * Get submission stats (counts by status)
+ * For admin dashboard stats cards
+ */
+export const getStats = query({
+  handler: async (ctx) => {
+    const submissions = await ctx.db.query("submissions").collect();
+
+    const stats = {
+      total: submissions.length,
+      new: 0,
+      under_review: 0,
+      accepted: 0,
+      rejected: 0,
+    };
+
+    for (const sub of submissions) {
+      stats[sub.status]++;
+    }
+
+    return stats;
+  },
+});
+
+/**
+ * Get recent submission activity for dashboard feed
+ * Returns enriched submissions with form name and extracted submitter name
+ */
+export const getRecentActivity = query({
+  args: { limit: v.optional(v.number()) },
+  handler: async (ctx, args) => {
+    const limit = args.limit ?? 10;
+
+    const submissions = await ctx.db
+      .query("submissions")
+      .withIndex("by_submitted")
+      .order("desc")
+      .take(limit);
+
+    const enriched = await Promise.all(
+      submissions.map(async (sub) => {
+        const version = await ctx.db.get(sub.formVersionId);
+        const form = version ? await ctx.db.get(version.formId) : null;
+
+        // Extract submitter name from data
+        const data = JSON.parse(sub.data) as Record<string, unknown>;
+        let submitterName = "Anonymous";
+
+        // Look for common name fields
+        for (const [key, value] of Object.entries(data)) {
+          if (typeof value === "string" && value.trim()) {
+            if (
+              key.toLowerCase().includes("name") &&
+              !key.toLowerCase().includes("email")
+            ) {
+              submitterName = value;
+              break;
+            }
+          }
+        }
+
+        return {
+          _id: sub._id,
+          formName: form?.name ?? "Unknown Form",
+          submitterName,
+          status: sub.status,
+          submittedAt: sub.submittedAt,
+        };
+      })
+    );
+
+    return enriched;
+  },
+});
+
+/**
  * List submissions with full data and schema for CSV export
  * Returns all data needed to generate human-readable CSV
  */
