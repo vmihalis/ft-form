@@ -290,3 +290,43 @@ export const listVersions = query({
       .collect();
   },
 });
+
+/**
+ * Duplicate an existing form
+ *
+ * Creates a copy with "-copy" suffix on slug (incrementing if exists).
+ * New form starts in draft status with same schema as original.
+ */
+export const duplicate = mutation({
+  args: { formId: v.id("forms") },
+  handler: async (ctx, args) => {
+    const form = await ctx.db.get(args.formId);
+    if (!form) throw new Error("Form not found");
+
+    // Generate unique slug with -copy suffix
+    const baseSlug = form.slug + "-copy";
+    let slug = baseSlug;
+    let counter = 1;
+
+    while (true) {
+      const existing = await ctx.db
+        .query("forms")
+        .withIndex("by_slug", (q) => q.eq("slug", slug))
+        .first();
+
+      if (!existing) break;
+      slug = `${baseSlug}-${counter++}`;
+    }
+
+    const now = Date.now();
+    return await ctx.db.insert("forms", {
+      name: `${form.name} (Copy)`,
+      slug,
+      description: form.description,
+      status: "draft",
+      draftSchema: form.draftSchema,
+      createdAt: now,
+      updatedAt: now,
+    });
+  },
+});

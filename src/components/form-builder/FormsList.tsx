@@ -1,8 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { useQuery } from "convex/react";
+import { useRouter } from "next/navigation";
+import { useQuery, useMutation } from "convex/react";
 import { api } from "@/../convex/_generated/api";
+import { Id } from "@/../convex/_generated/dataModel";
 import {
   Table,
   TableBody,
@@ -13,7 +16,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ExternalLink } from "lucide-react";
+import { Copy, ExternalLink } from "lucide-react";
 
 /**
  * Status badge colors for form status
@@ -91,10 +94,25 @@ function FormsListEmpty() {
  * Forms list table component
  *
  * Displays all forms with their status, URL slug, and creation date.
- * Each row links to the form editor.
+ * Each row links to the form editor. Includes Duplicate action.
  */
 export function FormsList() {
+  const router = useRouter();
   const forms = useQuery(api.forms.list);
+  const duplicate = useMutation(api.forms.duplicate);
+  const [duplicatingId, setDuplicatingId] = useState<Id<"forms"> | null>(null);
+
+  // Handle form duplication
+  const handleDuplicate = async (formId: Id<"forms">) => {
+    setDuplicatingId(formId);
+    try {
+      const newFormId = await duplicate({ formId });
+      router.push(`/admin/forms/${newFormId}`);
+    } catch (error) {
+      console.error("Failed to duplicate form:", error);
+      setDuplicatingId(null);
+    }
+  };
 
   // Loading state
   if (forms === undefined) {
@@ -122,6 +140,7 @@ export function FormsList() {
           const status = statusConfig[form.status];
           const createdDate = new Date(form.createdAt).toLocaleDateString();
           const formUrl = `/apply/${form.slug}`;
+          const isDuplicating = duplicatingId === form._id;
 
           return (
             <TableRow key={form._id}>
@@ -147,15 +166,29 @@ export function FormsList() {
                 {createdDate}
               </TableCell>
               <TableCell>
-                {form.status === "published" && (
-                  <Link
-                    href={formUrl}
-                    target="_blank"
-                    className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDuplicate(form._id);
+                    }}
+                    disabled={isDuplicating}
+                    className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground disabled:opacity-50"
+                    title="Duplicate form"
                   >
-                    <ExternalLink className="h-4 w-4" />
-                  </Link>
-                )}
+                    <Copy className="h-4 w-4" />
+                  </button>
+                  {form.status === "published" && (
+                    <Link
+                      href={formUrl}
+                      target="_blank"
+                      className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground"
+                      title="View live form"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                    </Link>
+                  )}
+                </div>
               </TableCell>
             </TableRow>
           );
