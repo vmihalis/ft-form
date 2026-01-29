@@ -95,10 +95,16 @@ Plans:
 - EXPORT-01: Admin can download all submissions for a form as CSV file
 - EXPORT-02: Admin can filter submissions by status and date range before exporting
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 18-01-PLAN.md — Create CSV utility and add status/date range filters
+- [ ] 18-02-PLAN.md — Add export button with schema-driven CSV headers
+
 **Success Criteria:**
 1. Admin can click export button on submissions view and download CSV
 2. CSV contains all submission fields with human-readable column headers
-3. Admin can filter by status (Pending, Reviewed, Accepted, Rejected) before exporting
+3. Admin can filter by status (New, Under Review, Accepted, Rejected) before exporting
 4. Admin can filter by date range (submitted after/before) before exporting
 5. Export respects active filters (only filtered submissions are exported)
 
@@ -133,9 +139,9 @@ Plans:
 | 11-15 | v1.2 | 15/15 | Complete | 2026-01-29 |
 | 16 | v1.3 | 1/1 | Complete | 2026-01-29 |
 | 17 | v1.3 | 2/2 | Complete | 2026-01-29 |
-| 18 | v1.3 | 0/? | Pending | — |
+| 18 | v1.3 | 0/2 | Pending | — |
 | 19 | v1.3 | 0/? | Pending | — |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-29 after Phase 17 complete*
+*Last updated: 2026-01-29 after Phase 18 planned*
