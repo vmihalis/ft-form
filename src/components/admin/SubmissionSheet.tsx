@@ -21,6 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { ChevronDown } from "lucide-react";
 import { DynamicEditableField } from "./DynamicEditableField";
 import { SubmissionEditHistory } from "./SubmissionEditHistory";
+import { NotesEditor } from "./NotesEditor";
 import type { FormSchema } from "@/types/form-schema";
 
 type SubmissionStatus = "new" | "under_review" | "accepted" | "rejected";
@@ -227,6 +228,16 @@ export function SubmissionSheet({
 
           {/* Edit History */}
           <SubmissionEditHistory submissionId={submission._id} />
+
+          <Separator />
+
+          {/* Internal Notes */}
+          <Section title="Internal Notes">
+            <NotesEditor
+              submissionId={submission._id}
+              initialNotes={submission.notes}
+            />
+          </Section>
 
           <Separator />
 
