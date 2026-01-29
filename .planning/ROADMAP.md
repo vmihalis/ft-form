@@ -114,11 +114,12 @@ Plans:
   3. Admin can duplicate existing form as starting point
   4. Submission detail panel renders fields based on form schema (not hardcoded)
   5. Edit history displays dynamic field labels correctly
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 15-01: TBD
-- [ ] 15-02: TBD
+- [ ] 15-01-PLAN.md — Tab navigation, Forms tab, form duplication
+- [ ] 15-02-PLAN.md — SubmissionsTable with FormFilter
+- [ ] 15-03-PLAN.md — SubmissionSheet with DynamicEditableField and EditHistory
 
 ## Progress
 
@@ -133,8 +134,8 @@ Phases execute in numeric order: 11 -> 12 -> 13 -> 14 -> 15
 | 12. File Upload Infrastructure | v1.2 | 2/2 | Complete | 2026-01-29 |
 | 13. Dynamic Form Renderer | v1.2 | 3/3 | Complete | 2026-01-29 |
 | 14. Form Builder UI | v1.2 | 5/5 | Complete | 2026-01-29 |
-| 15. Admin Integration | v1.2 | 0/TBD | Not started | - |
+| 15. Admin Integration | v1.2 | 0/3 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-29*
-*Last updated: 2026-01-29 after Phase 14 complete*
+*Last updated: 2026-01-29 after Phase 15 planned*
