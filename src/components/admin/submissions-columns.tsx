@@ -69,5 +69,21 @@ export const submissionsColumns: ColumnDef<SubmissionRow>[] = [
         year: "numeric",
       });
     },
+    filterFn: (row, id, filterValue) => {
+      if (!filterValue) return true;
+      const { start, end } = filterValue as { start?: string; end?: string };
+      const timestamp = row.getValue(id) as number;
+
+      if (start) {
+        const startTime = new Date(start).getTime();
+        if (timestamp < startTime) return false;
+      }
+      if (end) {
+        // End of day for end date (23:59:59.999)
+        const endTime = new Date(end).getTime() + (24 * 60 * 60 * 1000 - 1);
+        if (timestamp > endTime) return false;
+      }
+      return true;
+    },
   },
 ];

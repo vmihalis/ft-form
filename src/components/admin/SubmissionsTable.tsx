@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import {
@@ -20,8 +20,7 @@ import {
 } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { submissionsColumns, SubmissionRow } from "./submissions-columns";
-import { FormFilter } from "./FormFilter";
-import { SearchInput } from "./SearchInput";
+import { SubmissionsFilters } from "./SubmissionsFilters";
 
 interface SubmissionsTableProps {
   onRowClick?: (submission: SubmissionRow) => void;
@@ -68,6 +67,9 @@ export function SubmissionsTable({ onRowClick }: SubmissionsTableProps) {
   const submissions = useQuery(api.submissions.list, {});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const table = useReactTable({
     data: (submissions ?? []) as SubmissionRow[],
@@ -97,22 +99,33 @@ export function SubmissionsTable({ onRowClick }: SubmissionsTableProps) {
       ?.setFilterValue(value === "all" ? undefined : value);
   };
 
+  // Status filter handler
+  const handleStatusFilter = (value: string) => {
+    setStatusFilter(value);
+    table.getColumn("status")?.setFilterValue(value === "all" ? undefined : value);
+  };
+
+  // Date filter effect - update when dates change
+  useEffect(() => {
+    const dateFilter = startDate || endDate ? { start: startDate, end: endDate } : undefined;
+    table.getColumn("submittedAt")?.setFilterValue(dateFilter);
+  }, [startDate, endDate, table]);
+
   return (
     <div className="space-y-4">
       {/* Filters row */}
-      <div className="flex gap-4">
-        <FormFilter
-          value={
-            (table.getColumn("formName")?.getFilterValue() as string) ?? "all"
-          }
-          onValueChange={handleFormFilter}
-        />
-        <SearchInput
-          value={globalFilter}
-          onChange={(e) => setGlobalFilter(e.target.value)}
-          placeholder="Search by form name..."
-        />
-      </div>
+      <SubmissionsFilters
+        formFilter={(table.getColumn("formName")?.getFilterValue() as string) ?? "all"}
+        onFormFilterChange={handleFormFilter}
+        statusFilter={statusFilter}
+        onStatusFilterChange={handleStatusFilter}
+        startDate={startDate}
+        endDate={endDate}
+        onStartDateChange={setStartDate}
+        onEndDateChange={setEndDate}
+        searchValue={globalFilter}
+        onSearchChange={(e) => setGlobalFilter(e.target.value)}
+      />
 
       {/* Table */}
       <div className="rounded-md border">
