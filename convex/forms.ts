@@ -205,6 +205,28 @@ export const archive = mutation({
 });
 
 /**
+ * Unarchive form - restores archived form to draft status
+ */
+export const unarchive = mutation({
+  args: { formId: v.id("forms") },
+  handler: async (ctx, args) => {
+    const form = await ctx.db.get(args.formId);
+    if (!form) throw new Error("Form not found");
+
+    if (form.status !== "archived") {
+      throw new Error("Only archived forms can be unarchived");
+    }
+
+    await ctx.db.patch(args.formId, {
+      status: "draft",
+      updatedAt: Date.now(),
+    });
+
+    return args.formId;
+  },
+});
+
+/**
  * Unpublish form - reverts status to draft
  * Keeps the current version reference for potential re-publish
  */
@@ -325,6 +347,7 @@ export const getById = query({
 
 /**
  * List all forms (for admin dashboard)
+ * Includes submission count for each form
  */
 export const list = query({
   handler: async (ctx) => {
@@ -333,17 +356,40 @@ export const list = query({
       .order("desc")
       .collect();
 
-    return forms.map((form) => ({
-      _id: form._id,
-      name: form.name,
-      slug: form.slug,
-      description: form.description,
-      status: form.status,
-      currentVersionId: form.currentVersionId,
-      createdAt: form.createdAt,
-      updatedAt: form.updatedAt,
-      // Don't include draftSchema in list view for performance
-    }));
+    // Get submission counts for all forms
+    const formsWithCounts = await Promise.all(
+      forms.map(async (form) => {
+        // Get all versions for this form
+        const versions = await ctx.db
+          .query("formVersions")
+          .withIndex("by_form", (q) => q.eq("formId", form._id))
+          .collect();
+
+        // Count submissions across all versions
+        let submissionCount = 0;
+        for (const version of versions) {
+          const submissions = await ctx.db
+            .query("submissions")
+            .withIndex("by_version", (q) => q.eq("formVersionId", version._id))
+            .collect();
+          submissionCount += submissions.length;
+        }
+
+        return {
+          _id: form._id,
+          name: form.name,
+          slug: form.slug,
+          description: form.description,
+          status: form.status,
+          currentVersionId: form.currentVersionId,
+          createdAt: form.createdAt,
+          updatedAt: form.updatedAt,
+          submissionCount,
+        };
+      })
+    );
+
+    return formsWithCounts;
   },
 });
 
