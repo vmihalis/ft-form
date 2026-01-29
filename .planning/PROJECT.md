@@ -15,10 +15,10 @@ If everything else fails, the form must collect complete proposals and store the
 **Goal:** Unify the legacy applications system with the dynamic submissions system, and add admin productivity features.
 
 **Target features:**
-- Migrate legacy /apply form to dynamic form system (create matching form, convert data)
-- Delete legacy applications table and code after migration
-- CSV export for submissions
-- Dashboard stats (total submissions, pending count, by status)
+- Migrate legacy /apply form to dynamic form system (create matching form, no data migration)
+- Delete legacy applications table and code
+- CSV export for submissions with filtering
+- Dashboard stats and activity feed
 - Admin notes on submissions (internal comments)
 
 ## Current State
@@ -53,11 +53,12 @@ Admins can now create custom application forms with a drag-and-drop builder. For
 ### Active
 
 - [ ] **MIGRATE-01**: Create dynamic form matching original 19-field application structure
-- [ ] **MIGRATE-02**: Migrate existing applications to submissions table
-- [ ] **MIGRATE-03**: Update /apply route to use dynamic form system
-- [ ] **MIGRATE-04**: Delete legacy applications table, mutations, queries, and components
-- [ ] **EXPORT-01**: CSV export for submissions (download all submissions for a form)
-- [ ] **STATS-01**: Dashboard stats showing total submissions and counts by status
+- [ ] **MIGRATE-02**: Update /apply route to use dynamic form system
+- [ ] **MIGRATE-03**: Delete legacy applications table, mutations, queries, and components
+- [ ] **EXPORT-01**: CSV export button to download all submissions for a form
+- [ ] **EXPORT-02**: Filter submissions before export (by status, date range)
+- [ ] **STATS-01**: Stats cards showing total submissions and counts by status
+- [ ] **STATS-02**: Activity feed showing recent submissions and status changes
 - [ ] **NOTES-01**: Admin notes on submissions (internal comments, not visible to applicants)
 
 ### Future (v1.4+)
