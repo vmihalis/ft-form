@@ -1,20 +1,32 @@
-# Frontier Tower Floor Lead Application System
+# FrontierOS — Frontier Tower Management Platform
 
 ## What This Is
 
-A web application for Frontier Tower to collect and manage proposals from people who want to lead community initiatives on different floors. Features a Typeform-style public application form with smooth animations, a drag-and-drop form builder for admins to create custom forms, CSV export with filtering, real-time dashboard stats, and a password-protected admin dashboard for the FT team to review and manage submissions.
+A premium command center for managing Frontier Tower — the 16-story "vertical village" at 995 Market St, San Francisco. FrontierOS is the central dashboard where the FT team oversees all building operations: forms/applications, member management, events, space booking, and communications. Features a glassmorphism design system with translucent panels and layered depth, a dashboard hub with module cards, and light/dark mode toggle.
 
 ## Core Value
 
-**Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.**
+**The FT team can efficiently manage all aspects of Frontier Tower from a single, premium dashboard that feels as cutting-edge as the building itself.**
 
-If everything else fails, the form must collect complete proposals and store them reliably for admin review.
+If everything else fails, the dashboard must provide clear navigation to each management module and feel polished.
+
+## Current Milestone: v2.0 FrontierOS Dashboard
+
+**Goal:** Complete visual and UX overhaul transforming the admin dashboard into FrontierOS — a premium command center with glassmorphism design, dashboard hub, and full redesign of all existing features.
+
+**Target features:**
+- Dashboard hub with module cards (Forms + placeholder modules)
+- Glassmorphism design system (translucent panels, backdrop blur, layered depth)
+- Light/dark mode toggle with both themes styled
+- Full visual overhaul of Forms module, form builder, submission management
+- UX optimization (reduce clicks, improve findability, eliminate redundancy)
+- Placeholder modules: Members, Events, Spaces/Booking, Communications
 
 ## Current State
 
 **Latest Release:** v1.3 Unification & Admin Productivity (shipped 2026-01-29)
 
-The codebase is now unified under a single dynamic form system. The legacy /apply form has been migrated to the dynamic form system (Floor Lead Application with 19 fields), and all legacy application code has been deleted. Admins can export submissions to CSV with status and date range filtering. The dashboard shows real-time stats (submission counts by status) and an activity feed with recent submissions. Admins can add internal notes to submissions for collaboration.
+The codebase has a unified dynamic form system with drag-and-drop form builder, Typeform-style public forms, and admin submission management. CSV export with filtering, real-time dashboard stats, activity feed, and admin notes are all functional. The current UI uses shadcn/ui components with a basic light theme.
 
 **Production URL:** https://ft-form.vercel.app
 **Convex backend:** https://usable-bobcat-946.convex.cloud
@@ -45,7 +57,15 @@ The codebase is now unified under a single dynamic form system. The legacy /appl
 
 ### Active
 
-(No active requirements — start next milestone with `/gsd:new-milestone`)
+**v2.0 FrontierOS Dashboard:**
+- [ ] Dashboard hub with module cards layout
+- [ ] Glassmorphism design system (components, tokens, effects)
+- [ ] Light/dark mode with theme toggle
+- [ ] Full visual overhaul of Forms module
+- [ ] Full visual overhaul of form builder
+- [ ] Full visual overhaul of submission management
+- [ ] UX optimization across all interfaces
+- [ ] Placeholder modules (Members, Events, Spaces, Communications)
 
 ### Future (v1.4+)
 
@@ -147,6 +167,9 @@ The codebase is now unified under a single dynamic form system. The legacy /appl
 | Draft locking via versionId | Detects form schema changes, resets draft when outdated | ✓ Good |
 | Schema-driven admin panel | Submission display adapts to form schema instead of hardcoded fields | ✓ Good |
 | Stored fieldLabel in history | Edit history captures label at edit time, immune to schema changes | ✓ Good |
+| Glassmorphism design system | Premium aesthetic matching Frontier Tower's cutting-edge identity | — Pending |
+| Dashboard hub navigation | Module cards expand/navigate, replaces tab-based nav | — Pending |
+| Light/dark mode toggle | User choice over system preference for control | — Pending |
 
 ---
-*Last updated: 2026-01-29 after v1.3 milestone complete*
+*Last updated: 2026-01-29 after v2.0 milestone start*

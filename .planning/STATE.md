@@ -4,17 +4,17 @@
 
 See: .planning/PROJECT.md (updated 2026-01-29)
 
-**Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** Planning next milestone
+**Core value:** The FT team can efficiently manage all aspects of Frontier Tower from a single, premium dashboard that feels as cutting-edge as the building itself.
+**Current focus:** Defining requirements for v2.0 FrontierOS Dashboard
 
 ## Current Position
 
-Phase: 19 of 19 (complete)
-Plan: Complete
-Status: v1.3 milestone shipped
-Last activity: 2026-01-29 — v1.3 milestone complete
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-29 — Milestone v2.0 started
 
-Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [####################] 100% | v1.3 [####################] 100%
+Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [####################] 100% | v1.3 [####################] 100% | v2.0 [                    ] 0%
 
 ## Milestones
 
@@ -22,12 +22,12 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 - **v1.1 Admin Inline Editing** — Shipped 2026-01-29 (3 phases, 4 plans)
 - **v1.2 Dynamic Form Builder** — Shipped 2026-01-29 (5 phases, 15 plans)
 - **v1.3 Unification & Admin Productivity** — Shipped 2026-01-29 (4 phases, 8 plans)
+- **v2.0 FrontierOS Dashboard** — In progress
 
 ## Production URLs
 
 - **Application:** https://ft-form.vercel.app
-- **Apply form:** https://ft-form.vercel.app/apply
-- **Admin login:** https://ft-form.vercel.app/admin/login
+- **Admin dashboard:** https://ft-form.vercel.app/admin
 - **Convex backend:** https://usable-bobcat-946.convex.cloud
 
 ## Performance Metrics
@@ -44,6 +44,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 | v1.1 | 3 | 4 | Shipped |
 | v1.2 | 5 | 15 | Shipped |
 | v1.3 | 4 | 8 | Shipped |
+| v2.0 | TBD | TBD | In progress |
 
 ## Accumulated Context
 
@@ -62,8 +63,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: v1.3 milestone complete
-Resume with: `/gsd:new-milestone`
+Stopped at: Defining requirements for v2.0
+Resume with: Continue requirements → roadmap flow
 
 ---
-*v1.3 Unification & Admin Productivity milestone complete. Ready for next milestone.*
+*v2.0 FrontierOS Dashboard milestone started. Defining requirements.*
