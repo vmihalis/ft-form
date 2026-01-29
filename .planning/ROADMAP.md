@@ -121,8 +121,15 @@ Plans:
 - STATS-02: Admin dashboard shows activity feed with recent submissions and status changes
 - NOTES-01: Admin can add internal notes to submissions (not visible to applicants)
 
+**Plans:** 3 plans
+
+Plans:
+- [ ] 19-01-PLAN.md — Stats cards with submission counts by status
+- [ ] 19-02-PLAN.md — Activity feed with recent submissions
+- [ ] 19-03-PLAN.md — Internal notes on submissions
+
 **Success Criteria:**
-1. Dashboard displays stats cards showing total submissions and breakdown by status (Pending, Reviewed, Accepted, Rejected)
+1. Dashboard displays stats cards showing total submissions and breakdown by status (New, Under Review, Accepted, Rejected)
 2. Dashboard shows activity feed with recent submissions (name, form, timestamp)
 3. Activity feed shows recent status changes (who changed, old status, new status)
 4. Admin can add, view, and edit internal notes on any submission
@@ -140,8 +147,8 @@ Plans:
 | 16 | v1.3 | 1/1 | Complete | 2026-01-29 |
 | 17 | v1.3 | 2/2 | Complete | 2026-01-29 |
 | 18 | v1.3 | 2/2 | Complete | 2026-01-29 |
-| 19 | v1.3 | 0/? | Pending | — |
+| 19 | v1.3 | 0/3 | Planned | — |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-29 after Phase 18 complete*
+*Last updated: 2026-01-29 after Phase 19 planned*
