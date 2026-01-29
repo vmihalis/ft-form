@@ -69,6 +69,8 @@ Recent decisions for v2.0:
 - Shared AdminHeader - Theme toggle and logout accessible on all screen sizes
 - structuredClone for field duplication - Handles nested options array properly
 - " (Copy)" suffix on duplicated fields - Clear visual indicator for users
+- pointer-events-none on WYSIWYG DynamicField - Prevents accidental input during editing
+- Popover open={true} for FieldToolbar - Persistent toolbar while field is selected
 - 2-column grid layout for FieldTypePicker - Fits nicely in popover width
 - Group hover pattern for AddFieldButton - Progressive disclosure UX
 
