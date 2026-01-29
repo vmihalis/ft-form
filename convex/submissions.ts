@@ -213,3 +213,48 @@ export const getEditHistory = query({
       .collect();
   },
 });
+
+/**
+ * List submissions with full data and schema for CSV export
+ * Returns all data needed to generate human-readable CSV
+ */
+export const listForExport = query({
+  args: {
+    submissionIds: v.array(v.id("submissions")),
+  },
+  handler: async (ctx, args) => {
+    if (args.submissionIds.length === 0) {
+      return { submissions: [], schema: null, formName: "submissions" };
+    }
+
+    // Fetch all submissions
+    const submissions = await Promise.all(
+      args.submissionIds.map((id) => ctx.db.get(id))
+    );
+
+    // Filter out any nulls (shouldn't happen but defensive)
+    const validSubmissions = submissions.filter(
+      (s): s is NonNullable<typeof s> => s !== null
+    );
+
+    if (validSubmissions.length === 0) {
+      return { submissions: [], schema: null, formName: "submissions" };
+    }
+
+    // Get schema from first submission's version
+    // All filtered submissions should be from same form due to form filter
+    const firstVersion = await ctx.db.get(validSubmissions[0].formVersionId);
+    const form = firstVersion ? await ctx.db.get(firstVersion.formId) : null;
+
+    return {
+      submissions: validSubmissions.map((s) => ({
+        _id: s._id,
+        status: s.status,
+        submittedAt: s.submittedAt,
+        data: JSON.parse(s.data) as Record<string, unknown>,
+      })),
+      schema: firstVersion ? JSON.parse(firstVersion.schema) : null,
+      formName: form?.name ?? "submissions",
+    };
+  },
+});
