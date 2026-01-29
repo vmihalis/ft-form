@@ -1,0 +1,86 @@
+"use client";
+
+import Link from "next/link";
+import { motion } from "motion/react";
+import { Badge } from "@/components/ui/badge";
+import { FormQuickActions } from "./FormQuickActions";
+import { Id } from "@/../convex/_generated/dataModel";
+
+const statusConfig = {
+  draft: {
+    label: "Draft",
+    className: "bg-yellow-100/80 text-yellow-800 border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-800",
+  },
+  published: {
+    label: "Published",
+    className: "bg-green-100/80 text-green-800 border-green-300 dark:bg-green-900/30 dark:text-green-400 dark:border-green-800",
+  },
+  archived: {
+    label: "Archived",
+    className: "bg-muted text-muted-foreground border-border",
+  },
+} as const;
+
+interface FormCardProps {
+  form: {
+    _id: Id<"forms">;
+    name: string;
+    slug: string;
+    status: "draft" | "published" | "archived";
+    submissionCount: number;
+    updatedAt: number;
+  };
+  onDuplicate: () => void;
+}
+
+export function FormCard({ form, onDuplicate }: FormCardProps) {
+  const status = statusConfig[form.status];
+  const lastUpdated = new Date(form.updatedAt).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+
+  return (
+    <motion.div
+      className="glass-card rounded-2xl p-6 min-h-[180px] flex flex-col"
+      whileHover={{
+        scale: 1.02,
+        boxShadow: "0 30px 60px -12px oklch(0 0 0 / 20%)",
+      }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ duration: 0.2 }}
+    >
+      {/* Header with status and actions */}
+      <div className="flex items-start justify-between mb-4">
+        <Badge variant="outline" className={status.className}>
+          {status.label}
+        </Badge>
+        <FormQuickActions
+          formId={form._id}
+          slug={form.slug}
+          status={form.status}
+          onDuplicate={onDuplicate}
+        />
+      </div>
+
+      {/* Main content - clickable area */}
+      <Link href={`/admin/forms/${form._id}`} className="flex-1 block">
+        <h3 className="font-display text-lg font-semibold text-foreground truncate mb-2">
+          {form.name}
+        </h3>
+        <p className="text-sm text-muted-foreground truncate">/apply/{form.slug}</p>
+      </Link>
+
+      {/* Footer stats */}
+      <div
+        className="flex items-center justify-between mt-4 pt-4 text-sm text-muted-foreground"
+        style={{ borderTop: "1px solid var(--glass-border)" }}
+      >
+        <span>
+          {form.submissionCount} {form.submissionCount === 1 ? "submission" : "submissions"}
+        </span>
+        <span>Updated {lastUpdated}</span>
+      </div>
+    </motion.div>
+  );
+}
