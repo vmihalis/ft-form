@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-29)
 ## Current Position
 
 Phase: 13 of 15 (Dynamic Form Renderer)
-Plan: Ready to plan
-Status: Phase 12 complete and verified
-Last activity: 2026-01-29 - Phase 12 verified (13/13 must-haves, FIELD-08 requirement complete)
+Plan: 1 complete
+Status: In progress
+Last activity: 2026-01-29 - Completed 13-01-PLAN.md
 
-Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [########____________] 40%
+Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [##########__________] 50%
 
 ## Milestones
 
@@ -63,6 +63,9 @@ Recent decisions affecting current work:
 - File Upload Frontend: XMLHttpRequest over fetch for upload progress tracking
 - File Upload Frontend: Default 50MB max size with configurable override
 - File Upload Frontend: Default accepts images and PDF files
+- Dynamic Form Renderer: Zod v4 uses message param instead of invalid_type_error/errorMap
+- Dynamic Form Renderer: Draft locking via versionId to detect schema changes
+- Dynamic Form Renderer: Optional fields use .optional().or(z.literal("")) pattern
 
 ### Pending Todos
 
@@ -75,8 +78,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 12-02-PLAN.md
+Stopped at: Completed 13-01-PLAN.md
 Resume file: None
 
 ---
-*v1.2 milestone in progress - Phase 12 complete, ready for Phase 13 Dynamic Form Renderer*
+*v1.2 milestone in progress - Phase 13 Plan 01 complete, dynamic form infrastructure ready*
