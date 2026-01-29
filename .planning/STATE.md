@@ -5,22 +5,22 @@
 See: .planning/PROJECT.md (updated 2026-01-29)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** v1.2 Dynamic Form Builder - Ready for Phase 12 File Upload Infrastructure
+**Current focus:** v1.2 Dynamic Form Builder - Phase 12 File Upload Infrastructure in progress
 
 ## Current Position
 
 Phase: 12 of 15 (File Upload Infrastructure)
-Plan: Ready to plan
-Status: Phase 11 complete and verified
-Last activity: 2026-01-29 - Completed Phase 11 Schema Foundation (2 plans, all 5 requirements verified)
+Plan: 01 of 02 complete
+Status: In progress
+Last activity: 2026-01-29 - Completed 12-01-PLAN.md (File Upload Backend)
 
-Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [####________________] 20%
+Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [######______________] 30%
 
 ## Milestones
 
 - **v1.0 MVP** - Shipped 2026-01-28 (7 phases, 16 plans)
 - **v1.1 Admin Inline Editing** - Shipped 2026-01-29 (3 phases, 4 plans)
-- **v1.2 Dynamic Form Builder** - In progress (5 phases, 2 plans complete)
+- **v1.2 Dynamic Form Builder** - In progress (5 phases, 3 plans complete)
 
 ## Production URLs
 
@@ -32,7 +32,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 22 (v1.0: 16, v1.1: 4, v1.2: 2)
+- Total plans completed: 23 (v1.0: 16, v1.1: 4, v1.2: 3)
 - Average duration: Not tracked for previous milestones
 - Total execution time: Not tracked
 
@@ -42,7 +42,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 |-----------|--------|-------|--------|
 | v1.0 | 7 | 16 | Complete |
 | v1.1 | 3 | 4 | Complete |
-| v1.2 | 5 | 2/TBD | In progress |
+| v1.2 | 5 | 3/TBD | In progress |
 
 ## Accumulated Context
 
@@ -57,6 +57,9 @@ Recent decisions affecting current work:
 - Schema Foundation: Reserved slugs list prevents route conflicts
 - Schema Foundation: Submissions reference formVersionId (not formId)
 - File Upload: Immediate persistence pattern (avoid URL expiration)
+- File Upload Backend: Internal mutation for cleanup (not exposed publicly)
+- File Upload Backend: 24-hour grace period before orphan deletion
+- File Upload Backend: 3 AM UTC cleanup time (low traffic)
 
 ### Pending Todos
 
@@ -69,8 +72,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Phase 11 complete and verified
+Stopped at: Completed 12-01-PLAN.md
 Resume file: None
 
 ---
-*v1.2 milestone in progress — Phase 11 complete, ready for Phase 12*
+*v1.2 milestone in progress - Phase 12 Plan 01 complete, ready for Plan 02*
