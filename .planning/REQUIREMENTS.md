@@ -72,20 +72,20 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| MIGRATE-01 | TBD | Pending |
-| MIGRATE-02 | TBD | Pending |
-| MIGRATE-03 | TBD | Pending |
-| EXPORT-01 | TBD | Pending |
-| EXPORT-02 | TBD | Pending |
-| STATS-01 | TBD | Pending |
-| STATS-02 | TBD | Pending |
-| NOTES-01 | TBD | Pending |
+| MIGRATE-01 | Phase 16 | Pending |
+| MIGRATE-02 | Phase 16 | Pending |
+| MIGRATE-03 | Phase 17 | Pending |
+| EXPORT-01 | Phase 18 | Pending |
+| EXPORT-02 | Phase 18 | Pending |
+| STATS-01 | Phase 19 | Pending |
+| STATS-02 | Phase 19 | Pending |
+| NOTES-01 | Phase 19 | Pending |
 
 **Coverage:**
 - v1.3 requirements: 8 total
-- Mapped to phases: 0
-- Unmapped: 8 (pending roadmap creation)
+- Mapped to phases: 8
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-29*
-*Last updated: 2026-01-29 after initial definition*
+*Last updated: 2026-01-29 after roadmap phase mapping*
