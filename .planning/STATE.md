@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-01-29)
 
 ## Current Position
 
-Phase: 16 - Form Migration (COMPLETE)
+Phase: 17 - Legacy Cleanup (In Progress)
 Plan: 01 (complete)
-Status: Phase 16 verified, ready for Phase 17
-Last activity: 2026-01-29 — Phase 16 verified
+Status: Plan 01 complete, ready for Plan 02
+Last activity: 2026-01-29 — Completed 17-01-PLAN.md
 
-Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [####################] 100% | v1.3 [█████░░░░░░░░░░░░░░░] 25%
+Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | v1.2 [####################] 100% | v1.3 [██████████░░░░░░░░░░] 50%
 
 ## Milestones
 
@@ -27,8 +27,8 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 
 | Phase | Goal | Requirements | Status |
 |-------|------|--------------|--------|
-| 16 | Form Migration | MIGRATE-01, MIGRATE-02 | ✓ Complete |
-| 17 | Legacy Cleanup | MIGRATE-03 | Pending |
+| 16 | Form Migration | MIGRATE-01, MIGRATE-02 | Complete |
+| 17 | Legacy Cleanup | MIGRATE-03 | Plan 01 complete |
 | 18 | Export | EXPORT-01, EXPORT-02 | Pending |
 | 19 | Dashboard Enhancement | STATS-01, STATS-02, NOTES-01 | Pending |
 
@@ -42,7 +42,7 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 36 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 1)
+- Total plans completed: 37 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 2)
 - Total requirements validated: 56+
 
 **By Milestone:**
@@ -52,13 +52,17 @@ Progress: v1.0 [####################] 100% | v1.1 [####################] 100% | 
 | v1.0 | 7 | 16 | Shipped |
 | v1.1 | 3 | 4 | Shipped |
 | v1.2 | 5 | 15 | Shipped |
-| v1.3 | 4 | 1/4 | In progress |
+| v1.3 | 4 | 2/4 | In progress |
 
 ## Accumulated Context
 
 ### Decisions
 
 All decisions documented in PROJECT.md Key Decisions table.
+
+Recent (Phase 17-01):
+- Submissions is now the default admin tab (was Applications)
+- AdminDashboard no longer manages state (AdminTabs handles its own)
 
 ### Pending Todos
 
@@ -71,8 +75,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Phase 16 complete
-Resume with: `/gsd:plan-phase 17`
+Stopped at: Completed 17-01-PLAN.md
+Resume with: `/gsd:execute-phase 17-02`
 
 ---
-*Phase 16 complete, ready for Phase 17 planning*
+*Phase 17 Plan 01 complete, ready for Plan 02 (component deletion)*
