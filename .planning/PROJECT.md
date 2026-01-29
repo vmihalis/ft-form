@@ -16,6 +16,17 @@ If everything else fails, the form must collect complete proposals and store the
 
 Admins can now edit any of the 19 application fields directly in the detail panel with full edit history tracking. Click any field to edit, save with Enter/blur, cancel with Escape. All changes are recorded in a collapsible timeline.
 
+## Current Milestone: v1.2 Dynamic Form Builder
+
+**Goal:** Enable admins to create and customize application forms with full control over fields, types, and structure.
+
+**Target features:**
+- Drag-and-drop form builder UI in admin dashboard
+- Multiple forms with unique URLs (/apply/[slug])
+- Rich field types: text, textarea, email, dropdown, file upload, date, number, checkbox
+- Form versioning — submissions preserve form structure at submission time
+- Convex file storage for file upload fields
+
 ## Requirements
 
 ### Validated
@@ -32,7 +43,11 @@ Admins can now edit any of the 19 application fields directly in the detail pane
 
 ### Active
 
-(None — planning next milestone)
+- [ ] Dynamic form builder with drag-and-drop UI
+- [ ] Multiple forms with unique public URLs
+- [ ] Rich field types (text, textarea, email, dropdown, file, date, number, checkbox)
+- [ ] Form versioning for submission integrity
+- [ ] File upload support via Convex storage
 
 ### Future (v1.2+)
 
@@ -116,4 +131,4 @@ Admins can now edit any of the 19 application fields directly in the detail pane
 | Collapsible starts collapsed | Keeps detail panel clean, history expandable on demand | ✓ Good |
 
 ---
-*Last updated: 2026-01-29 after v1.1 milestone complete*
+*Last updated: 2026-01-29 after v1.2 milestone started*

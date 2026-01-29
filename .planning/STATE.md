@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-29)
 
 **Core value:** Prospective floor leads can submit compelling proposals, and the FT team can efficiently review and decide on them.
-**Current focus:** Planning next milestone
+**Current focus:** v1.2 Dynamic Form Builder
 
 ## Current Position
 
-Phase: 10 of 10 (complete)
-Plan: All complete
-Status: Ready for next milestone
-Last activity: 2026-01-29 — v1.1 milestone archived
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-29 — Milestone v1.2 started
 
-Progress: v1.0 ████████████████████ 100% | v1.1 ██████████ 100%
+Progress: v1.0 ████████████████████ 100% | v1.1 ██████████ 100% | v1.2 ░░░░░░░░░░ 0%
 
 ## Milestones
 
@@ -49,4 +49,4 @@ Stopped at: v1.1 milestone complete
 Resume file: None
 
 ---
-*v1.1 archived — Run `/gsd:new-milestone` to start next milestone*
+*v1.2 milestone in progress — defining requirements*
