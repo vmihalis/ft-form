@@ -88,6 +88,13 @@ export function SubmissionsTable({ onRowClick }: SubmissionsTableProps) {
     },
   });
 
+  // Date filter effect - update when dates change
+  // IMPORTANT: This must be before any early returns to maintain consistent hook order
+  useEffect(() => {
+    const dateFilter = startDate || endDate ? { start: startDate, end: endDate } : undefined;
+    table.getColumn("submittedAt")?.setFilterValue(dateFilter);
+  }, [startDate, endDate, table]);
+
   // Loading state
   if (submissions === undefined) {
     return <TableSkeleton />;
@@ -105,12 +112,6 @@ export function SubmissionsTable({ onRowClick }: SubmissionsTableProps) {
     setStatusFilter(value);
     table.getColumn("status")?.setFilterValue(value === "all" ? undefined : value);
   };
-
-  // Date filter effect - update when dates change
-  useEffect(() => {
-    const dateFilter = startDate || endDate ? { start: startDate, end: endDate } : undefined;
-    table.getColumn("submittedAt")?.setFilterValue(dateFilter);
-  }, [startDate, endDate, table]);
 
   // Get filtered row IDs for export
   const filteredRows = table.getFilteredRowModel().rows;
