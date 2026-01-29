@@ -143,3 +143,10 @@
   border: 1px solid oklch(1 0 0 / 10%);
   box-shadow: 0 25px 50px -12px oklch(0 0 0 / 25%);
 }
+
+/* Fix iOS Safari textarea placeholder scrolling */
+@supports (-webkit-touch-callout: none) {
+  textarea {
+    overflow: hidden;
+  }
+}
