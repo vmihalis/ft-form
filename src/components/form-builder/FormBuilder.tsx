@@ -13,6 +13,7 @@ import { StepTabs } from "./StepTabs";
 import { FormMetadataForm } from "./FormMetadataForm";
 import { FieldPalette } from "./FieldPalette";
 import { FormCanvas } from "./FormCanvas";
+import { PropertyPanel } from "./PropertyPanel";
 
 interface FormBuilderProps {
   formId: string;
@@ -123,12 +124,7 @@ export function FormBuilder({ formId, formName, formStatus }: FormBuilderProps) 
         {/* Right: Property Panel or Form Metadata */}
         <aside className="w-80 border-l p-4 bg-muted/30 overflow-y-auto">
           {selectedFieldId ? (
-            <div>
-              <h3 className="font-semibold mb-4">Field Properties</h3>
-              <p className="text-sm text-muted-foreground">
-                Select a field to edit its properties
-              </p>
-            </div>
+            <PropertyPanel fieldId={selectedFieldId} />
           ) : (
             <FormMetadataForm formId={formId} />
           )}
