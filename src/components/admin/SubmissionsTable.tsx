@@ -28,6 +28,7 @@ import { ErrorState } from "@/components/ui/error-state";
 import { Inbox } from "lucide-react";
 
 interface SubmissionsTableProps {
+  formId?: string;
   onRowClick?: (submission: SubmissionRow) => void;
 }
 
@@ -68,8 +69,8 @@ function TableSkeleton() {
   );
 }
 
-export function SubmissionsTable({ onRowClick }: SubmissionsTableProps) {
-  const submissions = useQuery(api.submissions.list, {});
+export function SubmissionsTable({ formId, onRowClick }: SubmissionsTableProps) {
+  const submissions = useQuery(api.submissions.list, formId ? { formId: formId as Id<"forms"> } : {});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -157,6 +158,7 @@ export function SubmissionsTable({ onRowClick }: SubmissionsTableProps) {
         onSearchChange={(e) => setGlobalFilter(e.target.value)}
         filteredCount={filteredRows.length}
         filteredIds={filteredIds}
+        hideFormFilter={!!formId}
       />
 
       {/* Table */}

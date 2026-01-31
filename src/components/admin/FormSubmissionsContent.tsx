@@ -4,15 +4,19 @@ import { useState } from "react";
 import { SubmissionsTable } from "@/components/admin/SubmissionsTable";
 import { SubmissionSheet } from "@/components/admin/SubmissionSheet";
 import { SubmissionRow } from "@/components/admin/submissions-columns";
-import { Id } from "../../../../convex/_generated/dataModel";
+import { Id } from "../../../convex/_generated/dataModel";
+
+interface FormSubmissionsContentProps {
+  formId: string;
+}
 
 /**
- * SubmissionsPageContent - Client wrapper for submissions page
+ * FormSubmissionsContent - Per-form submissions wrapper
  *
- * Manages state for selected submission and sheet visibility.
- * Separated from server component to enable interactive features.
+ * Displays submissions filtered to a specific form with detail sheet.
+ * Used in the form detail page's Submissions tab.
  */
-export function SubmissionsPageContent() {
+export function FormSubmissionsContent({ formId }: FormSubmissionsContentProps) {
   const [selectedSubmission, setSelectedSubmission] =
     useState<SubmissionRow | null>(null);
   const [submissionSheetOpen, setSubmissionSheetOpen] = useState(false);
@@ -24,7 +28,7 @@ export function SubmissionsPageContent() {
 
   return (
     <>
-      <SubmissionsTable onRowClick={handleSubmissionClick} />
+      <SubmissionsTable formId={formId} onRowClick={handleSubmissionClick} />
       <SubmissionSheet
         submissionId={selectedSubmission?._id as Id<"submissions"> | null}
         open={submissionSheetOpen}

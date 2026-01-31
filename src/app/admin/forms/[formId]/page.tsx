@@ -3,27 +3,28 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { decrypt } from "@/lib/auth/session";
 import { AnimatedPage } from "@/components/ui/animated-page";
-import { FormBuilderWrapper } from "@/components/form-builder/FormBuilderWrapper";
+import { FormDetailTabs } from "@/components/admin/FormDetailTabs";
 
 /**
- * Metadata for the form builder page
+ * Metadata for the form detail page
  */
 export const metadata: Metadata = {
-  title: "Form Builder | Frontier Tower Admin",
-  description: "Edit form structure and fields",
+  title: "Form | Frontier Tower Admin",
+  description: "View submissions and edit form structure",
 };
 
-interface FormBuilderPageProps {
+interface FormDetailPageProps {
   params: Promise<{ formId: string }>;
 }
 
 /**
- * Form Builder Edit Page
+ * Form Detail Page
  *
- * Server component with auth check that renders the FormBuilder client component.
- * The formId param is passed to FormBuilderWrapper which handles data loading.
+ * Server component with auth check that renders a tabbed interface for:
+ * - Submissions tab (default): View and manage form submissions
+ * - Builder tab: Edit form structure and fields
  */
-export default async function FormBuilderPage({ params }: FormBuilderPageProps) {
+export default async function FormDetailPage({ params }: FormDetailPageProps) {
   // Defense in depth: verify session even though middleware checks too
   const cookieStore = await cookies();
   const session = await decrypt(cookieStore.get("session")?.value);
@@ -36,8 +37,8 @@ export default async function FormBuilderPage({ params }: FormBuilderPageProps) 
   const { formId } = await params;
 
   return (
-    <AnimatedPage>
-      <FormBuilderWrapper formId={formId} />
+    <AnimatedPage className="min-h-screen">
+      <FormDetailTabs formId={formId} />
     </AnimatedPage>
   );
 }

@@ -49,11 +49,6 @@ export default async function DashboardPage() {
             href="/admin/forms"
           />
           <ModuleCard
-            icon="Inbox"
-            label="Submissions"
-            href="/admin/submissions"
-          />
-          <ModuleCard
             icon="Users"
             label="Members"
             disabled

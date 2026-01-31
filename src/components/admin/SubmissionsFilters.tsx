@@ -20,6 +20,7 @@ interface SubmissionsFiltersProps {
   onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   filteredCount: number;
   filteredIds: Id<"submissions">[];
+  hideFormFilter?: boolean;
 }
 
 export function SubmissionsFilters({
@@ -35,6 +36,7 @@ export function SubmissionsFilters({
   onSearchChange,
   filteredCount,
   filteredIds,
+  hideFormFilter,
 }: SubmissionsFiltersProps) {
   return (
     <div className="glass-card rounded-2xl p-4">
@@ -47,7 +49,9 @@ export function SubmissionsFilters({
             placeholder="Search by form name..."
             className="bg-background/50 border-glass-border"
           />
-          <FormFilter value={formFilter} onValueChange={onFormFilterChange} />
+          {!hideFormFilter && (
+            <FormFilter value={formFilter} onValueChange={onFormFilterChange} />
+          )}
           <StatusFilter value={statusFilter} onValueChange={onStatusFilterChange} />
           <DateRangeFilter
             startDate={startDate}
