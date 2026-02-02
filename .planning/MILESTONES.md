@@ -1,5 +1,33 @@
 # Project Milestones: Frontier Tower Floor Lead Application System
 
+## v2.0 FrontierOS Dashboard (Shipped: 2026-01-29)
+
+**Delivered:** Complete visual and UX overhaul transforming the admin dashboard into FrontierOS — a premium command center with glassmorphism design, light/dark mode, dashboard hub navigation, WYSIWYG form builder, and redesigned forms/submissions management.
+
+**Phases completed:** 20-24 (21 plans total)
+
+**Key accomplishments:**
+
+- Glassmorphism design system with light/dark mode toggle, theme-aware CSS variables, and glass utilities (backdrop-blur, translucent panels)
+- Dashboard hub with module cards landing page (Forms + Members, Events, Spaces/Booking, Wellness placeholders)
+- Collapsible sidebar with localStorage persistence and mobile hamburger menu with sheet overlay
+- WYSIWYG form builder — live preview editing, floating toolbar, plus buttons for field insertion, drag-and-drop reordering
+- Forms/submissions redesign with glassmorphism cards, submission counts, quick actions, animated transitions
+- Premium UX polish — microinteractions (200ms transitions), reusable EmptyState/ErrorState, loading states
+
+**Stats:**
+
+- 98 files modified (+12,631 lines, -535 lines)
+- ~681,000 lines TypeScript (total codebase including dependencies)
+- 5 phases, 21 plans, 37 requirements satisfied
+- Same day ship (2026-01-29)
+
+**Git range:** `feat(20-01)` → `feat(24-05)`
+
+**What's next:** v2.1+ (command palette, animated background, member/event/space management)
+
+---
+
 ## v1.3 Unification & Admin Productivity (Shipped: 2026-01-29)
 
 **Delivered:** Unified legacy applications into dynamic form system, deleted all legacy code, added CSV export with filtering, dashboard stats, activity feed, and admin notes.

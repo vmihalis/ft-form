@@ -10,27 +10,20 @@ A premium command center for managing Frontier Tower — the 16-story "vertical 
 
 If everything else fails, the dashboard must provide clear navigation to each management module and feel polished.
 
-## Current Milestone: v2.0 FrontierOS Dashboard
-
-**Goal:** Complete visual and UX overhaul transforming the admin dashboard into FrontierOS — a premium command center with glassmorphism design, dashboard hub, and full redesign of all existing features.
-
-**Target features:**
-- Dashboard hub with module cards (Forms + placeholder modules)
-- Glassmorphism design system (translucent panels, backdrop blur, layered depth)
-- Light/dark mode toggle with both themes styled
-- Full visual overhaul of Forms module, form builder, submission management
-- UX optimization (reduce clicks, improve findability, eliminate redundancy)
-- Placeholder modules: Members, Events, Spaces/Booking, Communications
-
 ## Current State
 
-**Latest Release:** v1.3 Unification & Admin Productivity (shipped 2026-01-29)
+**Latest Release:** v2.0 FrontierOS Dashboard (shipped 2026-01-29)
 
-The codebase has a unified dynamic form system with drag-and-drop form builder, Typeform-style public forms, and admin submission management. CSV export with filtering, real-time dashboard stats, activity feed, and admin notes are all functional. The current UI uses shadcn/ui components with a basic light theme.
+FrontierOS is now a premium command center with:
+- **Glassmorphism design system** — Light/dark mode, theme toggle, glass utilities (backdrop-blur, translucent panels), CSS variable tokens
+- **Dashboard hub** — Module cards landing (Forms + 4 placeholders), collapsible sidebar (240px/64px), mobile hamburger menu
+- **WYSIWYG form builder** — Live preview editing, floating toolbar, plus buttons for insertion, drag-and-drop reorder
+- **Redesigned forms/submissions** — Glass card styling, submission counts, quick actions, animated transitions
+- **Premium UX** — Microinteractions (200ms), EmptyState/ErrorState components, loading states throughout
 
 **Production URL:** https://ft-form.vercel.app
 **Convex backend:** https://usable-bobcat-946.convex.cloud
-**Total codebase:** ~10,556 lines TypeScript
+**Total codebase:** ~681,000 lines TypeScript (including dependencies)
 
 ## Requirements
 
@@ -54,21 +47,29 @@ The codebase has a unified dynamic form system with drag-and-drop form builder, 
 - ✓ **EXPORT-01 to EXPORT-02** — v1.3: CSV export with status and date range filtering
 - ✓ **STATS-01 to STATS-02** — v1.3: Dashboard stats cards and activity feed
 - ✓ **NOTES-01** — v1.3: Internal notes on submissions
+- ✓ **DS-01 to DS-07** — v2.0: Theme toggle, localStorage persistence, glass utilities, CSS variables, glassmorphism floating elements, microinteractions, documented tokens
+- ✓ **NAV-01 to NAV-08** — v2.0: Dashboard hub landing, module cards, navigation, collapsible sidebar, collapse persistence, responsive mobile
+- ✓ **BUILD-01 to BUILD-09** — v2.0: WYSIWYG form builder, floating toolbar, plus buttons, field type picker, inline editing, drag-and-drop, all field types, validation feedback, no preview mode
+- ✓ **FORM-01 to FORM-04** — v2.0: Glassmorphism forms list, status/count/updated, quick actions, animated transitions
+- ✓ **SUB-01 to SUB-04** — v2.0: Glassmorphism submissions table, glass detail panel, information density, animated transitions
+- ✓ **PLACE-01 to PLACE-05** — v2.0: Members, Events, Spaces/Booking, Wellness placeholders with Coming Soon state
+- ✓ **UX-01 to UX-06** — v2.0: 2-click access, no redundancy, visual hierarchy, loading states, empty states, error states
 
 ### Active
 
-**v2.0 FrontierOS Dashboard:**
-- [ ] Dashboard hub with module cards layout
-- [ ] Glassmorphism design system (components, tokens, effects)
-- [ ] Light/dark mode with theme toggle
-- [ ] Full visual overhaul of Forms module
-- [ ] Full visual overhaul of form builder
-- [ ] Full visual overhaul of submission management
-- [ ] UX optimization across all interfaces
-- [ ] Placeholder modules (Members, Events, Spaces, Communications)
+*No active requirements — ready for next milestone planning*
 
-### Future (v1.4+)
+### Future (v2.1+)
 
+- **CMD-01**: Cmd+K opens command palette for quick navigation
+- **CMD-02**: Search across forms, submissions, and actions
+- **CMD-03**: Keyboard shortcuts for common actions
+- **BG-01**: NeuralBackground enabled on admin routes with reduced animation
+- **BG-02**: Glass panels blur background for depth effect
+- **MEM-01**: Full member management functionality (TBD after stakeholder meeting)
+- **EVT-01**: Full event management functionality (TBD after stakeholder meeting)
+- **SPC-01**: Full space booking functionality (TBD after stakeholder meeting)
+- **COM-01**: Full communications functionality (TBD after stakeholder meeting)
 - **COND-01**: Conditional logic — show/hide fields based on other field values
 - **COND-02**: Field branching — skip to different steps based on answers
 - **MULTI-01**: Multi-column field layouts
@@ -77,7 +78,6 @@ The codebase has a unified dynamic form system with drag-and-drop form builder, 
 - **ANAL-01**: Form analytics (completion rates, drop-off points)
 - **UX-V2-01**: Keyboard navigation (Enter to advance, arrow keys)
 - **UX-V2-02**: Estimated completion time shown at start
-- **UX-V2-03**: Microinteractions and button press feedback
 - **UX-V2-04**: Success animation on form submission
 - **ADMIN-V2-04**: Individual admin accounts with audit trail
 - **ADMIN-V2-05**: Email notifications on new submissions
@@ -167,9 +167,15 @@ The codebase has a unified dynamic form system with drag-and-drop form builder, 
 | Draft locking via versionId | Detects form schema changes, resets draft when outdated | ✓ Good |
 | Schema-driven admin panel | Submission display adapts to form schema instead of hardcoded fields | ✓ Good |
 | Stored fieldLabel in history | Edit history captures label at edit time, immune to schema changes | ✓ Good |
-| Glassmorphism design system | Premium aesthetic matching Frontier Tower's cutting-edge identity | — Pending |
-| Dashboard hub navigation | Module cards expand/navigate, replaces tab-based nav | — Pending |
-| Light/dark mode toggle | User choice over system preference for control | — Pending |
+| Glassmorphism design system | Premium aesthetic matching Frontier Tower's cutting-edge identity | ✓ Good |
+| Dashboard hub navigation | Module cards expand/navigate, replaces tab-based nav | ✓ Good |
+| Light/dark mode toggle | User choice over system preference for control | ✓ Good |
+| next-themes with attribute="class" | Tailwind CSS dark mode compatibility | ✓ Good |
+| Glass CSS variables pattern | Theme-aware components use var(--glass-*) tokens | ✓ Good |
+| Manual localStorage sync for sidebar | Simpler than zustand persist middleware, explicit control | ✓ Good |
+| WYSIWYG builder (no preview mode) | Builder IS preview, reduces complexity (BUILD-09) | ✓ Good |
+| AnimatedPage client component | Enables animation while preserving server auth | ✓ Good |
+| Semi-transparent loading overlay | bg-background/50 maintains visibility during operations | ✓ Good |
 
 ---
-*Last updated: 2026-01-29 after v2.0 milestone start*
+*Last updated: 2026-02-02 after v2.0 milestone completion*
