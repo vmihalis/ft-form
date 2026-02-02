@@ -98,8 +98,13 @@ export function buildFieldSchema(field: FormField): z.ZodTypeAny {
       break;
 
     case "checkbox":
-      // Checkbox returns boolean
-      schema = z.boolean();
+      // Checkbox with options returns array of selected values
+      // Checkbox without options returns boolean
+      if (field.options && field.options.length > 0) {
+        schema = z.array(z.string());
+      } else {
+        schema = z.boolean();
+      }
       break;
 
     case "file":
