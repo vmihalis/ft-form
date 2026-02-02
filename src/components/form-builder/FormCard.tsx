@@ -46,7 +46,7 @@ export function FormCard({ form, onDuplicate, isLoading }: FormCardProps) {
   return (
     <motion.div
       className={cn(
-        "glass-card rounded-2xl p-6 min-h-[180px] flex flex-col relative",
+        "glass-card rounded-2xl p-6 min-h-[180px] flex flex-col relative group",
         isLoading && "pointer-events-none"
       )}
       whileHover={{
@@ -56,6 +56,13 @@ export function FormCard({ form, onDuplicate, isLoading }: FormCardProps) {
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.2 }}
     >
+      {/* Full card clickable link overlay */}
+      <Link
+        href={`/admin/forms/${form._id}`}
+        className="absolute inset-0 z-0 rounded-2xl"
+        aria-label={`Edit ${form.name}`}
+      />
+
       {/* Loading overlay */}
       {isLoading && (
         <div className="absolute inset-0 bg-background/50 rounded-2xl flex items-center justify-center z-10">
@@ -64,7 +71,7 @@ export function FormCard({ form, onDuplicate, isLoading }: FormCardProps) {
       )}
 
       {/* Header with status and actions */}
-      <div className={cn("flex items-start justify-between mb-4", isLoading && "opacity-50")}>
+      <div className={cn("flex items-start justify-between mb-4 relative z-[1]", isLoading && "opacity-50")}>
         <Badge variant="outline" className={status.className}>
           {status.label}
         </Badge>
@@ -77,13 +84,13 @@ export function FormCard({ form, onDuplicate, isLoading }: FormCardProps) {
         />
       </div>
 
-      {/* Main content - clickable area */}
-      <Link href={`/admin/forms/${form._id}`} className={cn("flex-1 block", isLoading && "opacity-50")}>
+      {/* Main content */}
+      <div className={cn("flex-1", isLoading && "opacity-50")}>
         <h3 className="font-display text-lg font-semibold text-foreground truncate mb-2">
           {form.name}
         </h3>
         <p className="text-sm text-muted-foreground truncate">/apply/{form.slug}</p>
-      </Link>
+      </div>
 
       {/* Footer stats */}
       <div
