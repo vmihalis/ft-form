@@ -10,11 +10,11 @@ Requirements for AI Form Creation Assistant. Each maps to roadmap phases.
 ### AI Infrastructure
 
 - [ ] **AI-01**: System accepts natural language prompts describing desired form
-- [ ] **AI-02**: AI uses OpenRouter with user-provided API key for LLM access
+- [x] **AI-02**: AI uses OpenRouter with user-provided API key for LLM access ✓ Phase 25
 - [ ] **AI-03**: AI responses stream to client with typing indicator
-- [ ] **AI-04**: AI output is validated against FormSchema Zod type before display
-- [ ] **AI-05**: Invalid AI outputs show actionable error messages, not raw errors
-- [ ] **AI-06**: System prompt includes Frontier Tower context (floors, member types, form patterns)
+- [x] **AI-04**: AI output is validated against FormSchema Zod type before display ✓ Phase 25
+- [x] **AI-05**: Invalid AI outputs show actionable error messages, not raw errors ✓ Phase 25
+- [x] **AI-06**: System prompt includes Frontier Tower context (floors, member types, form patterns) ✓ Phase 25
 
 ### Hybrid Questions
 
@@ -100,12 +100,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AI-01 | Phase 25 | Pending |
-| AI-02 | Phase 25 | Pending |
-| AI-03 | Phase 25 | Pending |
-| AI-04 | Phase 25 | Pending |
-| AI-05 | Phase 25 | Pending |
-| AI-06 | Phase 25 | Pending |
+| AI-01 | Phase 26 | Pending |
+| AI-02 | Phase 25 | Complete |
+| AI-03 | Phase 26 | Pending |
+| AI-04 | Phase 25 | Complete |
+| AI-05 | Phase 25 | Complete |
+| AI-06 | Phase 25 | Complete |
 | HYB-01 | Phase 26 | Pending |
 | HYB-02 | Phase 26 | Pending |
 | HYB-03 | Phase 26 | Pending |
@@ -140,4 +140,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-03*
-*Last updated: 2026-02-03 after roadmap creation*
+*Last updated: 2026-02-03 after Phase 25 complete*

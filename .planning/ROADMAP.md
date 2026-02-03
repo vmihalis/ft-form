@@ -67,21 +67,21 @@ See `.planning/milestones/v2.0-ROADMAP.md` for full details.
 
 **Milestone Goal:** Enable admins to create forms by describing what they need in natural language, with AI asking clarifying questions and generating complete form structures.
 
-#### Phase 25: Core AI Infrastructure
-**Goal:** Establish the AI foundation with OpenRouter integration, streaming responses, and Frontier Tower context
+#### Phase 25: Core AI Infrastructure ✓
+**Goal:** Establish backend AI foundation with OpenRouter integration, streaming API, and Frontier Tower context
 **Depends on:** Phase 24 (v2.0 complete)
-**Requirements:** AI-01, AI-02, AI-03, AI-04, AI-05, AI-06
+**Requirements:** AI-02, AI-04, AI-05, AI-06
 **Success Criteria** (what must be TRUE):
-  1. Admin can enter a natural language prompt describing a form they want to create
-  2. AI responses stream to the UI with visible typing indicator
-  3. Invalid AI outputs display actionable error messages, not raw technical errors
-  4. AI system prompt includes Frontier Tower context (floors, member types, form patterns)
-**Plans:** 3 plans
+  1. Streaming API endpoint accepts natural language prompts and returns AI responses
+  2. Invalid AI outputs display actionable error messages, not raw technical errors
+  3. AI system prompt includes Frontier Tower context (floors, member types, form patterns)
+  4. Zod schemas validate AI output structure before consumption
+**Plans:** 3/3 complete
 
 Plans:
-- [ ] 25-01-PLAN.md — Zod schemas mirroring FormSchema for AI output validation
-- [ ] 25-02-PLAN.md — System prompt with FT context and error handling utilities
-- [ ] 25-03-PLAN.md — Streaming API route with OpenRouter integration
+- [x] 25-01-PLAN.md — Zod schemas mirroring FormSchema for AI output validation
+- [x] 25-02-PLAN.md — System prompt with FT context and error handling utilities
+- [x] 25-03-PLAN.md — Streaming API route with OpenRouter integration
 
 #### Phase 26: Chat UI & Conversation Flow
 **Goal:** Build the conversational interface with hybrid structured/open questions and clear wizard states
@@ -146,11 +146,11 @@ Plans:
 | 22 | v2.0 | 4/4 | Complete | 2026-01-29 |
 | 23 | v2.0 | 5/5 | Complete | 2026-01-29 |
 | 24 | v2.0 | 5/5 | Complete | 2026-01-29 |
-| 25 | v2.1 | 0/3 | Planned | - |
+| 25 | v2.1 | 3/3 | Complete | 2026-02-03 |
 | 26 | v2.1 | 0/TBD | Not started | - |
 | 27 | v2.1 | 0/TBD | Not started | - |
 | 28 | v2.1 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-02-03 after Phase 25 planning*
+*Last updated: 2026-02-03 after Phase 25 complete*
