@@ -1,8 +1,29 @@
 import { createOpenRouter } from "@openrouter/ai-sdk-provider";
-import { streamText } from "ai";
+import { streamText, type UIMessage } from "ai";
 import { FORM_CREATION_SYSTEM_PROMPT } from "@/lib/ai/system-prompt";
 import { transformAIError } from "@/lib/ai/error-handling";
 import { isValidOpenRouterKeyFormat } from "@/lib/ai/api-key";
+
+/**
+ * Convert UIMessage[] (from useChat) to messages array for streamText
+ *
+ * useChat sends UIMessage format with parts array, but streamText expects
+ * simple role + content format.
+ */
+function convertToCoreMessages(messages: UIMessage[]): Array<{ role: 'user' | 'assistant'; content: string }> {
+  return messages.map((msg) => {
+    // Extract text content from parts
+    const textContent = msg.parts
+      ?.filter((part): part is { type: 'text'; text: string } => part.type === 'text')
+      .map((part) => part.text)
+      .join('') || '';
+
+    return {
+      role: msg.role as 'user' | 'assistant',
+      content: textContent,
+    };
+  });
+}
 
 // Allow up to 60s for complex form generation
 export const maxDuration = 60;
@@ -88,11 +109,14 @@ export async function POST(req: Request) {
         ? buildContextualPrompt(formType as FormType, audience as Audience)
         : FORM_CREATION_SYSTEM_PROMPT;
 
+    // Convert UIMessages to CoreMessages for streamText
+    const coreMessages = convertToCoreMessages(messages);
+
     // Stream response from Claude
     const result = streamText({
       model: openrouter("anthropic/claude-sonnet-4"),
       system: systemPrompt,
-      messages,
+      messages: coreMessages,
     });
 
     // Return streaming response in AI SDK format
