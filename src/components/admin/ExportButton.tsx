@@ -7,7 +7,7 @@ import { Id } from "../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import { Download, Loader2 } from "lucide-react";
 import { generateCSV, downloadCSV } from "@/lib/csv-export";
-import type { FormSchema } from "@/types/form-schema";
+import type { FormSchema, FormField } from "@/types/form-schema";
 
 interface ExportButtonProps {
   submissionIds: Id<"submissions">[];
@@ -22,6 +22,48 @@ function formatStatus(status: string): string {
     rejected: "Rejected",
   };
   return statusLabels[status] || status;
+}
+
+/**
+ * Convert raw field value to display label
+ * - Select/radio: look up option label
+ * - Checkbox with options (array): join option labels
+ * - Checkbox (boolean): Yes/No
+ * - Other: return as-is
+ */
+function formatFieldValue(
+  value: unknown,
+  field: FormField
+): string {
+  if (value === undefined || value === null || value === "") {
+    return "";
+  }
+
+  const { type, options } = field;
+
+  // Select or radio: single value lookup
+  if ((type === "select" || type === "radio") && options) {
+    const option = options.find((opt) => opt.value === String(value));
+    return option?.label ?? String(value);
+  }
+
+  // Checkbox with options: array of values
+  if (type === "checkbox" && options && Array.isArray(value)) {
+    if (value.length === 0) return "";
+    return value
+      .map((v) => {
+        const option = options.find((opt) => opt.value === String(v));
+        return option?.label ?? String(v);
+      })
+      .join("; "); // Use semicolon to avoid CSV comma conflicts
+  }
+
+  // Simple boolean checkbox
+  if (type === "checkbox") {
+    return value === true || value === "true" ? "Yes" : "No";
+  }
+
+  return String(value);
 }
 
 export function ExportButton({ submissionIds, disabled }: ExportButtonProps) {
@@ -58,20 +100,33 @@ export function ExportButton({ submissionIds, disabled }: ExportButtonProps) {
       { key: "_submittedAt", label: "Submitted Date" },
     ];
 
+    // Build field map for value transformation
+    const fieldMap = new Map<string, FormField>();
     if (parsedSchema) {
       parsedSchema.steps.forEach((step) => {
         step.fields.forEach((field) => {
           headers.push({ key: field.id, label: field.label });
+          fieldMap.set(field.id, field);
         });
       });
     }
 
-    // Build data rows
-    const data = submissions.map((sub) => ({
-      _status: formatStatus(sub.status),
-      _submittedAt: new Date(sub.submittedAt).toISOString().split("T")[0],
-      ...sub.data,
-    }));
+    // Build data rows with formatted values
+    const data = submissions.map((sub) => {
+      const row: Record<string, string> = {
+        _status: formatStatus(sub.status),
+        _submittedAt: new Date(sub.submittedAt).toISOString().split("T")[0],
+      };
+
+      // Format each field value using schema
+      const subData = sub.data as Record<string, unknown>;
+      for (const [fieldId, value] of Object.entries(subData)) {
+        const field = fieldMap.get(fieldId);
+        row[fieldId] = field ? formatFieldValue(value, field) : String(value ?? "");
+      }
+
+      return row;
+    });
 
     // Generate and download
     const csv = generateCSV(data, headers);
