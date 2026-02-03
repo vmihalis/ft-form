@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from 'react';
 import type { UIMessage, ChatStatus } from 'ai';
 import { ArrowLeft, RefreshCw, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 import { ChatMessage } from '../ChatMessage';
 import { ChatInput } from '../ChatInput';
 import { TypingIndicator } from '../TypingIndicator';
@@ -19,6 +21,8 @@ interface ChatStepProps {
   onBack: () => void;
   formType: FormType;
   audience: Audience;
+  directToDraft: boolean;
+  onDirectToDraftChange: (value: boolean) => void;
 }
 
 /**
@@ -41,6 +45,8 @@ export function ChatStep({
   onBack,
   formType,
   audience,
+  directToDraft,
+  onDirectToDraftChange,
 }: ChatStepProps) {
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -98,6 +104,18 @@ export function ChatStep({
             {audienceLabels[audience]}
           </span>
         </div>
+      </div>
+
+      {/* Direct-to-draft toggle (PRV-05) */}
+      <div className="flex items-center justify-end gap-2 py-2 text-sm">
+        <Label htmlFor="direct-draft" className="text-muted-foreground cursor-pointer">
+          Skip preview
+        </Label>
+        <Switch
+          id="direct-draft"
+          checked={directToDraft}
+          onCheckedChange={onDirectToDraftChange}
+        />
       </div>
 
       {/* Messages area */}
