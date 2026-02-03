@@ -8,7 +8,7 @@ const WIZARD_STEPS: { id: WizardStep; label: string }[] = [
   { id: 'form-type', label: 'Form Type' },
   { id: 'audience', label: 'Audience' },
   { id: 'chat', label: 'Describe' },
-  { id: 'generating', label: 'Generate' },
+  { id: 'preview', label: 'Preview' },
 ];
 
 interface WizardStepIndicatorProps {
