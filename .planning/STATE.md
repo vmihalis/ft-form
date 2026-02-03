@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-03)
 ## Current Position
 
 Phase: 26 of 28 (Chat UI & Conversation Flow)
-Plan: 1 of 3 complete
+Plan: 2 of 3 complete
 Status: In progress
-Last activity: 2026-02-03 - Completed 26-01-PLAN.md (Wizard Shell & Selection Steps)
+Last activity: 2026-02-03 - Completed 26-02-PLAN.md (Chat Step with useChat)
 
-Progress: v2.1 Phase 26 [###-------] 33%
+Progress: v2.1 Phase 26 [######----] 67%
 
 ## Milestones
 
@@ -34,7 +34,7 @@ Progress: v2.1 Phase 26 [###-------] 33%
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 68 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 21, v2.1: 4)
+- Total plans completed: 69 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 21, v2.1: 5)
 - Total requirements validated: 37 (v2.0) + previous milestones
 
 **By Milestone:**
@@ -46,7 +46,7 @@ Progress: v2.1 Phase 26 [###-------] 33%
 | v1.2 | 5 | 15 | Shipped |
 | v1.3 | 4 | 8 | Shipped |
 | v2.0 | 5 | 21 | Shipped & Archived |
-| v2.1 | 4 | 4/12 | In Progress |
+| v2.1 | 4 | 5/12 | In Progress |
 
 ## Accumulated Context
 
@@ -77,6 +77,11 @@ Phase 26 Plan 01:
 - Types (FormType, Audience, WizardStep) exported from AIFormWizard.tsx for reuse
 - Click-to-advance pattern: card selection immediately advances to next step
 
+Phase 26 Plan 02:
+- DefaultChatTransport used for AI SDK v6 (not direct api/body on useChat)
+- Memoize transport to prevent re-creation on render
+- Message parts extraction (`.parts` array not `.content` string) per AI SDK v6
+
 ### Pending Todos
 
 None.
@@ -87,9 +92,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-03T19:38:00Z
-Stopped at: Completed 26-01-PLAN.md (Wizard Shell & Selection Steps)
-Resume with: `/gsd:execute-plan 26-02`
+Last session: 2026-02-03T20:31:00Z
+Stopped at: Completed 26-02-PLAN.md (Chat Step with useChat)
+Resume with: `/gsd:execute-plan 26-03`
 
 ---
-*Phase 26 Plan 01 complete. Wizard container and first two selection steps (form type, audience) implemented. Ready for Plan 02 (Chat Step).*
+*Phase 26 Plan 02 complete. Chat step with AI SDK useChat hook, streaming responses, typing indicator, and error handling. Ready for Plan 03 (Generation Step).*
