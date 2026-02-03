@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-03)
 ## Current Position
 
 Phase: 25 of 28 (Core AI Infrastructure)
-Plan: 1 of 3 complete
+Plan: 2 of 3 complete
 Status: In progress
-Last activity: 2026-02-03 - Completed 25-01-PLAN.md (Schema Validation Foundation)
+Last activity: 2026-02-03 - Completed 25-02-PLAN.md (System Prompt and Error Handling)
 
-Progress: v2.1 Phase 25 [###.......] 33%
+Progress: v2.1 Phase 25 [######....] 67%
 
 ## Milestones
 
@@ -34,7 +34,7 @@ Progress: v2.1 Phase 25 [###.......] 33%
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 65 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 21, v2.1: 1)
+- Total plans completed: 66 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 21, v2.1: 2)
 - Total requirements validated: 37 (v2.0) + previous milestones
 
 **By Milestone:**
@@ -46,7 +46,7 @@ Progress: v2.1 Phase 25 [###.......] 33%
 | v1.2 | 5 | 15 | Shipped |
 | v1.3 | 4 | 8 | Shipped |
 | v2.0 | 5 | 21 | Shipped & Archived |
-| v2.1 | 4 | 1/12 | In Progress |
+| v2.1 | 4 | 2/12 | In Progress |
 
 ## Accumulated Context
 
@@ -63,6 +63,10 @@ Phase 25 Plan 01:
 - Named main Zod schema AIFormSchemaOutputSchema to avoid collision with inferred type
 - Semantic validation separate from structural for better error messages
 
+Phase 25 Plan 02:
+- System prompt embeds complete FT-CONTEXT.md content directly
+- Error handling uses duck typing for NoObjectGeneratedError (handles cross-package issues)
+
 ### Pending Todos
 
 None.
@@ -73,9 +77,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-03T19:12:41Z
-Stopped at: Completed 25-01-PLAN.md (Schema Validation Foundation)
-Resume with: `/gsd:execute-plan 25-02`
+Last session: 2026-02-03T19:13:52Z
+Stopped at: Completed 25-02-PLAN.md (System Prompt and Error Handling)
+Resume with: `/gsd:execute-plan 25-03`
 
 ---
-*Phase 25 Plan 01 complete. Schema validation foundation ready. Continue with Plan 02.*
+*Phase 25 Plan 02 complete. System prompt and error handling ready. Continue with Plan 03 (Streaming API Route).*
