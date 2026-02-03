@@ -9,19 +9,19 @@ Requirements for AI Form Creation Assistant. Each maps to roadmap phases.
 
 ### AI Infrastructure
 
-- [ ] **AI-01**: System accepts natural language prompts describing desired form
+- [x] **AI-01**: System accepts natural language prompts describing desired form ✓ Phase 26
 - [x] **AI-02**: AI uses OpenRouter with user-provided API key for LLM access ✓ Phase 25
-- [ ] **AI-03**: AI responses stream to client with typing indicator
+- [x] **AI-03**: AI responses stream to client with typing indicator ✓ Phase 26
 - [x] **AI-04**: AI output is validated against FormSchema Zod type before display ✓ Phase 25
 - [x] **AI-05**: Invalid AI outputs show actionable error messages, not raw errors ✓ Phase 25
 - [x] **AI-06**: System prompt includes Frontier Tower context (floors, member types, form patterns) ✓ Phase 25
 
 ### Hybrid Questions
 
-- [ ] **HYB-01**: Before open prompt, user selects form type (Application, Feedback, Registration, Survey, Other)
-- [ ] **HYB-02**: User selects audience (External/public or Internal/team)
-- [ ] **HYB-03**: Structured selections inform AI context for better generation
-- [ ] **HYB-04**: AI asks at most 2-3 clarifying questions before generating draft
+- [x] **HYB-01**: Before open prompt, user selects form type (Application, Feedback, Registration, Survey, Other) ✓ Phase 26
+- [x] **HYB-02**: User selects audience (External/public or Internal/team) ✓ Phase 26
+- [x] **HYB-03**: Structured selections inform AI context for better generation ✓ Phase 26
+- [x] **HYB-04**: AI asks at most 2-3 clarifying questions before generating draft ✓ Phase 26
 
 ### Form Generation
 
@@ -51,10 +51,10 @@ Requirements for AI Form Creation Assistant. Each maps to roadmap phases.
 ### User Experience
 
 - [ ] **UX-01**: "Create with AI" option appears in New Form dropdown alongside "Create Manually"
-- [ ] **UX-02**: AI wizard has clear visual state (input -> generating -> preview -> confirm)
-- [ ] **UX-03**: Streaming responses show progress (not blank screen during generation)
-- [ ] **UX-04**: Cancel is available during generation
-- [ ] **UX-05**: Errors are recoverable without losing conversation context
+- [x] **UX-02**: AI wizard has clear visual state (input -> generating -> preview -> confirm) ✓ Phase 26
+- [x] **UX-03**: Streaming responses show progress (not blank screen during generation) ✓ Phase 26
+- [x] **UX-04**: Cancel is available during generation ✓ Phase 26
+- [x] **UX-05**: Errors are recoverable without losing conversation context ✓ Phase 26
 - [ ] **UX-06**: Mobile responsive for admin use
 
 ## v2.2+ Requirements (Deferred)
@@ -100,16 +100,16 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AI-01 | Phase 26 | Pending |
+| AI-01 | Phase 26 | Complete |
 | AI-02 | Phase 25 | Complete |
-| AI-03 | Phase 26 | Pending |
+| AI-03 | Phase 26 | Complete |
 | AI-04 | Phase 25 | Complete |
 | AI-05 | Phase 25 | Complete |
 | AI-06 | Phase 25 | Complete |
-| HYB-01 | Phase 26 | Pending |
-| HYB-02 | Phase 26 | Pending |
-| HYB-03 | Phase 26 | Pending |
-| HYB-04 | Phase 26 | Pending |
+| HYB-01 | Phase 26 | Complete |
+| HYB-02 | Phase 26 | Complete |
+| HYB-03 | Phase 26 | Complete |
+| HYB-04 | Phase 26 | Complete |
 | GEN-01 | Phase 27 | Pending |
 | GEN-02 | Phase 27 | Pending |
 | GEN-03 | Phase 27 | Pending |
@@ -127,10 +127,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CRT-04 | Phase 28 | Pending |
 | CRT-05 | Phase 28 | Pending |
 | UX-01 | Phase 28 | Pending |
-| UX-02 | Phase 26 | Pending |
-| UX-03 | Phase 26 | Pending |
-| UX-04 | Phase 26 | Pending |
-| UX-05 | Phase 26 | Pending |
+| UX-02 | Phase 26 | Complete |
+| UX-03 | Phase 26 | Complete |
+| UX-04 | Phase 26 | Complete |
+| UX-05 | Phase 26 | Complete |
 | UX-06 | Phase 28 | Pending |
 
 **Coverage:**
@@ -140,4 +140,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-03*
-*Last updated: 2026-02-03 after Phase 25 complete*
+*Last updated: 2026-02-03 after Phase 26 complete*
