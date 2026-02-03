@@ -57,7 +57,16 @@ FrontierOS is now a premium command center with:
 
 ### Active
 
-*No active requirements — ready for next milestone planning*
+**Current Milestone: v2.1 AI Form Creation Assistant**
+
+**Goal:** Enable admins to create forms by describing what they need in natural language, with AI asking clarifying questions and generating complete form structures.
+
+**Target features:**
+- AI-powered form creation via natural language prompts
+- Hybrid clarifying questions (structured + open-ended)
+- Deep Frontier Tower context awareness
+- Preview before creation with regeneration option
+- Direct-to-draft creation for confident users
 
 ### Future (v2.1+)
 
@@ -178,4 +187,4 @@ FrontierOS is now a premium command center with:
 | Semi-transparent loading overlay | bg-background/50 maintains visibility during operations | ✓ Good |
 
 ---
-*Last updated: 2026-02-02 after v2.0 milestone completion*
+*Last updated: 2026-02-03 after v2.1 milestone start*
