@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useMutation } from "convex/react";
 import { api } from "@/../convex/_generated/api";
 import { Id } from "@/../convex/_generated/dataModel";
-import { MoreHorizontal, Pencil, Copy, Archive, ExternalLink, RotateCcw, Loader2 } from "lucide-react";
+import { MoreHorizontal, Pencil, Copy, Archive, ExternalLink, RotateCcw, Loader2, QrCode } from "lucide-react";
+import QRCode from "qrcode";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -36,6 +37,27 @@ export function FormQuickActions({
   const unarchive = useMutation(api.forms.unarchive);
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleDownloadQR = async () => {
+    try {
+      const url = `${window.location.origin}/apply/${slug}`;
+      const dataUrl = await QRCode.toDataURL(url, {
+        width: 512,
+        margin: 2,
+        color: {
+          dark: "#000000",
+          light: "#ffffff",
+        },
+      });
+
+      const link = document.createElement("a");
+      link.download = `${slug}-qr-code.png`;
+      link.href = dataUrl;
+      link.click();
+    } catch (error) {
+      console.error("Failed to generate QR code:", error);
+    }
+  };
 
   const handleStatusAction = async (action: () => Promise<unknown>) => {
     setIsLoading(true);
@@ -88,6 +110,13 @@ export function FormQuickActions({
             )}
           </DropdownMenuItem>
         )}
+
+        <DropdownMenuItem
+          onClick={(e) => { e.stopPropagation(); handleDownloadQR(); }}
+        >
+          <QrCode className="h-4 w-4 mr-2" />
+          Download QR Code
+        </DropdownMenuItem>
 
         <DropdownMenuSeparator />
 
