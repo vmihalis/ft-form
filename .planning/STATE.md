@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-03)
 
 **Core value:** The FT team can efficiently manage all aspects of Frontier Tower from a single, premium dashboard that feels as cutting-edge as the building itself.
-**Current focus:** v2.1 AI Form Creation Assistant
+**Current focus:** v2.1 AI Form Creation Assistant - Phase 25 (Core AI Infrastructure)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-02-03 — Milestone v2.1 started
+Phase: 25 of 28 (Core AI Infrastructure)
+Plan: Ready to plan
+Status: Roadmap complete, ready to plan Phase 25
+Last activity: 2026-02-03 — v2.1 roadmap created with 4 phases (25-28)
 
-Progress: v2.1 [░░░░░░░░░░] 0%
+Progress: v2.1 [..........] 0%
 
 ## Milestones
 
@@ -23,7 +23,7 @@ Progress: v2.1 [░░░░░░░░░░] 0%
 - **v1.2 Dynamic Form Builder** - Shipped 2026-01-29 (5 phases, 15 plans)
 - **v1.3 Unification & Admin Productivity** - Shipped 2026-01-29 (4 phases, 8 plans)
 - **v2.0 FrontierOS Dashboard** - Shipped 2026-01-29, archived 2026-02-02 (5 phases, 21 plans)
-- **v2.1 AI Form Creation Assistant** - In progress
+- **v2.1 AI Form Creation Assistant** - In progress (4 phases, TBD plans)
 
 ## Production URLs
 
@@ -46,13 +46,18 @@ Progress: v2.1 [░░░░░░░░░░] 0%
 | v1.2 | 5 | 15 | Shipped |
 | v1.3 | 4 | 8 | Shipped |
 | v2.0 | 5 | 21 | Shipped & Archived |
-| v2.1 | — | — | In Progress |
+| v2.1 | 4 | TBD | In Progress |
 
 ## Accumulated Context
 
 ### Decisions
 
 All decisions documented in PROJECT.md Key Decisions table.
+
+Recent for v2.1:
+- Use OpenRouter with user-provided API key (not built-in key)
+- Hybrid questions: structured form type/audience selection + open prompt
+- AI never modifies existing forms, always creates new drafts
 
 ### Pending Todos
 
@@ -65,8 +70,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-03
-Stopped at: Defining requirements for v2.1
-Resume with: Complete requirements definition and roadmap
+Stopped at: v2.1 roadmap created (Phases 25-28)
+Resume with: `/gsd:plan-phase 25`
 
 ---
-*v2.1 AI Form Creation Assistant started. Defining requirements.*
+*v2.1 AI Form Creation Assistant roadmap created. Ready to plan Phase 25.*

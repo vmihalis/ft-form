@@ -51,7 +51,7 @@ Requirements for AI Form Creation Assistant. Each maps to roadmap phases.
 ### User Experience
 
 - [ ] **UX-01**: "Create with AI" option appears in New Form dropdown alongside "Create Manually"
-- [ ] **UX-02**: AI wizard has clear visual state (input → generating → preview → confirm)
+- [ ] **UX-02**: AI wizard has clear visual state (input -> generating -> preview -> confirm)
 - [ ] **UX-03**: Streaming responses show progress (not blank screen during generation)
 - [ ] **UX-04**: Cancel is available during generation
 - [ ] **UX-05**: Errors are recoverable without losing conversation context
@@ -134,10 +134,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UX-06 | Phase 28 | Pending |
 
 **Coverage:**
-- v2.1 requirements: 28 total
-- Mapped to phases: 28
-- Unmapped: 0 ✓
+- v2.1 requirements: 32 total
+- Mapped to phases: 32
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-03*
-*Last updated: 2026-02-03 after initial definition*
+*Last updated: 2026-02-03 after roadmap creation*
