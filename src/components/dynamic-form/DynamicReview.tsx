@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useDynamicFormStore } from "@/lib/stores/dynamic-form-store";
-import type { FormSchema } from "@/types/form-schema";
+import type { FormSchema, FieldOption } from "@/types/form-schema";
 
 interface DynamicReviewProps {
   schema: FormSchema;
@@ -15,6 +15,7 @@ interface ReviewItemProps {
   label: string;
   value: unknown;
   type: string;
+  options?: FieldOption[];
 }
 
 /**
@@ -22,11 +23,13 @@ interface ReviewItemProps {
  *
  * Handles special rendering for different field types:
  * - Empty: "Not provided" in muted italic
- * - Checkbox: "Yes" or "No"
+ * - Checkbox with options: Comma-separated labels
+ * - Checkbox (boolean): "Yes" or "No"
+ * - Select/Radio: Option label lookup
  * - File: "File uploaded" in primary color
  * - Default: String conversion
  */
-function ReviewItem({ label, value, type }: ReviewItemProps) {
+function ReviewItem({ label, value, type, options }: ReviewItemProps) {
   let displayValue: React.ReactNode;
 
   if (value === undefined || value === null || value === "") {
@@ -34,7 +37,27 @@ function ReviewItem({ label, value, type }: ReviewItemProps) {
       <span className="italic text-muted-foreground">Not provided</span>
     );
   } else if (type === "checkbox") {
-    displayValue = value ? "Yes" : "No";
+    // Checkbox with options = multi-select, value is array
+    if (options && Array.isArray(value)) {
+      if (value.length === 0) {
+        displayValue = (
+          <span className="italic text-muted-foreground">Not provided</span>
+        );
+      } else {
+        displayValue = value
+          .map((v) => {
+            const option = options.find((opt) => opt.value === String(v));
+            return option?.label ?? String(v);
+          })
+          .join(", ");
+      }
+    } else {
+      // Simple boolean checkbox
+      displayValue = value ? "Yes" : "No";
+    }
+  } else if ((type === "select" || type === "radio") && options) {
+    const option = options.find((opt) => opt.value === String(value));
+    displayValue = option?.label ?? String(value);
   } else if (type === "file" && typeof value === "string") {
     displayValue = <span className="text-primary">File uploaded</span>;
   } else {
@@ -125,6 +148,7 @@ export function DynamicReview({ schema, slug }: DynamicReviewProps) {
                 label={field.label}
                 value={data[field.id]}
                 type={field.type}
+                options={field.options}
               />
             ))}
           </dl>

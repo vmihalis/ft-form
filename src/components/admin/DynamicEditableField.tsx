@@ -77,6 +77,17 @@ function getDisplayValue(
   }
 
   if (fieldType === "checkbox") {
+    // Checkbox with options = multi-select, value is array
+    if (options && Array.isArray(value)) {
+      if (value.length === 0) return "";
+      return value
+        .map((v) => {
+          const option = options.find((opt) => opt.value === String(v));
+          return option?.label ?? String(v);
+        })
+        .join(", ");
+    }
+    // Simple boolean checkbox
     return value === true || value === "true" ? "Yes" : "No";
   }
 
