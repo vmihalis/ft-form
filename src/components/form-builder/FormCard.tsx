@@ -51,15 +51,15 @@ export function FormCard({ form, onDuplicate, isLoading }: FormCardProps) {
       )}
       whileHover={{
         scale: 1.02,
-        boxShadow: "0 30px 60px -12px oklch(0 0 0 / 20%)",
+        boxShadow: "0 30px 60px -12px oklch(0.5 0.2 290 / 25%)",
       }}
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.2 }}
     >
-      {/* Full card clickable link overlay */}
+      {/* Full card clickable link overlay with purple hover ring */}
       <Link
         href={`/admin/forms/${form._id}`}
-        className="absolute inset-0 z-0 rounded-2xl"
+        className="absolute inset-0 z-0 rounded-2xl ring-2 ring-transparent group-hover:ring-purple-500/50 transition-all duration-200"
         aria-label={`Edit ${form.name}`}
       />
 
