@@ -8,6 +8,7 @@ import { WizardStepIndicator } from './WizardStepIndicator';
 import { FormTypeStep } from './steps/FormTypeStep';
 import { AudienceStep } from './steps/AudienceStep';
 import { ChatStep } from './steps/ChatStep';
+import { GeneratingStep } from './steps/GeneratingStep';
 
 export type FormType = 'application' | 'feedback' | 'registration' | 'survey' | 'other';
 export type Audience = 'external' | 'internal';
@@ -118,9 +119,11 @@ export function AIFormWizard({ apiKey, onComplete, onCancel }: AIFormWizardProps
       )}
 
       {wizard.step === 'generating' && (
-        <div className="text-center py-8 text-muted-foreground">
-          Generating step coming in Plan 03...
-        </div>
+        <GeneratingStep
+          messages={messages}
+          status={status}
+          onCancel={handleBack}
+        />
       )}
     </Card>
   );
