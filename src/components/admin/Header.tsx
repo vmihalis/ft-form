@@ -1,6 +1,5 @@
 "use client";
 
-import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { MobileNav } from "./MobileNav";
@@ -12,7 +11,6 @@ import { logout } from "@/app/admin/actions";
  * A shared header that appears at the top of the main content area.
  * Contains:
  * - Mobile navigation trigger (hamburger) - visible only on mobile
- * - Theme toggle (light/dark mode)
  * - Logout button
  *
  * The header is sticky and always visible on both desktop and mobile.
@@ -27,9 +25,8 @@ export function AdminHeader() {
         {/* Page-specific title can be added by child pages if needed */}
       </div>
 
-      {/* Right side: theme toggle + logout */}
+      {/* Right side: logout */}
       <div className="flex items-center gap-2">
-        <ModeToggle />
         <form action={logout}>
           <Button variant="ghost" size="icon">
             <LogOut className="h-5 w-5" />
