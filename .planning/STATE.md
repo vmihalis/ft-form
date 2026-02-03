@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-03)
 
 ## Current Position
 
-Phase: 25 of 28 (Core AI Infrastructure) - COMPLETE
-Plan: 3 of 3 complete
-Status: Phase complete
-Last activity: 2026-02-03 - Completed 25-03-PLAN.md (Streaming AI API Route)
+Phase: 26 of 28 (Chat UI & Conversation Flow)
+Plan: 1 of 3 complete
+Status: In progress
+Last activity: 2026-02-03 - Completed 26-01-PLAN.md (Wizard Shell & Selection Steps)
 
-Progress: v2.1 Phase 25 [##########] 100%
+Progress: v2.1 Phase 26 [###-------] 33%
 
 ## Milestones
 
@@ -34,7 +34,7 @@ Progress: v2.1 Phase 25 [##########] 100%
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 67 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 21, v2.1: 3)
+- Total plans completed: 68 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 21, v2.1: 4)
 - Total requirements validated: 37 (v2.0) + previous milestones
 
 **By Milestone:**
@@ -46,7 +46,7 @@ Progress: v2.1 Phase 25 [##########] 100%
 | v1.2 | 5 | 15 | Shipped |
 | v1.3 | 4 | 8 | Shipped |
 | v2.0 | 5 | 21 | Shipped & Archived |
-| v2.1 | 4 | 3/12 | In Progress |
+| v2.1 | 4 | 4/12 | In Progress |
 
 ## Accumulated Context
 
@@ -72,6 +72,11 @@ Phase 25 Plan 03:
 - API key passed per-request in body, never stored server-side
 - maxDuration=60 for complex form generation
 
+Phase 26 Plan 01:
+- Wizard state via useState (simple 4-step flow doesn't need Zustand)
+- Types (FormType, Audience, WizardStep) exported from AIFormWizard.tsx for reuse
+- Click-to-advance pattern: card selection immediately advances to next step
+
 ### Pending Todos
 
 None.
@@ -82,9 +87,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-03T19:21:00Z
-Stopped at: Completed 25-03-PLAN.md (Streaming AI API Route) - Phase 25 complete
-Resume with: `/gsd:plan-phase 26` or `/gsd:execute-plan 26-01`
+Last session: 2026-02-03T19:38:00Z
+Stopped at: Completed 26-01-PLAN.md (Wizard Shell & Selection Steps)
+Resume with: `/gsd:execute-plan 26-02`
 
 ---
-*Phase 25 (Core AI Infrastructure) complete. All three plans executed: schemas, system prompt + error handling, streaming API route. Ready for Phase 26 (Chat Interface).*
+*Phase 26 Plan 01 complete. Wizard container and first two selection steps (form type, audience) implemented. Ready for Plan 02 (Chat Step).*
