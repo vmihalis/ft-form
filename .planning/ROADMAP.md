@@ -93,12 +93,12 @@ Plans:
   3. Wizard displays clear visual state progression (input -> generating -> preview -> confirm)
   4. User can cancel during generation without losing conversation context
   5. Streaming responses show visible progress during generation
-**Plans:** TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 26-01: TBD
-- [ ] 26-02: TBD
-- [ ] 26-03: TBD
+- [ ] 26-01-PLAN.md — Wizard container, step indicator, form type and audience selection steps
+- [ ] 26-02-PLAN.md — Chat interface with streaming, typing indicator, stop/retry functionality
+- [ ] 26-03-PLAN.md — Page route, API key input, and end-to-end verification
 
 #### Phase 27: Form Generation & Preview
 **Goal:** Generate valid form schemas using the 8 existing field types with accurate preview and iteration options
@@ -147,10 +147,10 @@ Plans:
 | 23 | v2.0 | 5/5 | Complete | 2026-01-29 |
 | 24 | v2.0 | 5/5 | Complete | 2026-01-29 |
 | 25 | v2.1 | 3/3 | Complete | 2026-02-03 |
-| 26 | v2.1 | 0/TBD | Not started | - |
+| 26 | v2.1 | 0/3 | Not started | - |
 | 27 | v2.1 | 0/TBD | Not started | - |
 | 28 | v2.1 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-02-03 after Phase 25 complete*
+*Last updated: 2026-02-03 after Phase 26 planned*
