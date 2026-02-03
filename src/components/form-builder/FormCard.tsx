@@ -51,7 +51,6 @@ export function FormCard({ form, onDuplicate, isLoading }: FormCardProps) {
       )}
       whileHover={{
         scale: 1.02,
-        boxShadow: "0 30px 60px -12px oklch(0.5 0.2 290 / 25%)",
       }}
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.2 }}
