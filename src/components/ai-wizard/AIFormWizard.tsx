@@ -1,10 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { useChat } from '@ai-sdk/react';
+import { DefaultChatTransport } from 'ai';
 import { Card } from '@/components/ui/card';
 import { WizardStepIndicator } from './WizardStepIndicator';
 import { FormTypeStep } from './steps/FormTypeStep';
 import { AudienceStep } from './steps/AudienceStep';
+import { ChatStep } from './steps/ChatStep';
 
 export type FormType = 'application' | 'feedback' | 'registration' | 'survey' | 'other';
 export type Audience = 'external' | 'internal';
@@ -37,7 +40,37 @@ export function AIFormWizard({ apiKey, onComplete, onCancel }: AIFormWizardProps
     setWizard((prev) => ({ ...prev, audience, step: 'chat' }));
   };
 
+  // Create transport with current wizard context
+  // Memoized to prevent re-creation on every render
+  const transport = useMemo(
+    () =>
+      new DefaultChatTransport({
+        api: '/api/ai/generate',
+        body: {
+          formType: wizard.formType,
+          audience: wizard.audience,
+          apiKey,
+        },
+      }),
+    [wizard.formType, wizard.audience, apiKey]
+  );
+
+  // useChat for AI conversation
+  const {
+    messages,
+    sendMessage,
+    status,
+    stop,
+    error,
+    regenerate,
+  } = useChat({ transport });
+
   const handleBack = () => {
+    // Stop any in-progress generation when navigating back
+    if (status === 'submitted' || status === 'streaming') {
+      stop();
+    }
+
     if (wizard.step === 'audience') {
       setWizard((prev) => ({ ...prev, step: 'form-type' }));
     } else if (wizard.step === 'chat') {
@@ -47,8 +80,7 @@ export function AIFormWizard({ apiKey, onComplete, onCancel }: AIFormWizardProps
     }
   };
 
-  // Placeholder to use apiKey and onComplete (will be used in chat/generating steps)
-  void apiKey;
+  // Will be used in generating step (Plan 03)
   void onComplete;
 
   return (
@@ -71,10 +103,18 @@ export function AIFormWizard({ apiKey, onComplete, onCancel }: AIFormWizardProps
         />
       )}
 
-      {wizard.step === 'chat' && (
-        <div className="text-center py-8 text-muted-foreground">
-          Chat step coming in Plan 02...
-        </div>
+      {wizard.step === 'chat' && wizard.formType && wizard.audience && (
+        <ChatStep
+          messages={messages}
+          status={status}
+          error={error}
+          onSendMessage={sendMessage}
+          onStop={stop}
+          onRegenerate={regenerate}
+          onBack={handleBack}
+          formType={wizard.formType}
+          audience={wizard.audience}
+        />
       )}
 
       {wizard.step === 'generating' && (
