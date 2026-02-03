@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-03)
 
 **Core value:** The FT team can efficiently manage all aspects of Frontier Tower from a single, premium dashboard that feels as cutting-edge as the building itself.
-**Current focus:** v2.1 AI Form Creation Assistant - Phase 26 Complete (Chat Interface)
+**Current focus:** v2.1 AI Form Creation Assistant - Phase 27 In Progress (Form Generation & Preview)
 
 ## Current Position
 
-Phase: 26 of 28 (Chat UI & Conversation Flow)
-Plan: 3 of 3 complete
-Status: Phase complete
-Last activity: 2026-02-03 - Completed 26-03-PLAN.md (Page Route and E2E Verification)
+Phase: 27 of 28 (Form Generation & Preview)
+Plan: 1 of 3 complete
+Status: In progress
+Last activity: 2026-02-03 - Completed 27-01-PLAN.md (Schema Extraction Utility)
 
-Progress: v2.1 Phase 26 [##########] 100%
+Progress: v2.1 Phase 27 [###-------] 33%
 
 ## Milestones
 
@@ -34,7 +34,7 @@ Progress: v2.1 Phase 26 [##########] 100%
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 70 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 21, v2.1: 6)
+- Total plans completed: 71 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 21, v2.1: 7)
 - Total requirements validated: 37 (v2.0) + previous milestones
 
 **By Milestone:**
@@ -46,7 +46,7 @@ Progress: v2.1 Phase 26 [##########] 100%
 | v1.2 | 5 | 15 | Shipped |
 | v1.3 | 4 | 8 | Shipped |
 | v2.0 | 5 | 21 | Shipped & Archived |
-| v2.1 | 4 | 6/12 | In Progress |
+| v2.1 | 4 | 7/12 | In Progress |
 
 ## Accumulated Context
 
@@ -86,6 +86,11 @@ Phase 26 Plan 03:
 - API key stored in component state (not localStorage) for security
 - GeneratingStep is placeholder - Phase 27 implements form schema detection
 
+Phase 27 Plan 01:
+- First JSON block only extracted (AI generates one schema per response)
+- Dual pattern support for ```json and generic ``` code blocks
+- mightContainSchema pre-check uses both markers (json + steps) to avoid false positives
+
 ### Pending Todos
 
 None.
@@ -97,8 +102,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-03
-Stopped at: Phase 26 verified and complete
-Resume with: `/gsd:plan-phase 27` to plan Form Generation & Preview
+Stopped at: Completed 27-01-PLAN.md (Schema Extraction Utility)
+Resume with: Execute 27-02-PLAN.md (Live Form Preview Component)
 
 ---
-*Phase 26 (Chat UI & Conversation Flow) complete and verified. AI wizard accessible at /admin/forms/new/ai with form type selection, audience selection, streaming chat interface. Ready for Phase 27 (Form Generation & Preview).*
+*Phase 27 (Form Generation & Preview) in progress. Schema extraction utility complete. Ready for Plan 02 (Live Form Preview Component).*
