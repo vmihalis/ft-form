@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-03)
 Phase: Milestone complete
 Plan: N/A
 Status: Ready to plan next milestone
-Last activity: 2026-02-03 — v2.1 milestone archived
+Last activity: 2026-02-03 — Completed quick task 001: Fix duplicate buttons on admin forms page
 
 Progress: v2.1 Complete [##########] 100%
 
@@ -72,6 +72,12 @@ None.
 ### Blockers/Concerns
 
 None.
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 001 | Fix duplicate buttons on admin forms page | 2026-02-03 | 3c253df | [001-fix-duplicate-buttons](./quick/001-fix-duplicate-buttons-on-admin-forms-pag/) |
 
 ## Session Continuity
 
