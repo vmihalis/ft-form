@@ -127,14 +127,14 @@ export function CreateFormModal({ open, onOpenChange, schema }: CreateFormModalP
               Your form has been saved as a draft.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="pt-2">
+          <DialogFooter className="flex-col-reverse gap-2 sm:flex-row pt-2">
             <Link href="/admin/forms" className="w-full sm:w-auto">
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full h-11 sm:h-10">
                 View All Forms
               </Button>
             </Link>
             <Link href={`/admin/forms/${createdFormId}`} className="w-full sm:w-auto">
-              <Button className="w-full">Edit in Builder</Button>
+              <Button className="w-full h-11 sm:h-10">Edit in Builder</Button>
             </Link>
           </DialogFooter>
         </DialogContent>
@@ -201,20 +201,20 @@ export function CreateFormModal({ open, onOpenChange, schema }: CreateFormModalP
             </div>
           )}
 
-          <DialogFooter className="pt-2">
+          <DialogFooter className="flex-col-reverse gap-2 sm:flex-row pt-2">
             <Button
               type="button"
               variant="outline"
               onClick={() => handleOpenChange(false)}
               disabled={isSubmitting}
-              className="w-full sm:w-auto"
+              className="w-full h-11 sm:h-10 sm:w-auto"
             >
               Cancel
             </Button>
             <Button
               type="submit"
               disabled={!canSubmit}
-              className="w-full sm:w-auto"
+              className="w-full h-11 sm:h-10 sm:w-auto"
             >
               {isSubmitting ? 'Creating...' : 'Create Form'}
             </Button>

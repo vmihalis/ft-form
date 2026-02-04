@@ -56,10 +56,10 @@ export default function AIFormPage() {
       <main className="min-h-screen bg-background">
         {/* Header */}
         <header className="border-b">
-          <div className="mx-auto max-w-7xl px-6 py-4">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 sm:py-4">
             <Link
               href="/admin/forms"
-              className="text-muted-foreground hover:text-foreground text-sm"
+              className="text-muted-foreground hover:text-foreground text-sm inline-flex items-center h-10"
             >
               &larr; Back to Forms
             </Link>
@@ -67,7 +67,7 @@ export default function AIFormPage() {
         </header>
 
         {/* Wizard */}
-        <div className="mx-auto max-w-3xl px-6 py-12">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 py-6 sm:py-12">
           <AIFormWizard
             apiKey={apiKey}
             onComplete={handleComplete}
@@ -95,10 +95,10 @@ export default function AIFormPage() {
     <main className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b">
-        <div className="mx-auto max-w-7xl px-6 py-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 sm:py-4">
           <Link
             href="/admin/forms"
-            className="text-muted-foreground hover:text-foreground text-sm"
+            className="text-muted-foreground hover:text-foreground text-sm inline-flex items-center h-10"
           >
             &larr; Back to Forms
           </Link>
@@ -106,7 +106,7 @@ export default function AIFormPage() {
       </header>
 
       {/* API Key Entry */}
-      <div className="mx-auto max-w-md px-6 py-12">
+      <div className="mx-auto max-w-md px-4 sm:px-6 py-8 sm:py-12">
         <Card>
           <CardHeader className="text-center">
             <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
@@ -153,17 +153,17 @@ export default function AIFormPage() {
               <ExternalLink className="h-3.5 w-3.5" />
             </a>
 
-            <div className="flex gap-3 pt-2">
+            <div className="flex flex-col-reverse gap-2 sm:flex-row sm:gap-3 pt-2">
+              <Link href="/admin/forms" className="sm:order-first">
+                <Button variant="outline" className="w-full h-11 sm:h-10 sm:w-auto">Cancel</Button>
+              </Link>
               <Button
                 onClick={handleContinue}
                 disabled={!isValidKeyFormat}
-                className="flex-1"
+                className="h-11 sm:h-10 sm:flex-1"
               >
                 Continue
               </Button>
-              <Link href="/admin/forms">
-                <Button variant="outline">Cancel</Button>
-              </Link>
             </div>
           </CardContent>
         </Card>
