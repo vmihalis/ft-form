@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-03)
 ## Current Position
 
 Phase: 27 of 28 (Form Generation & Preview)
-Plan: 2 of 3 complete
-Status: In progress
-Last activity: 2026-02-03 - Completed 27-02-PLAN.md (Live Form Preview Component)
+Plan: 3 of 3 complete
+Status: Phase complete
+Last activity: 2026-02-03 - Completed 27-03-PLAN.md (Wizard Integration)
 
-Progress: v2.1 Phase 27 [######----] 67%
+Progress: v2.1 Phase 27 [##########] 100%
 
 ## Milestones
 
@@ -34,7 +34,7 @@ Progress: v2.1 Phase 27 [######----] 67%
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 72 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 21, v2.1: 8)
+- Total plans completed: 73 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 21, v2.1: 9)
 - Total requirements validated: 37 (v2.0) + previous milestones
 
 **By Milestone:**
@@ -46,7 +46,7 @@ Progress: v2.1 Phase 27 [######----] 67%
 | v1.2 | 5 | 15 | Shipped |
 | v1.3 | 4 | 8 | Shipped |
 | v2.0 | 5 | 21 | Shipped & Archived |
-| v2.1 | 4 | 8/12 | In Progress |
+| v2.1 | 4 | 9/12 | In Progress |
 
 ## Accumulated Context
 
@@ -96,6 +96,12 @@ Phase 27 Plan 02:
 - Mobile mode default (360px) matches public /apply/[slug] mobile-first design
 - Form submit prevented in preview mode (demonstration only)
 
+Phase 27 Plan 03:
+- Schema detection in useEffect monitors status='ready' (stream complete before parsing)
+- Direct-to-draft skips preview when enabled, calling onComplete directly
+- Regenerate sends alternative structure request message automatically
+- Success state placeholder for form acceptance before Phase 28 creation
+
 ### Pending Todos
 
 None.
@@ -107,8 +113,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-03
-Stopped at: Completed 27-02-PLAN.md (Live Form Preview Component)
-Resume with: Execute 27-03-PLAN.md (Wizard Integration)
+Stopped at: Completed 27-03-PLAN.md (Wizard Integration) - Phase 27 complete
+Resume with: Plan Phase 28 (Form Creation & Draft Management)
 
 ---
-*Phase 27 (Form Generation & Preview) in progress. Schema extraction and form preview components complete. Ready for Plan 03 (Wizard Integration).*
+*Phase 27 (Form Generation & Preview) complete. Users can generate forms via AI chat, preview them with mobile/desktop toggle, iterate with regenerate/modify, and accept. Ready for Phase 28 (Form Creation).*
