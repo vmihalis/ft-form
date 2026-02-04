@@ -1,14 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/../convex/_generated/api";
 import { Id } from "@/../convex/_generated/dataModel";
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Plus, FileText } from "lucide-react";
+import { FileText } from "lucide-react";
 import { FormsGrid } from "./FormsGrid";
 import { EmptyState } from "@/components/ui/empty-state";
 import { ErrorState } from "@/components/ui/error-state";
@@ -99,20 +97,7 @@ export function FormsList() {
 
   // Loading state
   if (forms === undefined) {
-    return (
-      <div className="space-y-6">
-        <div className="flex justify-between items-center">
-          <div />
-          <Button asChild>
-            <Link href="/admin/forms/new">
-              <Plus className="h-4 w-4 mr-2" />
-              Create Form
-            </Link>
-          </Button>
-        </div>
-        <FormsGridSkeleton />
-      </div>
-    );
+    return <FormsGridSkeleton />;
   }
 
   // Empty state
@@ -122,17 +107,11 @@ export function FormsList() {
 
   return (
     <div className="space-y-6">
-      {/* Header with create button */}
+      {/* Header with forms count */}
       <div className="flex justify-between items-center">
         <p className="text-muted-foreground">
           {forms.length} {forms.length === 1 ? "form" : "forms"}
         </p>
-        <Button asChild>
-          <Link href="/admin/forms/new">
-            <Plus className="h-4 w-4 mr-2" />
-            Create Form
-          </Link>
-        </Button>
       </div>
 
       {/* Forms grid */}
