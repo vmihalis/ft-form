@@ -1,12 +1,10 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { Metadata } from "next";
 import { decrypt } from "@/lib/auth/session";
-import { Button } from "@/components/ui/button";
 import { AnimatedPage } from "@/components/ui/animated-page";
 import { FormsList } from "@/components/form-builder/FormsList";
-import { Plus } from "lucide-react";
+import { NewFormDropdown } from "@/components/form-builder/NewFormDropdown";
 
 /**
  * Metadata for the forms list page
@@ -37,12 +35,7 @@ export default async function FormsPage() {
       <header className="border-b">
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold">Forms</h1>
-          <Link href="/admin/forms/new">
-            <Button>
-              <Plus className="h-4 w-4 mr-2" />
-              New Form
-            </Button>
-          </Link>
+          <NewFormDropdown />
         </div>
       </header>
 
