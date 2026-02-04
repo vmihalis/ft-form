@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-03)
 
 **Core value:** The FT team can efficiently manage all aspects of Frontier Tower from a single, premium dashboard that feels as cutting-edge as the building itself.
-**Current focus:** v2.1 AI Form Creation Assistant - Phase 28 Complete (Integration & Polish)
+**Current focus:** Planning next milestone
 
 ## Current Position
 
-Phase: 28 of 28 (Integration & Polish)
-Plan: 3 of 3 complete
-Status: Phase complete
-Last activity: 2026-02-04 - Completed 28-03-PLAN.md (Mobile Responsiveness)
+Phase: Milestone complete
+Plan: N/A
+Status: Ready to plan next milestone
+Last activity: 2026-02-03 — v2.1 milestone archived
 
-Progress: v2.1 Phase 28 [##########] 100%
+Progress: v2.1 Complete [##########] 100%
 
 ## Milestones
 
@@ -23,30 +23,31 @@ Progress: v2.1 Phase 28 [##########] 100%
 - **v1.2 Dynamic Form Builder** - Shipped 2026-01-29 (5 phases, 15 plans)
 - **v1.3 Unification & Admin Productivity** - Shipped 2026-01-29 (4 phases, 8 plans)
 - **v2.0 FrontierOS Dashboard** - Shipped 2026-01-29, archived 2026-02-02 (5 phases, 21 plans)
-- **v2.1 AI Form Creation Assistant** - Complete 2026-02-04 (4 phases, 12 plans)
+- **v2.1 AI Form Creation Assistant** - Shipped 2026-02-03, archived 2026-02-03 (4 phases, 12 plans)
 
 ## Production URLs
 
 - **Application:** https://ft-form.vercel.app
 - **Admin dashboard:** https://ft-form.vercel.app/admin
+- **AI wizard:** https://ft-form.vercel.app/admin/forms/new/ai
 - **Convex backend:** https://usable-bobcat-946.convex.cloud
 
 ## Performance Metrics
 
 **Velocity:**
 - Total plans completed: 76 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 21, v2.1: 12)
-- Total requirements validated: 37 (v2.0) + previous milestones
+- Total requirements validated: 32 (v2.1) + 37 (v2.0) + previous milestones
 
 **By Milestone:**
 
 | Milestone | Phases | Plans | Status |
 |-----------|--------|-------|--------|
-| v1.0 | 7 | 16 | Shipped |
-| v1.1 | 3 | 4 | Shipped |
-| v1.2 | 5 | 15 | Shipped |
-| v1.3 | 4 | 8 | Shipped |
+| v1.0 | 7 | 16 | Shipped & Archived |
+| v1.1 | 3 | 4 | Shipped & Archived |
+| v1.2 | 5 | 15 | Shipped & Archived |
+| v1.3 | 4 | 8 | Shipped & Archived |
 | v2.0 | 5 | 21 | Shipped & Archived |
-| v2.1 | 4 | 12 | Complete |
+| v2.1 | 4 | 12 | Shipped & Archived |
 
 ## Accumulated Context
 
@@ -54,68 +55,15 @@ Progress: v2.1 Phase 28 [##########] 100%
 
 All decisions documented in PROJECT.md Key Decisions table.
 
-Recent for v2.1:
+v2.1 decisions now archived:
 - Use OpenRouter with user-provided API key (not built-in key)
 - Hybrid questions: structured form type/audience selection + open prompt
 - AI never modifies existing forms, always creates new drafts
-
-Phase 25 Plan 01:
-- Named main Zod schema AIFormSchemaOutputSchema to avoid collision with inferred type
-- Semantic validation separate from structural for better error messages
-
-Phase 25 Plan 02:
-- System prompt embeds complete FT-CONTEXT.md content directly
-- Error handling uses duck typing for NoObjectGeneratedError (handles cross-package issues)
-
-Phase 25 Plan 03:
-- Model: anthropic/claude-sonnet-4 via OpenRouter (can change later)
-- API key passed per-request in body, never stored server-side
-- maxDuration=60 for complex form generation
-
-Phase 26 Plan 01:
-- Wizard state via useState (simple 4-step flow doesn't need Zustand)
-- Types (FormType, Audience, WizardStep) exported from AIFormWizard.tsx for reuse
-- Click-to-advance pattern: card selection immediately advances to next step
-
-Phase 26 Plan 02:
-- DefaultChatTransport used for AI SDK v6 (not direct api/body on useChat)
-- Memoize transport to prevent re-creation on render
-- Message parts extraction (`.parts` array not `.content` string) per AI SDK v6
-
-Phase 26 Plan 03:
-- API key stored in component state (not localStorage) for security
-- GeneratingStep is placeholder - Phase 27 implements form schema detection
-
-Phase 27 Plan 01:
-- First JSON block only extracted (AI generates one schema per response)
-- Dual pattern support for ```json and generic ``` code blocks
-- mightContainSchema pre-check uses both markers (json + steps) to avoid false positives
-
-Phase 27 Plan 02:
-- PreviewStepContent uses FormProvider for DynamicField context (required by react-hook-form)
-- Mobile mode default (360px) matches public /apply/[slug] mobile-first design
-- Form submit prevented in preview mode (demonstration only)
-
-Phase 27 Plan 03:
-- Schema detection in useEffect monitors status='ready' (stream complete before parsing)
-- Direct-to-draft skips preview when enabled, calling onComplete directly
-- Regenerate sends alternative structure request message automatically
-- Success state placeholder for form acceptance before Phase 28 creation
-
-Phase 28 Plan 01:
-- isSlugAvailable returns false for empty slugs (defensive validation)
-- createWithSchema validates draftSchema JSON before insertion
-- AI-generated forms always created as draft status per CRT-03
-
-Phase 28 Plan 02:
-- Slug debounced at 300ms to reduce query frequency while maintaining responsive feel
-- Success state shows in same modal with navigation options rather than separate page
-- Modal reset state on close to allow re-opening with fresh inputs
-
-Phase 28 Plan 03:
-- 44px touch targets on mobile (h-11) scaling to 40px on desktop (h-10)
-- flex-col-reverse for stacked buttons puts primary action on top on mobile
-- Chat step height reduced to 400px on mobile for keyboard clearance
+- Model: anthropic/claude-sonnet-4 via OpenRouter
+- API key in component state (not localStorage) for security
+- Schema detection monitors status='ready' (stream complete before parsing)
+- Direct-to-draft skips preview when enabled
+- 44px touch targets on mobile, 40px on desktop
 
 ### Pending Todos
 
@@ -128,8 +76,8 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-03
-Stopped at: Completed Phase 28 - v2.1 milestone complete
-Resume with: /gsd:audit-milestone or /gsd:complete-milestone
+Stopped at: Completed v2.1 milestone archival
+Resume with: /gsd:new-milestone
 
 ---
-*Phase 28 (Integration & Polish) complete. All 3 plans executed: Backend & Entry Point, Draft Creation Flow, Mobile Responsiveness. AI Form Creation Assistant v2.1 is feature complete with mobile-optimized wizard, form creation modal, and full end-to-end flow from AI generation to draft creation.*
+*v2.1 AI Form Creation Assistant shipped and archived. Ready for next milestone planning.*

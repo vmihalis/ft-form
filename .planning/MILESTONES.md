@@ -1,5 +1,33 @@
 # Project Milestones: Frontier Tower Floor Lead Application System
 
+## v2.1 AI Form Creation Assistant (Shipped: 2026-02-03)
+
+**Delivered:** AI-powered form creation via natural language prompts, with hybrid clarifying questions (form type + audience + AI questions), live preview before creation, and mobile-optimized admin experience.
+
+**Phases completed:** 25-28 (12 plans total)
+
+**Key accomplishments:**
+
+- AI-powered form creation via OpenRouter/Claude with streaming responses and deep Frontier Tower context awareness
+- Conversational 4-step wizard (form type → audience → chat → preview) with hybrid structured/open questions
+- Automatic schema detection from AI responses with live FormPreviewPanel using existing form renderer components
+- Direct-to-draft toggle for confident users to skip preview step
+- Complete creation workflow with CreateFormModal, slug validation, and navigation options
+- Mobile-responsive AI wizard with 44px touch targets and keyboard-aware layouts
+
+**Stats:**
+
+- 58 files modified (+9,830 lines)
+- ~13,500 lines TypeScript (src directory)
+- 4 phases, 12 plans, 32 requirements satisfied
+- 7 days from start to ship (2026-01-27 → 2026-02-03)
+
+**Git range:** `feat(25-01)` → `docs(28-03)`
+
+**What's next:** v2.2+ (iterative refinement, command palette, animated background, member/event/space management)
+
+---
+
 ## v2.0 FrontierOS Dashboard (Shipped: 2026-01-29)
 
 **Delivered:** Complete visual and UX overhaul transforming the admin dashboard into FrontierOS — a premium command center with glassmorphism design, light/dark mode, dashboard hub navigation, WYSIWYG form builder, and redesigned forms/submissions management.

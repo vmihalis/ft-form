@@ -12,18 +12,25 @@ If everything else fails, the dashboard must provide clear navigation to each ma
 
 ## Current State
 
-**Latest Release:** v2.0 FrontierOS Dashboard (shipped 2026-01-29)
+**Latest Release:** v2.1 AI Form Creation Assistant (shipped 2026-02-03)
 
-FrontierOS is now a premium command center with:
-- **Glassmorphism design system** — Light/dark mode, theme toggle, glass utilities (backdrop-blur, translucent panels), CSS variable tokens
-- **Dashboard hub** — Module cards landing (Forms + 4 placeholders), collapsible sidebar (240px/64px), mobile hamburger menu
-- **WYSIWYG form builder** — Live preview editing, floating toolbar, plus buttons for insertion, drag-and-drop reorder
-- **Redesigned forms/submissions** — Glass card styling, submission counts, quick actions, animated transitions
-- **Premium UX** — Microinteractions (200ms), EmptyState/ErrorState components, loading states throughout
+FrontierOS now includes AI-powered form creation:
+- **AI Form Creation** — Natural language prompts generate complete form structures via OpenRouter/Claude with streaming responses
+- **Conversational Wizard** — 4-step flow (form type → audience → chat → preview) with hybrid structured/open questions
+- **Deep FT Context** — AI understands Frontier Tower floors, member types, and form patterns
+- **Preview & Iteration** — FormPreviewPanel with mobile/desktop toggle, regenerate and modify prompt options
+- **Direct-to-Draft** — Toggle for confident users to skip preview step
+- **Mobile Responsive** — 44px touch targets, responsive layouts, keyboard-aware chat
+
+Plus all v2.0 features:
+- Glassmorphism design system with light/dark mode
+- Dashboard hub with module cards
+- WYSIWYG form builder with drag-and-drop
+- Premium UX with microinteractions
 
 **Production URL:** https://ft-form.vercel.app
 **Convex backend:** https://usable-bobcat-946.convex.cloud
-**Total codebase:** ~681,000 lines TypeScript (including dependencies)
+**Total codebase:** ~13,500 lines TypeScript (src directory)
 
 ## Requirements
 
@@ -54,21 +61,18 @@ FrontierOS is now a premium command center with:
 - ✓ **SUB-01 to SUB-04** — v2.0: Glassmorphism submissions table, glass detail panel, information density, animated transitions
 - ✓ **PLACE-01 to PLACE-05** — v2.0: Members, Events, Spaces/Booking, Wellness placeholders with Coming Soon state
 - ✓ **UX-01 to UX-06** — v2.0: 2-click access, no redundancy, visual hierarchy, loading states, empty states, error states
+- ✓ **AI-01 to AI-06** — v2.1: Natural language prompts, OpenRouter integration, streaming responses, Zod validation, error handling, FT context
+- ✓ **HYB-01 to HYB-04** — v2.1: Form type selection, audience selection, structured context, 2-3 clarifying questions
+- ✓ **GEN-01 to GEN-06** — v2.1: 8 field types only, logical step groupings, FT-specific fields, unique IDs, select options, validation rules
+- ✓ **PRV-01 to PRV-05** — v2.1: Preview panel, form renderer components, regenerate, modify prompt, direct-to-draft toggle
+- ✓ **CRT-01 to CRT-05** — v2.1: Form name/slug, slug validation, draft creation, navigation options, no existing form modification
+- ✓ **UX-01 to UX-06** — v2.1: Create with AI dropdown, clear wizard states, streaming progress, cancel, error recovery, mobile responsive
 
 ### Active
 
-**Current Milestone: v2.1 AI Form Creation Assistant**
+Planning next milestone.
 
-**Goal:** Enable admins to create forms by describing what they need in natural language, with AI asking clarifying questions and generating complete form structures.
-
-**Target features:**
-- AI-powered form creation via natural language prompts
-- Hybrid clarifying questions (structured + open-ended)
-- Deep Frontier Tower context awareness
-- Preview before creation with regeneration option
-- Direct-to-draft creation for confident users
-
-### Future (v2.1+)
+### Future (v2.2+)
 
 - **CMD-01**: Cmd+K opens command palette for quick navigation
 - **CMD-02**: Search across forms, submissions, and actions
@@ -185,6 +189,11 @@ FrontierOS is now a premium command center with:
 | WYSIWYG builder (no preview mode) | Builder IS preview, reduces complexity (BUILD-09) | ✓ Good |
 | AnimatedPage client component | Enables animation while preserving server auth | ✓ Good |
 | Semi-transparent loading overlay | bg-background/50 maintains visibility during operations | ✓ Good |
+| OpenRouter with user API key | No built-in key, per-request validation, security-first | ✓ Good |
+| Hybrid questions pattern | Form type + audience structured, then open prompt | ✓ Good |
+| AI never modifies existing forms | Always creates new drafts, prevents data loss | ✓ Good |
+| Schema detection on stream complete | Monitor status='ready' before parsing to avoid partial JSON | ✓ Good |
+| 44px mobile touch targets | h-11 on mobile, h-10 on desktop for adequate finger targets | ✓ Good |
 
 ---
-*Last updated: 2026-02-03 after v2.1 milestone start*
+*Last updated: 2026-02-03 after v2.1 milestone complete*

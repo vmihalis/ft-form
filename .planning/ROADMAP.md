@@ -7,7 +7,7 @@
 - **v1.2 Dynamic Form Builder** - Phases 11-15 (shipped 2026-01-29)
 - **v1.3 Unification & Admin Productivity** - Phases 16-19 (shipped 2026-01-29)
 - **v2.0 FrontierOS Dashboard** - Phases 20-24 (shipped 2026-01-29)
-- **v2.1 AI Form Creation Assistant** - Phases 25-28 (in progress)
+- ✅ **v2.1 AI Form Creation Assistant** - Phases 25-28 (shipped 2026-02-03)
 
 ## Phases
 
@@ -63,76 +63,17 @@ See `.planning/milestones/v2.0-ROADMAP.md` for full details.
 
 </details>
 
-### v2.1 AI Form Creation Assistant (In Progress)
+<details>
+<summary>✅ v2.1 AI Form Creation Assistant (Phases 25-28) — SHIPPED 2026-02-03</summary>
 
-**Milestone Goal:** Enable admins to create forms by describing what they need in natural language, with AI asking clarifying questions and generating complete form structures.
+- [x] Phase 25: Core AI Infrastructure (3/3 plans) — completed 2026-02-03
+- [x] Phase 26: Chat UI & Conversation Flow (3/3 plans) — completed 2026-02-03
+- [x] Phase 27: Form Generation & Preview (3/3 plans) — completed 2026-02-03
+- [x] Phase 28: Integration & Polish (3/3 plans) — completed 2026-02-03
 
-#### Phase 25: Core AI Infrastructure ✓
-**Goal:** Establish backend AI foundation with OpenRouter integration, streaming API, and Frontier Tower context
-**Depends on:** Phase 24 (v2.0 complete)
-**Requirements:** AI-02, AI-04, AI-05, AI-06
-**Success Criteria** (what must be TRUE):
-  1. Streaming API endpoint accepts natural language prompts and returns AI responses
-  2. Invalid AI outputs display actionable error messages, not raw technical errors
-  3. AI system prompt includes Frontier Tower context (floors, member types, form patterns)
-  4. Zod schemas validate AI output structure before consumption
-**Plans:** 3/3 complete
+See `.planning/milestones/v2.1-ROADMAP.md` for full details.
 
-Plans:
-- [x] 25-01-PLAN.md — Zod schemas mirroring FormSchema for AI output validation
-- [x] 25-02-PLAN.md — System prompt with FT context and error handling utilities
-- [x] 25-03-PLAN.md — Streaming API route with OpenRouter integration
-
-#### Phase 26: Chat UI & Conversation Flow ✓
-**Goal:** Build the conversational interface with hybrid structured/open questions and clear wizard states
-**Depends on:** Phase 25
-**Requirements:** HYB-01, HYB-02, HYB-03, HYB-04, UX-02, UX-03, UX-04, UX-05
-**Success Criteria** (what must be TRUE):
-  1. Before writing a prompt, user selects form type (Application, Feedback, Registration, Survey, Other) and audience (External/Internal)
-  2. AI asks at most 2-3 clarifying questions before generating a form draft
-  3. Wizard displays clear visual state progression (input -> generating -> preview -> confirm)
-  4. User can cancel during generation without losing conversation context
-  5. Streaming responses show visible progress during generation
-**Plans:** 3/3 complete
-
-Plans:
-- [x] 26-01-PLAN.md — Wizard container, step indicator, form type and audience selection steps
-- [x] 26-02-PLAN.md — Chat interface with streaming, typing indicator, stop/retry functionality
-- [x] 26-03-PLAN.md — Page route, API key input, and end-to-end verification
-
-#### Phase 27: Form Generation & Preview ✓
-**Goal:** Generate valid form schemas using the 8 existing field types with accurate preview and iteration options
-**Depends on:** Phase 26
-**Requirements:** GEN-01, GEN-02, GEN-03, GEN-04, GEN-05, GEN-06, PRV-01, PRV-02, PRV-03, PRV-04, PRV-05
-**Success Criteria** (what must be TRUE):
-  1. Generated forms use only the 8 existing field types (text, email, textarea, number, date, select, checkbox, file)
-  2. Generated forms have logical step groupings with 2-4 fields per step
-  3. Generated form schema displays in preview panel using existing form renderer components
-  4. User can regenerate with same or modified prompt to get alternative structure
-  5. Direct-to-draft toggle allows confident users to skip preview
-**Plans:** 3/3 complete
-
-Plans:
-- [x] 27-01-PLAN.md — Schema extraction utility for detecting and validating AI-generated schemas
-- [x] 27-02-PLAN.md — Form preview panel using DynamicField components
-- [x] 27-03-PLAN.md — Wizard integration with preview step and iteration flows
-
-#### Phase 28: Integration & Polish ✓
-**Goal:** Complete the workflow from preview to created draft form with entry point integration and mobile support
-**Depends on:** Phase 27
-**Requirements:** CRT-01, CRT-02, CRT-03, CRT-04, CRT-05, UX-01, UX-06
-**Success Criteria** (what must be TRUE):
-  1. "Create with AI" option appears in New Form dropdown alongside "Create Manually"
-  2. User provides form name and slug (validated for uniqueness) before creation
-  3. Created form is saved as draft (never auto-published)
-  4. After creation, user can choose to edit in builder or view in list
-  5. AI wizard is mobile responsive for admin use
-**Plans:** 3/3 complete
-
-Plans:
-- [x] 28-01-PLAN.md — Backend (isSlugAvailable, createWithSchema) and NewFormDropdown entry point
-- [x] 28-02-PLAN.md — Dialog component and CreateFormModal with form creation flow
-- [x] 28-03-PLAN.md — Mobile responsiveness audit and fixes for AI wizard
+</details>
 
 ## Progress
 
@@ -154,4 +95,4 @@ Plans:
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-02-03 after Phase 28 complete — v2.1 milestone finished*
+*Last updated: 2026-02-03 — v2.1 milestone archived*
