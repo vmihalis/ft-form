@@ -100,7 +100,7 @@ Plans:
 - [x] 26-02-PLAN.md — Chat interface with streaming, typing indicator, stop/retry functionality
 - [x] 26-03-PLAN.md — Page route, API key input, and end-to-end verification
 
-#### Phase 27: Form Generation & Preview
+#### Phase 27: Form Generation & Preview ✓
 **Goal:** Generate valid form schemas using the 8 existing field types with accurate preview and iteration options
 **Depends on:** Phase 26
 **Requirements:** GEN-01, GEN-02, GEN-03, GEN-04, GEN-05, GEN-06, PRV-01, PRV-02, PRV-03, PRV-04, PRV-05
@@ -110,12 +110,12 @@ Plans:
   3. Generated form schema displays in preview panel using existing form renderer components
   4. User can regenerate with same or modified prompt to get alternative structure
   5. Direct-to-draft toggle allows confident users to skip preview
-**Plans:** 3 plans
+**Plans:** 3/3 complete
 
 Plans:
-- [ ] 27-01-PLAN.md — Schema extraction utility for detecting and validating AI-generated schemas
-- [ ] 27-02-PLAN.md — Form preview panel using DynamicField components
-- [ ] 27-03-PLAN.md — Wizard integration with preview step and iteration flows
+- [x] 27-01-PLAN.md — Schema extraction utility for detecting and validating AI-generated schemas
+- [x] 27-02-PLAN.md — Form preview panel using DynamicField components
+- [x] 27-03-PLAN.md — Wizard integration with preview step and iteration flows
 
 #### Phase 28: Integration & Polish
 **Goal:** Complete the workflow from preview to created draft form with entry point integration and mobile support
@@ -148,9 +148,9 @@ Plans:
 | 24 | v2.0 | 5/5 | Complete | 2026-01-29 |
 | 25 | v2.1 | 3/3 | Complete | 2026-02-03 |
 | 26 | v2.1 | 3/3 | Complete | 2026-02-03 |
-| 27 | v2.1 | 0/3 | Planned | - |
+| 27 | v2.1 | 3/3 | Complete | 2026-02-03 |
 | 28 | v2.1 | 0/TBD | Not started | - |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-02-03 after Phase 27 planned*
+*Last updated: 2026-02-03 after Phase 27 complete*

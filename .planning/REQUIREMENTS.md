@@ -25,20 +25,20 @@ Requirements for AI Form Creation Assistant. Each maps to roadmap phases.
 
 ### Form Generation
 
-- [ ] **GEN-01**: AI generates forms using exactly the 8 existing field types (text, email, textarea, number, date, select, checkbox, file)
-- [ ] **GEN-02**: Generated forms have logical step groupings (2-4 fields per step typically)
-- [ ] **GEN-03**: Generated forms include FT-specific fields where relevant (floor dropdown for floor-related forms)
-- [ ] **GEN-04**: Field IDs are unique and consistently formatted
-- [ ] **GEN-05**: Select/radio options have both value and label properties
-- [ ] **GEN-06**: Validation rules match field types (minLength for text, min/max for number)
+- [x] **GEN-01**: AI generates forms using exactly the 8 existing field types (text, email, textarea, number, date, select, checkbox, file) ✓ Phase 27
+- [x] **GEN-02**: Generated forms have logical step groupings (2-4 fields per step typically) ✓ Phase 27
+- [x] **GEN-03**: Generated forms include FT-specific fields where relevant (floor dropdown for floor-related forms) ✓ Phase 27
+- [x] **GEN-04**: Field IDs are unique and consistently formatted ✓ Phase 27
+- [x] **GEN-05**: Select/radio options have both value and label properties ✓ Phase 27
+- [x] **GEN-06**: Validation rules match field types (minLength for text, min/max for number) ✓ Phase 27
 
 ### Preview & Iteration
 
-- [ ] **PRV-01**: Generated form schema displays in preview panel before creation
-- [ ] **PRV-02**: Preview uses existing form renderer components for accurate representation
-- [ ] **PRV-03**: User can regenerate with same prompt to get alternative structure
-- [ ] **PRV-04**: User can modify prompt and regenerate
-- [ ] **PRV-05**: Direct-to-draft toggle skips preview for confident users
+- [x] **PRV-01**: Generated form schema displays in preview panel before creation ✓ Phase 27
+- [x] **PRV-02**: Preview uses existing form renderer components for accurate representation ✓ Phase 27
+- [x] **PRV-03**: User can regenerate with same prompt to get alternative structure ✓ Phase 27
+- [x] **PRV-04**: User can modify prompt and regenerate ✓ Phase 27
+- [x] **PRV-05**: Direct-to-draft toggle skips preview for confident users ✓ Phase 27
 
 ### Form Creation
 
@@ -110,17 +110,17 @@ Which phases cover which requirements. Updated during roadmap creation.
 | HYB-02 | Phase 26 | Complete |
 | HYB-03 | Phase 26 | Complete |
 | HYB-04 | Phase 26 | Complete |
-| GEN-01 | Phase 27 | Pending |
-| GEN-02 | Phase 27 | Pending |
-| GEN-03 | Phase 27 | Pending |
-| GEN-04 | Phase 27 | Pending |
-| GEN-05 | Phase 27 | Pending |
-| GEN-06 | Phase 27 | Pending |
-| PRV-01 | Phase 27 | Pending |
-| PRV-02 | Phase 27 | Pending |
-| PRV-03 | Phase 27 | Pending |
-| PRV-04 | Phase 27 | Pending |
-| PRV-05 | Phase 27 | Pending |
+| GEN-01 | Phase 27 | Complete |
+| GEN-02 | Phase 27 | Complete |
+| GEN-03 | Phase 27 | Complete |
+| GEN-04 | Phase 27 | Complete |
+| GEN-05 | Phase 27 | Complete |
+| GEN-06 | Phase 27 | Complete |
+| PRV-01 | Phase 27 | Complete |
+| PRV-02 | Phase 27 | Complete |
+| PRV-03 | Phase 27 | Complete |
+| PRV-04 | Phase 27 | Complete |
+| PRV-05 | Phase 27 | Complete |
 | CRT-01 | Phase 28 | Pending |
 | CRT-02 | Phase 28 | Pending |
 | CRT-03 | Phase 28 | Pending |
@@ -140,4 +140,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-03*
-*Last updated: 2026-02-03 after Phase 26 complete*
+*Last updated: 2026-02-03 after Phase 27 complete*
