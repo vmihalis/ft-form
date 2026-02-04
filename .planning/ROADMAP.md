@@ -127,11 +127,12 @@ Plans:
   3. Created form is saved as draft (never auto-published)
   4. After creation, user can choose to edit in builder or view in list
   5. AI wizard is mobile responsive for admin use
-**Plans:** TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 28-01: TBD
-- [ ] 28-02: TBD
+- [ ] 28-01-PLAN.md — Backend (isSlugAvailable, createWithSchema) and NewFormDropdown entry point
+- [ ] 28-02-PLAN.md — Dialog component and CreateFormModal with form creation flow
+- [ ] 28-03-PLAN.md — Mobile responsiveness audit and fixes for AI wizard
 
 ## Progress
 
@@ -149,8 +150,8 @@ Plans:
 | 25 | v2.1 | 3/3 | Complete | 2026-02-03 |
 | 26 | v2.1 | 3/3 | Complete | 2026-02-03 |
 | 27 | v2.1 | 3/3 | Complete | 2026-02-03 |
-| 28 | v2.1 | 0/TBD | Not started | - |
+| 28 | v2.1 | 0/3 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-02-03 after Phase 27 complete*
+*Last updated: 2026-02-03 after Phase 28 planning*
