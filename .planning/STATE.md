@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-03)
 Phase: Milestone complete
 Plan: N/A
 Status: Ready to plan next milestone
-Last activity: 2026-02-03 — Completed quick task 001: Fix duplicate buttons on admin forms page
+Last activity: 2026-02-04 — Completed quick task 002: Add OpenRouter API key to env and remove UI
 
 Progress: v2.1 Complete [##########] 100%
 
@@ -56,7 +56,7 @@ Progress: v2.1 Complete [##########] 100%
 All decisions documented in PROJECT.md Key Decisions table.
 
 v2.1 decisions now archived:
-- Use OpenRouter with user-provided API key (not built-in key)
+- Use OpenRouter with server-side API key (changed from user-provided in quick-002)
 - Hybrid questions: structured form type/audience selection + open prompt
 - AI never modifies existing forms, always creates new drafts
 - Model: anthropic/claude-sonnet-4 via OpenRouter
@@ -78,11 +78,12 @@ None.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 001 | Fix duplicate buttons on admin forms page | 2026-02-03 | 3c253df | [001-fix-duplicate-buttons](./quick/001-fix-duplicate-buttons-on-admin-forms-pag/) |
+| 002 | Add OpenRouter API key to env and remove UI | 2026-02-04 | 1971a84 | [002-add-openrouter-api-key](./quick/002-add-openrouter-api-key-to-env-and-remove/) |
 
 ## Session Continuity
 
-Last session: 2026-02-03
-Stopped at: Completed v2.1 milestone archival
+Last session: 2026-02-04
+Stopped at: Completed quick task 002
 Resume with: /gsd:new-milestone
 
 ---
