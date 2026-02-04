@@ -42,20 +42,20 @@ Requirements for AI Form Creation Assistant. Each maps to roadmap phases.
 
 ### Form Creation
 
-- [ ] **CRT-01**: User provides form name and slug before creation
-- [ ] **CRT-02**: Slug is validated for uniqueness and reserved words
-- [ ] **CRT-03**: Created form is saved as draft (never auto-published)
-- [ ] **CRT-04**: After creation, user can choose to edit in builder or view in list
-- [ ] **CRT-05**: AI never modifies existing published forms (always creates new drafts)
+- [x] **CRT-01**: User provides form name and slug before creation ✓ Phase 28
+- [x] **CRT-02**: Slug is validated for uniqueness and reserved words ✓ Phase 28
+- [x] **CRT-03**: Created form is saved as draft (never auto-published) ✓ Phase 28
+- [x] **CRT-04**: After creation, user can choose to edit in builder or view in list ✓ Phase 28
+- [x] **CRT-05**: AI never modifies existing published forms (always creates new drafts) ✓ Phase 28
 
 ### User Experience
 
-- [ ] **UX-01**: "Create with AI" option appears in New Form dropdown alongside "Create Manually"
+- [x] **UX-01**: "Create with AI" option appears in New Form dropdown alongside "Create Manually" ✓ Phase 28
 - [x] **UX-02**: AI wizard has clear visual state (input -> generating -> preview -> confirm) ✓ Phase 26
 - [x] **UX-03**: Streaming responses show progress (not blank screen during generation) ✓ Phase 26
 - [x] **UX-04**: Cancel is available during generation ✓ Phase 26
 - [x] **UX-05**: Errors are recoverable without losing conversation context ✓ Phase 26
-- [ ] **UX-06**: Mobile responsive for admin use
+- [x] **UX-06**: Mobile responsive for admin use ✓ Phase 28
 
 ## v2.2+ Requirements (Deferred)
 
@@ -121,17 +121,17 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PRV-03 | Phase 27 | Complete |
 | PRV-04 | Phase 27 | Complete |
 | PRV-05 | Phase 27 | Complete |
-| CRT-01 | Phase 28 | Pending |
-| CRT-02 | Phase 28 | Pending |
-| CRT-03 | Phase 28 | Pending |
-| CRT-04 | Phase 28 | Pending |
-| CRT-05 | Phase 28 | Pending |
-| UX-01 | Phase 28 | Pending |
+| CRT-01 | Phase 28 | Complete |
+| CRT-02 | Phase 28 | Complete |
+| CRT-03 | Phase 28 | Complete |
+| CRT-04 | Phase 28 | Complete |
+| CRT-05 | Phase 28 | Complete |
+| UX-01 | Phase 28 | Complete |
 | UX-02 | Phase 26 | Complete |
 | UX-03 | Phase 26 | Complete |
 | UX-04 | Phase 26 | Complete |
 | UX-05 | Phase 26 | Complete |
-| UX-06 | Phase 28 | Pending |
+| UX-06 | Phase 28 | Complete |
 
 **Coverage:**
 - v2.1 requirements: 32 total
@@ -140,4 +140,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-03*
-*Last updated: 2026-02-03 after Phase 27 complete*
+*Last updated: 2026-02-03 after Phase 28 complete — all v2.1 requirements satisfied*

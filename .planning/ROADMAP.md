@@ -117,7 +117,7 @@ Plans:
 - [x] 27-02-PLAN.md — Form preview panel using DynamicField components
 - [x] 27-03-PLAN.md — Wizard integration with preview step and iteration flows
 
-#### Phase 28: Integration & Polish
+#### Phase 28: Integration & Polish ✓
 **Goal:** Complete the workflow from preview to created draft form with entry point integration and mobile support
 **Depends on:** Phase 27
 **Requirements:** CRT-01, CRT-02, CRT-03, CRT-04, CRT-05, UX-01, UX-06
@@ -127,12 +127,12 @@ Plans:
   3. Created form is saved as draft (never auto-published)
   4. After creation, user can choose to edit in builder or view in list
   5. AI wizard is mobile responsive for admin use
-**Plans:** 3 plans
+**Plans:** 3/3 complete
 
 Plans:
-- [ ] 28-01-PLAN.md — Backend (isSlugAvailable, createWithSchema) and NewFormDropdown entry point
-- [ ] 28-02-PLAN.md — Dialog component and CreateFormModal with form creation flow
-- [ ] 28-03-PLAN.md — Mobile responsiveness audit and fixes for AI wizard
+- [x] 28-01-PLAN.md — Backend (isSlugAvailable, createWithSchema) and NewFormDropdown entry point
+- [x] 28-02-PLAN.md — Dialog component and CreateFormModal with form creation flow
+- [x] 28-03-PLAN.md — Mobile responsiveness audit and fixes for AI wizard
 
 ## Progress
 
@@ -150,8 +150,8 @@ Plans:
 | 25 | v2.1 | 3/3 | Complete | 2026-02-03 |
 | 26 | v2.1 | 3/3 | Complete | 2026-02-03 |
 | 27 | v2.1 | 3/3 | Complete | 2026-02-03 |
-| 28 | v2.1 | 0/3 | Not started | - |
+| 28 | v2.1 | 3/3 | Complete | 2026-02-03 |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-02-03 after Phase 28 planning*
+*Last updated: 2026-02-03 after Phase 28 complete — v2.1 milestone finished*
