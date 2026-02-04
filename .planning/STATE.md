@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-03)
 
 **Core value:** The FT team can efficiently manage all aspects of Frontier Tower from a single, premium dashboard that feels as cutting-edge as the building itself.
-**Current focus:** v2.1 AI Form Creation Assistant - Phase 27 Complete (Form Generation & Preview)
+**Current focus:** v2.1 AI Form Creation Assistant - Phase 28 In Progress (Integration & Polish)
 
 ## Current Position
 
-Phase: 27 of 28 (Form Generation & Preview)
-Plan: 3 of 3 complete
-Status: Phase complete
-Last activity: 2026-02-03 - Completed 27-03-PLAN.md (Wizard Integration)
+Phase: 28 of 28 (Integration & Polish)
+Plan: 1 of 3 complete
+Status: In progress
+Last activity: 2026-02-04 - Completed 28-01-PLAN.md (Backend & Entry Point)
 
-Progress: v2.1 Phase 27 [##########] 100%
+Progress: v2.1 Phase 28 [###-------] 33%
 
 ## Milestones
 
@@ -34,7 +34,7 @@ Progress: v2.1 Phase 27 [##########] 100%
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 73 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 21, v2.1: 9)
+- Total plans completed: 74 (v1.0: 16, v1.1: 4, v1.2: 15, v1.3: 8, v2.0: 21, v2.1: 10)
 - Total requirements validated: 37 (v2.0) + previous milestones
 
 **By Milestone:**
@@ -46,7 +46,7 @@ Progress: v2.1 Phase 27 [##########] 100%
 | v1.2 | 5 | 15 | Shipped |
 | v1.3 | 4 | 8 | Shipped |
 | v2.0 | 5 | 21 | Shipped & Archived |
-| v2.1 | 4 | 9/12 | In Progress |
+| v2.1 | 4 | 10/12 | In Progress |
 
 ## Accumulated Context
 
@@ -102,6 +102,11 @@ Phase 27 Plan 03:
 - Regenerate sends alternative structure request message automatically
 - Success state placeholder for form acceptance before Phase 28 creation
 
+Phase 28 Plan 01:
+- isSlugAvailable returns false for empty slugs (defensive validation)
+- createWithSchema validates draftSchema JSON before insertion
+- AI-generated forms always created as draft status per CRT-03
+
 ### Pending Todos
 
 None.
@@ -112,9 +117,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-03
-Stopped at: Completed 27-03-PLAN.md (Wizard Integration) - Phase 27 complete
-Resume with: Plan Phase 28 (Form Creation & Draft Management)
+Last session: 2026-02-04
+Stopped at: Completed 28-01-PLAN.md (Backend & Entry Point)
+Resume with: Execute 28-02-PLAN.md (Draft Creation Flow)
 
 ---
-*Phase 27 (Form Generation & Preview) complete. Users can generate forms via AI chat, preview them with mobile/desktop toggle, iterate with regenerate/modify, and accept. Ready for Phase 28 (Form Creation).*
+*Phase 28 Plan 01 (Backend & Entry Point) complete. Backend has isSlugAvailable query and createWithSchema mutation. Forms list page shows NewFormDropdown with Manual and AI creation options. Ready for Plan 02 (Draft Creation Flow).*
