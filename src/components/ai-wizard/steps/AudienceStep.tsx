@@ -56,8 +56,9 @@ export function AudienceStep({ value, onSelect, onBack }: AudienceStepProps) {
               type="button"
               onClick={() => onSelect(audience.id)}
               className={cn(
-                'flex flex-col items-center gap-4 p-6 rounded-lg border text-center transition-colors',
+                'flex flex-col items-center gap-3 sm:gap-4 p-5 sm:p-6 rounded-lg border text-center transition-colors min-h-[120px]',
                 'hover:border-primary hover:bg-accent',
+                'active:bg-accent/80',
                 isSelected && 'border-primary bg-accent'
               )}
             >
@@ -74,12 +75,12 @@ export function AudienceStep({ value, onSelect, onBack }: AudienceStepProps) {
       </div>
 
       {/* Footer */}
-      <div className="flex justify-between pt-4">
-        <Button variant="ghost" onClick={onBack}>
+      <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-between pt-4">
+        <Button variant="ghost" onClick={onBack} className="h-11 sm:h-10">
           <ArrowLeft className="w-4 h-4 mr-1" />
           Back
         </Button>
-        <Button onClick={() => value && onSelect(value)} disabled={!value}>
+        <Button onClick={() => value && onSelect(value)} disabled={!value} className="h-11 sm:h-10">
           Continue
         </Button>
       </div>

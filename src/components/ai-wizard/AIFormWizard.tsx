@@ -170,7 +170,7 @@ export function AIFormWizard({ apiKey, onComplete, onCancel }: AIFormWizardProps
   }
 
   return (
-    <Card className="max-w-2xl mx-auto p-6">
+    <Card className="max-w-2xl mx-auto p-4 sm:p-6">
       <WizardStepIndicator currentStep={wizard.step} />
 
       {wizard.step === 'form-type' && (

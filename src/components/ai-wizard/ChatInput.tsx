@@ -59,7 +59,7 @@ export function ChatInput({
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2 sm:space-y-3">
       <Textarea
         ref={textareaRef}
         value={input}
@@ -67,7 +67,7 @@ export function ChatInput({
         onKeyDown={handleKeyDown}
         placeholder="Describe what you want in your form..."
         disabled={disabled}
-        className="resize-none min-h-[80px]"
+        className="resize-none min-h-[60px] sm:min-h-[80px] text-base"
       />
       <div className="flex justify-end gap-2">
         {isProcessing && onStop && (
@@ -75,6 +75,7 @@ export function ChatInput({
             type="button"
             variant="outline"
             onClick={onStop}
+            className="h-11 sm:h-10"
           >
             <StopCircle className="mr-2 h-4 w-4" />
             Stop
@@ -84,6 +85,7 @@ export function ChatInput({
           type="button"
           onClick={handleSubmit}
           disabled={disabled || !input.trim()}
+          className="h-11 sm:h-10"
         >
           <Send className="mr-2 h-4 w-4" />
           Send

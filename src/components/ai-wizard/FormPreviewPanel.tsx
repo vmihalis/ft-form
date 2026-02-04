@@ -63,22 +63,24 @@ export function FormPreviewPanel({
   return (
     <div className="space-y-4">
       {/* Header with title and device mode toggle */}
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">Form Preview</h2>
+      <div className="flex items-center justify-between gap-2">
+        <h2 className="text-base sm:text-lg font-semibold">Form Preview</h2>
         <div className="flex items-center gap-1">
           <Button
             variant={deviceMode === 'mobile' ? 'secondary' : 'ghost'}
-            size="icon-sm"
+            size="icon"
             onClick={() => setDeviceMode('mobile')}
             aria-label="Mobile preview"
+            className="h-10 w-10"
           >
             <Smartphone className="size-4" />
           </Button>
           <Button
             variant={deviceMode === 'desktop' ? 'secondary' : 'ghost'}
-            size="icon-sm"
+            size="icon"
             onClick={() => setDeviceMode('desktop')}
             aria-label="Desktop preview"
+            className="h-10 w-10"
           >
             <Monitor className="size-4" />
           </Button>
@@ -134,14 +136,18 @@ export function FormPreviewPanel({
       </p>
 
       {/* Action buttons */}
-      <div className="flex items-center justify-center gap-3">
-        <Button variant="outline" onClick={onModifyPrompt}>
-          Modify Prompt
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-center sm:gap-3">
+        <div className="flex gap-2 sm:contents">
+          <Button variant="outline" onClick={onModifyPrompt} className="flex-1 sm:flex-initial h-11 sm:h-10">
+            Modify
+          </Button>
+          <Button variant="outline" onClick={onRegenerate} className="flex-1 sm:flex-initial h-11 sm:h-10">
+            Regenerate
+          </Button>
+        </div>
+        <Button onClick={onAccept} className="h-11 sm:h-10 w-full sm:w-auto">
+          Use This Form
         </Button>
-        <Button variant="outline" onClick={onRegenerate}>
-          Regenerate
-        </Button>
-        <Button onClick={onAccept}>Use This Form</Button>
       </div>
     </div>
   );

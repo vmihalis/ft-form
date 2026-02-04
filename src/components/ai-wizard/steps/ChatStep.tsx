@@ -84,30 +84,31 @@ export function ChatStep({
   };
 
   return (
-    <div className="flex flex-col h-[500px]">
+    <div className="flex flex-col h-[400px] sm:h-[500px]">
       {/* Header with back button and context */}
-      <div className="flex items-center justify-between pb-4 border-b">
+      <div className="flex items-center justify-between gap-2 pb-3 sm:pb-4 border-b">
         <Button
           variant="ghost"
           size="sm"
           onClick={onBack}
           disabled={isProcessing}
+          className="h-10 px-2 sm:px-3 shrink-0"
         >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back
+          <ArrowLeft className="mr-1 sm:mr-2 h-4 w-4" />
+          <span className="hidden sm:inline">Back</span>
         </Button>
-        <div className="flex gap-2 text-sm text-muted-foreground">
-          <span className="px-2 py-1 bg-muted rounded">
+        <div className="flex gap-1 sm:gap-2 text-xs sm:text-sm text-muted-foreground overflow-hidden">
+          <span className="px-2 py-1 bg-muted rounded truncate max-w-[80px] sm:max-w-none">
             {formTypeLabels[formType]}
           </span>
-          <span className="px-2 py-1 bg-muted rounded">
+          <span className="px-2 py-1 bg-muted rounded truncate max-w-[80px] sm:max-w-none">
             {audienceLabels[audience]}
           </span>
         </div>
       </div>
 
       {/* Direct-to-draft toggle (PRV-05) */}
-      <div className="flex items-center justify-end gap-2 py-2 text-sm">
+      <div className="flex items-center justify-end gap-2 py-2 text-xs sm:text-sm">
         <Label htmlFor="direct-draft" className="text-muted-foreground cursor-pointer">
           Skip preview
         </Label>
@@ -148,15 +149,17 @@ export function ChatStep({
 
       {/* Error state */}
       {error && status === 'error' && (
-        <div className="flex items-center gap-3 p-3 mb-4 bg-destructive/10 border border-destructive/20 rounded-lg">
-          <AlertCircle className="h-5 w-5 text-destructive shrink-0" />
-          <div className="flex-1 text-sm">
-            <p className="font-medium text-destructive">Something went wrong</p>
-            <p className="text-muted-foreground">
-              {error.message || 'Failed to get AI response'}
-            </p>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 p-3 mb-4 bg-destructive/10 border border-destructive/20 rounded-lg">
+          <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+            <AlertCircle className="h-5 w-5 text-destructive shrink-0" />
+            <div className="flex-1 text-sm min-w-0">
+              <p className="font-medium text-destructive">Something went wrong</p>
+              <p className="text-muted-foreground truncate">
+                {error.message || 'Failed to get AI response'}
+              </p>
+            </div>
           </div>
-          <Button variant="outline" size="sm" onClick={onRegenerate}>
+          <Button variant="outline" size="sm" onClick={onRegenerate} className="h-10 w-full sm:w-auto shrink-0">
             <RefreshCw className="mr-2 h-4 w-4" />
             Retry
           </Button>
@@ -164,7 +167,7 @@ export function ChatStep({
       )}
 
       {/* Input area */}
-      <div className="pt-4 border-t">
+      <div className="pt-3 sm:pt-4 border-t">
         <ChatInput
           input={input}
           setInput={setInput}

@@ -29,21 +29,21 @@ export function PreviewStep({
   onBack,
 }: PreviewStepProps) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-primary" />
-            <h2 className="text-xl font-semibold">AI Generated Form</h2>
+            <Sparkles className="h-5 w-5 text-primary shrink-0" />
+            <h2 className="text-lg sm:text-xl font-semibold">AI Generated Form</h2>
           </div>
-          <p className="text-sm text-muted-foreground">
-            Review the generated form structure. You can regenerate or modify before using.
+          <p className="text-xs sm:text-sm text-muted-foreground">
+            Review the generated form. You can regenerate or modify before using.
           </p>
         </div>
-        <Button variant="ghost" size="sm" onClick={onBack}>
+        <Button variant="ghost" size="sm" onClick={onBack} className="h-10 self-start">
           <ArrowLeft className="h-4 w-4 mr-1" />
-          Back to Chat
+          <span className="sm:inline">Back</span>
         </Button>
       </div>
 

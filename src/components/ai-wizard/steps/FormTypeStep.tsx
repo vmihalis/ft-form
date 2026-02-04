@@ -81,8 +81,9 @@ export function FormTypeStep({ value, onSelect, onCancel }: FormTypeStepProps) {
               type="button"
               onClick={() => onSelect(type.id)}
               className={cn(
-                'flex items-start gap-3 p-4 rounded-lg border text-left transition-colors',
+                'flex items-start gap-3 p-4 rounded-lg border text-left transition-colors min-h-[64px]',
                 'hover:border-primary hover:bg-accent',
+                'active:bg-accent/80',
                 isSelected && 'border-primary bg-accent'
               )}
             >
@@ -99,11 +100,11 @@ export function FormTypeStep({ value, onSelect, onCancel }: FormTypeStepProps) {
       </div>
 
       {/* Footer */}
-      <div className="flex justify-between pt-4">
-        <Button variant="ghost" onClick={onCancel}>
+      <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-between pt-4">
+        <Button variant="ghost" onClick={onCancel} className="h-11 sm:h-10">
           Cancel
         </Button>
-        <Button onClick={() => value && onSelect(value)} disabled={!value}>
+        <Button onClick={() => value && onSelect(value)} disabled={!value} className="h-11 sm:h-10">
           Continue
         </Button>
       </div>

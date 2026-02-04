@@ -19,7 +19,7 @@ export function WizardStepIndicator({ currentStep }: WizardStepIndicatorProps) {
   const currentIndex = WIZARD_STEPS.findIndex((s) => s.id === currentStep);
 
   return (
-    <div className="flex items-center justify-between mb-8">
+    <div className="flex items-center justify-between mb-6 sm:mb-8">
       {WIZARD_STEPS.map((step, index) => {
         const isComplete = index < currentIndex;
         const isCurrent = index === currentIndex;
@@ -31,22 +31,22 @@ export function WizardStepIndicator({ currentStep }: WizardStepIndicatorProps) {
               {/* Step circle */}
               <div
                 className={cn(
-                  'flex items-center justify-center w-8 h-8 rounded-full border-2 text-sm font-medium transition-colors',
+                  'flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 text-xs sm:text-sm font-medium transition-colors',
                   isComplete && 'bg-primary border-primary text-primary-foreground',
                   isCurrent && 'border-primary text-primary bg-background',
                   isFuture && 'border-muted text-muted-foreground bg-background'
                 )}
               >
                 {isComplete ? (
-                  <Check className="w-4 h-4" />
+                  <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 ) : (
                   <span>{index + 1}</span>
                 )}
               </div>
-              {/* Step label */}
+              {/* Step label - hidden on very small screens, shown abbreviated */}
               <span
                 className={cn(
-                  'mt-2 text-xs whitespace-nowrap',
+                  'mt-1.5 sm:mt-2 text-[10px] sm:text-xs whitespace-nowrap',
                   isCurrent && 'text-foreground font-medium',
                   !isCurrent && 'text-muted-foreground'
                 )}
@@ -59,7 +59,7 @@ export function WizardStepIndicator({ currentStep }: WizardStepIndicatorProps) {
             {index < WIZARD_STEPS.length - 1 && (
               <div
                 className={cn(
-                  'flex-1 h-0.5 mx-2 mt-[-1rem]',
+                  'flex-1 h-0.5 mx-1 sm:mx-2 mt-[-1rem]',
                   isComplete ? 'bg-primary' : 'bg-muted'
                 )}
               />
