@@ -24,12 +24,11 @@ export interface WizardState {
 }
 
 interface AIFormWizardProps {
-  apiKey: string;
   onComplete: (schema: AIFormSchemaOutput) => void;
   onCancel: () => void;
 }
 
-export function AIFormWizard({ apiKey, onComplete, onCancel }: AIFormWizardProps) {
+export function AIFormWizard({ onComplete, onCancel }: AIFormWizardProps) {
   const [wizard, setWizard] = useState<WizardState>({
     step: 'form-type',
     formType: null,
@@ -58,10 +57,9 @@ export function AIFormWizard({ apiKey, onComplete, onCancel }: AIFormWizardProps
         body: {
           formType: wizard.formType,
           audience: wizard.audience,
-          apiKey,
         },
       }),
-    [wizard.formType, wizard.audience, apiKey]
+    [wizard.formType, wizard.audience]
   );
 
   // useChat for AI conversation
