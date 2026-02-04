@@ -446,3 +446,84 @@ export const duplicate = mutation({
     });
   },
 });
+
+/**
+ * Check if a slug is available for use
+ * Returns true if available, false if taken or reserved
+ */
+export const isSlugAvailable = query({
+  args: { slug: v.string() },
+  handler: async (ctx, args) => {
+    const slug = normalizeSlug(args.slug);
+
+    // Empty slugs are not available
+    if (!slug) {
+      return false;
+    }
+
+    // Reserved slugs are not available
+    if (RESERVED_SLUGS.includes(slug)) {
+      return false;
+    }
+
+    // Check if slug already exists
+    const existing = await ctx.db
+      .query("forms")
+      .withIndex("by_slug", (q) => q.eq("slug", slug))
+      .first();
+
+    return !existing;
+  },
+});
+
+/**
+ * Create a new form with pre-populated schema (for AI-generated forms)
+ * Always creates in draft status - AI forms are never auto-published
+ */
+export const createWithSchema = mutation({
+  args: {
+    name: v.string(),
+    slug: v.string(),
+    draftSchema: v.string(),
+    description: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const slug = normalizeSlug(args.slug);
+
+    if (!slug) {
+      throw new Error("Slug cannot be empty");
+    }
+
+    if (RESERVED_SLUGS.includes(slug)) {
+      throw new Error(`"${slug}" is a reserved path`);
+    }
+
+    // Check for existing slug (manual unique constraint)
+    const existing = await ctx.db
+      .query("forms")
+      .withIndex("by_slug", (q) => q.eq("slug", slug))
+      .first();
+
+    if (existing) {
+      throw new Error(`A form with slug "${slug}" already exists`);
+    }
+
+    // Validate that draftSchema is valid JSON
+    try {
+      JSON.parse(args.draftSchema);
+    } catch {
+      throw new Error("Invalid JSON in draftSchema");
+    }
+
+    const now = Date.now();
+    return await ctx.db.insert("forms", {
+      name: args.name,
+      slug,
+      description: args.description,
+      status: "draft",
+      draftSchema: args.draftSchema,
+      createdAt: now,
+      updatedAt: now,
+    });
+  },
+});
