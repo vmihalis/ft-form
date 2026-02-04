@@ -80,23 +80,25 @@ ${formTypeGuidance[formType]}
 
 export async function POST(req: Request) {
   try {
-    const { messages, apiKey, formType, audience } = await req.json();
+    const { messages, formType, audience } = await req.json();
 
-    // Validate API key format early
-    if (!apiKey || !isValidOpenRouterKeyFormat(apiKey)) {
+    // Read API key from server environment
+    const serverApiKey = process.env.OPENROUTER_API_KEY;
+
+    // Validate server-side API key
+    if (!serverApiKey || !isValidOpenRouterKeyFormat(serverApiKey)) {
       return Response.json(
         {
-          error: "Valid OpenRouter API key required",
-          actionable:
-            "Please enter your OpenRouter API key (starts with sk-or-).",
+          error: "Server configuration error",
+          actionable: "OpenRouter API key not configured.",
         },
-        { status: 401 }
+        { status: 500 }
       );
     }
 
-    // Create OpenRouter provider with user's key
+    // Create OpenRouter provider with server key
     const openrouter = createOpenRouter({
-      apiKey,
+      apiKey: serverApiKey,
       headers: {
         "HTTP-Referer": "https://frontiertower.com",
         "X-Title": "FrontierOS Form Builder",
