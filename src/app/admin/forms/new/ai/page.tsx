@@ -13,8 +13,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { ExternalLink, Sparkles, CheckCircle } from 'lucide-react';
+import { ExternalLink, Sparkles } from 'lucide-react';
 import type { AIFormSchemaOutput } from '@/lib/ai/schemas';
+import { CreateFormModal } from '@/components/ai-wizard/CreateFormModal';
 
 /**
  * AI Form Creation Page
@@ -22,13 +23,14 @@ import type { AIFormSchemaOutput } from '@/lib/ai/schemas';
  * Three-phase flow:
  * 1. API key entry - User provides their OpenRouter API key
  * 2. AI Wizard - Guided form creation with AI assistance
- * 3. Success - Shows generated schema ready for creation (Phase 28)
+ * 3. Form Creation Modal - User names the form and creates it as draft
  */
 export default function AIFormPage() {
   const router = useRouter();
   const [apiKey, setApiKey] = useState('');
   const [hasEnteredKey, setHasEnteredKey] = useState(false);
   const [completedSchema, setCompletedSchema] = useState<AIFormSchemaOutput | null>(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   const isValidKeyFormat = apiKey.trim().startsWith('sk-or-');
 
@@ -39,92 +41,14 @@ export default function AIFormPage() {
   };
 
   const handleComplete = (schema: AIFormSchemaOutput) => {
-    // Store the completed schema and show success state
-    // Phase 28 will implement actual form creation in database
-    console.log('Generated schema:', schema);
+    // Store the completed schema and open the creation modal
     setCompletedSchema(schema);
+    setShowCreateModal(true);
   };
 
   const handleCancel = () => {
     router.push('/admin/forms');
   };
-
-  // Phase 3: Show success state after form generation
-  if (completedSchema) {
-    const totalFields = completedSchema.steps.reduce(
-      (sum, step) => sum + step.fields.length,
-      0
-    );
-
-    return (
-      <main className="min-h-screen bg-background">
-        {/* Header */}
-        <header className="border-b">
-          <div className="mx-auto max-w-7xl px-6 py-4">
-            <Link
-              href="/admin/forms"
-              className="text-muted-foreground hover:text-foreground text-sm"
-            >
-              &larr; Back to Forms
-            </Link>
-          </div>
-        </header>
-
-        {/* Success State */}
-        <div className="mx-auto max-w-md px-6 py-12">
-          <Card>
-            <CardHeader className="text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
-                <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
-              </div>
-              <CardTitle className="text-xl">Form Schema Ready!</CardTitle>
-              <CardDescription>
-                Your form has been generated with {completedSchema.steps.length} step
-                {completedSchema.steps.length !== 1 ? 's' : ''} and {totalFields} field
-                {totalFields !== 1 ? 's' : ''}.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="rounded-lg bg-muted p-4">
-                <p className="text-sm text-muted-foreground mb-2">Steps:</p>
-                <ul className="space-y-1">
-                  {completedSchema.steps.map((step) => (
-                    <li key={step.id} className="text-sm">
-                      <span className="font-medium">{step.title}</span>
-                      <span className="text-muted-foreground">
-                        {' '}
-                        ({step.fields.length} fields)
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <p className="text-sm text-muted-foreground text-center">
-                Form creation will be available in the next update.
-              </p>
-
-              <div className="flex gap-3 pt-2">
-                <Button
-                  onClick={() => {
-                    setCompletedSchema(null);
-                    setHasEnteredKey(true);
-                  }}
-                  variant="outline"
-                  className="flex-1"
-                >
-                  Create Another
-                </Button>
-                <Link href="/admin/forms" className="flex-1">
-                  <Button className="w-full">Done</Button>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </main>
-    );
-  }
 
   // Phase 2: Show AI Wizard after key entry
   if (hasEnteredKey) {
@@ -150,6 +74,18 @@ export default function AIFormPage() {
             onCancel={handleCancel}
           />
         </div>
+
+        {/* Form Creation Modal */}
+        {completedSchema && (
+          <CreateFormModal
+            open={showCreateModal}
+            onOpenChange={(open) => {
+              setShowCreateModal(open);
+              // User can click "Use This Form" again if they close without completing
+            }}
+            schema={completedSchema}
+          />
+        )}
       </main>
     );
   }
